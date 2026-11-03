@@ -18,6 +18,7 @@ Most inputs are restricted (derived from smart-card OD data) and must be placed 
 Intermediate outputs of other scripts in this repo:
 - `point.rds` ← output of `code/01_citywide_gsynth/R2_r4_xu_diagnostics_20261010.R`, default location `output/01_citywide_gsynth/R2_r4_xu_diagnostics_20261010/<eng>/point.rds` (override with env var `XU_DIR`), where `<eng>` = `PATCHED_local_weight_v2_cvmax_v1_audit_v1_fect2.4.7_h748c651816_srce78b1e9155`.
 - The `plot_*.R` scripts read `group_cf_pct.csv` written by `hetero_cf_tertiles_timepath_20261103.R`.
+- `fig_heterogeneity_weekly_hmstyle_cf_20261103.R` reads `membership.csv` and `group_cf_pct.csv` from the same tertiles output folder (env var `TT_DIR`), the bootstrap chunks above, and `RAW_DIR/fig_hetero_weekly_transfer_en_data.csv` (week dates only).
 
 ## Outputs
 Written to `OUT_DIR` (default `output/02_heterogeneity/<run_name>`); published copies are in `results/02_heterogeneity/`.
@@ -29,6 +30,7 @@ Written to `OUT_DIR` (default `output/02_heterogeneity/<run_name>`); published c
 | hetero_cf_tertiles_timepath_20261103.R | `R2_r4_cf_tertiles_timepath_20261103/` | `results/02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/` |
 | hetero_cf_transfer_wait_cross_20261103.R | `R2_r4_transfer_wait_cross_20261103/` | `results/02_heterogeneity/R2_r4_transfer_wait_cross_20261103/` |
 | plot_cf_early_late_20261103.R, plot_transfer_cf_timepath_20261103.R | `R2_r4_cf_tertiles_timepath_20261103/` (fig6_5_cf_early_late.png, transfer_timepath_cf.png) | the tertiles folder above |
+| fig_heterogeneity_weekly_hmstyle_cf_20261103.R | `fig_heterogeneity_weekly_cf_20261103/` (fig_hetero_hm_main_wide_cf_en.png, fig_hetero_hm_all7_wide_cf_en.png, fig_hetero_weekly_cf_all_en_data.csv) | figures: `figures/heterogeneity/`; data: `results/02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/fig_hetero_weekly_cf_all_en_data.csv` |
 | maps_r4_district_20261011.py | `maps_r4_district_20261011/` (fig_map_r4_district_{KO,EN}.png) | — |
 
 `membership.csv` and `bootstrap_aggregates.rds` contain OD/origin-level information and are not included in the published copies. The KO map is intentionally a Korean-language figure; use the EN map for English text.
@@ -44,18 +46,21 @@ Rscript code/02_heterogeneity/hetero_cf_tertiles_timepath_20261103.R
 Rscript code/02_heterogeneity/hetero_cf_transfer_wait_cross_20261103.R
 Rscript code/02_heterogeneity/plot_cf_early_late_20261103.R
 Rscript code/02_heterogeneity/plot_transfer_cf_timepath_20261103.R
+Rscript code/02_heterogeneity/fig_heterogeneity_weekly_hmstyle_cf_20261103.R   # weekly figure (Chapter 6); needs patchwork
 python3 code/02_heterogeneity/maps_r4_district_20261011.py
 ```
 
 The R scripts contain Korean names (input file names and planning-region values), so run them in a UTF-8 locale (e.g. `LC_ALL=C.UTF-8`).
 
 ## Dependencies
-- R ≥ 4: base R, `ggplot2` (`fect` recommended so the object class in `point.rds` loads cleanly)
+- R ≥ 4: base R, `ggplot2`, `patchwork` (`fect` recommended so the object class in `point.rds` loads cleanly)
 - Python 3: `pandas`, `geopandas`, `matplotlib`
 - A CJK font (Noto Sans CJK or Apple SD Gothic Neo) for the Korean map
 
 ### Missing dependencies
 The following are read but not produced by any script in this repo:
 - The scripts that built `R2_r4_환승5분위_사전CI_20261011/<eng>/chunk_*.rds`, `dong_population_effects.csv`, `OD_analysis_data.csv`, the four covariate CSVs, and `district_effects.csv`.
+- `fig_heterogeneity_weekly_hmstyle_daily_20261102.R`, which wrote `fig_hetero_weekly_transfer_en_data.csv` (used only for week dates).
+- The script that drew `figures/heterogeneity/transfer_walking_waiting_time_en.png` (Fig. 6-4).
 - `maps_EN.py` (mentioned in a comment as the reference for boundary handling; not needed to run).
 - The "Source script: _review/…" line inside the output README.txt files refers to the original working folder and was left unchanged so that the outputs are unchanged.
