@@ -105,9 +105,8 @@ Effect relative to counterfactual = 100 × Σ(observed − counterfactual) / Σ 
 - LOO(양의 가중치 도너 5개 각각 제외): +3.81% ~ +5.52%. Leave-one-out over the five positive-weight donors: +3.81 % to +5.52 %.
 - 시점 위약(가짜 시행 27·35·42주): +1.6 ~ +2.4%. In-time placebos: +1.6 % to +2.4 %.
 
-출처 / Sources: [`results/04_yeouido_transit_scm/nested79/placebo_pvals_D79_nested.csv`](results/04_yeouido_transit_scm/nested79/placebo_pvals_D79_nested.csv) (p), [`loo_sensitivity_D79_nested_cf.csv`](results/04_yeouido_transit_scm/nested79/loo_sensitivity_D79_nested_cf.csv) (LOO), [`in_time_summary_D79_nested.csv`](results/04_yeouido_transit_scm/nested79/in_time_summary_D79_nested.csv).
-\+4.98%는 nested79 폴더에 단일 값으로 저장되어 있지 않아 `loo_sensitivity_D79_nested_cf.csv`에서 계산합니다: 본 ATT = `ATT − delta_ATT` = 1,154.0, 처치 후 관측 평균 = `ATT × (1 + 100/cf_pct)` = 24,317.1 → 1,154.0 / (24,317.1 − 1,154.0) = 4.982% (5개 행 모두 동일).
-The +4.98 % is not stored as a single value in `nested79/`; it is derived from `loo_sensitivity_D79_nested_cf.csv` as above (identical across all five rows).
+출처 / Source: [`results/04_yeouido_transit_scm/nested79/summary_D79_nested.csv`](results/04_yeouido_transit_scm/nested79/summary_D79_nested.csv) — `cf_pct` 4.982, `att_weekly` 1,154.0, `p_all` .0125, `p_tau5` .0127, `loo_cf_min`–`loo_cf_max` 3.81–5.52. 처치 전 평균 대비로는 4.830% (`pre_baseline_pct`). 세부: [`placebo_pvals_D79_nested.csv`](results/04_yeouido_transit_scm/nested79/placebo_pvals_D79_nested.csv), [`loo_sensitivity_D79_nested_cf.csv`](results/04_yeouido_transit_scm/nested79/loo_sensitivity_D79_nested_cf.csv), [`in_time_summary_D79_nested.csv`](results/04_yeouido_transit_scm/nested79/in_time_summary_D79_nested.csv).
+One-row summary of the main run; relative to the pre-period mean the effect is 4.830 %.
 
 ### 4.5 서울 전역 도로 gsynth (분석 5) / Seoul-wide road gsynth
 
@@ -158,7 +157,7 @@ scripts/   sync_docs_assets.py — figures·results를 docs/assets로 복사 / c
 - **여의도 대중교통 SCM**: 단일 처치 단위이며, 시점 위약에서도 +1.6~2.4%의 양의 격차가 나타나 효과 크기 해석에 주의가 필요합니다. 가중치 사양(adhcv)에 따라 +5.53%, p = .038 ([`results/04_yeouido_transit_scm/adhcv79/summary_D79_adhcv.csv`](results/04_yeouido_transit_scm/adhcv79/summary_D79_adhcv.csv)). Single treated unit; in-time placebos show +1.6–2.4 % gaps.
 - **서울 전역 도로 gsynth**: 사전 추세 진단 실패, 기술적 결과로만 사용. Pre-trend diagnostics fail; descriptive only.
 - **도로 교통량 자료**: TOPIS·ITS 패널은 재배포 조건 확인 전까지 미포함. Road panels withheld until licence terms are confirmed.
-- **누락된 보조 스크립트**: 일부 스크립트가 저장소에 없는 보조 파일을 `source()` 합니다(각 `code/*/README.md`의 "누락 의존성" 참조). Some scripts source helper files not in the repository; see each folder README.
+- **저장소에 없는 상류 스크립트**: 패널·공변량 생성 스크립트와 원 파이프라인 Rmd 등은 포함하지 않았습니다(각 `code/*/README.md` 참조). Upstream panel/covariate builders and some original pipeline files are not included; see each folder README.
 
 ## 8. 웹사이트 / Website
 

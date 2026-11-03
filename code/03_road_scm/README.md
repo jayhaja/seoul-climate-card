@@ -20,7 +20,7 @@
 | 파일 | 사용 스크립트 |
 |---|---|
 | `RAW_DIR/77_units/0628_6to10_df_with_new_covariates_fixed.csv` — 06:00–09:59, 일 중앙값 → 주 중앙값 패널(열: unit_id, week_index, traffic, speed, lanes_mean, region_kr, month_date, vehicle_count, is_treat, unit_name_en …) | `config_v4.R` (`panel_csv`) → 모든 실행·플롯 스크립트 |
-| `OUT_DIR/runs/v4_stdv_lanes_speed_20261003-215235_566ddb10_ubu6/` 의 `run_info.json`, `donor_pool_main.csv`, `donor_pool_full.csv` — 설정·도너 풀을 복원하는 이전 실행(`run_scm_v4.R` 산출, 저장소에 없음). 환경변수 `SRC_RUN`으로 경로 지정 가능 | `run_nested53_full.R`, `run_nested53_abadie2015_placebo.R` |
+| `OUT_DIR/runs/v4_stdv_lanes_speed_20261003-215235_566ddb10_ubu6/` 의 `run_info.json`, `donor_pool_main.csv`, `donor_pool_full.csv` — 설정·도너 풀을 복원하는 이전 실행(`run_scm_v4.R` 산출). 환경변수 `SRC_RUN`으로 경로 지정 가능 | `run_nested53_full.R`, `run_nested53_abadie2015_placebo.R` |
 | `RAW_DIR/0629_roads_6to9_day.median_week.median.Rmd`, `RAW_DIR/scm_analysis_6to10_day.median_week.median_without_pre_traffic_cov.Rmd` 및 이 Rmd들이 읽는 원자료 — 원 파이프라인(저장소에 없음) | `build_panel_6to9_sum.R` (sum 민감도 패널만) |
 
 경로는 각 스크립트 맨 위 `## ---- Paths` 블록 또는 환경변수 `REPO_ROOT`, `RAW_DIR`, `OUT_DIR`로 바꾼다. `config_v4.R`은 이미 정의된 경로 변수를 덮어쓰지 않는다.
@@ -45,6 +45,9 @@
 ```sh
 # (선택) sum 민감도 패널 생성 — 원 파이프라인 Rmd 필요
 Rscript code/03_road_scm/build_panel_6to9_sum.R 2>&1 | tee build_panel_6to9_sum.log
+# 0. 기본 v4 실행 — 설정(run_info.json)과 도너 풀을 만든다. 새 폴더 이름은 실행 시각·해시로 정해지므로
+#    아래 두 스크립트에는 SRC_RUN=output/03_road_scm/runs/<새 폴더> 로 지정한다.
+Rscript code/03_road_scm/run_scm_v4.R
 # (이전 판) nested53, 병렬 위약 + 시점 위약 + 플롯
 Rscript code/03_road_scm/run_nested53_full.R            # 또는 ... 4,6,8,12 / NESTED_EXCL=none ...
 # 본 결과: Abadie et al. (2015) 위약 + LOO(twostep), 직렬 실행
@@ -55,7 +58,7 @@ Rscript code/03_road_scm/plot_nested53_abadie2015pl.R
 macOS에서는 오래 걸리는 실행 앞에 `caffeinate -i`를 붙여도 된다(선택). `config_v4.R`, `scm_v4_functions.R`, `scm_v4_plots.R`은 위 스크립트가 `source()`하는 설정·함수 파일이다.
 
 ## 의존성 / Dependencies
-*English: R packages below; `run_scm_v4.R` and the original median-panel pipeline are not in this repo.*
+*English: R packages below; the original median-panel pipeline is not in this repo.*
 
 - R 패키지: `Synth`, `dplyr`, `readr`, `tidyr`, `jsonlite`, `ggplot2`, `parallel`(`mclapply`, Windows에서는 병렬 안 됨); 선택 `LowRankQP`, `digest`, `ragg`, `showtext`·`sysfonts`(원고와 같은 글자 크기, Noto Sans KR 내려받기). `build_panel_6to9_sum.R`은 추가로 `knitr`, `readxl`, `stringr`, `lubridate`, `purrr`, `tibble`.
-- 저장소에 없는 것: `run_scm_v4.R`(도너 풀·`run_info.json`을 만든 이전 실행), 원 06–09 median 파이프라인 Rmd 두 개.
+- 저장소에 없는 것: 원 06–09 median 파이프라인 Rmd 두 개.

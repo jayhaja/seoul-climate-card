@@ -26,11 +26,14 @@
     <div class="card"><div class="label"><span class="ko">민감도 p (≤5배)</span><span class="en">Sensitivity p (≤5×)</span></div><div class="num">.0127</div><div class="small"><span class="ko">위약 78개, 순위 1</span><span class="en">78 placebos, rank 1</span></div></div>
     <div class="card"><div class="label">LOO</div><div class="num">+3.81 – +5.52%</div><div class="small"><span class="ko">양의 가중치 도너 5개 각각 제외</span><span class="en">each of 5 positive-weight donors dropped</span></div></div>
   </div>
-  <p class="source"><span class="ko">출처</span><span class="en">Sources</span>:
-    <a href="results.html?file=results/04_yeouido_transit_scm/nested79/placebo_pvals_D79_nested.csv"><code>nested79/placebo_pvals_D79_nested.csv</code></a> ·
-    <a href="results.html?file=results/04_yeouido_transit_scm/nested79/loo_sensitivity_D79_nested_cf.csv"><code>nested79/loo_sensitivity_D79_nested_cf.csv</code></a> ·
-    <a href="results.html?file=results/04_yeouido_transit_scm/nested79/in_time_summary_D79_nested.csv"><code>nested79/in_time_summary_D79_nested.csv</code></a></p>
-  <p class="small"><span class="ko">+4.98%는 nested79 폴더에 단일 값으로 저장되어 있지 않아 <code>loo_sensitivity_D79_nested_cf.csv</code>에서 계산합니다: 본 ATT = ATT − delta_ATT = 1,154.0; 사후 관측 평균 = ATT × (1 + 100/cf_pct) = 24,317.1; 1,154.0 / (24,317.1 − 1,154.0) = 4.982% (5개 행 모두 동일).</span><span class="en">The +4.98% is not stored as a single value in nested79/; it is derived from <code>loo_sensitivity_D79_nested_cf.csv</code>: main ATT = ATT − delta_ATT = 1,154.0; post observed mean = ATT × (1 + 100/cf_pct) = 24,317.1; 1,154.0 / (24,317.1 − 1,154.0) = 4.982% (identical across all five rows).</span></p>
+  <p class="source"><span class="ko">출처</span><span class="en">Source</span>:
+    <a href="results.html?file=results/04_yeouido_transit_scm/nested79/summary_D79_nested.csv"><code>results/04_yeouido_transit_scm/nested79/summary_D79_nested.csv</code></a>
+    (cf_pct, att_weekly, p_all, p_tau5, loo_cf_min/max, intime_ratio_*) ·
+    <span class="ko">세부</span><span class="en">details</span>:
+    <a href="results.html?file=results/04_yeouido_transit_scm/nested79/placebo_pvals_D79_nested.csv"><code>placebo_pvals_D79_nested.csv</code></a> ·
+    <a href="results.html?file=results/04_yeouido_transit_scm/nested79/loo_sensitivity_D79_nested_cf.csv"><code>loo_sensitivity_D79_nested_cf.csv</code></a> ·
+    <a href="results.html?file=results/04_yeouido_transit_scm/nested79/in_time_summary_D79_nested.csv"><code>in_time_summary_D79_nested.csv</code></a></p>
+  <p class="small"><span class="ko">처치 전 평균 대비로는 +4.83%(<code>pre_baseline_pct</code>). 처치 전·후 RMSPE 383.8 / 1,253.9, 비율 3.27.</span><span class="en">Relative to the pre-period mean: +4.83% (<code>pre_baseline_pct</code>). Pre/post RMSPE 383.8 / 1,253.9, ratio 3.27.</span></p>
 
   <h3><span class="ko">시점 위약과 사양 민감도</span><span class="en">In-time placebos and specification</span></h3>
   <ul>

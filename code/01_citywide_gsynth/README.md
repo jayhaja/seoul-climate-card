@@ -54,5 +54,5 @@
 ## 의존성 / Dependencies
 - R ≥ 4.5 (공개 sessionInfo: R 4.5.0)
 - `fect` **2.4.7** (engine_id `..._fect2.4.7_...`, sessionInfo 기준), `dplyr`, `readr`
-- **누락 의존성 / Missing dependency:** `R2_fect_가중CV_도구_20261010.R` — 1·2가 스크립트와 같은 폴더에서 `source()`하는 패치 엔진 도구(`r2_engine()`, `r2_args()`, `r2_fit()` 정의). **이 저장소에 없음**; 없으면 1·2는 실행되지 않는다.
+- `R2_fect_가중CV_도구_20261010.R` — 1·2가 스크립트와 같은 폴더에서 `source()`하는 패치 엔진 도구(`r2_engine()`, `r2_args()`, `r2_fit()` 등 정의). 함수 정의만 하며 직접 실행하지 않는다. Helper sourced by scripts 1–2 (function definitions only).
 - 3은 base R만 사용. 4·5는 설치된(패치하지 않은) `fect`를 사용.

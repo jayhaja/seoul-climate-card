@@ -1,10 +1,18 @@
 ## run_scm_v4.R — 도로 SCM v4 실행. CFG$method: "stdv"(사전 50주 nested V·W, ADH 2010) | "adh2015"(v3 2단계)
-## 실행: cd ~/Thesis/0614/0628/road_scm_v4 && Rscript run_scm_v4.R            # 12지점 전부
-##       Rscript run_scm_v4.R 1,4,6                                           # 일부 지점
-##       Rscript run_scm_v4.R 1 --no-placebo                                  # 위약·LOO·in-time 생략(빠른 점검)
-## 출력: runs/<run_tag>_<YYYYmmdd-HHMMSS>_<해시(설정+입력+코드+지점+옵션)>_<난수>/  — 항상 새 폴더, 기존 폴더면 중단
+## Run (from repo root): Rscript code/03_road_scm/run_scm_v4.R            # 12지점 전부
+##       Rscript code/03_road_scm/run_scm_v4.R 1,4,6                         # 일부 지점
+##       Rscript code/03_road_scm/run_scm_v4.R 1 --no-placebo                                  # 위약·LOO·in-time 생략(빠른 점검)
+## 출력: OUT_DIR/runs/<run_tag>_<YYYYmmdd-HHMMSS>_<해시(설정+입력+코드+지점+옵션)>_<난수>/  — 항상 새 폴더, 기존 폴더면 중단
+## RESTRICTED DATA REQUIRED (restricted data required): road detector inputs (Seoul TOPIS sites and national ITS link counts) are not redistributed (licence pending).
+## Required input files (place under RAW_DIR):
+##   - 77_units/0628_6to10_df_with_new_covariates_fixed.csv   (analysis panel; path set in config_v4.R, override with SCM_PANEL)
 suppressMessages({ library(dplyr); library(readr); library(jsonlite) })
-HERE <- path.expand("~/Thesis/0614/0628/road_scm_v4"); setwd(HERE)
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # non-redistributed road inputs
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "03_road_scm"))
+CODE_DIR  <- file.path(REPO_ROOT, "code", "03_road_scm")
+HERE <- CODE_DIR
 source(file.path(HERE, "config_v4.R")); source(file.path(HERE, "scm_v4_functions.R")); source(file.path(HERE, "scm_v4_plots.R"))
 ## 환경변수로 패널·태그만 바꿔 민감도 실행 (config_v4.R 수정 없이): SCM_PANEL=<fixed.csv 경로> SCM_TAG=<run_tag>
 if (nzchar(Sys.getenv("SCM_PANEL"))) CFG$panel_csv <- Sys.getenv("SCM_PANEL")
