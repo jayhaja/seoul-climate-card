@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data explorer | Seoul Climate Card</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js" crossorigin="anonymous"></script>
+<script src="assets/explore.js"></script>
+<style>
+  .plot { width: 100%; min-height: 360px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+  .plot.short { min-height: 220px; }
+  .two { display: grid; grid-template-columns: 3fr 2fr; gap: 14px; }
+  @media (max-width: 860px) { .two { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <h1><span class="ko">데이터 탐색</span><span class="en">Data explorer</span></h1>
+  <p class="lead"><span class="ko">저장소에 공개된 정제·집계 자료(<code>results/</code>)를 그래프로 직접 살펴보는 페이지입니다. 확대·이동·마우스 오버가 됩니다. 교통카드 OD 원자료는 저장소에 없어 여기에 나오지 않습니다.</span><span class="en">Interactive plots of the processed, aggregated data published in <code>results/</code>. Zoom, pan and hover for values. The raw smart-card OD records are not in the repository and are not shown here.</span></p>
+
+  <h2><span class="ko">① 서울 내부 대중교통: 주별 효과</span><span class="en">① Within-Seoul transit: weekly effects</span></h2>
+  <div class="controls">
+    <label><span class="ko">지표</span><span class="en">Measure</span>
+      <select id="c-metric">
+        <option value="effect_pct">Effect vs counterfactual (%)</option>
+        <option value="ATT_count">ATT per OD per week</option>
+        <option value="weekly_total_gap">Weekly total (409 ODs)</option>
+        <option value="cumulative_total_gap">Cumulative total</option>
+      </select></label>
+  </div>
+  <div id="c-plot" class="plot"></div>
+  <p class="source"><span class="ko">띠: 정규근사 95% CI (OD 부트스트랩 1,000회). 출처</span><span class="en">Band: normal 95% CI (1,000 OD bootstrap draws). Source</span>: <code>results/01_citywide_gsynth/R2_r4_submission_20261010/weekly_effects_B1000.csv</code></p>
+
+  <h2><span class="ko">② 이질성: 집단별 주별 효과</span><span class="en">② Heterogeneity: weekly effects by group</span></h2>
+  <div class="controls">
+    <label><span class="ko">특성</span><span class="en">Characteristic</span><select id="h-axis"></select></label>
+    <label class="check"><input id="h-ci" type="checkbox"><span class="ko">95% CI 띠</span><span class="en">95% CI bands</span></label>
+  </div>
+  <div id="h-plot" class="plot"></div>
+  <p class="source"><span class="ko">처치 전 값은 적합 잔차, 점선은 2024-01-29. 출처</span><span class="en">Pre-treatment values are in-sample fit residuals; dashed line at 2024-01-29. Source</span>: <code>results/02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/fig_hetero_weekly_cf_all_en_data.csv</code></p>
+
+  <h2><span class="ko">③ 여의도 연결도로: 위약 분포와 LOO</span><span class="en">③ Yeouido road links: placebo distribution and LOO</span></h2>
+  <div class="controls">
+    <label><span class="ko">링크 (* p &lt; .05)</span><span class="en">Link (* p &lt; .05)</span><select id="r-unit"></select></label>
+  </div>
+  <div class="two">
+    <div id="r-plot" class="plot"></div>
+    <div id="r-loo" class="plot short"></div>
+  </div>
+  <p class="small" id="r-note"></p>
+  <p class="source"><span class="ko">주황 막대 = 처치 링크. 위약은 전체 표시(필터 없음). 출처</span><span class="en">Orange bar = treated link; all placebos shown (no filter). Sources</span>: <code>results/03_road_scm/unit_XX/placebo_results.csv</code>, <code>loo_twostep.csv</code>, <code>summary/road_abadie2015_placebo_loo_cf.csv</code></p>
+
+  <h2><span class="ko">④ 여의도동 출발 대중교통: 위약 분포와 도너 가중치</span><span class="en">④ Transit from Yeouido-dong: placebo distribution and donor weights</span></h2>
+  <div id="y-plot" class="plot"></div>
+  <div id="y-w" class="plot short" style="margin-top:14px"></div>
+  <p class="source"><span class="ko">주황 막대 = 여의도동. 아래: 가중치 0.001 초과 도너. 출처</span><span class="en">Orange bar = Yeouido-dong. Below: donors with weight &gt; 0.001. Sources</span>: <code>results/04_yeouido_transit_scm/nested79/</code></p>
+
+  <h2><span class="ko">자유 탐색: 아무 결과 CSV나 그리기</span><span class="en">Free exploration: plot any result CSV</span></h2>
+  <div class="controls">
+    <label class="grow"><span class="ko">파일</span><span class="en">File</span><select id="g-file" class="wide"></select></label>
+    <label>x<select id="g-x"></select></label>
+    <label>y<select id="g-y"></select></label>
+    <label><span class="ko">색 구분</span><span class="en">Colour by</span><select id="g-c"></select></label>
+    <label><span class="ko">형태</span><span class="en">Chart</span><select id="g-kind"><option value="scatter">scatter</option><option value="line">line</option><option value="bar">bar</option></select></label>
+  </div>
+  <div id="g-plot" class="plot"></div>
+  <p class="small" id="g-note"></p>
+  <p class="small"><span class="ko">표 형태로 보려면</span><span class="en">For the same data as a table, use the</span> <a href="results.html"><span class="ko">결과 표 탐색</span><span class="en">results explorer</span></a>.</p>
+</main>
+</body>
+</html>

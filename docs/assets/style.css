@@ -3,6 +3,7 @@
   --line: #dfe3e8; --accent: #1f5fa8; --accent-soft: #e8f0fa;
   --pos: #1d7a4d; --neg: #b23b2e; --note: #fff6e0; --note-line: #d29a2a;
   --radius: 10px; --max: 1080px;
+  --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a; --series-4: #eda100; --series-5: #e87ba4;
   --font: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 @media (prefers-color-scheme: dark) {
@@ -10,6 +11,7 @@
     --bg: #14171b; --surface: #1c2026; --text: #e6e9ed; --muted: #9aa4b1;
     --line: #2e343c; --accent: #7fb1ea; --accent-soft: #1f2d3d;
     --pos: #5cc28e; --neg: #f08a7e; --note: #2e2816; --note-line: #b4892e;
+    --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500; --series-5: #d55181;
   }
 }
 * { box-sizing: border-box; }
