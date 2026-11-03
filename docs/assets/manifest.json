@@ -2367,6 +2367,12 @@
    "rows": 24
   },
   {
+   "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/OD_point_effects.csv",
+   "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/OD_point_effects.csv",
+   "analysis": "citywide",
+   "rows": 409
+  },
+  {
    "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/concentration_POINT_only.csv",
    "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/concentration_POINT_only.csv",
    "analysis": "citywide",
@@ -2553,10 +2559,28 @@
    "rows": 36
   },
   {
+   "path": "assets/results/03_road_scm/unit_01/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_01/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 3528
+  },
+  {
    "path": "assets/results/03_road_scm/unit_01/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_01/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 49
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_01/path.csv",
+   "repo_path": "results/03_road_scm/unit_01/path.csv",
+   "analysis": "road_scm",
+   "rows": 72
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_01/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_01/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 3816
   },
   {
    "path": "assets/results/03_road_scm/unit_01/placebo_results.csv",
@@ -2565,10 +2589,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_02/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_02/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 576
+  },
+  {
    "path": "assets/results/03_road_scm/unit_02/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_02/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 8
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_02/path.csv",
+   "repo_path": "results/03_road_scm/unit_02/path.csv",
+   "analysis": "road_scm",
+   "rows": 72
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_02/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_02/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 3816
   },
   {
    "path": "assets/results/03_road_scm/unit_02/placebo_results.csv",
@@ -2577,10 +2619,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_03/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_03/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 576
+  },
+  {
    "path": "assets/results/03_road_scm/unit_03/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_03/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 6
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_03/path.csv",
+   "repo_path": "results/03_road_scm/unit_03/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_03/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_03/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_03/placebo_results.csv",
@@ -2589,10 +2649,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_04/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_04/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 1056
+  },
+  {
    "path": "assets/results/03_road_scm/unit_04/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_04/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 11
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_04/path.csv",
+   "repo_path": "results/03_road_scm/unit_04/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_04/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_04/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_04/placebo_results.csv",
@@ -2601,10 +2679,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_05/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_05/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 480
+  },
+  {
    "path": "assets/results/03_road_scm/unit_05/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_05/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 5
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_05/path.csv",
+   "repo_path": "results/03_road_scm/unit_05/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_05/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_05/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_05/placebo_results.csv",
@@ -2613,10 +2709,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_06/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_06/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 4320
+  },
+  {
    "path": "assets/results/03_road_scm/unit_06/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_06/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 45
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_06/path.csv",
+   "repo_path": "results/03_road_scm/unit_06/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_06/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_06/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_06/placebo_results.csv",
@@ -2625,10 +2739,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_07/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_07/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 4416
+  },
+  {
    "path": "assets/results/03_road_scm/unit_07/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_07/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 46
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_07/path.csv",
+   "repo_path": "results/03_road_scm/unit_07/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_07/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_07/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_07/placebo_results.csv",
@@ -2637,10 +2769,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_08/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_08/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 4224
+  },
+  {
    "path": "assets/results/03_road_scm/unit_08/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_08/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 44
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_08/path.csv",
+   "repo_path": "results/03_road_scm/unit_08/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_08/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_08/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_08/placebo_results.csv",
@@ -2649,10 +2799,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_09/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_09/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 3360
+  },
+  {
    "path": "assets/results/03_road_scm/unit_09/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_09/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 35
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_09/path.csv",
+   "repo_path": "results/03_road_scm/unit_09/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_09/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_09/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_09/placebo_results.csv",
@@ -2661,10 +2829,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_10/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_10/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 432
+  },
+  {
    "path": "assets/results/03_road_scm/unit_10/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_10/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 6
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_10/path.csv",
+   "repo_path": "results/03_road_scm/unit_10/path.csv",
+   "analysis": "road_scm",
+   "rows": 72
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_10/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_10/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 3816
   },
   {
    "path": "assets/results/03_road_scm/unit_10/placebo_results.csv",
@@ -2673,10 +2859,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_11/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_11/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 4704
+  },
+  {
    "path": "assets/results/03_road_scm/unit_11/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_11/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 49
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_11/path.csv",
+   "repo_path": "results/03_road_scm/unit_11/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_11/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_11/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_11/placebo_results.csv",
@@ -2685,10 +2889,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_12/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_12/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 1728
+  },
+  {
    "path": "assets/results/03_road_scm/unit_12/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_12/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 18
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_12/path.csv",
+   "repo_path": "results/03_road_scm/unit_12/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_12/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_12/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_12/placebo_results.csv",
@@ -2767,6 +2989,18 @@
    "repo_path": "results/04_yeouido_transit_scm/nested79/loo_sensitivity_D79_nested_vfix.csv",
    "analysis": "yeouido",
    "rows": 5
+  },
+  {
+   "path": "assets/results/04_yeouido_transit_scm/nested79/path_D79_nested.csv",
+   "repo_path": "results/04_yeouido_transit_scm/nested79/path_D79_nested.csv",
+   "analysis": "yeouido",
+   "rows": 95
+  },
+  {
+   "path": "assets/results/04_yeouido_transit_scm/nested79/placebo_paths_D79_nested.csv",
+   "repo_path": "results/04_yeouido_transit_scm/nested79/placebo_paths_D79_nested.csv",
+   "analysis": "yeouido",
+   "rows": 7505
   },
   {
    "path": "assets/results/04_yeouido_transit_scm/nested79/placebo_pvals_D79_nested.csv",

@@ -3,7 +3,7 @@
 ## Boundaries: same as maps_EN.py (RAW_DIR/읍면동/emd.shp dissolved by the gu column of the land-price csv; both are read only)
 import os, pandas as pd, geopandas as gpd, matplotlib.pyplot as plt, matplotlib as mpl
 from matplotlib import font_manager as fm
-## RESTRICTED DATA REQUIRED: district_effects.csv is aggregated from the smart-card OD fits (the script that produced it is not in this repo).
+## INPUT DATA (not yet in the repository): district_effects.csv is aggregated from the smart-card OD fits (the script that produced it is not in this repo).
 ## Required input files (place under RAW_DIR):
 ##   - R2_r4_자치구_지도데이터_20261011/district_effects.csv   [folder = "r4 district map data"] (district_name, effect_pct, gap_weekly_total, n_od)
 ##   - 읍면동/emd.shp (+ .shx/.dbf/.prj; cp949)                  [읍면동 = eup/myeon/dong] (neighbourhood boundaries; public data, not in this repo)
@@ -12,7 +12,7 @@ from matplotlib import font_manager as fm
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT = os.environ.get("REPO_ROOT", ".")                                   # run from repo root
 BASE = os.environ.get("BASE")                                                  # legacy override: now treated as RAW_DIR
-RAW_DIR = os.environ.get("RAW_DIR", BASE or os.path.join(REPO_ROOT, "data/restricted"))   # restricted / non-redistributed inputs
+RAW_DIR = os.environ.get("RAW_DIR", BASE or os.path.join(REPO_ROOT, "data/restricted"))   # inputs not in the repository (restricted OD panel or not-yet-uploaded files)
 OUT_DIR = os.environ.get("OUT_DIR", os.path.join(REPO_ROOT, "output", "02_heterogeneity/maps_r4_district_20261011"))
 SHP = f"{RAW_DIR}/읍면동/emd.shp"; GUCSV = f"{RAW_DIR}/집중지수_0727/공시지가_법정동_2023.csv"
 SRC = f"{RAW_DIR}/R2_r4_자치구_지도데이터_20261011/district_effects.csv"; OUT = OUT_DIR

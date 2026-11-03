@@ -174,6 +174,11 @@ def main():
                        "repo_path": "results/" + rel.as_posix(),
                        "analysis": ANALYSIS_BY_RESULTS_DIR.get(rel.parts[0], "other"),
                        "rows": n})
+    # name lookup used by the data explorer (per-OD table)
+    lk = ROOT / "data" / "transit" / "od_names_ko_en.csv"
+    if lk.exists():
+        (DOCS_ASSETS / "data").mkdir(parents=True, exist_ok=True)
+        shutil.copy2(lk, DOCS_ASSETS / "data" / lk.name)
     out = {"figures": figs, "tables": tables}
     (DOCS_ASSETS / "manifest.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"copied {len(figs)} figures, {len(tables)} CSV tables -> {DOCS_ASSETS}")

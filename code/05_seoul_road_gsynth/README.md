@@ -4,9 +4,9 @@
 Estimates the change in road traffic after the introduction of the Climate Card (2024-01-29, week 51). Treated units are Seoul permanent traffic-count sites (TOPIS; 149 sites with at least 90% coverage); controls are the 53 non-Seoul donor links from the road SCM. The outcome is the weekly median of weekday 06–09h hourly volume, and the estimator is gsynth (fect). The folder also includes fits by site type; placebo, pre-trend and equivalence diagnostics; and a re-analysis following the Liu, Wang & Xu (2024) guide.
 
 ## Inputs
-The TOPIS road panel is not redistributed (licence pending); place it under `RAW_DIR` (default `data/restricted`).
+The TOPIS road panel is published in `data/road/` and read from there.
 
-- `panel_seoul176_donor53_6to9.csv` — **not redistributed (licence pending)**. Weekly panel of TOPIS sites and donor links. It was built in Python; the build script is not in this repo (see Missing dependencies). All four scripts read only this file.
+- `panel_seoul176_donor53_6to9.csv` — **included in `data/road/`**. Weekly panel of TOPIS sites and donor links. It was built in Python; the build script is not in this repo (see Missing dependencies). All four scripts read only this file.
 
 ## Outputs
 Written to `OUT_DIR` (default under `output/05_seoul_road_gsynth/seoul_road_gsynth_20261103/`); published tables are in `results/05_seoul_road_gsynth/`, figures in `figures/seoul_road_gsynth/`.

@@ -1,0 +1,317 @@
+/* Data explorer: interactive plots of the published (processed) CSVs. Needs PapaParse + Plotly. */
+(function () {
+  "use strict";
+  var $ = function (s) { return document.querySelector(s); };
+  var R = "assets/results/";
+  var cache = {};
+
+  function load(path) {
+    if (!cache[path]) cache[path] = new Promise(function (res, rej) {
+      Papa.parse(R + path, { download: true, header: true, dynamicTyping: true, skipEmptyLines: true,
+        transformHeader: function (h) { return h.replace(/^﻿/, ""); },
+        complete: function (r) { res(r.data); }, error: rej });
+    });
+    return cache[path];
+  }
+  function css(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+  function series(i) { return css("--series-" + (i + 1)); }
+  function hexA(hex, a) {
+    var n = parseInt(hex.replace("#", ""), 16);
+    return "rgba(" + (n >> 16 & 255) + "," + (n >> 8 & 255) + "," + (n & 255) + "," + a + ")";
+  }
+  function layout(extra) {
+    var ink = css("--text"), muted = css("--muted"), grid = css("--line");
+    var base = {
+      paper_bgcolor: "rgba(0,0,0,0)", plot_bgcolor: "rgba(0,0,0,0)",
+      font: { family: getComputedStyle(document.body).fontFamily, size: 12, color: ink },
+      margin: { l: 56, r: 16, t: 12, b: 44 }, hovermode: "x unified",
+      legend: { orientation: "h", y: -0.18, font: { color: muted } },
+      xaxis: { gridcolor: grid, zerolinecolor: grid, linecolor: grid, tickfont: { color: muted } },
+      yaxis: { gridcolor: grid, zerolinecolor: muted, linecolor: grid, tickfont: { color: muted } }
+    };
+    for (var k in extra || {}) {
+      if (typeof extra[k] === "object" && base[k] && !Array.isArray(extra[k])) Object.assign(base[k], extra[k]); else base[k] = extra[k];
+    }
+    return base;
+  }
+  var CFG = { responsive: true, displaylogo: false, modeBarButtonsToRemove: ["lasso2d", "select2d"] };
+  function plot(el, data, lay) { Plotly.react(el, data, layout(lay), CFG); }
+  function band(x, lo, hi, color, name) {
+    return { x: x.concat(x.slice().reverse()), y: hi.concat(lo.slice().reverse()), fill: "toself", fillcolor: hexA(color, 0.18),
+      line: { width: 0 }, hoverinfo: "skip", showlegend: false, name: name, type: "scatter" };
+  }
+  var TREAT = "2024-01-29";
+  function treatLine() {
+    return { type: "line", xref: "x", yref: "paper", x0: TREAT, x1: TREAT, y0: 0, y1: 1, line: { color: css("--muted"), width: 1, dash: "dash" } };
+  }
+
+  /* 1. Citywide weekly effects */
+  var METRIC = {
+    effect_pct: ["반사실 대비 효과 (%)", "Effect vs counterfactual (%)"],
+    ATT_count: ["OD당 주간 ATT (건)", "ATT per OD per week (trips)"],
+    weekly_total_gap: ["409쌍 합산 주간 효과 (건)", "Weekly effect summed over 409 ODs (trips)"],
+    cumulative_total_gap: ["누적 효과 (건)", "Cumulative effect (trips)"]
+  };
+  function drawCity() {
+    var m = $("#c-metric").value;
+    load("01_citywide_gsynth/R2_r4_submission_20261010/weekly_effects_B1000.csv").then(function (d) {
+      d = d.filter(function (r) { return r.metric === m; });
+      var x = d.map(function (r) { return r.start; }), c = series(0);
+      plot("c-plot", [band(x, d.map(function (r) { return r.normal_lo; }), d.map(function (r) { return r.normal_hi; }), c, "CI"),
+        { x: x, y: d.map(function (r) { return r.estimate; }), type: "scatter", mode: "lines+markers", name: t("점추정", "Estimate"),
+          line: { color: c, width: 2 }, marker: { size: 5 },
+          customdata: d.map(function (r) { return [r.normal_lo, r.normal_hi]; }),
+          hovertemplate: "%{y:.3f}<br>95% CI %{customdata[0]:.3f} – %{customdata[1]:.3f}<extra></extra>" }],
+        { yaxis: { title: { text: t(METRIC[m][0], METRIC[m][1]) } }, showlegend: false });
+    });
+  }
+
+  /* 2. Heterogeneity weekly */
+  var AXES = { transfer: ["환승 부담", "Transfer burden"], wait: ["환승 대기 시간", "Waiting time"], access: ["접근성", "Accessibility"],
+    distance: ["통행 거리", "Trip distance"], youth: ["청년 비율", "Youth share"], elderly: ["고령 비율", "Elderly share"], region: ["권역", "Planning region"] };
+  var LAB3 = { transfer: ["Low", "Middle", "High"], wait: ["Short", "Middle", "Long"], distance: ["Short", "Middle", "Long"] };
+  function glabel(ax, g) {
+    if (ax === "region") return g;
+    var i = parseInt(String(g).replace("Q", ""), 10) - 1;
+    return g + " (" + (LAB3[ax] || ["Low", "Middle", "High"])[i] + ")";
+  }
+  function drawHet() {
+    var ax = $("#h-axis").value, showCI = $("#h-ci").checked;
+    load("02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/fig_hetero_weekly_cf_all_en_data.csv").then(function (d) {
+      d = d.filter(function (r) { return r.axis === ax; });
+      var groups = Array.from(new Set(d.map(function (r) { return r.group; })));
+      var traces = [];
+      groups.forEach(function (g, i) {
+        var s = d.filter(function (r) { return r.group === g; }), x = s.map(function (r) { return r.date; }), c = series(i);
+        if (showCI) traces.push(band(x, s.map(function (r) { return r.lo; }), s.map(function (r) { return r.hi; }), c, g));
+        traces.push({ x: x, y: s.map(function (r) { return r.est; }), type: "scatter", mode: "lines", name: glabel(ax, g),
+          line: { color: c, width: 2 }, hovertemplate: "%{y:.2f}%<extra>" + glabel(ax, g) + "</extra>" });
+      });
+      plot("h-plot", traces, { yaxis: { title: { text: t("반사실 대비 (%)", "vs counterfactual (%)") } }, shapes: [treatLine()] });
+    });
+  }
+
+  /* 3. Road SCM placebo distribution */
+  var roadSummary;
+  function fillRoad() {
+    return load("03_road_scm/summary/road_abadie2015_placebo_loo_cf.csv").then(function (d) {
+      roadSummary = d;
+      $("#r-unit").innerHTML = d.map(function (r) {
+        return '<option value="' + r.unit + '">' + String(r.unit).padStart(2, "0") + " " + r.name + (r.p_all < 0.05 ? " *" : "") + "</option>";
+      }).join("");
+      $("#r-unit").value = "4";
+    });
+  }
+  function drawRoad() {
+    var u = Number($("#r-unit").value), uu = String(u).padStart(2, "0");
+    var s = roadSummary.find(function (r) { return r.unit === u; });
+    Promise.all([load("03_road_scm/unit_" + uu + "/placebo_results.csv"), load("03_road_scm/unit_" + uu + "/loo_twostep.csv")]).then(function (a) {
+      var pl = a[0].filter(function (r) { return r.ratio != null; }).sort(function (x, y) { return x.ratio - y.ratio; });
+      var all = pl.map(function (r) { return { id: "placebo " + r.placebo_unit, ratio: r.ratio, tr: false }; })
+        .concat([{ id: t("처치 링크", "treated link"), ratio: s.rmspe_ratio, tr: true }])
+        .sort(function (x, y) { return x.ratio - y.ratio; });
+      plot("r-plot", [{ type: "bar", x: all.map(function (r, i) { return i + 1; }), y: all.map(function (r) { return r.ratio; }),
+        marker: { color: all.map(function (r) { return r.tr ? series(1) : hexA(series(0), 0.55); }) },
+        text: all.map(function (r) { return r.id; }), textposition: "none", hovertemplate: "%{text}<br>RMSPE ratio %{y:.2f}<extra></extra>" }],
+        { hovermode: "closest", xaxis: { title: { text: t("순위 (낮음 → 높음)", "Rank (low → high)") } },
+          yaxis: { title: { text: t("처치 후/전 RMSPE 비율", "Post/pre RMSPE ratio") } }, showlegend: false, bargap: 0.15 });
+      var lo = a[1];
+      plot("r-loo", [{ type: "scatter", mode: "markers", x: lo.map(function (r) { return r.att_pct; }), y: lo.map(function (r) { return "−" + r.omitted; }),
+        marker: { color: series(0), size: 9 }, hovertemplate: "donor %{y} omitted: %{x:.2f}%<extra></extra>", name: "LOO" }],
+        { hovermode: "closest", height: Math.max(260, 16 * lo.length + 90), xaxis: { title: { text: t("처치 전 평균 대비 효과 (%)", "Effect vs pre-period mean (%)") } },
+          yaxis: { automargin: true, type: "category" }, showlegend: false,
+          shapes: [{ type: "line", xref: "x", yref: "paper", x0: s.cf_pct, x1: s.cf_pct, y0: 0, y1: 1, line: { color: series(1), width: 2 } }] });
+      $("#r-note").textContent = t(
+        "처치 링크 비율 " + s.rmspe_ratio.toFixed(2) + ", 순위 " + s.rank + "/54, p = " + s.p_all.toFixed(3) + " (위약 전체). 반사실 대비 " + s.cf_pct + "%. 오른쪽 그림의 세로선은 본 추정치(반사실 대비)이고 점은 LOO(처치 전 평균 대비)입니다.",
+        "Treated ratio " + s.rmspe_ratio.toFixed(2) + ", rank " + s.rank + " of 54, p = " + s.p_all.toFixed(3) + " (all placebos). Effect vs counterfactual " + s.cf_pct + "%. In the LOO chart the vertical line is the main estimate (vs counterfactual); dots are LOO estimates (vs pre-period mean).");
+    });
+  }
+
+
+  /* 3b. Road SCM paths: observed vs synthetic, placebo gaps, LOO paths */
+  var roadAll;
+  function drawRoadPaths() {
+    var u = Number($("#r-unit").value), uu = String(u).padStart(2, "0"), only5 = $("#r-tau5").checked;
+    var base = "03_road_scm/unit_" + uu + "/";
+    Promise.all([load(base + "path.csv"), load(base + "placebo_paths.csv"), load(base + "loo_paths_twostep.csv"),
+      load(base + "placebo_results.csv"), roadAll || (roadAll = load("03_road_scm/all_units_summary.csv"))]).then(function (a) {
+      var path = a[0], pp = a[1], lp = a[2], pres = a[3], summ = a[4].find(function (r) { return r.treated_unit === u; });
+      var x = path.map(function (r) { return r.week_index; });
+      var tline = { type: "line", xref: "x", yref: "paper", x0: 50.5, x1: 50.5, y0: 0, y1: 1, line: { color: css("--muted"), width: 1, dash: "dash" } };
+      var xa = { title: { text: t("주 (51주 = 2024-01-29)", "Week (week 51 = 2024-01-29)") } };
+      plot("r-path", [
+        { x: x, y: path.map(function (r) { return r.actual; }), type: "scatter", mode: "lines", name: t("관측", "Observed"), line: { color: series(0), width: 2 } },
+        { x: x, y: path.map(function (r) { return r.synthetic; }), type: "scatter", mode: "lines", name: t("합성", "Synthetic"), line: { color: series(1), width: 2, dash: "dot" } }
+      ], { xaxis: xa, yaxis: { title: { text: t("시간당 교통량 (대/시)", "Hourly volume (veh/h)") } }, shapes: [tline] });
+      var cut = summ.pre_rmspe * 5, keep = {};
+      pres.forEach(function (r) { keep[r.placebo_unit] = !only5 || r.pre_rmspe <= cut; });
+      var byU = {};
+      pp.forEach(function (r) { if (keep[r.placebo_unit]) (byU[r.placebo_unit] = byU[r.placebo_unit] || []).push(r); });
+      var ids = Object.keys(byU), grey = hexA(css("--muted"), 0.35);
+      var traces = ids.map(function (k, i) {
+        return { x: byU[k].map(function (r) { return r.week_index; }), y: byU[k].map(function (r) { return r.gap; }), type: "scatter", mode: "lines",
+          line: { color: grey, width: 1 }, name: "placebo", legendgroup: "pl", showlegend: i === 0, hovertemplate: "placebo " + k + ": %{y:.1f}<extra></extra>" };
+      });
+      traces.push({ x: x, y: path.map(function (r) { return r.gap; }), type: "scatter", mode: "lines", name: t("처치 링크", "Treated link"),
+        line: { color: series(1), width: 2.5 }, hovertemplate: "treated: %{y:.1f}<extra></extra>" });
+      plot("r-gaps", traces, { hovermode: "closest", xaxis: xa, yaxis: { title: { text: t("격차 (관측 − 합성)", "Gap (observed − synthetic)") } }, shapes: [tline] });
+      $("#r-gnote").textContent = t(
+        (only5 ? "사전 RMSPE가 처치 링크의 5배 이하인 위약 " + ids.length + "개만 표시(민감도 보기). " : "위약 " + ids.length + "개 전체 표시. ") + "p값은 항상 위약 전체 기준입니다.",
+        (only5 ? "Showing the " + ids.length + " placebos with pre-RMSPE ≤ 5× the treated link (sensitivity view). " : "Showing all " + ids.length + " placebos. ") + "The p-value always uses all placebos.");
+      var byO = {};
+      lp.forEach(function (r) { (byO[r.omitted] = byO[r.omitted] || []).push(r); });
+      var lt = Object.keys(byO).map(function (k, i) {
+        return { x: byO[k].map(function (r) { return r.week_index; }), y: byO[k].map(function (r) { return r.synthetic; }), type: "scatter", mode: "lines",
+          line: { color: hexA(series(2), 0.6), width: 1 }, name: t("LOO 합성", "LOO synthetic"), legendgroup: "loo", showlegend: i === 0, hovertemplate: "donor " + k + " omitted: %{y:.0f}<extra></extra>" };
+      });
+      lt.push({ x: x, y: path.map(function (r) { return r.actual; }), type: "scatter", mode: "lines", name: t("관측", "Observed"), line: { color: series(0), width: 2 } });
+      lt.push({ x: x, y: path.map(function (r) { return r.synthetic; }), type: "scatter", mode: "lines", name: t("합성 (본 추정)", "Synthetic (main)"), line: { color: series(1), width: 2, dash: "dot" } });
+      plot("r-loopath", lt, { hovermode: "closest", xaxis: xa, yaxis: { title: { text: t("시간당 교통량 (대/시)", "Hourly volume (veh/h)") } }, shapes: [tline] });
+    });
+  }
+
+
+  /* 4b. Yeouido paths */
+  function drawYeoPaths() {
+    var only5 = $("#y-tau5").checked, b = "04_yeouido_transit_scm/nested79/";
+    Promise.all([load(b + "path_D79_nested.csv"), load(b + "placebo_paths_D79_nested.csv"), load(b + "placebo_summary_D79_nested.csv"), load(b + "summary_D79_nested.csv")]).then(function (a) {
+      var path = a[0], pp = a[1], ps = a[2], tr = a[3][0];
+      var date = {}; path.forEach(function (r) { date[r.week_index] = r.week; });
+      var x = path.map(function (r) { return r.week; });
+      plot("y-path", [
+        { x: x, y: path.map(function (r) { return r.actual; }), type: "scatter", mode: "lines", name: t("관측 (여의도동)", "Observed (Yeouido-dong)"), line: { color: series(0), width: 2 } },
+        { x: x, y: path.map(function (r) { return r.synthetic; }), type: "scatter", mode: "lines", name: t("합성", "Synthetic"), line: { color: series(1), width: 2, dash: "dot" } }
+      ], { yaxis: { title: { text: t("주간 이용자 수 (인일)", "Weekly users (person-days)") } }, shapes: [treatLine()] });
+      var cut = tr.pre_rmspe * 5, keep = {};
+      ps.forEach(function (r) { keep[r.placebo_unit] = !only5 || r.pre <= cut; });
+      var by = {}; pp.forEach(function (r) { if (keep[r.placebo_unit]) (by[r.placebo_unit] = by[r.placebo_unit] || []).push(r); });
+      var ids = Object.keys(by), grey = hexA(css("--muted"), 0.35);
+      var traces = ids.map(function (k, i) { return { x: by[k].map(function (r) { return date[r.week_index]; }), y: by[k].map(function (r) { return r.placebo_gap; }),
+        type: "scatter", mode: "lines", line: { color: grey, width: 1 }, name: "placebo", legendgroup: "pl", showlegend: i === 0, hovertemplate: "placebo " + k + ": %{y:.0f}<extra></extra>" }; });
+      traces.push({ x: x, y: path.map(function (r) { return r.gap; }), type: "scatter", mode: "lines", name: t("여의도동", "Yeouido-dong"), line: { color: series(1), width: 2.5 }, hovertemplate: "Yeouido-dong: %{y:.0f}<extra></extra>" });
+      plot("y-gaps", traces, { hovermode: "closest", yaxis: { title: { text: t("격차 (관측 − 합성)", "Gap (observed − synthetic)") } }, shapes: [treatLine()] });
+      $("#y-gnote").textContent = t(
+        (only5 ? "사전 RMSPE가 여의도동의 5배 이하인 위약 " + ids.length + "개만 표시(민감도 보기). " : "위약 " + ids.length + "개 전체 표시. ") + "p = .0125는 위약 전체(처치 단위 포함) 기준입니다.",
+        (only5 ? "Showing the " + ids.length + " placebos with pre-RMSPE ≤ 5× Yeouido-dong (sensitivity view). " : "Showing all " + ids.length + " placebos. ") + "p = .0125 uses all placebos (treated unit included).");
+    });
+  }
+
+  /* 1b. Per-OD effects */
+  var odNames;
+  function loadNames() {
+    if (!odNames) odNames = new Promise(function (res) {
+      Papa.parse("assets/data/od_names_ko_en.csv", { download: true, header: true, dynamicTyping: true, skipEmptyLines: true,
+        complete: function (r) { var m = {}; r.data.forEach(function (x) { m[x.unit_id] = x; }); res(m); }, error: function () { res({}); } });
+    });
+    return odNames;
+  }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function drawOD() {
+    var min = Number($("#o-min").value);
+    Promise.all([load("01_citywide_gsynth/R2_r4_submission_20261010/OD_point_effects.csv"), loadNames()]).then(function (a) {
+      var nm = a[1], d = a[0].filter(function (r) { return typeof r.effect_pct === "number" && isFinite(r.effect_pct) && r.use_pre >= min; });
+      var name = function (r) { var n = nm[r.unit_id]; return n ? (SiteLang() === "ko" ? n.flow : n.flow_en) : "OD " + r.unit_id; };
+      plot("o-scatter", [{ type: "scatter", mode: "markers", x: d.map(function (r) { return r.use_pre; }), y: d.map(function (r) { return r.effect_pct; }),
+        text: d.map(name), marker: { color: hexA(series(0), 0.7), size: 7, line: { color: css("--surface"), width: 1 } },
+        hovertemplate: "%{text}<br>" + t("사전 주평균", "pre-period weekly") + " %{x:,.0f}<br>" + t("효과", "effect") + " %{y:.2f}%<extra></extra>" }],
+        { hovermode: "closest", xaxis: { type: "log", title: { text: t("사전 주평균 이용 (인일, 로그)", "Pre-period weekly users (person-days, log)") } },
+          yaxis: { title: { text: t("반사실 대비 (%)", "vs counterfactual (%)") } }, showlegend: false,
+          shapes: [{ type: "line", xref: "paper", x0: 0, x1: 1, y0: 1.568, y1: 1.568, line: { color: series(1), width: 1.5, dash: "dash" } }] });
+      plot("o-hist", [{ type: "histogram", x: d.map(function (r) { return r.effect_pct; }), nbinsx: 60, marker: { color: series(0), line: { color: css("--surface"), width: 1 } },
+        hovertemplate: "%{x}: %{y}<extra></extra>" }],
+        { hovermode: "closest", xaxis: { title: { text: t("반사실 대비 (%)", "vs counterfactual (%)") } }, yaxis: { title: { text: t("OD 수", "Number of ODs") } }, showlegend: false, bargap: 0.05,
+          shapes: [{ type: "line", yref: "paper", x0: 1.568, x1: 1.568, y0: 0, y1: 1, line: { color: series(1), width: 1.5, dash: "dash" } }] });
+      var pos = d.filter(function (r) { return r.gap > 0; }).length;
+      $("#o-note").textContent = t(d.length + "개 OD, 이 중 " + pos + "개가 양의 효과. 점선 = 전체 효과 +1.568% (합의 비율).",
+        d.length + " ODs, " + pos + " with a positive effect. Dashed line = overall effect +1.568% (ratio of sums).");
+      var s = d.slice().sort(function (x, y) { return y.effect_pct - x.effect_pct; });
+      var head = "<thead><tr><th>OD</th><th class=\"n\">" + t("효과 (%)", "Effect (%)") + "</th><th class=\"n\">" + t("사전 주평균", "Pre weekly") + "</th></tr></thead>";
+      var rows = function (list) { return head + "<tbody>" + list.map(function (r) { return "<tr><td style=\"white-space:normal\">" + esc(name(r)) + "</td><td class=\"n\">" + r.effect_pct.toFixed(2) + "</td><td class=\"n\">" + Math.round(r.use_pre).toLocaleString() + "</td></tr>"; }).join("") + "</tbody>"; };
+      $("#o-top").innerHTML = rows(s.slice(0, 10)); $("#o-bot").innerHTML = rows(s.slice(-10).reverse());
+    });
+  }
+
+  /* 4. Yeouido transit */
+  function drawYeo() {
+    Promise.all([load("04_yeouido_transit_scm/nested79/placebo_summary_D79_nested.csv"), load("04_yeouido_transit_scm/nested79/summary_D79_nested.csv"),
+      load("04_yeouido_transit_scm/nested79/weights_D79_nested.csv")]).then(function (a) {
+      var tr = a[1][0];
+      var all = a[0].map(function (r) { return { id: "placebo " + r.placebo_unit, ratio: r.ratio, tr: false }; })
+        .concat([{ id: t("여의도동 (처치)", "Yeouido-dong (treated)"), ratio: tr.rmspe_ratio, tr: true }])
+        .sort(function (x, y) { return x.ratio - y.ratio; });
+      plot("y-plot", [{ type: "bar", x: all.map(function (r, i) { return i + 1; }), y: all.map(function (r) { return r.ratio; }),
+        marker: { color: all.map(function (r) { return r.tr ? series(1) : hexA(series(0), 0.55); }) },
+        text: all.map(function (r) { return r.id; }), textposition: "none", hovertemplate: "%{text}<br>RMSPE ratio %{y:.2f}<extra></extra>" }],
+        { hovermode: "closest", xaxis: { title: { text: t("순위 (낮음 → 높음)", "Rank (low → high)") } },
+          yaxis: { title: { text: t("처치 후/전 RMSPE 비율", "Post/pre RMSPE ratio") } }, showlegend: false, bargap: 0.15 });
+      var w = a[2].filter(function (r) { return r.weight > 0.001; }).sort(function (x, y) { return x.weight - y.weight; });
+      plot("y-w", [{ type: "bar", orientation: "h", x: w.map(function (r) { return r.weight; }), y: w.map(function (r) { return r.unit_name; }),
+        marker: { color: series(0) }, hovertemplate: "%{y}<br>w = %{x:.3f}<extra></extra>" }],
+        { hovermode: "closest", height: 48 * w.length + 90, margin: { l: 16 }, yaxis: { automargin: true }, xaxis: { title: { text: t("도너 가중치", "Donor weight") } }, showlegend: false });
+    });
+  }
+
+  /* 5. Any CSV */
+  var gen = { rows: [], cols: [] };
+  function fillGenFiles() {
+    return fetch("assets/manifest.json").then(function (r) { return r.json(); }).then(function (m) {
+      $("#g-file").innerHTML = m.tables.map(function (x) { return '<option value="' + x.path.replace(R, "") + '">' + x.repo_path.replace(/^results\//, "") + " (" + x.rows + ")</option>"; }).join("");
+      $("#g-file").value = "03_road_scm/summary/road_windows_cf.csv";
+    });
+  }
+  function loadGen() {
+    load($("#g-file").value).then(function (d) {
+      gen.rows = d; gen.cols = d.length ? Object.keys(d[0]) : [];
+      var num = gen.cols.filter(function (c) { return d.some(function (r) { return typeof r[c] === "number"; }); });
+      var opt = function (list, none) { return (none ? '<option value="">—</option>' : "") + list.map(function (c) { return "<option>" + c + "</option>"; }).join(""); };
+      $("#g-x").innerHTML = opt(gen.cols); $("#g-y").innerHTML = opt(num); $("#g-c").innerHTML = opt(gen.cols, true);
+      $("#g-x").value = gen.cols[0];
+      var pref = ["estimate", "est", "cf_pct", "effect_pct", "pct", "att_pct", "pct_cf", "ATT", "att", "ratio", "weight"];
+      var yv = pref.find(function (c) { return num.indexOf(c) >= 0; }) || num.find(function (c) { return c !== gen.cols[0]; }) || num[0] || "";
+      $("#g-y").value = yv;
+      var cat = gen.cols.find(function (c) { return num.indexOf(c) < 0 && c !== gen.cols[0]; });
+      $("#g-c").value = cat && new Set(d.map(function (r) { return r[cat]; })).size <= 8 ? cat : "";
+      drawGen();
+    });
+  }
+  function drawGen() {
+    var x = $("#g-x").value, y = $("#g-y").value, c = $("#g-c").value, kind = $("#g-kind").value;
+    if (!y) { Plotly.purge("g-plot"); return; }
+    var groups = c ? Array.from(new Set(gen.rows.map(function (r) { return r[c]; }))) : [null];
+    var note = "";
+    if (groups.length > 8) { note = t("색 구분 값이 8개를 넘어 상위 8개만 표시합니다.", "More than 8 colour groups; showing the first 8."); groups = groups.slice(0, 8); }
+    var traces = groups.map(function (g, i) {
+      var s = g === null ? gen.rows : gen.rows.filter(function (r) { return r[c] === g; });
+      var tr = { x: s.map(function (r) { return r[x]; }), y: s.map(function (r) { return r[y]; }), name: g === null ? y : String(g) };
+      if (kind === "bar") { tr.type = "bar"; tr.marker = { color: series(i) }; }
+      else { tr.type = "scatter"; tr.mode = kind === "line" ? "lines+markers" : "markers"; tr.line = { color: series(i), width: 2 }; tr.marker = { color: series(i), size: 8 }; }
+      return tr;
+    });
+    plot("g-plot", traces, { hovermode: "closest", xaxis: { title: { text: x }, automargin: true }, yaxis: { title: { text: y } }, showlegend: groups.length > 1, barmode: "group" });
+    $("#g-note").textContent = note;
+  }
+
+  function redrawAll() { drawCity(); drawOD(); drawYeoPaths(); drawHet(); if (roadSummary) { drawRoad(); drawRoadPaths(); } drawYeo(); if (gen.rows.length) drawGen(); }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    if (!window.Plotly || !window.Papa) { document.querySelector("main").insertAdjacentHTML("afterbegin", '<div class="note">Plotly / PapaParse could not be loaded.</div>'); return; }
+    $("#c-metric").addEventListener("change", drawCity);
+    $("#h-axis").innerHTML = Object.keys(AXES).map(function (k) { return '<option value="' + k + '">' + t(AXES[k][0], AXES[k][1]) + "</option>"; }).join("");
+    ["#h-axis", "#h-ci"].forEach(function (s) { $(s).addEventListener("change", drawHet); });
+    $("#r-unit").addEventListener("change", function () { drawRoad(); drawRoadPaths(); });
+    $("#r-tau5").addEventListener("change", drawRoadPaths);
+    ["#g-x", "#g-y", "#g-c", "#g-kind"].forEach(function (s) { $(s).addEventListener("change", drawGen); });
+    $("#g-file").addEventListener("change", loadGen);
+    drawCity(); drawHet(); drawYeo(); drawYeoPaths(); drawOD();
+    $("#y-tau5").addEventListener("change", drawYeoPaths);
+    $("#o-min").addEventListener("change", drawOD);
+    fillRoad().then(function () { drawRoad(); drawRoadPaths(); });
+    fillGenFiles().then(loadGen);
+    document.addEventListener("langchange", function () {
+      var v = $("#h-axis").value;
+      $("#h-axis").innerHTML = Object.keys(AXES).map(function (k) { return '<option value="' + k + '">' + t(AXES[k][0], AXES[k][1]) + "</option>"; }).join("");
+      $("#h-axis").value = v; redrawAll();
+    });
+    if (window.matchMedia) window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", redrawAll);
+  });
+})();

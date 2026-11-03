@@ -1,12 +1,12 @@
 # Native fect diagnostics, fixed r=4. Run by user, not by code generation.
 # Main ATT B1000 is already complete; diagnostic B200 is a separate run.
 # Run (from repo root): Rscript code/01_citywide_gsynth/R2_r4_xu_diagnostics_20261010.R [ALL|POINT|PLACEBO|LOO]
-## RESTRICTED DATA REQUIRED (restricted data required): this script needs files that are not
-## distributed (smart-card OD data, Data Safety Center export-restricted).
+## INPUT DATA: the smart-card OD panels are published in data/transit/ (export approved). Inputs below that are
+## not in the repository yet are marked as such.
 ## Required input files (place under RAW_DIR):
-##   - panels/d_w30_no과천.rds                 (OD x week panel built from smart-card OD data; builder script not in this repo)
+##   - data/transit/d_w30_no과천.rds (included in the repo; TRANSIT_DIR)                 (OD x week panel built from smart-card OD data; builder script not in this repo)
 ##     (file name kept as delivered by the data holder; no과천 = excluding Gwacheon)
-##   - od_with_pop_sum_without_holiday.csv     (OD-level weekly users + population, holiday weeks removed)
+##   - data/transit/od_with_pop_sum_without_holiday.csv.gz (included; read as gzip)     (OD-level weekly users + population, holiday weeks removed)
 ##     (column 이용자수_주총합 = weekly total users; Korean column names are kept as in the data)
 ## Also requires the helper R2_fect_weighted_cv_tools_20261010.R in the same folder as this script (see README).
 suppressPackageStartupMessages({library(readr);library(dplyr)})
@@ -27,13 +27,14 @@ cat('[ENGINE]',engine_id,'\n')
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
 RAW_DIR   <- Sys.getenv("RAW_DIR", Sys.getenv("ROOT", file.path(REPO_ROOT, "data/restricted")))   # restricted data required
+TRANSIT_DIR <- Sys.getenv("TRANSIT_DIR", file.path(REPO_ROOT, "data/transit"))   # published transit panels (data/transit/)
 OUT_DIR   <- Sys.getenv("OUT_DIR", Sys.getenv("OUTDIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth/R2_r4_xu_diagnostics_20261010")))
 root<-path.expand(RAW_DIR)
 out_base<-path.expand(OUT_DIR)
 out<-file.path(out_base,engine_id)
-d<-readRDS(file.path(root,'panels/d_w30_no과천.rds'));tr<-unique(d$unit_id[d$D==1])
+d<-readRDS(file.path(TRANSIT_DIR, 'd_w30_no과천.rds'));tr<-unique(d$unit_id[d$D==1])
 needed <- c("unit_id", "week_index", "week", "ym", "origin_region", "origin_sigungu", "origin_dong", "pop_total", "pop_youth", "youth_ratio", "이용자수_주총합")
-raw <- readr::read_csv(file.path(root, "od_with_pop_sum_without_holiday.csv"), col_select = all_of(needed), show_col_types = FALSE)
+raw <- readr::read_csv(file.path(TRANSIT_DIR, "od_with_pop_sum_without_holiday.csv.gz"), col_select = all_of(needed), show_col_types = FALSE)
 sg <- raw %>% distinct(origin_region, origin_sigungu, origin_dong, ym, pop_total, pop_youth) %>% group_by(origin_region, origin_sigungu, ym) %>%
   summarise(pop_total_sg = sum(pop_total, na.rm = TRUE), pop_youth_sg = sum(pop_youth, na.rm = TRUE), .groups = "drop") %>% mutate(youth_ratio_sg = pop_youth_sg / pop_total_sg)
 key <- function(x) paste(x$unit_id, x$week_index, sep = ":"); raw <- raw[key(raw) %in% key(d), ]
@@ -47,7 +48,7 @@ stopifnot(length(tr)==409,nrow(d)==1350*99,all(is.finite(d$users)),all(is.finite
 pre_weeks<-sort(unique(d$week_index[d$week_index<min(d$week_index[d$D==1])]))
 stopifnot(length(pre_weeks)==53)
 dir.create(out,recursive=TRUE,showWarnings=FALSE)
-manifest<-list(engine_id=engine_id,patch_id=patch_id,original_source_md5=original_md5,script=unname(tools::md5sum(script)),helper=unname(tools::md5sum(file.path(dirname(script),'R2_fect_weighted_cv_tools_20261010.R'))),fect=as.character(packageVersion('fect')),panel=unname(tools::md5sum(file.path(root,'panels/d_w30_no과천.rds'))),raw=file.info(file.path(root,'od_with_pop_sum_without_holiday.csv'))[c('size','mtime')],r=4L,vartype='bootstrap',nboots=200L,primary_CI='normal',normalize=FALSE,seed=20261010L)
+manifest<-list(engine_id=engine_id,patch_id=patch_id,original_source_md5=original_md5,script=unname(tools::md5sum(script)),helper=unname(tools::md5sum(file.path(dirname(script),'R2_fect_weighted_cv_tools_20261010.R'))),fect=as.character(packageVersion('fect')),panel=unname(tools::md5sum(file.path(TRANSIT_DIR, 'd_w30_no과천.rds'))),raw=file.info(file.path(TRANSIT_DIR, 'od_with_pop_sum_without_holiday.csv.gz'))[c('size','mtime')],r=4L,vartype='bootstrap',nboots=200L,primary_CI='normal',normalize=FALSE,seed=20261010L)
 mp<-file.path(out,'manifest.rds');if(file.exists(mp))stopifnot(identical(readRDS(mp),manifest))else saveRDS(manifest,mp)
 engine<-r2_engine()
 provenance<-list(engine_id=engine_id,patch_id=patch_id,fect_version=fect_version,helper_md5=helper_md5,

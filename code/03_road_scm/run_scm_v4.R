@@ -3,13 +3,13 @@
 ##       Rscript code/03_road_scm/run_scm_v4.R 1,4,6                         # selected sites
 ##       Rscript code/03_road_scm/run_scm_v4.R 1 --no-placebo                                  # skip placebo · LOO · in-time (quick check)
 ## Output: OUT_DIR/runs/<run_tag>_<YYYYmmdd-HHMMSS>_<hash(settings+input+code+sites+options)>_<random>/  — always a new folder; stops if it already exists
-## RESTRICTED DATA REQUIRED (restricted data required): road detector inputs (Seoul TOPIS sites and national ITS link counts) are not redistributed (licence pending).
+## INPUT DATA REQUIRED: road detector inputs (Seoul TOPIS sites and national ITS link counts). Published in data/road/ (see data/README.md).
 ## Required input files (place under RAW_DIR):
 ##   - 77_units/0628_6to10_df_with_new_covariates_fixed.csv   (analysis panel; path set in config_v4.R, override with SCM_PANEL)
 suppressMessages({ library(dplyr); library(readr); library(jsonlite) })
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
-RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # non-redistributed road inputs
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # road inputs not yet in the repository
 OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "03_road_scm"))
 CODE_DIR  <- file.path(REPO_ROOT, "code", "03_road_scm")
 HERE <- CODE_DIR

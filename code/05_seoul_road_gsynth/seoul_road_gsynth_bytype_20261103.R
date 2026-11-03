@@ -6,19 +6,19 @@
 # Run (from repo root, serial): Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_bytype_20261103.R
 #        Index outcome:  OUTCOME=index Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_bytype_20261103.R
 #        GMSPE-min r: R_MODE=min Rscript ...      Subset of types: TYPES=C,D Rscript ...
-## RESTRICTED DATA REQUIRED: TOPIS road detector traffic volumes — not redistributed (licence pending).
+## INPUT DATA REQUIRED: TOPIS road detector traffic volumes. Published in data/road/ (see data/README.md).
 ## Required input files (place under RAW_DIR):
 ##   - panel_seoul176_donor53_6to9.csv   (weekly panel: 176 TOPIS Seoul sites + 53 non-Seoul donor links; built in Python, the build script is not in this repo)
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
-RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted / non-redistributed inputs
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # inputs not in the repository (restricted OD panel or not-yet-uploaded files)
 OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "05_seoul_road_gsynth/seoul_road_gsynth_20261103/bytype"))
 suppressPackageStartupMessages({ library(fect); library(dplyr) })
 out <- OUT_DIR; dir.create(out, showWarnings = FALSE, recursive = TRUE)
 NB <- as.integer(Sys.getenv('NB', '200')); OUTCOME <- Sys.getenv('OUTCOME', 'level'); R_MODE <- Sys.getenv('R_MODE', 'cv')
 TYPES <- strsplit(Sys.getenv('TYPES', 'A,B,C,D,F'), ',')[[1]]
 PRE_F <- as.integer(Sys.getenv('PRE_F', '12'))   # window for F and equivalence tests: last PRE_F pre-treatment weeks (fect computes F only if #treated sites > #test weeks)
-P0 <- read.csv(file.path(RAW_DIR, 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM') %>%
+P0 <- read.csv(file.path(REPO_ROOT, 'data/road', 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM') %>%
   filter(week_index <= 96) %>% mutate(D = as.integer(is_treat == 1 & week_index >= 51))
 if (OUTCOME == 'index') P0 <- P0 %>% group_by(unit_id) %>% mutate(y = 100 * traffic / mean(traffic[week_index < 51], na.rm = TRUE)) %>% ungroup() else P0$y <- P0$traffic
 cat('outcome =', OUTCOME, '| r mode =', R_MODE, '| nboots =', NB, '\n')

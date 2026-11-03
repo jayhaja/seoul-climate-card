@@ -10,11 +10,11 @@ Restricted input file names are kept exactly as delivered by the data holder (so
 
 | File (under `RAW_DIR`) | Notes | Used by |
 |---|---|---|
-| `panels/d_w30_no과천.rds` | **RESTRICTED** — smart-card OD × week panel; `no과천` = excluding Gwacheon (builder script not in this repo) | all scripts |
-| `od_with_pop_sum_without_holiday.csv` | **RESTRICTED** — OD-level weekly users + population, holiday weeks removed (column `이용자수_주총합` = weekly total users) | BOOT, xu_diagnostics, through_august_refit, ife_vs_gsynth |
-| `R2_r4_인구대비_추가이용_20261011/dong_population_effects.csv` | **RESTRICTED** — unit-level output; `인구대비_추가이용` = additional use relative to population (producer script not in this repo) | ife_vs_gsynth |
-| `규모통제_거리환승_20261011/OD_analysis_data.csv` | **RESTRICTED** — OD-level covariates; `규모통제_거리환승` = size-controlled distance/transfer (producer not in this repo) | ife_vs_gsynth |
-| `AI_uc_보정_20261101.csv`, `youth_region_20261101.csv`, `elderly_ratio_unit_20261102.csv`, `환승시간_unit매칭_20261101.csv` | **RESTRICTED** — unit-level covariates; `AI_uc_보정` = adjusted accessibility index, `환승시간_unit매칭` = transfer time matched to units (producers not in this repo) | ife_vs_gsynth |
+| `data/transit/d_w30_no과천.rds` | **Included** — smart-card OD × week panel (see `data/README.md`); `no과천` = excluding Gwacheon (builder script not in this repo) | all scripts |
+| `data/transit/od_with_pop_sum_without_holiday.csv.gz` | **Included** (read as gzip) — OD-level weekly users + population, holiday weeks removed (column `이용자수_주총합` = weekly total users) | BOOT, xu_diagnostics, through_august_refit, ife_vs_gsynth |
+| `R2_r4_인구대비_추가이용_20261011/dong_population_effects.csv` | **Not yet uploaded** — unit-level output; `인구대비_추가이용` = additional use relative to population (producer script not in this repo) | ife_vs_gsynth |
+| `규모통제_거리환승_20261011/OD_analysis_data.csv` | **Not yet uploaded** — OD-level covariates; `규모통제_거리환승` = size-controlled distance/transfer (producer not in this repo) | ife_vs_gsynth |
+| `AI_uc_보정_20261101.csv`, `youth_region_20261101.csv`, `elderly_ratio_unit_20261102.csv`, `환승시간_unit매칭_20261101.csv` | **Not yet uploaded** — unit-level covariates; `AI_uc_보정` = adjusted accessibility index, `환승시간_unit매칭` = transfer time matched to units (producers not in this repo) | ife_vs_gsynth |
 
 Intermediate outputs of other scripts (OD-level, therefore not distributed):
 
@@ -38,7 +38,7 @@ Default output location is `output/01_citywide_gsynth/<run_name>/`. Published (a
 Note: in `results/01_citywide_gsynth/R2_r4_submission_20261010/`, the files `r4_fect_counterfactual.*`, `r4_*road_window*`, `yeouido_SCM_GSC_sameperiod.csv`, `r4_economics_conditional_20261010.json`, `r4_submission_results.html`, as well as the folders `R2_economics_20261011/` and `R2_normal_final_20261011/`, are not produced by the scripts in this folder (their producing scripts are not in this repo).
 
 ## Run order
-Run from the repo root. Place the raw data in `data/restricted/` or set `RAW_DIR` (or the legacy `ROOT`).
+Run from the repo root. The transit panels are read from `data/transit/` (`TRANSIT_DIR`); inputs not uploaded yet go in `data/restricted/` or `RAW_DIR` (or the legacy `ROOT`). Point estimate check: `LC_ALL=C.UTF-8 NB=0 Rscript code/01_citywide_gsynth/gsynth_through_august_refit_20261103.R` reproduces +1.568%.
 
 1. `Rscript code/01_citywide_gsynth/R2_levels_pop_unweighted_r4_BOOT_20261010.R` — point estimate + bootstrap, 200 × 5 chunks (choose a stage with the `POINT` / `BOOT` argument; long run)
 2. `Rscript code/01_citywide_gsynth/R2_r4_xu_diagnostics_20261010.R` — native fect diagnostics (`ALL|POINT|PLACEBO|LOO`; LOO takes several hours)

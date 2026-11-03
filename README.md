@@ -5,7 +5,7 @@ Replication package (code, aggregated results, figures) for a master's thesis ev
 - Website: `docs/` (GitHub Pages: results explorer and figure gallery) — <https://jayhaja.github.io/seoul-climate-card/>
 - Citation: [`CITATION.cff`](CITATION.cff) · Licence: [below](#licence)
 
-> **Raw data not included.** The raw smart-card origin–destination (OD) records are export-restricted (secure data centre) and are not, and will not be, in this repository. Everything in `results/` and `figures/` is processed output within the data centre's export approval.
+> **Data included.** The weekly smart-card OD panel and the analysis panels (`data/transit/`, `data/road/`) are approved for publication by the secure data centre and are in this repository, so the main estimates can be rerun without restricted access. See [`data/README.md`](data/README.md) for variables, periods and units.
 
 ---
 
@@ -20,8 +20,8 @@ Replication package (code, aggregated results, figures) for a master's thesis ev
 
 | Source | Used for | In repo |
 |---|---|---|
-| MOLIT smart-card OD records (secure data centre) | outcome for analyses 1, 2, 4 | No — raw records restricted |
-| Seoul TOPIS detector counts; national ITS link counts | outcome for analyses 3, 5 | No — licence pending |
+| MOLIT smart-card OD records (secure data centre; export approved) | outcome for analyses 1, 2, 4 | Yes — weekly OD panel and analysis panels in `data/transit/` |
+| Seoul TOPIS detector counts; national ITS link counts | outcome for analyses 3, 5 | Yes — analysis panels in `data/road/` |
 | Resident registration population (Ministry of the Interior and Safety) | covariate | No — public source |
 | KTDB accessibility indicators; Seoul Institute report 2019-BR-26 | heterogeneity | No — public source |
 
@@ -109,7 +109,7 @@ code/      analysis scripts, one README per folder (purpose, inputs, outputs, ru
   utils/                   shared helpers
 results/   aggregated CSV results, numbered like code/
 figures/   thesis figures (thesis/) and per-analysis diagnostic plots
-data/      data sources and access notes (no raw data)
+data/      transit/ and road/ panels, with variable documentation
 docs/      GitHub Pages site
 scripts/   sync_docs_assets.py — copies figures/ and results/ into docs/assets/
 ```
@@ -118,25 +118,29 @@ Korean place names in `results/` were romanised (Revised Romanization, with Engl
 
 ## 6. How to reproduce
 
-1. Obtain access to the restricted OD data and the road counts.
-2. Place inputs under `data/restricted/` (or set `RAW_DIR`). Each script lists the files it needs in a `RESTRICTED DATA REQUIRED` header. Input file names are kept exactly as the data holder's files, so some are in Korean; each has an English gloss in the script.
+The panels in `data/transit/` and `data/road/` are read directly by the scripts (`TRANSIT_DIR`, default `data/transit`; the gzip panel is read as is), so no restricted access is needed.
+
+1. Install R (≥ 4.3) with `fect` 2.4.7, `Synth`, `dplyr`, `readr`, `ggplot2` (see each folder README).
+2. A few scripts also read intermediate files that are not uploaded yet (bootstrap chunks and covariate tables for analysis 2, the original road pipeline Rmds); they list them in their header and look for them under `data/restricted/` (or `RAW_DIR`).
 3. Run from the repository root. Outputs go to `output/` (git-ignored). Override paths with `REPO_ROOT`, `RAW_DIR` and `OUT_DIR`. Some R scripts contain Korean column names and need a UTF-8 locale (e.g. `LC_ALL=C.UTF-8`).
    ```bash
-   Rscript code/03_road_scm/run_nested53_abadie2015_placebo.R
+   LC_ALL=C.UTF-8 NB=0 Rscript code/01_citywide_gsynth/gsynth_through_august_refit_20261103.R
    ```
 4. Follow the run order in each `code/*/README.md`.
 5. Compare with the CSVs in `results/`.
 
-Without the raw data you can still inspect all aggregated results and figures.
+**Reproduction checks (this repository, R 4.3.3, fect 2.4.7 from GitHub, Synth 1.1-10):**
+- Analysis 1, point estimate (r = 4 fixed, no bootstrap): ATT 288.41, effect +1.5678% — matches the published +1.568%; the through-August refit gives 1.4368% as published.
+- Analysis 4, main fit (79 donors): +4.95%, pre-RMSPE 389.3, RMSPE ratio 3.202, versus the published +4.98%, 383.8 and 3.267. The same five donors receive almost the same weights (0.325/0.205/0.188/0.149/0.115 vs 0.328/0.205/0.195/0.161/0.111); the predictor weights V differ, i.e. the Synth optimiser reaches a slightly different solution on this platform. The published path file (`path_D79_nested.csv`) reproduces +4.98% exactly.
 
 ## 7. Limitations
 
-- **Raw data restricted:** analyses 1, 2 and 4 cannot be rerun without the restricted OD records.
+- **Analysis 2 inputs:** the bootstrap chunks and covariate tables used by the heterogeneity scripts are not uploaded yet.
+- **SCM optimiser sensitivity:** Synth results can differ slightly across platforms and package versions (see the reproduction checks above).
 - **Rank sensitivity (analysis 1):** +1.568% with r = 4 (GMSPE 1-SE rule) but +0.27% with r = 1 (MSPE 1-SE rule) — [`results/01_citywide_gsynth/R2_r4_submission_20261010/rank_sensitivity.csv`](results/01_citywide_gsynth/R2_r4_submission_20261010/rank_sensitivity.csv).
 - **Road SCM:** 12 links are tested separately (multiple testing); the minimum attainable p is 1/54 ≈ .019; donors outside Seoul may face different shocks.
 - **Yeouido transit SCM:** single treated unit; in-time placebos show +1.6–2.4% gaps, so read the magnitude cautiously. With cross-validated V (adhcv) the effect is +5.53%, p = .038 ([`results/04_yeouido_transit_scm/adhcv79/summary_D79_adhcv.csv`](results/04_yeouido_transit_scm/adhcv79/summary_D79_adhcv.csv)).
 - **Seoul-wide road gsynth:** pre-trend diagnostics fail; descriptive only.
-- **Road count data:** TOPIS/ITS panels are withheld until licence terms are confirmed.
 - **Upstream scripts not included:** panel and covariate builders and some original pipeline files; see each folder README.
 
 ## 8. Website

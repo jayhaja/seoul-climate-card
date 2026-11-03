@@ -7,10 +7,10 @@
 ## Output: OUT_DIR/excl_direct_exposure/optimizer_check_excl_<EXCL>.csv (folder created by SCM_yeouido_nested_excl_exposed.R;
 ##   OUT_DIR default output/04_yeouido_transit_scm/SCM_yeouido_nested/)
 ## Run (from repo root): Rscript code/04_yeouido_transit_scm/SCM_yeouido_nested_optimizer_check.R   (a few to ~15 minutes because of genoud; on macOS optionally prefix with caffeinate -i)
-## RESTRICTED DATA REQUIRED (restricted data required): smart-card OD data (Data Safety Center, export-restricted) are not in this repository.
+## INPUT DATA: smart-card OD panels published in data/transit/ (export approved).
 ## Required input files (place under RAW_DIR):
-##   - od_with_pop_sum_without_holiday.csv
-##   - df_scm_g.csv
+##   - data/transit/od_with_pop_sum_without_holiday.csv.gz (included in the repo)
+##   - data/transit/df_scm_g.csv (included in the repo)
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
 RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted data required

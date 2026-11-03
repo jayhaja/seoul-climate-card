@@ -9,6 +9,7 @@
     ["road-scm.html", "③ 여의도 도로 SCM", "③ Yeouido roads"],
     ["yeouido.html", "④ 여의도 대중교통 SCM", "④ Yeouido transit"],
     ["results.html", "결과 표", "Results"],
+    ["explore.html", "데이터 탐색", "Explore data"],
     ["gallery.html", "그림", "Figures"],
     ["data.html", "자료·한계", "Data & limits"]
   ];
@@ -59,8 +60,8 @@
   function footer() {
     var f = el("footer", { "class": "site-footer" });
     f.appendChild(el("div", { "class": "inner" },
-      '<span class="ko">코드 MIT · 결과·그림 CC BY 4.0 · 원자료(교통카드 OD)는 반출 제한으로 미포함.</span>' +
-      '<span class="en">Code MIT · results and figures CC BY 4.0 · raw smart-card OD data are export-restricted and not included.</span> ' +
+      '<span class="ko">코드 MIT · 결과·그림 CC BY 4.0 · 자료는 data/에 공개(반출 승인).</span>' +
+      '<span class="en">Code MIT · results and figures CC BY 4.0 · data published in data/ (export approved).</span> ' +
       '<a href="' + REPO + '">GitHub</a>'));
     document.body.appendChild(f);
   }

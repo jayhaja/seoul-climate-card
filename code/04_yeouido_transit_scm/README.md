@@ -13,7 +13,7 @@
 ## Inputs
 *Restricted smart-card OD data; not included in this repository.*
 
-RESTRICTED DATA REQUIRED: the smart-card OD data (Data Safety Center, export-restricted) are not in this repository. Place them in `RAW_DIR` (default `data/restricted/`).
+Input data: the smart-card OD panels are published in `data/transit/` (export approved) and read from there (`TRANSIT_DIR`).
 - `od_with_pop_sum_without_holiday.csv` — columns `flow`, `week`, `이용자수_주총합` (weekly total users; the Korean column name is kept as in the source data)
 - `df_scm_g.csv` — columns `unit_id`, `unit_name`, `week`, `is_treat`, `tranfer`, `pop_dong`, etc.
 

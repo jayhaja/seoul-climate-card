@@ -13,13 +13,13 @@ Synthetic control for 12 directional road links around Yeouido with 53 donors, V
 - `run_nested53_full.R` is the earlier version of the same specification (treated site not included among placebo donors, p-values for τ = 2, 3, 5, Inf, LOO with fixed V, in-time placebos at weeks 27, 34 and 40).
 
 ## Inputs
-Road detector data are restricted and must be placed under `RAW_DIR` (default `data/restricted/`).
+The road panel is published in `data/road/` and read from there (`config_v4.R`).
 
-**Restricted data required**: Seoul TOPIS site counts and national ITS link traffic counts are not redistributed (licence permission pending). Place them under `RAW_DIR`.
+**Input data**: the road SCM panel (Seoul TOPIS sites and national ITS links) is published in `data/road/` (see `data/README.md`). The per-link SCM paths are published in `results/03_road_scm/unit_XX/`.
 
 | File | Used by |
 |---|---|
-| `RAW_DIR/77_units/0628_6to10_df_with_new_covariates_fixed.csv` — 06:00–09:59, daily median → weekly median panel (columns: unit_id, week_index, traffic, speed, lanes_mean, region_kr, month_date, vehicle_count, is_treat, unit_name_en …) | `config_v4.R` (`panel_csv`) → all run and plot scripts |
+| `data/road/0628_6to10_df_with_new_covariates_fixed.csv` — 06:00–09:59, daily median → weekly median panel (columns: unit_id, week_index, traffic, speed, lanes_mean, region_kr, month_date, vehicle_count, is_treat, unit_name_en …) | `config_v4.R` (`panel_csv`) → all run and plot scripts |
 | `run_info.json`, `donor_pool_main.csv`, `donor_pool_full.csv` in `OUT_DIR/runs/v4_stdv_lanes_speed_20261003-215235_566ddb10_ubu6/` — the earlier run (output of `run_scm_v4.R`) from which settings and donor pools are restored. The path can be set with the env var `SRC_RUN` | `run_nested53_full.R`, `run_nested53_abadie2015_placebo.R` |
 | `RAW_DIR/0629_roads_6to9_day.median_week.median.Rmd`, `RAW_DIR/scm_analysis_6to10_day.median_week.median_without_pre_traffic_cov.Rmd` and the raw data these Rmds read — the original pipeline (not in this repo) | `build_panel_6to9_sum.R` (sum sensitivity panel only) |
 
