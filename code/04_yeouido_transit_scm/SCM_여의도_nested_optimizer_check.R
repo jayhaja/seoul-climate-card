@@ -3,9 +3,20 @@
 ##   V는 고정하지 않는다. nested 목적함수(처치 전 결과변수 MSPE 최소)를 그대로 두고 Synth의 최적화 방법만 바꿔 다시 푼다.
 ##   default(Nelder-Mead) / optimxmethod = "All"(여러 optimx 방법 중 손실 최소) / genoud = TRUE(유전 알고리즘 후 국소 최적화)
 ##   도너 81(주사양)과 76(제외) 모두. 사전 RMSPE가 가장 낮은 해가 nested 기준에서 더 좋은 해.
-## 실행: cd ~/Documents/thesis_summary && caffeinate -i Rscript SCM_여의도_nested_optimizer_check.R   (genoud 때문에 수 분~십여 분)
+## 출력: OUT_DIR/excl_direct_exposure/optimizer_check_excl_<EXCL>.csv (폴더는 SCM_여의도_nested_excl_exposed.R가 만듦; OUT_DIR 기본 output/04_yeouido_transit_scm/SCM_여의도_nested/)
+## Run (from repo root): Rscript code/04_yeouido_transit_scm/SCM_여의도_nested_optimizer_check.R   (genoud 때문에 수 분~십여 분; macOS는 앞에 caffeinate -i 선택)
+## RESTRICTED DATA REQUIRED (restricted data required): smart-card OD data (Data Safety Center, export-restricted) are not in this repository.
+## Required input files (place under RAW_DIR):
+##   - od_with_pop_sum_without_holiday.csv
+##   - df_scm_g.csv
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted data required
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "04_yeouido_transit_scm", "SCM_여의도_nested"))
+CODE_DIR  <- file.path(REPO_ROOT, "code", "04_yeouido_transit_scm")
+## Rmd setup 청크는 위 REPO_ROOT·RAW_DIR·OUT_DIR가 이미 있으면 그대로 사용(HERE <- OUT_DIR, PLOT <- OUT_DIR/plots).
 EXCL <- as.integer(strsplit(Sys.getenv("EXCL", "22,23,54,55,56"), ",")[[1]])   # 예: EXCL=23,55 (서울행만)
-rmd <- path.expand("~/Documents/thesis_summary/SCM_여의도_nested_사전전체.Rmd"); L <- readLines(rmd, encoding = "UTF-8")
+rmd <- file.path(CODE_DIR, "SCM_여의도_nested_사전전체.Rmd"); L <- readLines(rmd, encoding = "UTF-8")
 chunk <- function(label) { s <- grep(sprintf("^```\\{r %s[,}]", label), L); e <- s + which(grepl("^```\\s*$", L[(s + 1):length(L)]))[1]; L[(s + 1):(e - 1)] }
 for (lab in c("setup", "data")) eval(parse(text = chunk(lab), encoding = "UTF-8"), envir = globalenv())
 ff <- chunk("fit-fn"); target <- "Synth::synth(data.prep.obj = dp, verbose = FALSE)"; stopifnot(sum(grepl(target, ff, fixed = TRUE)) == 1)

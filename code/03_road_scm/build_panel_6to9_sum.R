@@ -3,17 +3,35 @@
 ##   1) 패널 Rmd: 일 집계 median → sum(4시간 모두 관측된 날만), 주 집계 median → mean. 출력은 panel_sum/ 아래.
 ##   2) SCM Rmd §0–4: 공변량 부착·id 재부여 → panel_sum/77_units/0628_6to10_df_with_new_covariates_fixed.csv
 ##      (스펙 선택·배치는 실행하지 않음. 유닛 id는 정본 6to9와 같은 lookup 규칙이므로 동일해야 하며 아래에서 검사)
-## 실행: cd ~/Thesis/0614/0628/road_scm_v4 && Rscript build_panel_6to9_sum.R 2>&1 | tee build_panel_6to9_sum.log
-## 이후: config_v4.R의 panel_csv를 panel_sum/77_units/…fixed.csv 로, run_tag를 "v4_stdv_sum" 으로 바꿔 run_scm_v4.R 실행
+## Run (from repo root): Rscript code/03_road_scm/build_panel_6to9_sum.R 2>&1 | tee build_panel_6to9_sum.log
+## 이후: config_v4.R의 panel_csv를 OUT_DIR/panel_sum/77_units/…fixed.csv 로, run_tag를 "v4_stdv_sum" 으로 바꿔 run_scm_v4.R 실행
+##       (run_scm_v4.R is not included in this repo)
+## RESTRICTED DATA REQUIRED (restricted data required): road detector inputs (Seoul TOPIS sites and national ITS link counts) are not redistributed (licence pending).
+## Required input files (place under RAW_DIR; = the original "road6to9_new_try" pipeline folder, NOT in this repo):
+##   - 0629_roads_6to9_day.median_week.median.Rmd                                  (original panel Rmd, patched in memory)
+##   - scm_analysis_6to10_day.median_week.median_without_pre_traffic_cov.Rmd       (original SCM Rmd, §0–4 run)
+##   - 77_units/0628_6to10_df_with_new_covariates_fixed.csv                        (canonical median panel, for the unit-id check)
+##   - plus the raw detector/covariate files those two Rmds read themselves (paths are set inside the Rmds)
 suppressMessages(library(knitr))
-SRC  <- path.expand("~/Thesis/0614/0628/road6to9_new_try")
-OUT  <- path.expand("~/Thesis/0614/0628/road_scm_v4/panel_sum")
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # non-redistributed road inputs
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "03_road_scm"))
+CODE_DIR  <- file.path(REPO_ROOT, "code", "03_road_scm")
+SRC  <- normalizePath(RAW_DIR, winslash = "/", mustWork = FALSE)                 # original pipeline folder (Rmds + 77_units/)
+OUT  <- file.path(OUT_DIR, "panel_sum")
 dir.create(OUT, showWarnings = FALSE, recursive = TRUE)
+OUT  <- normalizePath(OUT, winslash = "/", mustWork = TRUE)                       # absolute: script setwd()s into OUT below and embeds OUT in patched code
 PANEL_CSV <- file.path(OUT, "0629_6to9_day.sum_week.mean.csv")
 
 ## ── 1) 패널 ───────────────────────────────────────────────────────────
 rmd1 <- file.path(SRC, "0629_roads_6to9_day.median_week.median.Rmd")
 src <- readLines(rmd1, warn = FALSE)
+## NOTE: the first (`from`) argument of every patch() call below, and the first argument of sub() in pt(), is a LITERAL
+## search string that must match the text of the original external Rmds (0629_roads_6to9_day.median_week.median.Rmd /
+## scm_analysis_6to10_day.median_week.median_without_pre_traffic_cov.Rmd; not in this repo). The home-directory paths in
+## those strings are the original author's paths as written in those Rmds — do NOT edit them, or the patch fails.
+## Only the replacement targets (PANEL_CSV, OUT) are ours.
 patch <- function(src, from, to, n = 1) {
   i <- grep(from, src, fixed = TRUE); if (length(i) != n) stop("패치 실패(", length(i), "건): ", from); src[i] <- sub(from, to, src[i], fixed = TRUE); src }
 src <- patch(src, 'OUT_FILE  <- "~/Thesis/0614/0628/road6to9_new_try/0629_6to10_day.median_week.median.csv"',

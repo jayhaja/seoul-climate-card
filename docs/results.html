@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>결과 표 탐색 | Seoul Climate Card</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="assets/results.js"></script>
+</head>
+<body>
+<main>
+  <h1><span class="ko">결과 표 탐색</span><span class="en">Results explorer</span></h1>
+  <p class="lead"><span class="ko">저장소 <code>results/</code>의 집계 CSV를 그대로 불러옵니다. 열 이름을 누르면 정렬, 검색창으로 행을 거릅니다.</span><span class="en">Loads the aggregated CSVs from <code>results/</code> as-is. Click a column header to sort; type to filter rows.</span></p>
+  <div class="controls">
+    <label><span class="ko">분석</span><span class="en">Analysis</span><select id="f-analysis"></select></label>
+    <label class="grow"><span class="ko">파일 (행 수)</span><span class="en">File (rows)</span><select id="f-table" class="wide"></select></label>
+    <label class="grow"><span class="ko">행 검색</span><span class="en">Filter rows</span><input id="f-text" type="search" placeholder="예: 노들로, full, Q3"></label>
+  </div>
+  <p class="source" id="t-source"></p>
+  <p class="small" id="t-status" aria-live="polite"></p>
+  <div class="table-wrap"><table id="t-table"></table></div>
+  <p class="small"><span class="ko">값은 원 CSV 그대로이며 화면 표시만 반올림합니다. 각 폴더의 README.txt에 정의와 추론 방법이 있습니다.</span><span class="en">Values are unchanged; only the display is rounded. Definitions and inference notes are in each folder's README.txt.</span></p>
+</main>
+</body>
+</html>

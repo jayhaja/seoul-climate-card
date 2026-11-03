@@ -5,16 +5,22 @@
 #  민감도(APSR 2026): M̄=0 탈편향 추정(ATT − 위약 마지막 주 격차) + fect_sens가 설치돼 있으면 상대 크기 강건 신뢰구간
 #  집단: all(149개) 및 유형 A(도심) B(시계) C(교량) D(간선) F(도시고속도로). 도너 53개 공통.
 #  결과변수: 평일 06–09시 시간당 교통량의 일별 중앙값 → 주간 중앙값(대/시). 처치 51주~, 51–96주.
-# 실행(직렬, 먼저 전체만):  cd ~/Documents/thesis_summary && NB=100 GROUPS=all Rscript _review/seoul_road_lwx_20261103.R
-#        유형별까지:         NB=100 Rscript _review/seoul_road_lwx_20261103.R
+# Run (from repo root, 직렬, 먼저 전체만):  NB=100 GROUPS=all Rscript code/05_seoul_road_gsynth/seoul_road_lwx_20261103.R
+#        유형별까지:         NB=100 Rscript code/05_seoul_road_gsynth/seoul_road_lwx_20261103.R
 #        추정량 일부:        METHODS=ife,mc ...    r을 GMSPE 최소로: R_MODE=min ...    LOO 추가: LOO=1 (느림)
+## RESTRICTED DATA REQUIRED (restricted data required): TOPIS 도로 검지기 교통량 — not redistributed (licence pending).
+## Required input files (place under RAW_DIR):
+##   - panel_seoul176_donor53_6to9.csv   (TOPIS 서울 176개 지점 + 서울 밖 도너 53개 링크 주간 패널; 파이썬으로 구성, 생성 스크립트는 저장소에 없음)
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted / non-redistributed inputs
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "05_seoul_road_gsynth/서울전역_도로_gsynth_20261103/lwx"))
 suppressPackageStartupMessages({ library(fect); library(dplyr) })
-base <- path.expand('~/Documents/thesis_summary'); root <- file.path(base, 'scm_results/서울전역_도로_gsynth_20261103')
-out <- file.path(root, 'lwx'); dir.create(out, showWarnings = FALSE, recursive = TRUE)
+out <- OUT_DIR; dir.create(out, showWarnings = FALSE, recursive = TRUE)
 NB <- as.integer(Sys.getenv('NB', '100')); METHODS <- strsplit(Sys.getenv('METHODS', 'gsynth,ife,mc'), ',')[[1]]
 GROUPS <- strsplit(Sys.getenv('GROUPS', 'all,A,B,C,D,F'), ',')[[1]]; R_MODE <- Sys.getenv('R_MODE', 'cv')
 PRE_F <- as.integer(Sys.getenv('PRE_F', '12')); LOO <- Sys.getenv('LOO', '0') == '1'
-P0 <- read.csv(file.path(root, 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM') %>%
+P0 <- read.csv(file.path(RAW_DIR, 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM') %>%
   filter(week_index <= 96) %>% mutate(D = as.integer(is_treat == 1 & week_index >= 51))
 cat('fect', as.character(packageVersion('fect')), '| methods', METHODS, '| groups', GROUPS, '| nboots', NB, '| r mode', R_MODE, '| LOO', LOO, '\n')
 has_sens <- exists('fect_sens', envir = asNamespace('fect'))

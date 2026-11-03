@@ -1,8 +1,17 @@
 ## config_v4.R — 도로 SCM v4 설정 (v3 + method 선택) (변수 정의 · 기간 · 도너 기준 · 출력)
 ## 변경 이력은 run_info.json(설정 해시)과 실행 로그로 추적. 설정이 바뀌면 캐시가 무효화된다.
+## ---- Paths (edit here or set env vars) -------------------------------
+## Guarded so this file can be sourced by other scripts (which may already define these) in any order.
+if (!exists("REPO_ROOT")) REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                                    # run from repo root
+if (!exists("RAW_DIR"))   RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # non-redistributed road inputs
+if (!exists("OUT_DIR"))   OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "03_road_scm"))
+if (!exists("CODE_DIR"))  CODE_DIR  <- file.path(REPO_ROOT, "code", "03_road_scm")
+## RESTRICTED DATA REQUIRED (restricted data required): road detector inputs (Seoul TOPIS sites and national ITS link counts) are not redistributed (licence pending).
+## Required input files (place under RAW_DIR):
+##   - 77_units/0628_6to10_df_with_new_covariates_fixed.csv   (analysis panel, 77 units; built by the original 06–09 median pipeline, not in this repo)
 CFG <- list(
   ## ── 입력 ─────────────────────────────────────────────────────────────────
-  panel_csv = "~/Thesis/0614/0628/road6to9_new_try/77_units/0628_6to10_df_with_new_covariates_fixed.csv",
+  panel_csv = file.path(RAW_DIR, "77_units", "0628_6to10_df_with_new_covariates_fixed.csv"),
   ##   06:00–09:59 창, 일 중앙값→주 중앙값, 77 유닛(처치 12 + 도너 후보 65). 열: unit_id, week_index, traffic, speed,
   ##   lanes_mean, region_kr, month_date, vehicle_count(시도 월별 등록대수), is_treat, unit_name_en …
   pop_csv   = NULL,   # 인구 1,000명당 등록차량용. 열: region_kr, month_date(YYYY-MM-01), population. NULL이면 차량 변수 미사용.
@@ -74,6 +83,6 @@ CFG <- list(
   diag_rmspe_worsen  = 1.5,          # 최종 W의 26–50주 RMSPE가 1단계 검증 RMSPE의 몇 배를 넘으면 경고
 
   ## ── 출력 ────────────────────────────────────────────────────────────────
-  out_root = "~/Thesis/0614/0628/road_scm_v4/runs",   # 실행별 하위 폴더(타임스탬프_해시) 자동 생성
+  out_root = file.path(OUT_DIR, "runs"),   # 실행별 하위 폴더(타임스탬프_해시) 자동 생성
   run_tag  = "v4_stdv_lanes_speed"
 )

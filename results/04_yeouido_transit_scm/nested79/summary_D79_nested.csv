@@ -1,0 +1,2 @@
+﻿spec,n_donors,n_pre,n_post,att_weekly,cf_pct,pre_baseline_pct,pre_rmspe,post_rmspe,rmspe_ratio,placebo_n,placebo_failed,placebo_alt_optimizer,rank_all,p_all,p_tau5,loo_n,loo_cf_min,loo_cf_max,intime_ratio_f27,intime_ratio_f35,intime_ratio_f42
+"nested V·W, 79 donors (excl. 23, 55)",79,49,46,1154.015214800051,4.982129074227599,4.830454159316137,383.78471580209174,1253.9471972720196,3.267319269479843,79,0,4,1,0.0125,0.0126582278481013,5,3.81464535979077,5.51529268411867,2.91173805952575,2.43926807835778,2.68336474780504

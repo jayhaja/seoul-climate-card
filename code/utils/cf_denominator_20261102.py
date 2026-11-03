@@ -2,13 +2,25 @@
 #  반사실 대비 % = 100 × 구간 평균 gap / 구간 평균 synthetic.  (기존: ÷ 처치 전 평균 actual)
 #  도로: nested 53 run, 공사 3지점(1,2,10)은 path_main(51–72), 나머지 path_full(51–96). 46주 = week_index 51–96.
 #  여의도: SCM_여의도_nested/path_D81_nested.csv, LOO(V 고정)와 ADH CV는 ATT만 저장 → 반사실 = 처치 후 실제 평균 − ATT.
-# 출력: scm_results/반사실대비_통일_20261102/{road_cf.csv, road_windows_cf.csv, road_loo_cf.csv, yeouido_cf.csv}
-# 실행: python3 _review/cf_denominator_20261102.py
+# 출력: OUT_DIR = output/utils/반사실대비_통일_20261102/{road_cf.csv, road_windows_cf.csv, road_loo_cf.csv, yeouido_cf.csv}
+# Run (from repo root): python3 code/utils/cf_denominator_20261102.py
+# 입력 (intermediate outputs of other scripts in this repo; no raw data read directly):
+#   ROAD_RUN_DIR/unit_XX/path_main.csv | path_full.csv, loo_paths_main.csv | loo_paths_full.csv
+#       <- code/03_road_scm/run_nested53_full.R (run folder v4_stdv_ex107_201_nested53_20261031-131153)
+#   YEOUIDO_DIR/path_D81_nested.csv, loo_sensitivity_D81_nested_vfix.csv, V선택_비교.csv
+#       <- code/04_yeouido_transit_scm/SCM_여의도_nested_사전전체.Rmd
+#       (Yeouido paths are derived from restricted smart-card data; not distributed)
 import os, numpy as np, pandas as pd
-H = os.path.expanduser('~')
-run = f'{H}/Thesis/0614/0628/road_scm_v4/runs/v4_stdv_ex107_201_nested53_20261031-131153'
-yd = f'{H}/Thesis/0614/public.transportation/0702/SCM_여의도_nested'
-out = f'{H}/Documents/thesis_summary/scm_results/반사실대비_통일_20261102'; os.makedirs(out, exist_ok=True)
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT = os.environ.get('REPO_ROOT', '.')                                  # run from repo root
+RAW_DIR   = os.environ.get('RAW_DIR', os.path.join(REPO_ROOT, 'data/restricted'))   # restricted data required (not read directly here)
+OUT_DIR   = os.environ.get('OUT_DIR', os.path.join(REPO_ROOT, 'output', 'utils/반사실대비_통일_20261102'))
+# OUT_DIR-style locations of the producing scripts (03_road_scm, 04_yeouido_transit_scm)
+ROAD_RUN_DIR = os.environ.get('ROAD_RUN_DIR', os.path.join(REPO_ROOT, 'output', '03_road_scm', 'runs', 'v4_stdv_ex107_201_nested53_20261031-131153'))
+YEOUIDO_DIR  = os.environ.get('YEOUIDO_DIR', os.path.join(REPO_ROOT, 'output', '04_yeouido_transit_scm', 'SCM_여의도_nested'))
+run = ROAD_RUN_DIR
+yd = YEOUIDO_DIR
+out = OUT_DIR; os.makedirs(out, exist_ok=True)
 names = {1:'경인로 유출',2:'경인로 유입',3:'노들로 북행',4:'노들로 남행',5:'마포대교 남행',6:'마포대교 북행',
          7:'서강대교 남행',8:'서강대교 북행',9:'여의대방로 남행',10:'여의대방로 북행',11:'원효대교 남행',12:'원효대교 북행'}
 pct = lambda g, base: round(100 * g / base, 2)

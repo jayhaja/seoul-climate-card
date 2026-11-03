@@ -4,12 +4,19 @@
 #  (2) 처치 전 추세: 본 적합의 상대 주별 ATT(처치 전 구간)와 F 검정, 동등성 검정(fect 내장)
 #  (3) 그림: 상대 주별 격차(gap), 동등성(equiv) 그림 png
 #  r은 R_FIX(기본 0 = CV 선택값). 부트스트랩 NB(기본 200), 직렬 기본(CORES=1).
-# 실행: cd ~/Documents/thesis_summary && Rscript _review/seoul_road_gsynth_diag_20261103.R
-#       r=4 비교:  R_FIX=4 Rscript _review/seoul_road_gsynth_diag_20261103.R
+# Run (from repo root): Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_diag_20261103.R
+#       r=4 비교:  R_FIX=4 Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_diag_20261103.R
+## RESTRICTED DATA REQUIRED (restricted data required): TOPIS 도로 검지기 교통량 — not redistributed (licence pending).
+## Required input files (place under RAW_DIR):
+##   - panel_seoul176_donor53_6to9.csv   (TOPIS 서울 176개 지점 + 서울 밖 도너 53개 링크 주간 패널; 파이썬으로 구성, 생성 스크립트는 저장소에 없음)
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted / non-redistributed inputs
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "05_seoul_road_gsynth/서울전역_도로_gsynth_20261103"))
 suppressPackageStartupMessages({ library(fect); library(dplyr) })
-base <- path.expand('~/Documents/thesis_summary'); out <- file.path(base, 'scm_results/서울전역_도로_gsynth_20261103')
+out <- OUT_DIR; dir.create(out, showWarnings = FALSE, recursive = TRUE)
 R_FIX <- as.integer(Sys.getenv('R_FIX', '0')); NB <- as.integer(Sys.getenv('NB', '200')); CORES <- as.integer(Sys.getenv('CORES', '1'))
-P <- read.csv(file.path(out, 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM') %>%
+P <- read.csv(file.path(RAW_DIR, 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM') %>%
   filter(week_index <= 96) %>% mutate(D = as.integer(is_treat == 1 & week_index >= 51))
 tag <- paste0('r', R_FIX); cat('r =', R_FIX, '| nboots =', NB, '| cores =', CORES, '\n')
 par_on <- CORES > 1

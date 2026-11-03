@@ -1,13 +1,24 @@
 ## SCM_여의도_nested79_loo_plot.R — 여의도 주사양(도너 79) LOO 그림 다시 그리기 (2026-11-03)
 ## 기존 Rmd LOO 그림은 범례가 없고 글씨가 작음 → 본추정 경로 그림(1.scm_path)과 같은 장치·글꼴·여백으로 다시 그림.
 ## LOO 경로는 저장돼 있지 않아 양의 가중치 도너 5개(w > 0.001)를 하나씩 빼고 nested V·W를 다시 추정(약 1분). 수치는 loo_sensitivity_D79_nested.csv와 같아야 함.
-## 출력: 0702/SCM_여의도_nested79/plots/5.loo_D79_nested_v2.jpg, loo_paths_D79_nested.csv
-## 실행: cd ~/Documents/thesis_summary && Rscript SCM_여의도_nested79_loo_plot.R
+## 출력: OUT_DIR/plots/5.loo_D79_nested_v2.jpg, OUT_DIR/loo_paths_D79_nested.csv (OUT_DIR 기본 output/04_yeouido_transit_scm/SCM_여의도_nested79/)
+## Run (from repo root): Rscript code/04_yeouido_transit_scm/SCM_여의도_nested79_loo_plot.R
+## RESTRICTED DATA REQUIRED (restricted data required): smart-card OD data (Data Safety Center, export-restricted) are not in this repository.
+## Required input files (place under RAW_DIR):
+##   - od_with_pop_sum_without_holiday.csv
+##   - df_scm_g.csv
+##   - (from SCM_여의도_nested79_main.R, in OUT_DIR) M_nested.rds
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted data required
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "04_yeouido_transit_scm", "SCM_여의도_nested79"))
+CODE_DIR  <- file.path(REPO_ROOT, "code", "04_yeouido_transit_scm")
+## Rmd setup 청크는 위 REPO_ROOT·RAW_DIR·OUT_DIR가 이미 있으면 그대로 사용(HERE <- OUT_DIR, PLOT <- OUT_DIR/plots).
 EXCL <- c(23L, 55L)
-rmd <- path.expand("~/Documents/thesis_summary/SCM_여의도_nested_사전전체.Rmd"); RMD_LINES <- readLines(rmd, encoding = "UTF-8")
+rmd <- file.path(CODE_DIR, "SCM_여의도_nested_사전전체.Rmd"); RMD_LINES <- readLines(rmd, encoding = "UTF-8")
 chunk <- function(label) { s <- grep(sprintf("^```\\{r %s[,}]", label), RMD_LINES); stopifnot(length(s) == 1)
   e <- s + which(grepl("^```\\s*$", RMD_LINES[(s + 1):length(RMD_LINES)]))[1]; RMD_LINES[(s + 1):(e - 1)] }
-su <- gsub('"SCM_여의도_nested")', '"SCM_여의도_nested79")', chunk("setup"), fixed = TRUE)
+su <- gsub('"SCM_여의도_nested")', '"SCM_여의도_nested79")', chunk("setup"), fixed = TRUE)   # OUT_DIR가 이미 정의돼 있어 실제 저장 폴더는 OUT_DIR; 이 치환은 Rmd 기본값(OUT_DIR 미정의 시)용으로 유지
 eval(parse(text = su, encoding = "UTF-8"), envir = globalenv())
 for (lab in c("data", "fit-fn")) eval(parse(text = chunk(lab), encoding = "UTF-8"), envir = globalenv())
 donor_ids <- setdiff(donor_ids, EXCL); stopifnot(length(donor_ids) == 79)

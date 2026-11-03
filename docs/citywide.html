@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>서울 내부 대중교통 gsynth | Seoul Climate Card</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<main>
+  <h1><span class="ko">① 서울 내부 대중교통: OD 409쌍 gsynth</span><span class="en">① Within-Seoul transit: gsynth on 409 OD pairs</span></h1>
+  <p class="lead"><span class="ko">기후동행카드는 서울 내부 통행에만 쓸 수 있으므로 서울 내부 출발·도착 OD 409쌍을 처치 단위로, 카드 사용 범위 밖 OD 941개를 도너로 두고 일반화 합성통제법으로 반사실을 추정했습니다.</span><span class="en">The card is valid only for trips within Seoul, so 409 within-Seoul OD pairs are treated and 941 out-of-scope ODs serve as donors in a generalised synthetic control.</span></p>
+
+  <h2><span class="ko">설계</span><span class="en">Design</span></h2>
+  <ul>
+    <li><span class="ko">결과변수: 주별 이용자 수(원값), 공휴일 제외. 공변량 log(출발동 인구). OD·주 고정효과.</span><span class="en">Outcome: weekly users (levels), holidays excluded; covariate log(origin population); OD and week fixed effects.</span></li>
+    <li><span class="ko">사전 53주, 사후 46주(2024-01-29 ~ 2024-12-30). 요인 수 r = 4 (GMSPE 1-SE 규칙).</span><span class="en">53 pre weeks, 46 post weeks (2024-01-29 to 2024-12-30); r = 4 factors (GMSPE 1-SE rule).</span></li>
+    <li><span class="ko">추론: OD 부트스트랩 1,000회, 정규근사 95% 구간.</span><span class="en">Inference: 1,000 OD bootstrap draws, normal-approximation 95% intervals.</span></li>
+    <li><span class="ko">효과율 = 100 × Σ(관측 − 반사실) / Σ반사실.</span><span class="en">Effect % = 100 × Σ(observed − counterfactual) / Σ counterfactual.</span></li>
+  </ul>
+
+  <h2><span class="ko">결과</span><span class="en">Results</span></h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th><span class="ko">기간</span><span class="en">Window</span></th><th class="n"><span class="ko">주</span><span class="en">Weeks</span></th><th class="n"><span class="ko">반사실 대비</span><span class="en">vs CF</span></th><th class="n">95% CI</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td><span class="ko">전체</span><span class="en">Full</span> 2024-01-29 – 12-30</td><td class="n">46</td><td class="n">+1.568%</td><td class="n">0.823 – 2.313</td></tr>
+      <tr><td><span class="ko">첫 12주</span><span class="en">First 12 weeks</span></td><td class="n">12</td><td class="n">+1.399%</td><td class="n">0.768 – 2.030</td></tr>
+      <tr><td><span class="ko">첫 24주</span><span class="en">First 24 weeks</span></td><td class="n">24</td><td class="n">+1.336%</td><td class="n">0.602 – 2.070</td></tr>
+      <tr><td><span class="ko">8월까지</span><span class="en">Through August</span></td><td class="n">30</td><td class="n">+1.444%</td><td class="n">0.741 – 2.148</td></tr>
+      <tr><td><span class="ko">첫 36주</span><span class="en">First 36 weeks</span></td><td class="n">36</td><td class="n">+1.459%</td><td class="n">0.745 – 2.173</td></tr>
+      <tr><td><span class="ko">12월 제외</span><span class="en">Excluding December</span></td><td class="n">42</td><td class="n">+1.478%</td><td class="n">0.759 – 2.198</td></tr>
+    </tbody>
+  </table></div>
+  <p class="source"><span class="ko">출처</span><span class="en">Source</span>: <a href="results.html?file=results/01_citywide_gsynth/R2_normal_final_20261011/windows.csv"><code>results/01_citywide_gsynth/R2_normal_final_20261011/windows.csv</code></a> (metric = effect_pct, normal_lo/normal_hi)</p>
+  <p><span class="ko">같은 파일 기준 OD당 주평균 ATT는 288.4건, 409쌍 합산 주평균 효과는 117,959건, 46주 누적 약 543만 건입니다.</span><span class="en">From the same file: ATT 288.4 trips per OD-week; 117,959 extra trips per week summed over the 409 ODs; about 5.43 million over 46 weeks.</span></p>
+
+  <div class="fig-row">
+    <figure><img src="assets/figures/thesis/본문_그림/그림5-1_관측대반사실_r4.png" alt="" loading="lazy"><figcaption><span class="ko">그림 5-1. 관측 대 반사실 (r = 4)</span><span class="en">Fig. 5-1. Observed vs counterfactual (r = 4)</span></figcaption></figure>
+    <figure><img src="assets/figures/thesis/본문_그림/그림5-2_주별효과_r4.png" alt="" loading="lazy"><figcaption><span class="ko">그림 5-2. 주별 효과</span><span class="en">Fig. 5-2. Weekly effects</span></figcaption></figure>
+  </div>
+
+  <h2><span class="ko">강건성</span><span class="en">Robustness</span></h2>
+  <ul>
+    <li><span class="ko">8월에서 패널을 잘라 재추정: +1.437% (전체 적합의 같은 30주 +1.444%와 유사).</span><span class="en">Refit on a panel truncated at August: +1.437% (vs +1.444% from the full fit over the same 30 weeks).</span> <a href="results.html?file=results/01_citywide_gsynth/gsynth_8월절단_재추정_20261103/through_august_refit.csv"><span class="ko">표</span><span class="en">table</span></a></li>
+    <li><b><span class="ko">요인 수 민감도:</span><span class="en">Rank sensitivity:</span></b> <span class="ko">MSPE 1-SE 규칙이 고른 r = 1에서는 +0.27%로 크게 작아집니다.</span><span class="en">with r = 1 (MSPE 1-SE rule) the effect falls to +0.27%.</span> <a href="results.html?file=results/01_citywide_gsynth/R2_r4_제출용_20261010/rank_sensitivity.csv"><span class="ko">표</span><span class="en">table</span></a></li>
+    <li><span class="ko">진단 그림(부록 B)은 그림 갤러리에서 볼 수 있습니다.</span><span class="en">Diagnostic plots (Appendix B) are in the gallery.</span> <a href="gallery.html?analysis=citywide"><span class="ko">갤러리</span><span class="en">gallery</span></a></li>
+  </ul>
+
+  <h2><span class="ko">코드</span><span class="en">Code</span></h2>
+  <p><a href="https://github.com/jayhaja/seoul-climate-card/tree/main/code/01_citywide_gsynth"><code>code/01_citywide_gsynth/</code></a> — <span class="ko">교통카드 OD 패널 필요(반출 제한).</span><span class="en">requires the restricted OD panel.</span></p>
+</main>
+</body>
+</html>

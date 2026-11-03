@@ -8,7 +8,14 @@ output: html_document
   기록 재현 목표: ATT +4.763% · pre RMSPE 389.2 · ratio 3.178 · p_ratio(τ5) 0.0263
 플롯: 원본 plot helpers(plot_synth_custom / plot_mspe_ratio_ranked /
   plot_placebo_gaps_limit / plot_placebo_ratio_hist)를 그대로 사용.
-산출: ~/Thesis/0614/public.transportation/0702/SCM_여의도_nested/ (+plots/)
+산출: OUT_DIR (기본 output/04_yeouido_transit_scm/SCM_여의도_nested/, +plots/)
+경로 / Paths: setup 청크의 REPO_ROOT·RAW_DIR·OUT_DIR. 각각 이미 정의된 R 객체 → 환경변수 → 기본값 순으로 정함.
+  - 이 Rmd를 직접 knit하면 작업 폴더가 code/04_yeouido_transit_scm/ 이므로 REPO_ROOT 기본값은 "../.."
+  - 같은 폴더의 R 스크립트(저장소 루트에서 실행)는 REPO_ROOT·RAW_DIR·OUT_DIR를 먼저 정의한 뒤 청크를 eval하므로 그 값이 쓰임.
+RESTRICTED DATA REQUIRED (restricted data required): smart-card OD data (Data Safety Center, export-restricted) are not in this repository.
+Required input files (place under RAW_DIR):
+  - od_with_pop_sum_without_holiday.csv   (flow, week, 이용자수_주총합)
+  - df_scm_g.csv                          (unit_id, unit_name, week, is_treat, tranfer, pop_dong, ...)
 소요: 본추정 수 분 + 위약 81개 약 20~40분 + LOO·in-time 수 분.
 -->
 #1. set up
@@ -19,8 +26,14 @@ suppressMessages({
 })
 options(scipen = 999)
 
-BASE <- path.expand("~/Thesis/0614/public.transportation")
-HERE <- file.path(BASE, "0702", "SCM_여의도_nested")
+## ---- Paths (edit here or set env vars) -------------------------------
+## 이미 정의된 객체(R 스크립트가 eval 전에 정의) > 환경변수 > 기본값.
+## 직접 knit 시 작업 폴더 = 이 Rmd 폴더 → REPO_ROOT 기본 "../.."; 저장소 루트에서 eval 시 ".".
+if (!exists("REPO_ROOT")) REPO_ROOT <- Sys.getenv("REPO_ROOT",
+  if (dir.exists(file.path("code", "04_yeouido_transit_scm"))) "." else file.path("..", ".."))
+if (!exists("RAW_DIR")) RAW_DIR <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted data required
+if (!exists("OUT_DIR")) OUT_DIR <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "04_yeouido_transit_scm", "SCM_여의도_nested"))
+HERE <- OUT_DIR
 PLOT <- file.path(HERE, "plots")
 dir.create(PLOT, recursive = TRUE, showWarnings = FALSE)
 
@@ -41,11 +54,11 @@ DONORS_185939 <- c(19,22,23,25,26,28,29,41,42,43,44,45,46,47,54,55,56,59,60,61,6
 #2. data
 ```{r data}
 ## ── 패널 구성 (정본 스크립트와 동일) ─────────────────────────────────
-nh <- read_csv(file.path(BASE, "0702/od_with_pop_sum_without_holiday.csv"),
+nh <- read_csv(file.path(RAW_DIR, "od_with_pop_sum_without_holiday.csv"),
                show_col_types = FALSE) %>%
   transmute(unit_name = flow, week = as.Date(week), users_nh = 이용자수_주총합)
 
-df_scm <- read.csv(file.path(BASE, "df_scm_g.csv"), fileEncoding = "UTF-8") %>%
+df_scm <- read.csv(file.path(RAW_DIR, "df_scm_g.csv"), fileEncoding = "UTF-8") %>%
   mutate(week = as.Date(week), unit_id_num = as.integer(unit_id),
          unit_name_en = unit_name) %>%
   filter(week >= WIN_START, week <= WIN_END) %>%

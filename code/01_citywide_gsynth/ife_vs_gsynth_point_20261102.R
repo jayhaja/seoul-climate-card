@@ -3,10 +3,27 @@
 #  - 차이: gsynth는 요인을 통제 단위만으로 추정 후 처치 단위 적재값을 처치 전 기간에 회귀; ife는 처치받지 않은 모든 관측치(통제 전체 + 처치 단위 처치 전)로 요인·적재값을 EM으로 동시 추정.
 #  - 엔진: 설치된 fect 그대로(패치 없음). gsynth 재현값이 주결과 ATT 288.41 / 1.568%와 맞는지 먼저 확인(패치는 가중·CV 경로만 건드렸으므로 비가중·CV 없음에서는 일치해야 함).
 #  - 출력: 두 방법의 ATT(건수·반사실 대비 %·처치 전 대비 %), 처치 전 RMSE, OD별 격차 csv, 6장 축별 집단 per1000 비교(점추정).
-# 실행: cd ~/Documents/thesis_summary && Rscript _review/ife_vs_gsynth_point_20261102.R
+# Run (from repo root): Rscript code/01_citywide_gsynth/ife_vs_gsynth_point_20261102.R   (env: METHODS, MAXIT, TOL)
+## RESTRICTED DATA REQUIRED (restricted data required): this script needs files that are not
+## distributed (smart-card OD data, Data Safety Center export-restricted).
+## Required input files (place under RAW_DIR):
+##   - panels/d_w30_no과천.rds                 (OD x week panel; builder script not in this repo)
+##   - od_with_pop_sum_without_holiday.csv     (OD-level weekly users + population, holiday weeks removed)
+##   - R2_r4_인구대비_추가이용_20261011/dong_population_effects.csv   (unit-level; producer script not in this repo)
+##   - 규모통제_거리환승_20261011/OD_analysis_data.csv                 (OD-level covariates; producer not in this repo)
+##   - AI_uc_보정_20261101.csv, youth_region_20261101.csv,
+##     elderly_ratio_unit_20261102.csv, 환승시간_unit매칭_20261101.csv  (unit-level covariates; producers not in this repo)
+## Also reads an intermediate output of another script in this repo (OD-level, restricted):
+##   - SUBMIT_DIR/OD_point_effects.csv  <- produced by code/01_citywide_gsynth/R2_r4_제출용집계_20261010.R
 suppressPackageStartupMessages({ library(fect); library(dplyr); library(readr) })
-root <- path.expand('~/Thesis/0614/public.transportation/0702'); base <- path.expand('~/Documents/thesis_summary')
-out <- file.path(base, 'scm_results/R2_ife_vs_gsynth_20261102'); dir.create(out, recursive = TRUE, showWarnings = FALSE)
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted data required
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth/R2_ife_vs_gsynth_20261102"))
+# OUT_DIR of R2_r4_제출용집계_20261010.R (source of OD_point_effects.csv)
+SUBMIT_DIR <- Sys.getenv("SUBMIT_DIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth/R2_r4_제출용_20261010"))
+root <- path.expand(RAW_DIR)
+out <- path.expand(OUT_DIR); dir.create(out, recursive = TRUE, showWarnings = FALSE)
 METHODS <- strsplit(Sys.getenv('METHODS', 'gsynth,ife'), ',')[[1]]; MAXIT <- as.integer(Sys.getenv('MAXIT', '2000')); TOL <- as.numeric(Sys.getenv('TOL', '1e-4'))
 cat('methods:', METHODS, '| max.iteration', MAXIT, '| tol', TOL, '\n')
 
@@ -38,7 +55,7 @@ odgap <- function(f) {   # 처치 OD별 처치 후 주평균 격차·반사실·
              observed = colMeans(f$Y.dat[post, idx, drop = FALSE]), pre_rmse = sqrt(colMeans(g[pre, , drop = FALSE]^2)))
 }
 fits <- setNames(lapply(METHODS, fit1), METHODS)
-use_pre <- read.csv(file.path(base, 'scm_results/R2_r4_제출용_20261010/OD_point_effects.csv'))[, c('unit_id', 'use_pre')]
+use_pre <- read.csv(file.path(path.expand(SUBMIT_DIR), 'OD_point_effects.csv'))[, c('unit_id', 'use_pre')]
 S <- do.call(rbind, lapply(names(fits), function(m) { o <- odgap(fits[[m]]); o <- merge(o, use_pre, by = 'unit_id')
   write.csv(o, file.path(out, sprintf('od_gaps_%s.csv', m)), row.names = FALSE)
   data.frame(method = m, r = 4, ATT_count = mean(o$gap), weekly_total_gap = sum(o$gap),
@@ -48,10 +65,10 @@ cat('\n== 주결과 비교 (참고: 주사양 gsynth ATT 288.41, 1.568%) ==\n');
 write.csv(S, file.path(out, 'summary.csv'), row.names = FALSE)
 
 ## 6장 축별 집단 per1000 (인구 1,000명 이상) — 두 방법 점추정 비교
-p <- read.csv(file.path(base, 'scm_results/R2_r4_인구대비_추가이용_20261011/dong_population_effects.csv'))[, c('unit_id', 'pre_population')]
-x <- read.csv(file.path(base, '_review/규모통제_거리환승_20261011/OD_analysis_data.csv'))
-ai <- read.csv(file.path(base, '_review/AI_uc_보정_20261101.csv')); yr <- read.csv(file.path(base, '_review/youth_region_20261101.csv'))
-el <- read.csv(file.path(base, '_review/elderly_ratio_unit_20261102.csv')); wt <- read.csv(file.path(base, '_review/환승시간_unit매칭_20261101.csv'))
+p <- read.csv(file.path(root, 'R2_r4_인구대비_추가이용_20261011/dong_population_effects.csv'))[, c('unit_id', 'pre_population')]
+x <- read.csv(file.path(root, '규모통제_거리환승_20261011/OD_analysis_data.csv'))
+ai <- read.csv(file.path(root, 'AI_uc_보정_20261101.csv')); yr <- read.csv(file.path(root, 'youth_region_20261101.csv'))
+el <- read.csv(file.path(root, 'elderly_ratio_unit_20261102.csv')); wt <- read.csv(file.path(root, '환승시간_unit매칭_20261101.csv'))
 m <- function(df, v) df[[v]][match(p$unit_id, df$unit_id)]
 tert <- function(v) { ok <- is.finite(v); o <- rep(NA_integer_, length(v)); q <- quantile(v[ok], c(0, 1/3, 2/3, 1), type = 7); o[ok] <- cut(v[ok], q, include.lowest = TRUE, labels = FALSE); o }
 axes <- list(transfer = tert(m(x, 'transfer')), wait = tert(m(wt, 'minutes_per_trip')), access = tert(m(ai, 'AI_uc')),

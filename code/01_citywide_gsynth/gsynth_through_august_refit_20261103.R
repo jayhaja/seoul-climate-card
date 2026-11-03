@@ -4,11 +4,20 @@
 #  사양은 주사양과 동일: users ~ D + log_pop, two-way, r = 4 고정(CV 없음), 가중 없음, 설치된 fect(method = "gsynth").
 #    (ife_vs_gsynth_point_20261102.R 주석: 비가중·CV 없음에서는 패치 엔진과 같은 결과 → 먼저 전체 46주로 288.41 / 1.568% 재현 확인)
 #  선택: CV=1 이면 롤링 CV 대신 fect 기본 CV로 r 재선택(참고용). NB>0 이면 OD 블록 부트스트랩(fect 내장, 정규근사 CI).
-# 실행: cd ~/Documents/thesis_summary && Rscript _review/gsynth_through_august_refit_20261103.R
-#        부트스트랩까지: NB=200 CORES=2 Rscript _review/gsynth_through_august_refit_20261103.R
+# Run (from repo root): Rscript code/01_citywide_gsynth/gsynth_through_august_refit_20261103.R
+#        부트스트랩까지: NB=200 CORES=2 Rscript code/01_citywide_gsynth/gsynth_through_august_refit_20261103.R
+## RESTRICTED DATA REQUIRED (restricted data required): this script needs files that are not
+## distributed (smart-card OD data, Data Safety Center export-restricted).
+## Required input files (place under RAW_DIR):
+##   - panels/d_w30_no과천.rds                 (OD x week panel; builder script not in this repo)
+##   - od_with_pop_sum_without_holiday.csv     (OD-level weekly users + population, holiday weeks removed)
 suppressPackageStartupMessages({ library(fect); library(dplyr); library(readr) })
-root <- path.expand('~/Thesis/0614/public.transportation/0702'); base <- path.expand('~/Documents/thesis_summary')
-out <- file.path(base, 'scm_results/gsynth_8월절단_재추정_20261103'); dir.create(out, recursive = TRUE, showWarnings = FALSE)
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted data required
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth/gsynth_8월절단_재추정_20261103"))
+root <- path.expand(RAW_DIR)
+out <- path.expand(OUT_DIR); dir.create(out, recursive = TRUE, showWarnings = FALSE)
 NB <- as.integer(Sys.getenv('NB', '0')); CORES <- as.integer(Sys.getenv('CORES', '2')); DO_CV <- Sys.getenv('CV', '0') == '1'
 
 ## 패널 (ife_vs_gsynth_point_20261102.R 와 동일 구성)

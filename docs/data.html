@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>자료와 한계 | Seoul Climate Card</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<main>
+  <h1><span class="ko">자료·재현·한계</span><span class="en">Data, reproduction and limitations</span></h1>
+
+  <h2><span class="ko">자료</span><span class="en">Data</span></h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th><span class="ko">자료</span><span class="en">Source</span></th><th><span class="ko">분석</span><span class="en">Used in</span></th><th><span class="ko">저장소</span><span class="en">In repo</span></th></tr></thead>
+    <tbody>
+      <tr><td><span class="ko">국토교통부 교통카드 OD 자료 (데이터안전센터)</span><span class="en">MOLIT smart-card OD records (secure data centre)</span></td><td>① ② ④</td><td><span class="ko">미포함 — 반출 제한</span><span class="en">No — export-restricted</span></td></tr>
+      <tr><td><span class="ko">서울 TOPIS 지점 교통량, 국가 ITS 링크 교통량</span><span class="en">Seoul TOPIS detector counts, national ITS link counts</span></td><td>③ ⑤</td><td><span class="ko">미포함 — 재배포 조건 확인 중</span><span class="en">No — licence pending</span></td></tr>
+      <tr><td><span class="ko">주민등록 인구통계 (행정안전부)</span><span class="en">Resident registration population (MOIS)</span></td><td>① ② ④</td><td><span class="ko">공개 출처</span><span class="en">Public source</span></td></tr>
+      <tr><td><span class="ko">KTDB 접근성 지표, 서울연구원 2019-BR-26</span><span class="en">KTDB accessibility; Seoul Institute 2019-BR-26</span></td><td>②</td><td><span class="ko">공개 출처</span><span class="en">Public source</span></td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="ko">교통카드 OD 원자료는 저장소에 없습니다. <code>results/</code>와 <code>figures/</code>는 원자료를 정제·집계한 결과로, 여의도 OD 경로 그림을 포함해 모두 데이터안전센터 반출 승인 범위입니다. 승인 범위의 정제 데이터 파일(OD별 효과, 출발지 구성표, 여의도 OD 주별 경로 등)도 배포할 수 있으나 아직 넣지 않았습니다. 원자료는 자료 제공기관에 이용 신청할 수 있습니다.</span><span class="en">The raw OD records are not in the repository. <code>results/</code> and <code>figures/</code> are processed outputs, all within the data centre's export approval, including the Yeouido OD path plots. Processed data files within that approval (per-OD effects, origin membership tables, Yeouido OD weekly paths) may also be shared but are not yet included. Researchers can apply to the data provider for raw-data access.</span></p>
+
+  <h2><span class="ko">재현 방법</span><span class="en">How to reproduce</span></h2>
+  <ol>
+    <li><span class="ko">원자료 접근 승인을 받고 입력 파일을 <code>data/restricted/</code>(또는 환경변수 <code>RAW_DIR</code>)에 둡니다. 필요한 파일 이름은 각 스크립트 상단 <code>RESTRICTED DATA REQUIRED</code> 주석과 <code>code/*/README.md</code>에 있습니다.</span><span class="en">Obtain access and place inputs under <code>data/restricted/</code> (or set <code>RAW_DIR</code>). Required file names are in each script's <code>RESTRICTED DATA REQUIRED</code> header and in <code>code/*/README.md</code>.</span></li>
+    <li><span class="ko">저장소 최상위에서 실행합니다(예: <code>Rscript code/03_road_scm/run_nested53_abadie2015_placebo.R</code>). 출력은 <code>output/</code>에 생기며 git에서 제외됩니다.</span><span class="en">Run from the repository root (e.g. <code>Rscript code/03_road_scm/run_nested53_abadie2015_placebo.R</code>). Outputs go to <code>output/</code>, which is git-ignored.</span></li>
+    <li><span class="ko">실행 순서는 폴더별 README를 따르고, 결과를 <code>results/</code>와 비교합니다.</span><span class="en">Follow each folder's run order and compare with <code>results/</code>.</span></li>
+  </ol>
+
+  <h2><span class="ko">한계</span><span class="en">Limitations</span></h2>
+  <ul>
+    <li><b><span class="ko">원자료 비공개.</span><span class="en">Restricted data.</span></b> <span class="ko">①②④는 반출 제한 자료가 있어야 다시 실행할 수 있습니다.</span><span class="en">①②④ cannot be rerun without the restricted data.</span></li>
+    <li><b><span class="ko">요인 수 민감도(①).</span><span class="en">Rank sensitivity (①).</span></b> <span class="ko">r = 4에서 +1.568%, r = 1에서 +0.27%.</span><span class="en">+1.568% with r = 4 but +0.27% with r = 1.</span> <a href="results.html?file=results/01_citywide_gsynth/R2_r4_제출용_20261010/rank_sensitivity.csv"><code>rank_sensitivity.csv</code></a></li>
+    <li><b><span class="ko">다중비교(③).</span><span class="en">Multiple testing (③).</span></b> <span class="ko">12개 링크를 각각 검정하며, 위약 53개라 p의 최솟값이 1/54 ≈ .019입니다. 도너가 서울 밖이라 지역별 충격이 다를 수 있습니다.</span><span class="en">12 links are tested separately and the minimum attainable p is 1/54 ≈ .019; donors outside Seoul may face different shocks.</span></li>
+    <li><b><span class="ko">단일 처치 단위(④).</span><span class="en">Single treated unit (④).</span></b> <span class="ko">시점 위약에서도 +1.6~2.4%의 양의 격차가 나타나 효과 크기는 신중히 해석해야 합니다.</span><span class="en">In-time placebos show +1.6–2.4% gaps, so the magnitude should be read cautiously.</span></li>
+    <li><b><span class="ko">진단 실패(⑤).</span><span class="en">Failed diagnostics (⑤).</span></b> <span class="ko">사전 기간 위약 검정이 기각되어 기술적 결과로만 씁니다.</span><span class="en">Pre-period placebo tests reject; descriptive only.</span></li>
+    <li><b><span class="ko">결과 파일 세대 차이.</span><span class="en">Mixed result generations.</span></b> <span class="ko"><code>results/03_road_scm/summary/road_placebo_p_all_vs_tau5.csv</code>와 <code>road_loo_cf.csv</code>는 이전 사양(위약 도너에 처치 단위 미포함) 값이고, 본 결과는 <code>road_abadie2015_placebo_loo_cf.csv</code>·<code>all_units_summary.csv</code>입니다.</span><span class="en"><code>road_placebo_p_all_vs_tau5.csv</code> and <code>road_loo_cf.csv</code> in <code>results/03_road_scm/summary/</code> come from the earlier specification; the headline results are <code>road_abadie2015_placebo_loo_cf.csv</code> and <code>all_units_summary.csv</code>.</span></li>
+    <li><b><span class="ko">상류 스크립트 미포함.</span><span class="en">Upstream scripts not included.</span></b> <span class="ko">일부 스크립트의 입력을 만드는 상류 파일(예: 패널·공변량 생성 스크립트)은 저장소에 없습니다. 폴더별 README에 목록이 있습니다.</span><span class="en">Files that build some scripts' inputs are not in the repository (e.g. panel and covariate builders); see each folder README.</span></li>
+  </ul>
+
+  <h2><span class="ko">라이선스·인용</span><span class="en">Licence and citation</span></h2>
+  <p><span class="ko">코드(<code>code/</code>, <code>scripts/</code>, 사이트 HTML·CSS·JS)는 MIT, 결과·그림(<code>results/</code>, <code>figures/</code>와 사이트의 복사본)은 CC BY 4.0입니다. 인용 정보는 <code>CITATION.cff</code>.</span><span class="en">Code (<code>code/</code>, <code>scripts/</code>, site HTML/CSS/JS) is MIT; results and figures (<code>results/</code>, <code>figures/</code> and their copies on this site) are CC BY 4.0. Citation metadata: <code>CITATION.cff</code>.</span></p>
+</main>
+</body>
+</html>

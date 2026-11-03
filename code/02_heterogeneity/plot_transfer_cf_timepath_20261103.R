@@ -1,5 +1,10 @@
 library(ggplot2)
-out<-"scm_results/R2_r4_반사실_3분위_시간경로_20261103"
+## Input: group_cf_pct.csv produced by code/02_heterogeneity/hetero_cf_tertiles_timepath_20261103.R (in OUT_DIR; no raw data read)
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "02_heterogeneity/R2_r4_반사실_3분위_시간경로_20261103"))
+## Run (from repo root): Rscript code/02_heterogeneity/plot_transfer_cf_timepath_20261103.R
+out<-OUT_DIR
 d<-read.csv(file.path(out,"group_cf_pct.csv"))
 d<-d[d$axis=="transfer" & grepl("^w",d$window),]
 d$window<-factor(d$window,levels=c("w01_12","w13_24","w25_36","w37_46"),labels=c("Weeks 1–12","Weeks 13–24","Weeks 25–36","Weeks 37–46"))

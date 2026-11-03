@@ -4,15 +4,28 @@
 ##   107: 군포 기후동행카드 협약(2024-01-31) 간접 노출 / 201: 송도 연결로·2024-03 이후 +20% 구조 변화
 ## 사후 창: 1·2·10번(경인로 남·북행, 여의대방로 북행) 51–72주, 나머지 51–100주
 ## 산출: 처치 적합, 공간 위약(병렬, 위약마다 V·W 재추정), p(τ=2,3,5,Inf), LOO(고정 V), 시점 위약(27·34·40), 플롯 전부
-## 실행: cd ~/Thesis/0614/0628/road_scm_v4 && caffeinate -i Rscript run_nested53_full.R        # 12지점
-##       caffeinate -i Rscript run_nested53_full.R 4,6,8,12                                       # 일부
-##       NESTED_EXCL=none caffeinate -i Rscript run_nested53_full.R                              # 도너 55(원 실행과 동일)
+## Run (from repo root): Rscript code/03_road_scm/run_nested53_full.R                         # 12지점
+##       Rscript code/03_road_scm/run_nested53_full.R 4,6,8,12                                       # 일부
+##       NESTED_EXCL=none Rscript code/03_road_scm/run_nested53_full.R                               # 도너 55(원 실행과 동일)
+##   (macOS only, optional: prefix with `caffeinate -i` to keep the machine awake during long runs)
+## RESTRICTED DATA REQUIRED (restricted data required): road detector inputs (Seoul TOPIS sites and national ITS link counts) are not redistributed (licence pending).
+## Required input files (place under RAW_DIR):
+##   - 77_units/0628_6to10_df_with_new_covariates_fixed.csv   (analysis panel; path set in config_v4.R)
+## Also required: the earlier v4 run whose settings/donor pools are restored (produced by run_scm_v4.R, not in this repo):
+##   - OUT_DIR/runs/v4_stdv_lanes_speed_20261003-215235_566ddb10_ubu6/{run_info.json, donor_pool_main.csv, donor_pool_full.csv}
+##     (override the folder with env var SRC_RUN)
 suppressMessages({ library(dplyr); library(readr); library(jsonlite); library(parallel) })
-HERE <- path.expand("~/Thesis/0614/0628/road_scm_v4"); setwd(HERE)
-source("config_v4.R"); source("scm_v4_functions.R"); source("scm_v4_plots.R")
-SRC <- file.path(HERE, "runs", "v4_stdv_lanes_speed_20261003-215235_566ddb10_ubu6")
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # non-redistributed road inputs
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "03_road_scm"))
+CODE_DIR  <- file.path(REPO_ROOT, "code", "03_road_scm")
+source(file.path(CODE_DIR, "config_v4.R")); source(file.path(CODE_DIR, "scm_v4_functions.R")); source(file.path(CODE_DIR, "scm_v4_plots.R"))
+SRC <- Sys.getenv("SRC_RUN", file.path(OUT_DIR, "runs", "v4_stdv_lanes_speed_20261003-215235_566ddb10_ubu6"))
+.portable <- CFG[c("panel_csv", "out_root")]
 old <- fromJSON(file.path(SRC, "run_info.json"), simplifyVector = FALSE)$config
 for (k in names(old)) { v <- old[[k]]; CFG[[k]] <- if (k == "predictors") v else if (is.list(v)) unlist(v) else v }
+CFG$panel_csv <- .portable$panel_csv; CFG$out_root <- .portable$out_root   # restored run_info.json holds the original machine's paths → keep portable paths (path only, no settings change)
 CFG$placebo_tau <- as.numeric(CFG$placebo_tau)   # JSON에서 "Inf"가 문자로 들어옴 → 수치 변환
 CFG$method <- "stdv"; CFG$loo_mode <- "fixedV"; CFG$run_tag <- "v4_stdv_ex107_201_nested53"
 EXCL <- if (Sys.getenv("NESTED_EXCL") == "none") integer(0) else c(107L, 201L)
@@ -20,7 +33,7 @@ if (!length(EXCL)) CFG$run_tag <- "v4_stdv_nested55_full"
 SHORT_UNITS <- c(1L, 2L, 10L); CORES <- 7
 units <- 1:12
 args <- commandArgs(trailingOnly = TRUE); if (length(args)) units <- as.integer(strsplit(args[1], ",")[[1]])
-out <- file.path(HERE, "runs", paste0(CFG$run_tag, "_", format(Sys.time(), "%Y%m%d-%H%M%S")))
+out <- file.path(OUT_DIR, "runs", paste0(CFG$run_tag, "_", format(Sys.time(), "%Y%m%d-%H%M%S")))
 dir.create(out, recursive = TRUE)
 logf <- file.path(out, "run.log")
 logmsg <- function(...) { s <- paste0(format(Sys.time(), "%H:%M:%S "), paste0(...)); cat(s, "\n"); cat(s, "\n", file = logf, append = TRUE) }

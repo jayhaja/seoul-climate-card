@@ -2,15 +2,22 @@
 #  처치: 서울시 상시 교통량 조사 지점(TOPIS, 176개 중 관측률 90% 이상 149개), 통제: 도로 SCM 주사양 도너 53개(서울 밖)
 #  결과변수: 평일(공휴일 제외) 06:00–09:59 시간당 교통량의 일별 중앙값 → 주간 중앙값 (도로 SCM과 같은 정의, road6to9_new_try 기준)
 #  처치 시작 week_index 51(2024-01-29), 처치 후 51–96주(46주, 2024-12-16까지). 97주 이후(연말 연휴·2025)는 제외.
-#  패널: scm_results/서울전역_도로_gsynth_20261103/panel_seoul176_donor53_6to9.csv (파이썬으로 구성; 0은 결측 처리)
+#  패널: RAW_DIR/panel_seoul176_donor53_6to9.csv (파이썬으로 구성; 0은 결측 처리)
 #  사양: traffic ~ D, two-way, gsynth. r은 (1) CV(0–5) (2) 고정 1–4 민감도. 가중 없음. 결측은 fect 기본 처리.
 #  출력: 전체 효과(대/시, 반사실 대비 %), 지점 유형별(A 도심, B 시계, C 한강교량, D 간선, F 도시고속도로) 재집계, 여의도 관련 지점 제외 결과, 지점별 격차
-# 실행: cd ~/Documents/thesis_summary && Rscript _review/seoul_road_gsynth_20261103.R
-#       부트스트랩: NB=200 CORES=2 Rscript _review/seoul_road_gsynth_20261103.R  (CV로 고른 r에만 적용)
+# Run (from repo root): Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_20261103.R
+#       부트스트랩: NB=200 CORES=2 Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_20261103.R  (CV로 고른 r에만 적용)
+## RESTRICTED DATA REQUIRED (restricted data required): TOPIS 도로 검지기 교통량 — not redistributed (licence pending).
+## Required input files (place under RAW_DIR):
+##   - panel_seoul176_donor53_6to9.csv   (TOPIS 서울 176개 지점 + 서울 밖 도너 53개 링크 주간 패널; 파이썬으로 구성, 생성 스크립트는 저장소에 없음)
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted / non-redistributed inputs
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "05_seoul_road_gsynth/서울전역_도로_gsynth_20261103"))
 suppressPackageStartupMessages({ library(fect); library(dplyr) })
-base <- path.expand('~/Documents/thesis_summary'); out <- file.path(base, 'scm_results/서울전역_도로_gsynth_20261103')
+out <- OUT_DIR; dir.create(out, showWarnings = FALSE, recursive = TRUE)
 NB <- as.integer(Sys.getenv('NB', '0')); CORES <- as.integer(Sys.getenv('CORES', '2'))
-P <- read.csv(file.path(out, 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM')
+P <- read.csv(file.path(RAW_DIR, 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM')
 P <- P %>% filter(week_index <= 96) %>% mutate(D = as.integer(is_treat == 1 & week_index >= 51))
 yeo <- c('C-06_0','C-06_1','C-07_0','C-07_1','C-08_0','C-08_1','D-29_0','D-41_0','D-41_1','F-10_0','F-10_1')   # 여의도 연결 지점
 meta <- P %>% filter(is_treat == 1) %>% distinct(unit_id, site, type, roadName, path) %>% mutate(yeouido = site %in% yeo)
