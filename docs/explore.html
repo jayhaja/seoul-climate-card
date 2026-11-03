@@ -34,6 +34,23 @@
   <div id="c-plot" class="plot"></div>
   <p class="source"><span class="ko">띠: 정규근사 95% CI (OD 부트스트랩 1,000회). 출처</span><span class="en">Band: normal 95% CI (1,000 OD bootstrap draws). Source</span>: <code>results/01_citywide_gsynth/R2_r4_submission_20261010/weekly_effects_B1000.csv</code></p>
 
+  <h2><span class="ko">① OD 409쌍별 효과</span><span class="en">① Effects for each of the 409 ODs</span></h2>
+  <p class="small"><span class="ko">점 하나가 서울 내부 OD 하나입니다. 작은 OD는 반사실이 작아 비율이 크게 흔들리므로, 사전 규모로 거르거나 세로축 범위를 조정해 보십시오. 개별 OD 추정치는 불확실성이 커서 지역 순위로 해석하지 않습니다.</span><span class="en">Each dot is one within-Seoul OD. Small ODs have small counterfactuals, so their percentages swing widely — filter by pre-period size or zoom. Individual OD estimates are very uncertain and are not a ranking of areas.</span></p>
+  <div class="controls">
+    <label><span class="ko">사전 주평균 이용 (인일) 하한</span><span class="en">Min. pre-period weekly users (person-days)</span>
+      <select id="o-min"><option value="0">0</option><option value="1000" selected>1,000</option><option value="10000">10,000</option><option value="50000">50,000</option></select></label>
+  </div>
+  <div class="two">
+    <div id="o-scatter" class="plot"></div>
+    <div id="o-hist" class="plot"></div>
+  </div>
+  <p class="small" id="o-note"></p>
+  <div class="two">
+    <div><h3><span class="ko">효과율 상위 10</span><span class="en">Top 10 by effect</span></h3><div class="table-wrap"><table id="o-top"></table></div></div>
+    <div><h3><span class="ko">효과율 하위 10</span><span class="en">Bottom 10 by effect</span></h3><div class="table-wrap"><table id="o-bot"></table></div></div>
+  </div>
+  <p class="source"><span class="ko">출처</span><span class="en">Sources</span>: <code>results/01_citywide_gsynth/R2_r4_submission_20261010/OD_point_effects.csv</code>; <span class="ko">OD 이름</span><span class="en">OD names</span>: <code>data/transit/od_names_ko_en.csv</code></p>
+
   <h2><span class="ko">② 이질성: 집단별 주별 효과</span><span class="en">② Heterogeneity: weekly effects by group</span></h2>
   <div class="controls">
     <label><span class="ko">특성</span><span class="en">Characteristic</span><select id="h-axis"></select></label>
@@ -64,7 +81,13 @@
   <h2><span class="ko">④ 여의도동 출발 대중교통: 위약 분포와 도너 가중치</span><span class="en">④ Transit from Yeouido-dong: placebo distribution and donor weights</span></h2>
   <div id="y-plot" class="plot"></div>
   <div id="y-w" class="plot short" style="margin-top:14px"></div>
-  <p class="source"><span class="ko">주황 막대 = 여의도동. 아래: 가중치 0.001 초과 도너. 출처</span><span class="en">Orange bar = Yeouido-dong. Below: donors with weight &gt; 0.001. Sources</span>: <code>results/04_yeouido_transit_scm/nested79/</code></p>
+  <h3><span class="ko">관측 대 합성 경로</span><span class="en">Observed vs synthetic path</span></h3>
+  <div id="y-path" class="plot"></div>
+  <h3><span class="ko">위약 격차 경로</span><span class="en">Placebo gap paths</span></h3>
+  <div class="controls"><label class="check"><input id="y-tau5" type="checkbox"><span class="ko">사전 RMSPE 5배 이하 위약만 (민감도)</span><span class="en">Only placebos with pre-RMSPE ≤ 5× (sensitivity)</span></label></div>
+  <div id="y-gaps" class="plot"></div>
+  <p class="small" id="y-gnote"></p>
+  <p class="source"><span class="ko">주황 막대 = 여의도동. 아래: 가중치 0.001 초과 도너. 출처</span><span class="en">Orange bar = Yeouido-dong. Below: donors with weight &gt; 0.001. Sources</span>: <code>results/04_yeouido_transit_scm/nested79/</code> (<code>path_D79_nested.csv</code>, <code>placebo_paths_D79_nested.csv</code>)</p>
 
   <h2><span class="ko">자유 탐색: 아무 결과 CSV나 그리기</span><span class="en">Free exploration: plot any result CSV</span></h2>
   <div class="controls">

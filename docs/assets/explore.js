@@ -170,6 +170,67 @@
     });
   }
 
+
+  /* 4b. Yeouido paths */
+  function drawYeoPaths() {
+    var only5 = $("#y-tau5").checked, b = "04_yeouido_transit_scm/nested79/";
+    Promise.all([load(b + "path_D79_nested.csv"), load(b + "placebo_paths_D79_nested.csv"), load(b + "placebo_summary_D79_nested.csv"), load(b + "summary_D79_nested.csv")]).then(function (a) {
+      var path = a[0], pp = a[1], ps = a[2], tr = a[3][0];
+      var date = {}; path.forEach(function (r) { date[r.week_index] = r.week; });
+      var x = path.map(function (r) { return r.week; });
+      plot("y-path", [
+        { x: x, y: path.map(function (r) { return r.actual; }), type: "scatter", mode: "lines", name: t("관측 (여의도동)", "Observed (Yeouido-dong)"), line: { color: series(0), width: 2 } },
+        { x: x, y: path.map(function (r) { return r.synthetic; }), type: "scatter", mode: "lines", name: t("합성", "Synthetic"), line: { color: series(1), width: 2, dash: "dot" } }
+      ], { yaxis: { title: { text: t("주간 이용자 수 (인일)", "Weekly users (person-days)") } }, shapes: [treatLine()] });
+      var cut = tr.pre_rmspe * 5, keep = {};
+      ps.forEach(function (r) { keep[r.placebo_unit] = !only5 || r.pre <= cut; });
+      var by = {}; pp.forEach(function (r) { if (keep[r.placebo_unit]) (by[r.placebo_unit] = by[r.placebo_unit] || []).push(r); });
+      var ids = Object.keys(by), grey = hexA(css("--muted"), 0.35);
+      var traces = ids.map(function (k, i) { return { x: by[k].map(function (r) { return date[r.week_index]; }), y: by[k].map(function (r) { return r.placebo_gap; }),
+        type: "scatter", mode: "lines", line: { color: grey, width: 1 }, name: "placebo", legendgroup: "pl", showlegend: i === 0, hovertemplate: "placebo " + k + ": %{y:.0f}<extra></extra>" }; });
+      traces.push({ x: x, y: path.map(function (r) { return r.gap; }), type: "scatter", mode: "lines", name: t("여의도동", "Yeouido-dong"), line: { color: series(1), width: 2.5 }, hovertemplate: "Yeouido-dong: %{y:.0f}<extra></extra>" });
+      plot("y-gaps", traces, { hovermode: "closest", yaxis: { title: { text: t("격차 (관측 − 합성)", "Gap (observed − synthetic)") } }, shapes: [treatLine()] });
+      $("#y-gnote").textContent = t(
+        (only5 ? "사전 RMSPE가 여의도동의 5배 이하인 위약 " + ids.length + "개만 표시(민감도 보기). " : "위약 " + ids.length + "개 전체 표시. ") + "p = .0125는 위약 전체(처치 단위 포함) 기준입니다.",
+        (only5 ? "Showing the " + ids.length + " placebos with pre-RMSPE ≤ 5× Yeouido-dong (sensitivity view). " : "Showing all " + ids.length + " placebos. ") + "p = .0125 uses all placebos (treated unit included).");
+    });
+  }
+
+  /* 1b. Per-OD effects */
+  var odNames;
+  function loadNames() {
+    if (!odNames) odNames = new Promise(function (res) {
+      Papa.parse("assets/data/od_names_ko_en.csv", { download: true, header: true, dynamicTyping: true, skipEmptyLines: true,
+        complete: function (r) { var m = {}; r.data.forEach(function (x) { m[x.unit_id] = x; }); res(m); }, error: function () { res({}); } });
+    });
+    return odNames;
+  }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function drawOD() {
+    var min = Number($("#o-min").value);
+    Promise.all([load("01_citywide_gsynth/R2_r4_submission_20261010/OD_point_effects.csv"), loadNames()]).then(function (a) {
+      var nm = a[1], d = a[0].filter(function (r) { return typeof r.effect_pct === "number" && isFinite(r.effect_pct) && r.use_pre >= min; });
+      var name = function (r) { var n = nm[r.unit_id]; return n ? (SiteLang() === "ko" ? n.flow : n.flow_en) : "OD " + r.unit_id; };
+      plot("o-scatter", [{ type: "scatter", mode: "markers", x: d.map(function (r) { return r.use_pre; }), y: d.map(function (r) { return r.effect_pct; }),
+        text: d.map(name), marker: { color: hexA(series(0), 0.7), size: 7, line: { color: css("--surface"), width: 1 } },
+        hovertemplate: "%{text}<br>" + t("사전 주평균", "pre-period weekly") + " %{x:,.0f}<br>" + t("효과", "effect") + " %{y:.2f}%<extra></extra>" }],
+        { hovermode: "closest", xaxis: { type: "log", title: { text: t("사전 주평균 이용 (인일, 로그)", "Pre-period weekly users (person-days, log)") } },
+          yaxis: { title: { text: t("반사실 대비 (%)", "vs counterfactual (%)") } }, showlegend: false,
+          shapes: [{ type: "line", xref: "paper", x0: 0, x1: 1, y0: 1.568, y1: 1.568, line: { color: series(1), width: 1.5, dash: "dash" } }] });
+      plot("o-hist", [{ type: "histogram", x: d.map(function (r) { return r.effect_pct; }), nbinsx: 60, marker: { color: series(0), line: { color: css("--surface"), width: 1 } },
+        hovertemplate: "%{x}: %{y}<extra></extra>" }],
+        { hovermode: "closest", xaxis: { title: { text: t("반사실 대비 (%)", "vs counterfactual (%)") } }, yaxis: { title: { text: t("OD 수", "Number of ODs") } }, showlegend: false, bargap: 0.05,
+          shapes: [{ type: "line", yref: "paper", x0: 1.568, x1: 1.568, y0: 0, y1: 1, line: { color: series(1), width: 1.5, dash: "dash" } }] });
+      var pos = d.filter(function (r) { return r.gap > 0; }).length;
+      $("#o-note").textContent = t(d.length + "개 OD, 이 중 " + pos + "개가 양의 효과. 점선 = 전체 효과 +1.568% (합의 비율).",
+        d.length + " ODs, " + pos + " with a positive effect. Dashed line = overall effect +1.568% (ratio of sums).");
+      var s = d.slice().sort(function (x, y) { return y.effect_pct - x.effect_pct; });
+      var head = "<thead><tr><th>OD</th><th class=\"n\">" + t("효과 (%)", "Effect (%)") + "</th><th class=\"n\">" + t("사전 주평균", "Pre weekly") + "</th></tr></thead>";
+      var rows = function (list) { return head + "<tbody>" + list.map(function (r) { return "<tr><td style=\"white-space:normal\">" + esc(name(r)) + "</td><td class=\"n\">" + r.effect_pct.toFixed(2) + "</td><td class=\"n\">" + Math.round(r.use_pre).toLocaleString() + "</td></tr>"; }).join("") + "</tbody>"; };
+      $("#o-top").innerHTML = rows(s.slice(0, 10)); $("#o-bot").innerHTML = rows(s.slice(-10).reverse());
+    });
+  }
+
   /* 4. Yeouido transit */
   function drawYeo() {
     Promise.all([load("04_yeouido_transit_scm/nested79/placebo_summary_D79_nested.csv"), load("04_yeouido_transit_scm/nested79/summary_D79_nested.csv"),
@@ -230,7 +291,7 @@
     $("#g-note").textContent = note;
   }
 
-  function redrawAll() { drawCity(); drawHet(); if (roadSummary) { drawRoad(); drawRoadPaths(); } drawYeo(); if (gen.rows.length) drawGen(); }
+  function redrawAll() { drawCity(); drawOD(); drawYeoPaths(); drawHet(); if (roadSummary) { drawRoad(); drawRoadPaths(); } drawYeo(); if (gen.rows.length) drawGen(); }
 
   document.addEventListener("DOMContentLoaded", function () {
     if (!window.Plotly || !window.Papa) { document.querySelector("main").insertAdjacentHTML("afterbegin", '<div class="note">Plotly / PapaParse could not be loaded.</div>'); return; }
@@ -241,7 +302,9 @@
     $("#r-tau5").addEventListener("change", drawRoadPaths);
     ["#g-x", "#g-y", "#g-c", "#g-kind"].forEach(function (s) { $(s).addEventListener("change", drawGen); });
     $("#g-file").addEventListener("change", loadGen);
-    drawCity(); drawHet(); drawYeo();
+    drawCity(); drawHet(); drawYeo(); drawYeoPaths(); drawOD();
+    $("#y-tau5").addEventListener("change", drawYeoPaths);
+    $("#o-min").addEventListener("change", drawOD);
     fillRoad().then(function () { drawRoad(); drawRoadPaths(); });
     fillGenFiles().then(loadGen);
     document.addEventListener("langchange", function () {
