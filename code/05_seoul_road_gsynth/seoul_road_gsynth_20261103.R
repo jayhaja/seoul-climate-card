@@ -7,7 +7,7 @@
 #  Outputs: overall effect (veh/h, % vs counterfactual), re-aggregation by site type (A downtown, B city boundary, C Han River bridges, D arterials, F urban expressways), results excluding Yeouido-linked sites, site-level gaps
 # Run (from repo root): Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_20261103.R
 #       Bootstrap: NB=200 CORES=2 Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_20261103.R  (applied only to the CV-selected r)
-## INPUT DATA REQUIRED: TOPIS road detector traffic volumes. Redistributable, but the panel is not yet in this repository.
+## INPUT DATA REQUIRED: TOPIS road detector traffic volumes. Published in data/road/ (see data/README.md).
 ## Required input files (place under RAW_DIR):
 ##   - panel_seoul176_donor53_6to9.csv   (weekly panel: 176 TOPIS Seoul sites + 53 non-Seoul donor links; built in Python, the build script is not in this repo)
 ## ---- Paths (edit here or set env vars) -------------------------------
@@ -17,7 +17,7 @@ OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "05_seoul_road
 suppressPackageStartupMessages({ library(fect); library(dplyr) })
 out <- OUT_DIR; dir.create(out, showWarnings = FALSE, recursive = TRUE)
 NB <- as.integer(Sys.getenv('NB', '0')); CORES <- as.integer(Sys.getenv('CORES', '2'))
-P <- read.csv(file.path(RAW_DIR, 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM')
+P <- read.csv(file.path(REPO_ROOT, 'data/road', 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM')
 P <- P %>% filter(week_index <= 96) %>% mutate(D = as.integer(is_treat == 1 & week_index >= 51))
 yeo <- c('C-06_0','C-06_1','C-07_0','C-07_1','C-08_0','C-08_1','D-29_0','D-41_0','D-41_1','F-10_0','F-10_1')   # Yeouido-linked sites
 meta <- P %>% filter(is_treat == 1) %>% distinct(unit_id, site, type, roadName, path) %>% mutate(yeouido = site %in% yeo)

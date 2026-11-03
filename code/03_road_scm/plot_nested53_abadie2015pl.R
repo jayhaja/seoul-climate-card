@@ -4,7 +4,7 @@
 ##       5 LOO (V·W re-estimated). In-time placebo figures are not redrawn, since the existing nested53 results remain valid.
 ## Post window: as saved (regular sites weeks 51–96; construction-affected sites 1·2·10 weeks 51–72).
 ## Run (from repo root): Rscript code/03_road_scm/plot_nested53_abadie2015pl.R
-## INPUT DATA REQUIRED: road detector inputs (Seoul TOPIS sites and national ITS link counts). Redistributable, but the full panel is not yet in this repository.
+## INPUT DATA REQUIRED: road detector inputs (Seoul TOPIS sites and national ITS link counts). Published in data/road/ (see data/README.md).
 ## Required input files (place under RAW_DIR):
 ##   - 77_units/0628_6to10_df_with_new_covariates_fixed.csv   (analysis panel, for unit/road names; path set in config_v4.R)
 ## Also reads the latest OUT_DIR/runs/v4_stdv_ex107_201_nested53_abadie2015pl_* folder written by run_nested53_abadie2015_placebo.R.

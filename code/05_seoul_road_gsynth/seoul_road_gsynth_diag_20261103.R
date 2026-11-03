@@ -6,7 +6,7 @@
 #  r = R_FIX (default 0 = the CV-selected value). Bootstrap NB (default 200), serial by default (CORES=1).
 # Run (from repo root): Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_diag_20261103.R
 #       Compare r=4:  R_FIX=4 Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_diag_20261103.R
-## INPUT DATA REQUIRED: TOPIS road detector traffic volumes. Redistributable, but the panel is not yet in this repository.
+## INPUT DATA REQUIRED: TOPIS road detector traffic volumes. Published in data/road/ (see data/README.md).
 ## Required input files (place under RAW_DIR):
 ##   - panel_seoul176_donor53_6to9.csv   (weekly panel: 176 TOPIS Seoul sites + 53 non-Seoul donor links; built in Python, the build script is not in this repo)
 ## ---- Paths (edit here or set env vars) -------------------------------
@@ -16,7 +16,7 @@ OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "05_seoul_road
 suppressPackageStartupMessages({ library(fect); library(dplyr) })
 out <- OUT_DIR; dir.create(out, showWarnings = FALSE, recursive = TRUE)
 R_FIX <- as.integer(Sys.getenv('R_FIX', '0')); NB <- as.integer(Sys.getenv('NB', '200')); CORES <- as.integer(Sys.getenv('CORES', '1'))
-P <- read.csv(file.path(RAW_DIR, 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM') %>%
+P <- read.csv(file.path(REPO_ROOT, 'data/road', 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM') %>%
   filter(week_index <= 96) %>% mutate(D = as.integer(is_treat == 1 & week_index >= 51))
 tag <- paste0('r', R_FIX); cat('r =', R_FIX, '| nboots =', NB, '| cores =', CORES, '\n')
 par_on <- CORES > 1

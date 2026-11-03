@@ -3,7 +3,7 @@
 ## Boundaries: same as maps_EN.py (RAW_DIR/읍면동/emd.shp dissolved by the gu column of the land-price csv; both are read only)
 import os, pandas as pd, geopandas as gpd, matplotlib.pyplot as plt, matplotlib as mpl
 from matplotlib import font_manager as fm
-## RESTRICTED DATA REQUIRED: district_effects.csv is aggregated from the smart-card OD fits (the script that produced it is not in this repo).
+## INPUT DATA (not yet in the repository): district_effects.csv is aggregated from the smart-card OD fits (the script that produced it is not in this repo).
 ## Required input files (place under RAW_DIR):
 ##   - R2_r4_자치구_지도데이터_20261011/district_effects.csv   [folder = "r4 district map data"] (district_name, effect_pct, gap_weekly_total, n_od)
 ##   - 읍면동/emd.shp (+ .shx/.dbf/.prj; cp949)                  [읍면동 = eup/myeon/dong] (neighbourhood boundaries; public data, not in this repo)

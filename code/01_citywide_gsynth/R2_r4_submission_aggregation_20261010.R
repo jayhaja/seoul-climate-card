@@ -1,9 +1,9 @@
 ## Read-only postprocessing of the completed 1000-draw r4 run. No model fitting.
 # Run (from repo root): Rscript code/01_citywide_gsynth/R2_r4_submission_aggregation_20261010.R
-## RESTRICTED DATA REQUIRED (restricted data required): this script needs files that are not
-## distributed (smart-card OD data, Data Safety Center export-restricted).
+## INPUT DATA: the smart-card OD panels are published in data/transit/ (export approved). Inputs below that are
+## not in the repository yet are marked as such.
 ## Required input files (place under RAW_DIR):
-##   - panels/d_w30_no과천.rds                 (OD x week panel; builder script not in this repo)
+##   - data/transit/d_w30_no과천.rds (included in the repo; TRANSIT_DIR)                 (OD x week panel; builder script not in this repo)
 ##     (file name kept as delivered by the data holder; no과천 = excluding Gwacheon)
 ## Also reads intermediate outputs of other scripts (OD-level, therefore also restricted):
 ##   - BOOT_DIR/<engine_id>/point_r4.rds, chunk_01.rds ... chunk_05.rds,
@@ -14,6 +14,7 @@
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
 RAW_DIR   <- Sys.getenv("RAW_DIR", Sys.getenv("ROOT", file.path(REPO_ROOT, "data/restricted")))   # restricted data required
+TRANSIT_DIR <- Sys.getenv("TRANSIT_DIR", file.path(REPO_ROOT, "data/transit"))   # published transit panels (data/transit/)
 OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth/R2_r4_submission_20261010"))
 # OUT_DIR of R2_levels_pop_unweighted_r4_BOOT_20261010.R (without the engine_id subfolder)
 BOOT_DIR  <- Sys.getenv("BOOT_DIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth/R2_levels_pop_unweighted_r4_BOOT_20261010"))
@@ -55,7 +56,7 @@ write.csv(p$negative,file.path(out,'negative_prediction_audit.csv'),row.names=FA
 # Point-only distribution by fixed pre-period size: no unsupported subgroup bootstrap claims.
 z<-p$cells;z$gap<-z$observed-z$counterfactual
 u<-aggregate(cbind(observed,counterfactual,gap)~unit_id,z,mean)
-panel<-readRDS(file.path(root,'panels/d_w30_no과천.rds'));weights<-unique(panel[c('unit_id','use_pre')]);stopifnot(!anyDuplicated(weights$unit_id))
+panel<-readRDS(file.path(TRANSIT_DIR, 'd_w30_no과천.rds'));weights<-unique(panel[c('unit_id','use_pre')]);stopifnot(!anyDuplicated(weights$unit_id))
 u$use_pre<-weights$use_pre[match(u$unit_id,weights$unit_id)];stopifnot(!anyNA(u$use_pre))
 u$effect_pct<-ifelse(u$counterfactual>0,100*u$gap/u$counterfactual,NA_real_)
 u$size_quintile<-as.integer(cut(rank(u$use_pre,ties.method='first'),breaks=c(0,409/5,2*409/5,3*409/5,4*409/5,409),labels=FALSE))

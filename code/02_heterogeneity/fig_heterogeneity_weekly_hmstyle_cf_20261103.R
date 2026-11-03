@@ -5,7 +5,7 @@
 #  Post-treatment mean line = ratio of sums over all 46 weeks (group_cf_pct.csv, window = full) → equals Table 6-1.
 #  Groups and sample: identical to hetero_cf_tertiles_timepath_20261103.R (pre-period tertiles, origins with ≥ 1,000 residents, fixed tertile boundaries).
 #  CI: re-aggregation of the existing 1,000 OD-pair bootstrap draws (5 chunks), normal approximation. No model refit.
-## RESTRICTED DATA REQUIRED (restricted data required): inputs are derived from the smart-card OD panel.
+## INPUT DATA (not yet in the repository): files derived from the smart-card OD panel, listed below.
 ## Required input files:
 ##   - point.rds: produced by code/01_citywide_gsynth/R2_r4_xu_diagnostics_20261010.R
 ##       → XU_DIR/<eng>/point.rds (default output/01_citywide_gsynth/R2_r4_xu_diagnostics_20261010)

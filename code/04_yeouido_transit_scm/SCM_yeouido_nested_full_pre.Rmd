@@ -12,10 +12,10 @@ Output: OUT_DIR (default output/04_yeouido_transit_scm/SCM_yeouido_nested/, +plo
 Paths: REPO_ROOT, RAW_DIR and OUT_DIR in the setup chunk. Each is taken from an already-defined R object, then an environment variable, then a default.
   - When this Rmd is knitted directly the working directory is code/04_yeouido_transit_scm/, so REPO_ROOT defaults to "../.."
   - The R scripts in this folder (run from the repository root) define REPO_ROOT, RAW_DIR and OUT_DIR before eval-ing the chunks, so their values are used.
-RESTRICTED DATA REQUIRED (restricted data required): smart-card OD data (Data Safety Center, export-restricted) are not in this repository.
+INPUT DATA: smart-card OD panels published in data/transit/ (export approved).
 Required input files (place under RAW_DIR):
-  - od_with_pop_sum_without_holiday.csv   (flow, week, 이용자수_주총합 = weekly total users)
-  - df_scm_g.csv                          (unit_id, unit_name, week, is_treat, tranfer, pop_dong, ...)
+  - data/transit/od_with_pop_sum_without_holiday.csv.gz   (flow, week, 이용자수_주총합 = weekly total users)
+  - data/transit/df_scm_g.csv                          (unit_id, unit_name, week, is_treat, tranfer, pop_dong, ...)
 Runtime: main fit a few minutes + 81 placebos about 20-40 minutes + LOO and in-time a few minutes.
 -->
 #1. set up
@@ -32,6 +32,7 @@ options(scipen = 999)
 if (!exists("REPO_ROOT")) REPO_ROOT <- Sys.getenv("REPO_ROOT",
   if (dir.exists(file.path("code", "04_yeouido_transit_scm"))) "." else file.path("..", ".."))
 if (!exists("RAW_DIR")) RAW_DIR <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted data required
+if (!exists("TRANSIT_DIR")) TRANSIT_DIR <- Sys.getenv("TRANSIT_DIR", file.path(REPO_ROOT, "data/transit"))   # published transit panels
 if (!exists("OUT_DIR")) OUT_DIR <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "04_yeouido_transit_scm", "SCM_yeouido_nested"))
 HERE <- OUT_DIR
 PLOT <- file.path(HERE, "plots")
@@ -54,11 +55,11 @@ DONORS_185939 <- c(19,22,23,25,26,28,29,41,42,43,44,45,46,47,54,55,56,59,60,61,6
 #2. data
 ```{r data}
 ## ── Panel construction (same as the canonical script) ─────────────────
-nh <- read_csv(file.path(RAW_DIR, "od_with_pop_sum_without_holiday.csv"),
+nh <- read_csv(file.path(TRANSIT_DIR, "od_with_pop_sum_without_holiday.csv.gz"),
                show_col_types = FALSE) %>%
   transmute(unit_name = flow, week = as.Date(week), users_nh = 이용자수_주총합)   # 이용자수_주총합 = weekly total users (input column name)
 
-df_scm <- read.csv(file.path(RAW_DIR, "df_scm_g.csv"), fileEncoding = "UTF-8") %>%
+df_scm <- read.csv(file.path(TRANSIT_DIR, "df_scm_g.csv"), fileEncoding = "UTF-8") %>%
   mutate(week = as.Date(week), unit_id_num = as.integer(unit_id),
          unit_name_en = unit_name) %>%
   filter(week >= WIN_START, week <= WIN_END) %>%

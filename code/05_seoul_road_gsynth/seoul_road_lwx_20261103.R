@@ -8,7 +8,7 @@
 # Run (from repo root, serial, "all" group first):  NB=100 GROUPS=all Rscript code/05_seoul_road_gsynth/seoul_road_lwx_20261103.R
 #        Including types:     NB=100 Rscript code/05_seoul_road_gsynth/seoul_road_lwx_20261103.R
 #        Subset of estimators: METHODS=ife,mc ...    GMSPE-min r: R_MODE=min ...    Add LOO: LOO=1 (slow)
-## INPUT DATA REQUIRED: TOPIS road detector traffic volumes. Redistributable, but the panel is not yet in this repository.
+## INPUT DATA REQUIRED: TOPIS road detector traffic volumes. Published in data/road/ (see data/README.md).
 ## Required input files (place under RAW_DIR):
 ##   - panel_seoul176_donor53_6to9.csv   (weekly panel: 176 TOPIS Seoul sites + 53 non-Seoul donor links; built in Python, the build script is not in this repo)
 ## ---- Paths (edit here or set env vars) -------------------------------
@@ -20,7 +20,7 @@ out <- OUT_DIR; dir.create(out, showWarnings = FALSE, recursive = TRUE)
 NB <- as.integer(Sys.getenv('NB', '100')); METHODS <- strsplit(Sys.getenv('METHODS', 'gsynth,ife,mc'), ',')[[1]]
 GROUPS <- strsplit(Sys.getenv('GROUPS', 'all,A,B,C,D,F'), ',')[[1]]; R_MODE <- Sys.getenv('R_MODE', 'cv')
 PRE_F <- as.integer(Sys.getenv('PRE_F', '12')); LOO <- Sys.getenv('LOO', '0') == '1'
-P0 <- read.csv(file.path(RAW_DIR, 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM') %>%
+P0 <- read.csv(file.path(REPO_ROOT, 'data/road', 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM') %>%
   filter(week_index <= 96) %>% mutate(D = as.integer(is_treat == 1 & week_index >= 51))
 cat('fect', as.character(packageVersion('fect')), '| methods', METHODS, '| groups', GROUPS, '| nboots', NB, '| r mode', R_MODE, '| LOO', LOO, '\n')
 has_sens <- exists('fect_sens', envir = asNamespace('fect'))

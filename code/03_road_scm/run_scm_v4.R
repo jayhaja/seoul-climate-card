@@ -3,7 +3,7 @@
 ##       Rscript code/03_road_scm/run_scm_v4.R 1,4,6                         # selected sites
 ##       Rscript code/03_road_scm/run_scm_v4.R 1 --no-placebo                                  # skip placebo · LOO · in-time (quick check)
 ## Output: OUT_DIR/runs/<run_tag>_<YYYYmmdd-HHMMSS>_<hash(settings+input+code+sites+options)>_<random>/  — always a new folder; stops if it already exists
-## INPUT DATA REQUIRED: road detector inputs (Seoul TOPIS sites and national ITS link counts). Redistributable, but the full panel is not yet in this repository.
+## INPUT DATA REQUIRED: road detector inputs (Seoul TOPIS sites and national ITS link counts). Published in data/road/ (see data/README.md).
 ## Required input files (place under RAW_DIR):
 ##   - 77_units/0628_6to10_df_with_new_covariates_fixed.csv   (analysis panel; path set in config_v4.R, override with SCM_PANEL)
 suppressMessages({ library(dplyr); library(readr); library(jsonlite) })

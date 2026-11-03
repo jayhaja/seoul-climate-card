@@ -6,12 +6,12 @@ if (!exists("REPO_ROOT")) REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")             
 if (!exists("RAW_DIR"))   RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # road inputs not yet in the repository
 if (!exists("OUT_DIR"))   OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "03_road_scm"))
 if (!exists("CODE_DIR"))  CODE_DIR  <- file.path(REPO_ROOT, "code", "03_road_scm")
-## INPUT DATA REQUIRED: road detector inputs (Seoul TOPIS sites and national ITS link counts). Redistributable, but the full panel is not yet in this repository.
+## INPUT DATA REQUIRED: road detector inputs (Seoul TOPIS sites and national ITS link counts). Published in data/road/ (see data/README.md).
 ## Required input files (place under RAW_DIR):
 ##   - 77_units/0628_6to10_df_with_new_covariates_fixed.csv   (analysis panel, 77 units; built by the original 06–09 median pipeline, not in this repo)
 CFG <- list(
   ## ── Input ────────────────────────────────────────────────────────────────
-  panel_csv = file.path(RAW_DIR, "77_units", "0628_6to10_df_with_new_covariates_fixed.csv"),
+  panel_csv = file.path(REPO_ROOT, "data/road", "0628_6to10_df_with_new_covariates_fixed.csv"),   # included in the repo
   ##   06:00–09:59 window, daily median → weekly median, 77 units (12 treated + 65 donor candidates). Columns: unit_id, week_index, traffic, speed,
   ##   lanes_mean, region_kr, month_date, vehicle_count (monthly registered vehicles by province/metropolitan city), is_treat, unit_name_en …
   pop_csv   = NULL,   # For registered vehicles per 1,000 population. Columns: region_kr, month_date (YYYY-MM-01), population. If NULL, the vehicle variable is not used.

@@ -4,7 +4,7 @@
 Re-aggregates the saved point estimates and bootstrap draws of the citywide gsynth main model (r = 4) by origin characteristics — transfer burden, transfer walk + wait time, accessibility, trip distance, youth share, elderly share and planning region — and reports effects as a percentage of the counterfactual. No model is refitted. A district-level effect map is also drawn.
 
 ## Inputs
-Most inputs are restricted (derived from smart-card OD data) and must be placed under `RAW_DIR` (default `data/restricted`). Korean file/folder names of restricted inputs are kept as delivered; English glosses are given in brackets.
+Most inputs (bootstrap draws and covariate tables derived from the smart-card OD panel) are not uploaded yet and must be placed under `RAW_DIR` (default `data/restricted`). Korean file/folder names of restricted inputs are kept as delivered; English glosses are given in brackets.
 
 | File (relative to `RAW_DIR`) | Used by | Notes |
 |---|---|---|

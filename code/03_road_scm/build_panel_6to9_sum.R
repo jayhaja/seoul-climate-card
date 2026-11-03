@@ -6,7 +6,7 @@
 ## Run (from repo root): Rscript code/03_road_scm/build_panel_6to9_sum.R 2>&1 | tee build_panel_6to9_sum.log
 ## Then: set panel_csv in config_v4.R to OUT_DIR/panel_sum/77_units/…fixed.csv and run_tag to "v4_stdv_sum", and run run_scm_v4.R
 ##       (run_scm_v4.R: code/03_road_scm/run_scm_v4.R)
-## INPUT DATA REQUIRED: road detector inputs (Seoul TOPIS sites and national ITS link counts). Redistributable, but the full panel is not yet in this repository.
+## INPUT DATA REQUIRED: road detector inputs (Seoul TOPIS sites and national ITS link counts). Published in data/road/ (see data/README.md).
 ## Required input files (place under RAW_DIR; = the original "road6to9_new_try" pipeline folder, NOT in this repo):
 ##   - 0629_roads_6to9_day.median_week.median.Rmd                                  (original panel Rmd, patched in memory)
 ##   - scm_analysis_6to10_day.median_week.median_without_pre_traffic_cov.Rmd       (original SCM Rmd, §0–4 run)

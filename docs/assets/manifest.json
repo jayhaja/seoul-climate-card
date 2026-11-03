@@ -2367,6 +2367,12 @@
    "rows": 24
   },
   {
+   "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/OD_point_effects.csv",
+   "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/OD_point_effects.csv",
+   "analysis": "citywide",
+   "rows": 409
+  },
+  {
    "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/concentration_POINT_only.csv",
    "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/concentration_POINT_only.csv",
    "analysis": "citywide",
@@ -2983,6 +2989,18 @@
    "repo_path": "results/04_yeouido_transit_scm/nested79/loo_sensitivity_D79_nested_vfix.csv",
    "analysis": "yeouido",
    "rows": 5
+  },
+  {
+   "path": "assets/results/04_yeouido_transit_scm/nested79/path_D79_nested.csv",
+   "repo_path": "results/04_yeouido_transit_scm/nested79/path_D79_nested.csv",
+   "analysis": "yeouido",
+   "rows": 95
+  },
+  {
+   "path": "assets/results/04_yeouido_transit_scm/nested79/placebo_paths_D79_nested.csv",
+   "repo_path": "results/04_yeouido_transit_scm/nested79/placebo_paths_D79_nested.csv",
+   "analysis": "yeouido",
+   "rows": 7505
   },
   {
    "path": "assets/results/04_yeouido_transit_scm/nested79/placebo_pvals_D79_nested.csv",

@@ -6,26 +6,27 @@
 #  Options: CV=1 reselects r with fect's default CV instead of rolling CV (reference only). NB>0 adds an OD block bootstrap (fect built-in, normal-approximation CI).
 # Run (from repo root): Rscript code/01_citywide_gsynth/gsynth_through_august_refit_20261103.R
 #        With bootstrap: NB=200 CORES=2 Rscript code/01_citywide_gsynth/gsynth_through_august_refit_20261103.R
-## RESTRICTED DATA REQUIRED (restricted data required): this script needs files that are not
-## distributed (smart-card OD data, Data Safety Center export-restricted).
+## INPUT DATA: the smart-card OD panels are published in data/transit/ (export approved). Inputs below that are
+## not in the repository yet are marked as such.
 ## Required input files (place under RAW_DIR):
-##   - panels/d_w30_no과천.rds                 (OD x week panel; builder script not in this repo)
+##   - data/transit/d_w30_no과천.rds (included in the repo; TRANSIT_DIR)                 (OD x week panel; builder script not in this repo)
 ##     (file name kept as delivered by the data holder; no과천 = excluding Gwacheon)
-##   - od_with_pop_sum_without_holiday.csv     (OD-level weekly users + population, holiday weeks removed)
+##   - data/transit/od_with_pop_sum_without_holiday.csv.gz (included; read as gzip)     (OD-level weekly users + population, holiday weeks removed)
 ##     (column 이용자수_주총합 = weekly total users; Korean column names are kept as in the data)
 suppressPackageStartupMessages({ library(fect); library(dplyr); library(readr) })
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
 RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted data required
+TRANSIT_DIR <- Sys.getenv("TRANSIT_DIR", file.path(REPO_ROOT, "data/transit"))   # published transit panels (data/transit/)
 OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth/gsynth_through_august_refit_20261103"))
 root <- path.expand(RAW_DIR)
 out <- path.expand(OUT_DIR); dir.create(out, recursive = TRUE, showWarnings = FALSE)
 NB <- as.integer(Sys.getenv('NB', '0')); CORES <- as.integer(Sys.getenv('CORES', '2')); DO_CV <- Sys.getenv('CV', '0') == '1'
 
 ## Panel (same construction as ife_vs_gsynth_point_20261102.R)
-d <- readRDS(file.path(root, 'panels/d_w30_no과천.rds')); tr <- unique(d$unit_id[d$D == 1])
+d <- readRDS(file.path(TRANSIT_DIR, 'd_w30_no과천.rds')); tr <- unique(d$unit_id[d$D == 1])
 needed <- c('unit_id', 'week_index', 'week', 'ym', 'origin_region', 'origin_sigungu', 'origin_dong', 'pop_total', '이용자수_주총합')
-raw <- read_csv(file.path(root, 'od_with_pop_sum_without_holiday.csv'), col_select = all_of(needed), show_col_types = FALSE)
+raw <- read_csv(file.path(TRANSIT_DIR, 'od_with_pop_sum_without_holiday.csv.gz'), col_select = all_of(needed), show_col_types = FALSE)
 sg <- raw %>% distinct(origin_region, origin_sigungu, origin_dong, ym, pop_total) %>% group_by(origin_region, origin_sigungu, ym) %>%
   summarise(pop_total_sg = sum(pop_total, na.rm = TRUE), .groups = 'drop')
 key <- function(x) paste(x$unit_id, x$week_index, sep = ':'); raw <- raw[key(raw) %in% key(d), ]

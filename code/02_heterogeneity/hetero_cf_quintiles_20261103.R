@@ -1,4 +1,4 @@
-## RESTRICTED DATA REQUIRED: model fits and bootstrap draws derived from the smart-card OD panel, plus OD/origin-level covariates.
+## INPUT DATA (not yet in the repository): model fits and bootstrap draws derived from the smart-card OD panel, plus OD/origin-level covariates.
 ## Required input files (place under RAW_DIR unless noted):
 ##   - R2_r4_환승5분위_사전CI_20261011/<eng>/chunk_01.rds ... chunk_05.rds   [folder = "r4 transfer quintiles, pre-computed CI"]
 ##       (1,000 bootstrap draws per OD pair; the script that produced them is not in this repo)

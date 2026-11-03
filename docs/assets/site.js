@@ -60,8 +60,8 @@
   function footer() {
     var f = el("footer", { "class": "site-footer" });
     f.appendChild(el("div", { "class": "inner" },
-      '<span class="ko">코드 MIT · 결과·그림 CC BY 4.0 · 원자료(교통카드 OD)는 반출 제한으로 미포함.</span>' +
-      '<span class="en">Code MIT · results and figures CC BY 4.0 · raw smart-card OD data are export-restricted and not included.</span> ' +
+      '<span class="ko">코드 MIT · 결과·그림 CC BY 4.0 · 자료는 data/에 공개(반출 승인).</span>' +
+      '<span class="en">Code MIT · results and figures CC BY 4.0 · data published in data/ (export approved).</span> ' +
       '<a href="' + REPO + '">GitHub</a>'));
     document.body.appendChild(f);
   }

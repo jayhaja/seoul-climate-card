@@ -4,12 +4,12 @@
 #  - Engine: installed fect as is (no patch). First check that gsynth reproduces the main ATT 288.41 / 1.568% (the patch only touches the weighting/CV paths, so unweighted no-CV fits must match).
 #  - Outputs: ATT for both methods (counts, % of counterfactual, % of pre-period), pre-treatment RMSE, OD-level gap csv, and per-1000 group comparison by the Chapter 6 axes (point estimates).
 # Run (from repo root): Rscript code/01_citywide_gsynth/ife_vs_gsynth_point_20261102.R   (env: METHODS, MAXIT, TOL)
-## RESTRICTED DATA REQUIRED (restricted data required): this script needs files that are not
-## distributed (smart-card OD data, Data Safety Center export-restricted).
+## INPUT DATA: the smart-card OD panels are published in data/transit/ (export approved). Inputs below that are
+## not in the repository yet are marked as such.
 ## Required input files (place under RAW_DIR):
-##   - panels/d_w30_no과천.rds                 (OD x week panel; builder script not in this repo)
+##   - data/transit/d_w30_no과천.rds (included in the repo; TRANSIT_DIR)                 (OD x week panel; builder script not in this repo)
 ##     (file name kept as delivered by the data holder; no과천 = excluding Gwacheon)
-##   - od_with_pop_sum_without_holiday.csv     (OD-level weekly users + population, holiday weeks removed)
+##   - data/transit/od_with_pop_sum_without_holiday.csv.gz (included; read as gzip)     (OD-level weekly users + population, holiday weeks removed)
 ##     (column 이용자수_주총합 = weekly total users; Korean column names are kept as in the data)
 ##   - R2_r4_인구대비_추가이용_20261011/dong_population_effects.csv   (unit-level; producer script not in this repo)
 ##       (인구대비_추가이용 = additional use relative to population)
@@ -25,6 +25,7 @@ suppressPackageStartupMessages({ library(fect); library(dplyr); library(readr) }
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
 RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted data required
+TRANSIT_DIR <- Sys.getenv("TRANSIT_DIR", file.path(REPO_ROOT, "data/transit"))   # published transit panels (data/transit/)
 OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth/R2_ife_vs_gsynth_20261102"))
 # OUT_DIR of R2_r4_submission_aggregation_20261010.R (source of OD_point_effects.csv)
 SUBMIT_DIR <- Sys.getenv("SUBMIT_DIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth/R2_r4_submission_20261010"))
@@ -34,9 +35,9 @@ METHODS <- strsplit(Sys.getenv('METHODS', 'gsynth,ife'), ',')[[1]]; MAXIT <- as.
 cat('methods:', METHODS, '| max.iteration', MAXIT, '| tol', TOL, '\n')
 
 ## Data: same construction as the road-period-matching script R2_r4_road_period_match_20261010.R (not in this repo)
-d <- readRDS(file.path(root, 'panels/d_w30_no과천.rds')); tr <- unique(d$unit_id[d$D == 1])
+d <- readRDS(file.path(TRANSIT_DIR, 'd_w30_no과천.rds')); tr <- unique(d$unit_id[d$D == 1])
 needed <- c('unit_id', 'week_index', 'week', 'ym', 'origin_region', 'origin_sigungu', 'origin_dong', 'pop_total', 'pop_youth', 'youth_ratio', '이용자수_주총합')
-raw <- read_csv(file.path(root, 'od_with_pop_sum_without_holiday.csv'), col_select = all_of(needed), show_col_types = FALSE)
+raw <- read_csv(file.path(TRANSIT_DIR, 'od_with_pop_sum_without_holiday.csv.gz'), col_select = all_of(needed), show_col_types = FALSE)
 sg <- raw %>% distinct(origin_region, origin_sigungu, origin_dong, ym, pop_total) %>% group_by(origin_region, origin_sigungu, ym) %>%
   summarise(pop_total_sg = sum(pop_total, na.rm = TRUE), .groups = 'drop')
 key <- function(x) paste(x$unit_id, x$week_index, sep = ':'); raw <- raw[key(raw) %in% key(d), ]

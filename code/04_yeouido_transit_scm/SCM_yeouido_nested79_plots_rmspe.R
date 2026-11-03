@@ -4,10 +4,10 @@
 ##   Used to restore histograms that had been overwritten with MSPE labels.
 ## Output: OUT_DIR/plots/ (OUT_DIR default output/04_yeouido_transit_scm/SCM_yeouido_nested79/)
 ## Run (from repo root): Rscript code/04_yeouido_transit_scm/SCM_yeouido_nested79_plots_rmspe.R
-## RESTRICTED DATA REQUIRED (restricted data required): smart-card OD data (Data Safety Center, export-restricted) are not in this repository.
+## INPUT DATA: smart-card OD panels published in data/transit/ (export approved).
 ## Required input files (place under RAW_DIR):
-##   - od_with_pop_sum_without_holiday.csv
-##   - df_scm_g.csv
+##   - data/transit/od_with_pop_sum_without_holiday.csv.gz (included in the repo)
+##   - data/transit/df_scm_g.csv (included in the repo)
 ##   - (from SCM_yeouido_nested79_main.R, in OUT_DIR) M_nested.rds, weights_D79_nested.csv, placebo_summary_D79_nested.csv, placebo_paths_D79_nested.csv
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root

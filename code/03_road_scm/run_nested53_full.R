@@ -8,7 +8,7 @@
 ##       Rscript code/03_road_scm/run_nested53_full.R 4,6,8,12                                       # subset
 ##       NESTED_EXCL=none Rscript code/03_road_scm/run_nested53_full.R                               # 55 donors (same as the original run)
 ##   (macOS only, optional: prefix with `caffeinate -i` to keep the machine awake during long runs)
-## INPUT DATA REQUIRED: road detector inputs (Seoul TOPIS sites and national ITS link counts). Redistributable, but the full panel is not yet in this repository.
+## INPUT DATA REQUIRED: road detector inputs (Seoul TOPIS sites and national ITS link counts). Published in data/road/ (see data/README.md).
 ## Required input files (place under RAW_DIR):
 ##   - 77_units/0628_6to10_df_with_new_covariates_fixed.csv   (analysis panel; path set in config_v4.R)
 ## Also required: the earlier v4 run whose settings/donor pools are restored (produced by run_scm_v4.R, not in this repo):
