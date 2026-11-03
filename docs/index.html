@@ -7,6 +7,16 @@
 <meta name="description" content="서울시 기후동행카드(2024-01-27 시행)의 대중교통·도로 교통 효과 — 석사 논문 재현 자료">
 <link rel="stylesheet" href="assets/style.css">
 <script src="assets/site.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js" crossorigin="anonymous"></script>
+<script src="assets/map.js"></script>
+<style>
+  .map-box { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 8px; }
+  #map-plot { width: 100%; height: 520px; }
+  @media (max-width: 600px) { #map-plot { height: 380px; } }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .seg button { font: inherit; font-size: .9rem; border: 0; background: var(--surface); color: var(--muted); padding: 6px 12px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+</style>
 </head>
 <body>
 <main>
@@ -41,6 +51,20 @@
     <code>results/01_citywide_gsynth/R2_normal_final_20261011/windows.csv</code> ·
     <code>results/03_road_scm/summary/road_abadie2015_placebo_loo_cf.csv</code> ·
     <code>results/04_yeouido_transit_scm/nested79/</code></p>
+
+  <h2><span class="ko">출발 동별 서울 내부 대중교통 효과</span><span class="en">Within-Seoul transit effect by origin dong</span></h2>
+  <p class="small"><span class="ko">분석 ①의 OD 409쌍은 각각 "서울의 한 동 → 서울" 통행입니다. 지도는 출발 동별 반사실 대비 효과(46주, 점추정)를 보여 줍니다. 파랑은 증가, 빨강은 감소입니다. 개별 동 추정치는 불확실성이 크고 신뢰구간이 없으므로 동네 순위로 읽지 마십시오. 서울 전체 효과는 +1.568%입니다.</span><span class="en">Each of the 409 ODs in analysis ① is a trip flow "one Seoul dong → Seoul". The map shows the effect relative to the counterfactual by origin dong (46 weeks, point estimates). Blue = increase, red = decrease. Single-dong estimates are very uncertain and have no confidence intervals, so do not read them as a neighbourhood ranking. The Seoul-wide effect is +1.568%.</span></p>
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Map level">
+      <button type="button" data-map-view="dong" aria-pressed="true"><span class="ko">동</span><span class="en">Dong</span></button>
+      <button type="button" data-map-view="gu" aria-pressed="false"><span class="ko">자치구</span><span class="en">District</span></button>
+    </div>
+    <button type="button" class="btn" id="map-back" hidden><span class="ko">← 서울 전체</span><span class="en">← All of Seoul</span></button>
+  </div>
+  <div class="map-box"><div id="map-plot" role="img" aria-label="Choropleth map of Seoul"></div></div>
+  <p class="small"><span class="ko">진한 회색 = 사전 주평균 이용 1,000인일 미만(추정 불안정), 흰색 = 분석 대상 OD 없음.</span><span class="en">Dark grey = pre-period weekly users below 1,000 person-days (unstable estimate); white = no OD in the analysis.</span></p>
+  <p class="small" id="map-note" aria-live="polite"></p>
+  <p class="source"><span class="ko">출처</span><span class="en">Sources</span>: <code>results/01_citywide_gsynth/R2_r4_submission_20261010/OD_point_effects.csv</code>; <span class="ko">경계</span><span class="en">boundaries</span>: <a href="https://github.com/southkorea/seoul-maps">southkorea/seoul-maps</a> (JUSO 2015, Apache 2.0). <a href="explore.html"><span class="ko">OD별 분포·표 보기</span><span class="en">Per-OD distribution and tables</span></a></p>
 
   <h2><span class="ko">분석 구성</span><span class="en">Analyses</span></h2>
   <div class="table-wrap"><table>

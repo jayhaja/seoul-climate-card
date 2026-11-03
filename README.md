@@ -111,7 +111,7 @@ results/   aggregated CSV results, numbered like code/
 figures/   thesis figures (thesis/) and per-analysis diagnostic plots
 data/      transit/ and road/ panels, with variable documentation
 docs/      GitHub Pages site
-scripts/   sync_docs_assets.py — copies figures/ and results/ into docs/assets/
+scripts/   sync_docs_assets.py (copies figures/ and results/ into docs/assets/), build_map_data.py (map data)
 ```
 
 Korean place names in `results/` were romanised (Revised Romanization, with English terms for Bridge, Station, Intersection, etc.). The original Korean names are listed in [`results/place_names_ko_en.csv`](results/place_names_ko_en.csv). Some figures carry Korean text inside the image.
@@ -149,7 +149,10 @@ The panels in `data/transit/` and `data/road/` are read directly by the scripts 
 
 ```bash
 python3 scripts/sync_docs_assets.py
+python3 scripts/build_map_data.py   # front-page map: per-dong effects joined to data/geo/ boundaries
 ```
+
+The front-page map uses Seoul legal-dong and district boundaries from [southkorea/seoul-maps](https://github.com/southkorea/seoul-maps) (JUSO 2015, Apache License 2.0); see [`data/geo/README.md`](data/geo/README.md).
 
 ## Licence
 
