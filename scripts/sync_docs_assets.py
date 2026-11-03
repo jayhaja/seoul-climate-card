@@ -29,7 +29,7 @@ ANALYSIS_BY_RESULTS_DIR = {
     "05_seoul_road_gsynth": "seoul_road",
 }
 
-# Road unit names (Korean, from results/03_road_scm/summary/road_cf.csv).
+# Road unit names (from results/03_road_scm/summary/road_cf.csv).
 def road_names():
     names = {}
     p = RES_SRC / "03_road_scm" / "summary" / "road_cf.csv"
@@ -76,7 +76,7 @@ def fig_meta(rel: Path, rnames):
         if km and km.group(1) in ROAD_KIND:
             m["kind_ko"], m["kind_en"] = ROAD_KIND[km.group(1)]
     elif parts[0] == "yeouido_transit_scm":
-        m.update(analysis="yeouido", site="여의도동 출발 / Yeouido-dong")
+        m.update(analysis="yeouido", site="Yeouido-dong")
         km = re.match(r"\d+\.([a-z_]+?)_D79", name)
         if km and km.group(1) in ROAD_KIND:
             m["kind_ko"], m["kind_en"] = ROAD_KIND[km.group(1)]
@@ -88,33 +88,33 @@ def fig_meta(rel: Path, rnames):
         m.update(analysis="seoul_road")
         tm = re.match(r"gap_([A-F])_(index|level)_r(\d)", name)
         if tm:
-            m["site"] = f"유형 {tm.group(1)} / Type {tm.group(1)}"
+            m["site"] = f"Type {tm.group(1)}"
             m["kind_ko"] = f"격차 ({'지수' if tm.group(2)=='index' else '수준'}, r={tm.group(3)})"
             m["kind_en"] = f"Gap ({tm.group(2)}, r={tm.group(3)})"
         dm = re.match(r"diag_(equiv|gap|placebo)_r(\d)", name)
         if dm:
-            m["site"] = "전체 / All sites"
+            m["site"] = "All sites"
             lab = {"equiv": ("동등성 검정", "Equivalence test"), "gap": ("격차", "Gap"),
                    "placebo": ("위약 시점 검정", "Placebo-period test")}[dm.group(1)]
             m["kind_ko"], m["kind_en"] = f"{lab[0]} (r={dm.group(2)})", f"{lab[1]} (r={dm.group(2)})"
     elif parts[0] == "thesis":
         sec = parts[1]
         m["site"] = sec
-        if sec.startswith("부록A-1_Road"):
+        if sec.startswith("appendixA-1_road"):
             m["analysis"] = "road_scm"
-            u = int(sec[len("부록A-1_Road"):][:2])
+            u = int(sec[len("appendixA-1_road"):][:2])
             m["site"] = f"{u:02d} {rnames.get(u, '')}"
-        elif sec.startswith("부록A-2"):
-            m.update(analysis="yeouido", site="여의도동 출발 / Yeouido-dong")
-        elif sec.startswith("부록B"):
-            m.update(analysis="citywide", site="부록 B gsynth 진단 / Appendix B diagnostics")
-        else:  # 본문 그림
-            m["site"] = "본문 / Main text"
-            if name.startswith("그림4-2"):
+        elif sec.startswith("appendixA-2"):
+            m.update(analysis="yeouido", site="Yeouido-dong")
+        elif sec.startswith("appendixB"):
+            m.update(analysis="citywide", site="Appendix B gsynth diagnostics")
+        else:  # main-text figures
+            m["site"] = "Main text"
+            if name.startswith("fig4-2"):
                 m["analysis"] = "road_scm"
-            elif name.startswith("그림5"):
+            elif name.startswith("fig5"):
                 m["analysis"] = "citywide"
-            elif name.startswith("그림6"):
+            elif name.startswith("fig6"):
                 m["analysis"] = "heterogeneity"
         m["kind_ko"] = m["kind_en"] = name
         m["thesis"] = True

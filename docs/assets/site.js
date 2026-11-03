@@ -17,8 +17,8 @@
   function store(k, v) {
     try { if (v === undefined) return window.localStorage.getItem(k); window.localStorage.setItem(k, v); } catch (e) { return null; }
   }
-  var lang = store("lang") || (new URLSearchParams(location.search).get("lang")) || "ko";
-  if (lang !== "en") lang = "ko";
+  var lang = (new URLSearchParams(location.search).get("lang")) || store("lang") || "en";
+  if (lang !== "ko") lang = "en";
   document.documentElement.lang = lang;
 
   function setLang(l) {

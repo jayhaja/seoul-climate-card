@@ -1,53 +1,58 @@
-# 04 여의도 대중교통 SCM / Yeouido transit synthetic control
+# 04 Yeouido transit synthetic control (SCM)
 
-## 목적 / Purpose
+## Purpose
 *Synthetic control for public-transport flows from Yeouido-dong, 79 donors, nested V optimisation.*
 
-- 처치 단위: 여의도동 → 서울 대중교통 OD(주별 이용자 수, 공휴일 주 제외). 정책일 2024-01-29, 사전 49주(2023-02-13~), 사후 ~2024-12-30.
-- 주사양(`nested79`): 도너 79개(Rmd의 81개에서 23 하안동→서울, 55 금광동→서울 제외). 예측변수 `tranfer`, `pop_dong` + 사전기간 결과변수 5구간 평균. V·W를 사전 49주 전체 예측오차 최소화로 동시 선택(Synth nested). 기본 최적화 실패 시 `optimxmethod = "All"` → `genoud = TRUE`.
-- 대안 사양(`adhcv79`): 사전 49주를 학습 25주·검증 24주로 나눠 V 선택 후 전체 사전기간으로 W 적합(Abadie et al. 2015).
-- 공간 위약(코드로 확인): 검정통계량 = 사후/사전 **RMSPE 비율**(Abadie et al. 2015). 각 위약은 위약 대상만 도너에서 빼고 **처치 단위를 도너에 포함**해 같은 절차로 적합. p = (1 + #{위약 비율 ≥ 처치 비율}) / (1 + 위약 수) — 즉 처치 단위가 분포에 포함된 순위. 주결과는 **사전 적합도 필터 없음**(`all (Abadie 2015)`), 사전 RMSPE ≤ 5배 위약만 쓰는 것은 민감도(`pre RMSPE <= 5x`).
-  - 참고: Rmd 자체의 `placebo`/`pvals` 청크(81 도너, τ = 2·3·5·Inf, 처치 단위를 위약 도너에서 제외)는 구 사양이며 79 도너 스크립트는 이 청크를 쓰지 않는다.
-- 효과 크기(반사실 대비 %): `cf_pct = 100 × Σ_post gap / Σ_post synthetic = ATT / mean(synthetic_post) × 100`. LOO에서는 같은 값을 `100 × ATT / (mean(actual_post) − ATT)`로 계산. Rmd의 `att_pct`는 다른 정의(ATT / 사전기간 실제 평균 × 100)이므로 혼동 주의.
+- Treated unit: the Yeouido-dong -> Seoul public-transport OD flow (weekly users, holiday weeks excluded). Policy date 2024-01-29; 49 pre-treatment weeks (from 2023-02-13); post-period through 2024-12-30.
+- Main specification (`nested79`): 79 donors (the Rmd's 81 minus 23 Haan-dong -> Seoul and 55 Geumgwang-dong -> Seoul). Predictors `tranfer`, `pop_dong` + 5 block means of the pre-period outcome. V and W are chosen jointly by minimising the prediction error over all 49 pre-treatment weeks (Synth nested). If the default optimiser fails: `optimxmethod = "All"` -> `genoud = TRUE`.
+- Alternative specification (`adhcv79`): the 49 pre weeks are split into 25 training and 24 validation weeks to choose V, then W is fitted on the full pre-period (Abadie et al. 2015).
+- In-space placebos (as implemented in the code): test statistic = post/pre **RMSPE ratio** (Abadie et al. 2015). Each placebo removes only the placebo unit from the donor pool and **includes the treated unit as a donor**, then runs the same procedure. p = (1 + #{placebo ratio >= treated ratio}) / (1 + number of placebos), i.e. the rank of the treated unit within a distribution that includes it. The main result uses **no pre-fit filter** (`all (Abadie 2015)`); keeping only placebos with pre RMSPE <= 5x the treated one is a sensitivity check (`pre RMSPE <= 5x`).
+  - Note: the Rmd's own `placebo`/`pvals` chunks (81 donors, τ = 2, 3, 5, Inf, treated unit excluded from placebo donor pools) belong to the earlier specification; the 79-donor scripts do not use them.
+- Effect size (% of counterfactual): `cf_pct = 100 × Σ_post gap / Σ_post synthetic = ATT / mean(synthetic_post) × 100`. In LOO the same quantity is computed as `100 × ATT / (mean(actual_post) − ATT)`. The Rmd's `att_pct` uses a different definition (ATT / mean pre-period actual × 100); do not confuse the two.
 
-## 입력 / Inputs
+## Inputs
 *Restricted smart-card OD data; not included in this repository.*
 
-RESTRICTED DATA REQUIRED: 스마트카드 OD 자료(데이터안심구역, 반출 제한)는 저장소에 없음. `RAW_DIR`(기본 `data/restricted/`)에 두어야 함.
-- `od_with_pop_sum_without_holiday.csv` — 열 `flow`, `week`, `이용자수_주총합`
-- `df_scm_g.csv` — 열 `unit_id`, `unit_name`, `week`, `is_treat`, `tranfer`, `pop_dong` 등
+RESTRICTED DATA REQUIRED: the smart-card OD data (Data Safety Center, export-restricted) are not in this repository. Place them in `RAW_DIR` (default `data/restricted/`).
+- `od_with_pop_sum_without_holiday.csv` — columns `flow`, `week`, `이용자수_주총합` (weekly total users; the Korean column name is kept as in the source data)
+- `df_scm_g.csv` — columns `unit_id`, `unit_name`, `week`, `is_treat`, `tranfer`, `pop_dong`, etc.
 
-경로는 각 스크립트 상단 Paths 블록(또는 환경변수 `REPO_ROOT`, `RAW_DIR`, `OUT_DIR`)에서 설정. Rmd의 setup 청크는 이미 정의된 R 객체 → 환경변수 → 기본값 순으로 경로를 정하며, 직접 knit할 때(작업 폴더 = 이 폴더)는 `REPO_ROOT = "../.."`, 저장소 루트에서 eval할 때는 `"."`가 기본값이다. R 스크립트는 Rmd 청크를 읽어 eval하므로 Rmd를 고칠 때 스크립트의 `gsub` 대상 문자열(`"SCM_여의도_nested")`, `D81_nested`, `Synth::synth(data.prep.obj = dp, verbose = FALSE)`, `fit_nested <- function`, 플롯 제목의 `(tau = %d)`, `MSPE`)을 유지해야 한다.
+Paths are set in the Paths block at the top of each script (or via the environment variables `REPO_ROOT`, `RAW_DIR`, `OUT_DIR`). The Rmd setup chunk takes each path from an already-defined R object, then an environment variable, then a default; the default `REPO_ROOT` is `"../.."` when knitting directly (working directory = this folder) and `"."` when eval-ed from the repository root.
 
-## 출력 / Outputs
+The R scripts read the Rmd, extract chunks by label and eval them, applying `sub`/`gsub` to the chunk text first. When editing the Rmd, keep the strings the scripts substitute: `"SCM_yeouido_nested")` (setup), `D81_nested` (setup `LAB` and file names), `Synth::synth(data.prep.obj = dp, verbose = FALSE)` and `fit_nested <- function` (fit-fn), and `(tau = %d)` and `MSPE` in the plot titles (plot-helpers). The scripts stop with an error (`stopifnot`) if some of these are missing.
+
+## Outputs
 *Written to OUT_DIR (default `output/04_yeouido_transit_scm/<run>/`); published copies under `results/` and `figures/`.*
 
-| 스크립트 | 기본 OUT_DIR | 주요 산출물 |
+| Script | Default OUT_DIR | Main outputs |
 |---|---|---|
-| `SCM_여의도_nested79_main.R` | `SCM_여의도_nested79/` | `M_nested.rds`, `weights_/vweights_/path_D79_nested.csv`, `predictor_means_D79_nested.csv`, `placebo_summary_/placebo_paths_/placebo_pvals_D79_nested.csv`, `loo_sensitivity_D79_nested{,_vfix,_cf}.csv`, `in_time_summary_D79_nested.csv`, `사양_비교_nested기준.csv`, `plots/` |
-| `SCM_여의도_adhcv79.R` | `SCM_여의도_adhcv79/` | `weights_/vweights_/path_/placebo_summary_/placebo_paths_/placebo_pvals_/loo_/summary_D79_adhcv.csv`, `run.log` |
-| `SCM_여의도_nested_excl_exposed.R` | `SCM_여의도_nested/excl_direct_exposure[_<EXCL>]/` | `weights.csv`, `path.csv`, `placebo_*.csv`, `loo_refitV.csv`, `in_time.csv`, `summary.csv` |
-| `SCM_여의도_nested_optimizer_check.R` | `SCM_여의도_nested/excl_direct_exposure/` | `optimizer_check_excl_<EXCL>.csv` |
+| `SCM_yeouido_nested79_main.R` | `SCM_yeouido_nested79/` | `M_nested.rds`, `weights_/vweights_/path_D79_nested.csv`, `predictor_means_D79_nested.csv`, `placebo_summary_/placebo_paths_/placebo_pvals_D79_nested.csv`, `loo_sensitivity_D79_nested{,_vfix,_cf}.csv`, `in_time_summary_D79_nested.csv`, `spec_comparison_nested.csv`, `plots/` |
+| `SCM_yeouido_nested79_intime.R` | `SCM_yeouido_nested79/` | `in_time_summary_D79_nested.csv` (with `mspe_ratio`), `plots/6.in_time_path_*` |
+| `SCM_yeouido_nested79_plots_rmspe.R` | `SCM_yeouido_nested79/` | `plots/3.rmspe_ratio_*`, `plots/4.placebo_gaps_*`, `plots/10.placebo_hist_*` |
+| `SCM_yeouido_nested79_loo_plot.R` | `SCM_yeouido_nested79/` | `loo_paths_D79_nested.csv`, `plots/5.loo_D79_nested_v2.jpg` |
+| `SCM_yeouido_adhcv79.R` | `SCM_yeouido_adhcv79/` | `weights_/vweights_/path_/placebo_summary_/placebo_paths_/placebo_pvals_/loo_/summary_D79_adhcv.csv`, `run.log` |
+| `SCM_yeouido_nested_excl_exposed.R` | `SCM_yeouido_nested/excl_direct_exposure[_<EXCL>]/` | `weights.csv`, `path.csv`, `placebo_*.csv`, `loo_refitV.csv`, `in_time.csv`, `summary.csv` |
+| `SCM_yeouido_nested_optimizer_check.R` | `SCM_yeouido_nested/excl_direct_exposure/` | `optimizer_check_excl_<EXCL>.csv` |
 
-공개본: `results/04_yeouido_transit_scm/nested79/`, `results/04_yeouido_transit_scm/adhcv79/`, 그림 `figures/yeouido_transit_scm/`.
+Published copies: `results/04_yeouido_transit_scm/nested79/`, `results/04_yeouido_transit_scm/adhcv79/`; figures under `figures/yeouido_transit_scm/`.
 
-주의: nested79 주추정의 ATT·cf_pct는 **요약 파일로 저장되지 않는다**(콘솔 출력과 `M_nested.rds`, `path_D79_nested.csv`에만 있음; `사양_비교_nested기준.csv`는 `att_pct` 정의). 공개본에서는 `loo_sensitivity_D79_nested.csv`의 `ATT − delta_ATT`로 주 ATT(≈ 1154.0)를 복원할 수 있다. adhcv79는 `summary_D79_adhcv.csv`에 `att`, `cf_pct`를 저장한다.
+**Main summary:** [`results/04_yeouido_transit_scm/nested79/summary_D79_nested.csv`](../../results/04_yeouido_transit_scm/nested79/summary_D79_nested.csv) — one row for the main specification with `att_weekly`, `cf_pct`, `pre_baseline_pct`, `pre_rmspe`, `post_rmspe`, `rmspe_ratio`, placebo counts and p-values (`p_all`, `p_tau5`), the LOO range (`loo_cf_min`, `loo_cf_max`) and the in-time RMSPE ratios. This file is compiled from the outputs of the nested79 scripts listed above (main estimate, `placebo_pvals_D79_nested.csv`, `loo_sensitivity_D79_nested_cf.csv`, `in_time_summary_D79_nested.csv`); none of the scripts in this folder writes it directly. The main ATT also appears in the console output, `M_nested.rds` and `path_D79_nested.csv`, and can be recovered from `loo_sensitivity_D79_nested.csv` as `ATT − delta_ATT` (≈ 1154.0). `spec_comparison_nested.csv` uses the `att_pct` definition. For adhcv79, `summary_D79_adhcv.csv` holds `att` and `cf_pct`.
 
-## 실행 순서 / Run order
+## Run order
 *Run from the repository root.*
 
 ```sh
-Rscript code/04_yeouido_transit_scm/SCM_여의도_nested79_main.R          # 주사양 (~25분)
-Rscript code/04_yeouido_transit_scm/SCM_여의도_nested79_intime.R        # main이 시점 위약 전에 멈춘 경우만
-Rscript code/04_yeouido_transit_scm/SCM_여의도_nested79_plots_rmspe.R   # 위약 그림(RMSPE 비율) 재작성
-Rscript code/04_yeouido_transit_scm/SCM_여의도_nested79_loo_plot.R      # LOO 그림 v2
-Rscript code/04_yeouido_transit_scm/SCM_여의도_adhcv79.R                # 대안 사양 (~30분)
-Rscript code/04_yeouido_transit_scm/SCM_여의도_nested_excl_exposed.R    # 직접 노출 도너 제외 민감도 (EXCL=22,23,54,55,56 기본)
-Rscript code/04_yeouido_transit_scm/SCM_여의도_nested_optimizer_check.R # 최적화 방법 점검 (excl_exposed 다음)
+Rscript code/04_yeouido_transit_scm/SCM_yeouido_nested79_main.R          # main specification (~25 min)
+Rscript code/04_yeouido_transit_scm/SCM_yeouido_nested79_intime.R        # only if main stopped before the in-time placebos
+Rscript code/04_yeouido_transit_scm/SCM_yeouido_nested79_plots_rmspe.R   # redraw placebo figures (RMSPE ratio)
+Rscript code/04_yeouido_transit_scm/SCM_yeouido_nested79_loo_plot.R      # LOO figure v2
+Rscript code/04_yeouido_transit_scm/SCM_yeouido_adhcv79.R                # alternative specification (~30 min)
+Rscript code/04_yeouido_transit_scm/SCM_yeouido_nested_excl_exposed.R    # sensitivity: exclude directly exposed donors (default EXCL=22,23,54,55,56)
+Rscript code/04_yeouido_transit_scm/SCM_yeouido_nested_optimizer_check.R # optimiser check (run after excl_exposed)
 ```
-intime·plots_rmspe·loo_plot은 main의 `M_nested.rds`(및 위약 CSV)를 읽는다. macOS에서는 `caffeinate -i`를 앞에 붙여도 된다. Rmd(`SCM_여의도_nested_사전전체.Rmd`)는 청크 원본(81 도너 구 사양)이며 직접 knit할 수도 있다.
+`intime`, `plots_rmspe` and `loo_plot` read `M_nested.rds` (and the placebo CSVs) written by `main`. On macOS you may prefix the commands with `caffeinate -i`. The Rmd (`SCM_yeouido_nested_full_pre.Rmd`) holds the source chunks (earlier 81-donor specification) and can also be knitted directly.
 
-## 의존성 / Dependencies
+## Dependencies
 *R packages.*
 
-R ≥ 4.1, `Synth`(+ `optimx`, `rgenoud` — `optimxmethod = "All"`, `genoud = TRUE` 사용 시), `dplyr`, `tidyr`, `readr`, `purrr`, `tibble`, `ggplot2`, `lubridate`; 선택 `ragg`(그림 장치), `knitr`/`rmarkdown`(Rmd knit). 한글 그림 글꼴: macOS AppleGothic, 그 외 NanumGothic. UTF-8 로케일에서 실행(한글 식별자 `이용자수_주총합` 파싱).
+R >= 4.1, `Synth` (+ `optimx` and `rgenoud` when `optimxmethod = "All"` or `genoud = TRUE` is used), `dplyr`, `tidyr`, `readr`, `purrr`, `tibble`, `ggplot2`, `lubridate`; optional `ragg` (graphics device) and `knitr`/`rmarkdown` (to knit the Rmd). Plot font (needed for Korean unit names from the input data): AppleGothic on macOS, otherwise NanumGothic. Run in a UTF-8 locale (needed to parse the Korean input column name `이용자수_주총합`).

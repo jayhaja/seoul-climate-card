@@ -1,14 +1,14 @@
-## run_nested53_abadie2015_placebo.R — 도로 SCM 위약·LOO 재실행 (2026-11-03)
-## 본추정: run_nested53_full.R과 같은 nested(method = "stdv", Abadie et al. 2010) 사양, 도너 53(−107·201). 본추정은 재현 확인용으로만 다시 적합.
-## 바뀐 점(원본 스크립트·함수는 수정하지 않음)
-##   (1) 공간 위약: Abadie et al.(2015) 원저자 구현처럼 위약 대상 d만 도너에서 빼고, 지금 검정하는 처치 지점 1개를 도너에 포함
-##       → 위약 도너 = setdiff(53개, d) ∪ {처치 지점}. 다른 처치 지점 11개는 넣지 않음.
-##   (2) p값: 사전 적합도 필터 없이 성공한 위약 전체로 (1 + #{R_j ≥ R_1}) / (1 + n). 실패한 위약은 1회 재시도 후 사유를 기록.
-##   (3) LOO: loo_mode = "twostep" → 양의 가중치 도너를 하나씩 빼고 nested로 V·W 모두 재추정 (method = "stdv" 유지, CV 아님)
-##   (4) 사후 창: 일반 지점 51–96주, 공사 지점(1·2·10) 51–72주. 직렬 실행(병렬 없음).
-##   시점 위약은 기존 결과가 이미 nested V·W 재추정이므로 다시 돌리지 않음. 플롯도 만들지 않음(결과 확정 후 별도).
-## Run (from repo root): Rscript code/03_road_scm/run_nested53_abadie2015_placebo.R           # 12지점
-##       Rscript code/03_road_scm/run_nested53_abadie2015_placebo.R 4,6,8,12                         # 일부
+## run_nested53_abadie2015_placebo.R — re-run of road SCM placebo · LOO (2026-11-03)
+## Main estimate: same nested specification as run_nested53_full.R (method = "stdv", Abadie et al. 2010), 53 donors (−107·201). The main estimate is refitted only to confirm reproduction.
+## What changed (the original scripts/functions are not modified)
+##   (1) In-space placebo: as in Abadie et al.'s (2015) original implementation, only the placebo unit d is removed from the donors, and the one treated site currently being tested is included as a donor
+##       → placebo donors = setdiff(53, d) ∪ {treated site}. The other 11 treated sites are not included.
+##   (2) p-value: (1 + #{R_j ≥ R_1}) / (1 + n) over all successful placebos, without a pre-fit filter. Failed placebos are retried once and the reason is recorded.
+##   (3) LOO: loo_mode = "twostep" → drop positive-weight donors one at a time and re-estimate both V·W nested (method = "stdv" kept, not CV)
+##   (4) Post window: regular sites weeks 51–96, construction-affected sites (1·2·10) weeks 51–72. Serial execution (no parallelism).
+##   In-time placebos are not re-run, since the existing results already re-estimate V·W nested. No plots are made either (done separately once results are final).
+## Run (from repo root): Rscript code/03_road_scm/run_nested53_abadie2015_placebo.R           # 12 sites
+##       Rscript code/03_road_scm/run_nested53_abadie2015_placebo.R 4,6,8,12                         # subset
 ##   (macOS only, optional: prefix with `caffeinate -i` to keep the machine awake during long runs)
 ## RESTRICTED DATA REQUIRED (restricted data required): road detector inputs (Seoul TOPIS sites and national ITS link counts) are not redistributed (licence pending).
 ## Required input files (place under RAW_DIR):
@@ -45,7 +45,7 @@ pool <- lapply(c(main = "main", full = "full"), function(w)
   setdiff(read_csv(file.path(SRC, sprintf("donor_pool_%s.csv", w)), show_col_types = FALSE)$unit_id_num, EXCL))
 logmsg(sprintf("[donors] main %d, full %d", length(pool$main), length(pool$full)))
 
-try_fit <- function(...) {                       # 실패 시 1회 재시도, 사유 반환
+try_fit <- function(...) {                       # retry once on failure; return the reason
   err <- NULL
   for (k in 1:2) { f <- tryCatch(fit_two_step(...), error = function(e) { err <<- conditionMessage(e); NULL }); if (!is.null(f)) return(list(fit = f, err = NA_character_, tries = k)) }
   list(fit = NULL, err = err, tries = 2)
@@ -56,13 +56,13 @@ for (u in units) {
   post_idx <- if (short) CFG$post_main else CFG$post_full; donors <- pool[[pw]]
   u_dir <- file.path(out, sprintf("unit_%02d", u)); dir.create(u_dir)
   fit <- fit_two_step(CFG, df, preds, u, donors, post_idx = post_idx); m <- fit$metrics
-  logmsg(sprintf("===== unit %d (%d–%d주, 도너 %d): ATT %+.2f%% | pre %.1f | ratio %.3f", u, min(post_idx), max(post_idx), length(donors), m$att_pct, m$final_pre_rmspe, m$rmspe_ratio))
+  logmsg(sprintf("===== unit %d (weeks %d–%d, donors %d): ATT %+.2f%% | pre %.1f | ratio %.3f", u, min(post_idx), max(post_idx), length(donors), m$att_pct, m$final_pre_rmspe, m$rmspe_ratio))
   write_csv(fit$path, file.path(u_dir, "path.csv"))
-  ## (1) 공간 위약 — 직렬
+  ## (1) In-space placebo — serial
   res <- list(); paths <- list(); fails <- list()
   for (d in donors) {
     r <- try_fit(CFG, df, preds, treated = d, donors = c(setdiff(donors, d), u), post_idx = post_idx)
-    if (is.null(r$fit)) { fails[[as.character(d)]] <- data.frame(placebo_unit = d, error = r$err); logmsg("  위약 실패 ", d, ": ", r$err); next }
+    if (is.null(r$fit)) { fails[[as.character(d)]] <- data.frame(placebo_unit = d, error = r$err); logmsg("  placebo failed ", d, ": ", r$err); next }
     f <- r$fit$metrics
     res[[as.character(d)]] <- data.frame(placebo_unit = d, pre_rmspe = f$final_pre_rmspe, post_rmspe = f$post_rmspe, ratio = f$rmspe_ratio,
                                          att_abs = f$att_abs, att_pct = f$att_pct, w_on_treated = r$fit$w2[r$fit$donors == u], tries = r$tries)
@@ -73,12 +73,12 @@ for (u in units) {
   n <- nrow(res); c_ge <- sum(res$ratio >= m$rmspe_ratio)
   p_all <- (1 + c_ge) / (1 + n)
   sub5 <- res[res$pre_rmspe <= 5 * m$final_pre_rmspe, ]; p5 <- (1 + sum(sub5$ratio >= m$rmspe_ratio)) / (1 + nrow(sub5))
-  logmsg(sprintf("  위약 %d/%d 성공 | 순위 %d/%d | p(전체) %.3f | p(5배 제외, 민감도) %.3f (n=%d) | 처치 지점에 준 가중치 중앙값 %.3f",
+  logmsg(sprintf("  placebos %d/%d succeeded | rank %d/%d | p(all) %.3f | p(excl. >5x, sensitivity) %.3f (n=%d) | median weight on treated site %.3f",
                  n, length(donors), 1 + c_ge, 1 + n, p_all, p5, nrow(sub5), median(res$w_on_treated)))
-  ## (3) LOO — nested V·W 재추정
+  ## (3) LOO — nested V·W re-estimation
   lo <- loo_refit(CFG, df, preds, fit, post_idx = post_idx)
   if (nrow(lo$res)) { write_csv(lo$res, file.path(u_dir, "loo_twostep.csv")); write_csv(lo$paths, file.path(u_dir, "loo_paths_twostep.csv"))
-    logmsg(sprintf("  LOO(V·W 재추정) %d개, ATT%% [%+.2f, %+.2f]", nrow(lo$res), min(lo$res$att_pct), max(lo$res$att_pct))) }
+    logmsg(sprintf("  LOO (V·W re-estimated) %d, ATT%% [%+.2f, %+.2f]", nrow(lo$res), min(lo$res$att_pct), max(lo$res$att_pct))) }
   rows[[length(rows) + 1]] <- data.frame(treated_unit = u, post_window = pw, post_from = min(post_idx), post_to = max(post_idx), n_donors = length(donors),
     att_abs = m$att_abs, att_pct_pre = m$att_pct, pre_rmspe = m$final_pre_rmspe, ratio = m$rmspe_ratio,
     n_placebo_ok = n, n_placebo_fail = nrow(fails), rank = 1 + c_ge, p_all = p_all, p_tau5 = p5, n_tau5 = nrow(sub5),

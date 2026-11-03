@@ -1,28 +1,31 @@
-# 증가율 분모를 반사실 대비로 통일 (2026-11-02). 저장된 경로 파일만 읽음, 재추정 없음. 위약 p는 RMSPE 비율 순위라 분모와 무관(변경 없음).
-#  반사실 대비 % = 100 × 구간 평균 gap / 구간 평균 synthetic.  (기존: ÷ 처치 전 평균 actual)
-#  도로: nested 53 run, 공사 3지점(1,2,10)은 path_main(51–72), 나머지 path_full(51–96). 46주 = week_index 51–96.
-#  여의도: SCM_여의도_nested/path_D81_nested.csv, LOO(V 고정)와 ADH CV는 ATT만 저장 → 반사실 = 처치 후 실제 평균 − ATT.
-# 출력: OUT_DIR = output/utils/반사실대비_통일_20261102/{road_cf.csv, road_windows_cf.csv, road_loo_cf.csv, yeouido_cf.csv}
+# Unify the percentage-effect denominator to the counterfactual (2026-11-02). Reads saved path files only; no refitting.
+#  Placebo p-values are RMSPE-ratio ranks and do not depend on the denominator (unchanged).
+#  % of counterfactual = 100 x window-mean gap / window-mean synthetic.  (previously: / pre-treatment mean actual)
+#  Roads: nested-53 run; the 3 construction sites (1, 2, 10) use path_main (51-72), the rest path_full (51-96). 46 weeks = week_index 51-96.
+#  Yeouido: SCM_yeouido_nested/path_D81_nested.csv; LOO (fixed V) and ADH CV store only the ATT, so counterfactual = post-treatment actual mean - ATT.
+# Output: OUT_DIR = output/utils/cf_denominator_unified_20261102/{road_cf.csv, road_windows_cf.csv, road_loo_cf.csv, yeouido_cf.csv}
 # Run (from repo root): python3 code/utils/cf_denominator_20261102.py
-# 입력 (intermediate outputs of other scripts in this repo; no raw data read directly):
+# Inputs (intermediate outputs of other scripts in this repo; no raw data read directly):
 #   ROAD_RUN_DIR/unit_XX/path_main.csv | path_full.csv, loo_paths_main.csv | loo_paths_full.csv
 #       <- code/03_road_scm/run_nested53_full.R (run folder v4_stdv_ex107_201_nested53_20261031-131153)
 #   YEOUIDO_DIR/path_D81_nested.csv, loo_sensitivity_D81_nested_vfix.csv, V선택_비교.csv
-#       <- code/04_yeouido_transit_scm/SCM_여의도_nested_사전전체.Rmd
+#       (V선택_비교 = V-selection comparison; file name kept as saved in the existing run folder)
+#       <- code/04_yeouido_transit_scm/SCM_yeouido_nested_full_pre.Rmd
 #       (Yeouido paths are derived from restricted smart-card data; not distributed)
 import os, numpy as np, pandas as pd
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT = os.environ.get('REPO_ROOT', '.')                                  # run from repo root
 RAW_DIR   = os.environ.get('RAW_DIR', os.path.join(REPO_ROOT, 'data/restricted'))   # restricted data required (not read directly here)
-OUT_DIR   = os.environ.get('OUT_DIR', os.path.join(REPO_ROOT, 'output', 'utils/반사실대비_통일_20261102'))
+OUT_DIR   = os.environ.get('OUT_DIR', os.path.join(REPO_ROOT, 'output', 'utils/cf_denominator_unified_20261102'))
 # OUT_DIR-style locations of the producing scripts (03_road_scm, 04_yeouido_transit_scm)
 ROAD_RUN_DIR = os.environ.get('ROAD_RUN_DIR', os.path.join(REPO_ROOT, 'output', '03_road_scm', 'runs', 'v4_stdv_ex107_201_nested53_20261031-131153'))
-YEOUIDO_DIR  = os.environ.get('YEOUIDO_DIR', os.path.join(REPO_ROOT, 'output', '04_yeouido_transit_scm', 'SCM_여의도_nested'))
+YEOUIDO_DIR  = os.environ.get('YEOUIDO_DIR', os.path.join(REPO_ROOT, 'output', '04_yeouido_transit_scm', 'SCM_yeouido_nested'))
 run = ROAD_RUN_DIR
 yd = YEOUIDO_DIR
 out = OUT_DIR; os.makedirs(out, exist_ok=True)
-names = {1:'경인로 유출',2:'경인로 유입',3:'노들로 북행',4:'노들로 남행',5:'마포대교 남행',6:'마포대교 북행',
-         7:'서강대교 남행',8:'서강대교 북행',9:'여의대방로 남행',10:'여의대방로 북행',11:'원효대교 남행',12:'원효대교 북행'}
+names = {1:'Gyeongin-ro outbound',2:'Gyeongin-ro inbound',3:'Nodeul-ro northbound',4:'Nodeul-ro southbound',
+         5:'Mapo Bridge southbound',6:'Mapo Bridge northbound',7:'Seogang Bridge southbound',8:'Seogang Bridge northbound',
+         9:'Yeouidaebang-ro southbound',10:'Yeouidaebang-ro northbound',11:'Wonhyo Bridge southbound',12:'Wonhyo Bridge northbound'}
 pct = lambda g, base: round(100 * g / base, 2)
 
 R, W, L = [], [], []
@@ -36,7 +39,7 @@ for u, nm in names.items():
     for w, (a, b) in {'early': (51, 62), 'late': (63, end), 'first22': (51, 72)}.items():
         g = p[(p.week_index >= a) & (p.week_index <= b)]
         W.append(dict(unit=u, name=nm, window=w, weeks=f'{a}-{b}', pct_pre=pct(g.gap.mean(), pre.actual.mean()), pct_cf=pct(g.gap.mean(), g.synthetic.mean())))
-    # 월별(처치 후 주를 달력 월로): week_index→날짜 매핑이 경로에 없으면 생략
+    # Monthly (post-treatment weeks to calendar months): skipped when the path file has no week_index-to-date mapping
     lp = f'{d}/loo_paths_{tag}.csv'
     if os.path.exists(lp):
         q = pd.read_csv(lp); v = []
@@ -52,9 +55,9 @@ y = pd.read_csv(f'{yd}/path_D81_nested.csv'); pre = y[y.period == 'pre']; post =
 same = post[(post.week >= '2024-01-29') & (post.week <= '2024-06-24')]
 loo = pd.read_csv(f'{yd}/loo_sensitivity_D81_nested_vfix.csv'); lc = 100 * loo.ATT / (A - loo.ATT); lp_ = 100 * loo.ATT / pre.actual.mean()
 vs = pd.read_csv(f'{yd}/V선택_비교.csv'); adh = vs.loc[vs.iloc[:, 0] == 'ADH CV', 'ATT'].iloc[0]
-Y = [dict(item='46주', pct_pre=pct(post.gap.mean(), pre.actual.mean()), pct_cf=pct(post.gap.mean(), post.synthetic.mean())),
-     dict(item='같은 기간 1/29~6/24 (%d주)' % len(same), pct_pre=pct(same.gap.mean(), pre.actual.mean()), pct_cf=pct(same.gap.mean(), same.synthetic.mean())),
-     dict(item='LOO(V 고정) 최소', pct_pre=round(lp_.min(), 2), pct_cf=round(lc.min(), 2)),
-     dict(item='LOO(V 고정) 최대', pct_pre=round(lp_.max(), 2), pct_cf=round(lc.max(), 2)),
+Y = [dict(item='46 weeks', pct_pre=pct(post.gap.mean(), pre.actual.mean()), pct_cf=pct(post.gap.mean(), post.synthetic.mean())),
+     dict(item='Same period 1/29-6/24 (%d weeks)' % len(same), pct_pre=pct(same.gap.mean(), pre.actual.mean()), pct_cf=pct(same.gap.mean(), same.synthetic.mean())),
+     dict(item='LOO (fixed V) min', pct_pre=round(lp_.min(), 2), pct_cf=round(lc.min(), 2)),
+     dict(item='LOO (fixed V) max', pct_pre=round(lp_.max(), 2), pct_cf=round(lc.max(), 2)),
      dict(item='ADH CV', pct_pre=pct(adh, pre.actual.mean()), pct_cf=pct(adh, A - adh))]
 pd.DataFrame(Y).to_csv(f'{out}/yeouido_cf.csv', index=False); print(pd.DataFrame(Y).to_string(index=False))

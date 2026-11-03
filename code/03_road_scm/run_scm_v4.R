@@ -1,8 +1,8 @@
-## run_scm_v4.R — 도로 SCM v4 실행. CFG$method: "stdv"(사전 50주 nested V·W, ADH 2010) | "adh2015"(v3 2단계)
-## Run (from repo root): Rscript code/03_road_scm/run_scm_v4.R            # 12지점 전부
-##       Rscript code/03_road_scm/run_scm_v4.R 1,4,6                         # 일부 지점
-##       Rscript code/03_road_scm/run_scm_v4.R 1 --no-placebo                                  # 위약·LOO·in-time 생략(빠른 점검)
-## 출력: OUT_DIR/runs/<run_tag>_<YYYYmmdd-HHMMSS>_<해시(설정+입력+코드+지점+옵션)>_<난수>/  — 항상 새 폴더, 기존 폴더면 중단
+## run_scm_v4.R — runs road SCM v4. CFG$method: "stdv" (nested V·W over 50 pre-weeks, ADH 2010) | "adh2015" (v3 two-step)
+## Run (from repo root): Rscript code/03_road_scm/run_scm_v4.R            # all 12 sites
+##       Rscript code/03_road_scm/run_scm_v4.R 1,4,6                         # selected sites
+##       Rscript code/03_road_scm/run_scm_v4.R 1 --no-placebo                                  # skip placebo · LOO · in-time (quick check)
+## Output: OUT_DIR/runs/<run_tag>_<YYYYmmdd-HHMMSS>_<hash(settings+input+code+sites+options)>_<random>/  — always a new folder; stops if it already exists
 ## RESTRICTED DATA REQUIRED (restricted data required): road detector inputs (Seoul TOPIS sites and national ITS link counts) are not redistributed (licence pending).
 ## Required input files (place under RAW_DIR):
 ##   - 77_units/0628_6to10_df_with_new_covariates_fixed.csv   (analysis panel; path set in config_v4.R, override with SCM_PANEL)
@@ -14,11 +14,11 @@ OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "03_road_scm")
 CODE_DIR  <- file.path(REPO_ROOT, "code", "03_road_scm")
 HERE <- CODE_DIR
 source(file.path(HERE, "config_v4.R")); source(file.path(HERE, "scm_v4_functions.R")); source(file.path(HERE, "scm_v4_plots.R"))
-## 환경변수로 패널·태그만 바꿔 민감도 실행 (config_v4.R 수정 없이): SCM_PANEL=<fixed.csv 경로> SCM_TAG=<run_tag>
+## Sensitivity runs by changing only the panel/tag via env vars (without editing config_v4.R): SCM_PANEL=<path to fixed.csv> SCM_TAG=<run_tag>
 if (nzchar(Sys.getenv("SCM_PANEL"))) CFG$panel_csv <- Sys.getenv("SCM_PANEL")
 if (nzchar(Sys.getenv("SCM_TAG")))   CFG$run_tag   <- Sys.getenv("SCM_TAG")
 if (nzchar(Sys.getenv("SCM_METHOD"))) CFG$method   <- Sys.getenv("SCM_METHOD")
-if (nzchar(Sys.getenv("SCM_EXCLUDE"))) {                       # "none" = 질적 제외 없이 65개 전부 / "114,304" 식 목록
+if (nzchar(Sys.getenv("SCM_EXCLUDE"))) {                       # "none" = all 65 with no qualitative exclusions / a list such as "114,304"
   CFG$donor_exclude <- if (Sys.getenv("SCM_EXCLUDE") == "none") integer(0) else as.integer(strsplit(Sys.getenv("SCM_EXCLUDE"), ",")[[1]])
   CFG$donor_exclude_reason <- CFG$donor_exclude_reason[as.character(CFG$donor_exclude)]
 }
@@ -27,21 +27,21 @@ args <- commandArgs(trailingOnly = TRUE)
 units <- if (length(args) && !grepl("^--", args[1])) as.integer(trimws(unlist(strsplit(args[1], ",")))) else CFG$treated_ids
 DO_INFER <- !any(args == "--no-placebo")
 
-## ── 실행 폴더 (고유 ID: 초 단위 시각 + 설정·입력·코드 해시 + 난수; 이미 있으면 중단) ───────────
+## ── Run folder (unique ID: time to the second + settings/input/code hash + random suffix; stops if it exists) ───────────
 code_files <- file.path(HERE, c("config_v4.R", "scm_v4_functions.R", "scm_v4_plots.R", "run_scm_v4.R"))
 hash <- cfg_hash(CFG, code_files, units, DO_INFER)
 run_id <- sprintf("%s_%s_%s_%s", CFG$run_tag, format(Sys.time(), "%Y%m%d-%H%M%S"), hash, paste(sample(c(letters, 0:9), 4, TRUE), collapse = ""))
 run_dir <- file.path(path.expand(CFG$out_root), run_id)
-if (dir.exists(run_dir)) stop("실행 폴더가 이미 존재: ", run_dir)
+if (dir.exists(run_dir)) stop("Run folder already exists: ", run_dir)
 dir.create(run_dir, recursive = TRUE)
 logf <- file.path(run_dir, "run.log")
 logmsg <- function(...) { s <- paste0(format(Sys.time(), "%H:%M:%S "), paste0(...)); cat(s, "\n"); cat(s, "\n", file = logf, append = TRUE) }
 logmsg("[run] ", run_dir); logmsg("[method] ", CFG$method)
 
-## ── 데이터 ─────────────────────────────────────────────────────────────
+## ── Data ───────────────────────────────────────────────────────────────
 df <- load_panel(CFG, logmsg)
 preds <- active_predictors(CFG, df)
-logmsg("[pred] 공통 예측변수: 교통량 블록 ", CFG$n_blocks, "개 + ", paste(vapply(preds, function(p) sprintf("%s(%s)", p$var, p$op), ""), collapse = ", "))
+logmsg("[pred] Common predictors: ", CFG$n_blocks, " traffic blocks + ", paste(vapply(preds, function(p) sprintf("%s(%s)", p$var, p$op), ""), collapse = ", "))
 write_json(list(run_id = run_id, config = CFG, hash = hash, started = format(Sys.time()), units = units, infer = DO_INFER,
                 predictors_used = vapply(preds, function(p) sprintf("%s(%s)", p$var, p$op), ""),
                 input_md5 = list(panel = file_md5(CFG$panel_csv), pop = file_md5(CFG$pop_csv)),
@@ -50,7 +50,7 @@ write_json(list(run_id = run_id, config = CFG, hash = hash, started = format(Sys
            file.path(run_dir, "run_info.json"), auto_unbox = TRUE, pretty = TRUE, null = "null")
 t_policy <- min(CFG$post_main)
 all_treated <- df %>% filter(is_treat %in% c(TRUE, "TRUE")) %>% distinct(unit_id_num) %>% pull(unit_id_num)
-## 분석 창별 관측 완전성: 본표(pre ∪ post_main) / 전체(pre ∪ post_full) — 도너 풀도 창별
+## Observation completeness per analysis window: main table (pre ∪ post_main) / full (pre ∪ post_full) — donor pool also per window
 need_idx <- list(main = c(CFG$pre_idx, CFG$post_main), full = c(CFG$pre_idx, CFG$post_full))
 donors_by <- lapply(need_idx, function(ix) donor_pool(CFG, df, all_treated, ix, logmsg))
 for (pw in names(donors_by))
@@ -60,26 +60,26 @@ donors <- donors_by$main
 write_csv(data.frame(unit_id_num = CFG$donor_exclude, reason = CFG$donor_exclude_reason[as.character(CFG$donor_exclude)]),
           file.path(run_dir, "donor_excluded.csv"))
 
-## ── 지점별 추정 ─────────────────────────────────────────────────────────
+## ── Estimation by site ─────────────────────────────────────────────────
 summary_rows <- list()
 for (u in units) {
   u_dir <- file.path(run_dir, sprintf("unit_%02d", u)); dir.create(u_dir, showWarnings = FALSE)
   nm <- df$unit_name_en[df$unit_id_num == u][1]
-  r1 <- df[df$unit_id_num == u, ][1, ]; rl <- paste0(r1$road_en, " ", ifelse(as.integer(r1$direction) == 1, "NB", "SB"))   # 플롯 제목(정본 방식)
+  r1 <- df[df$unit_id_num == u, ][1, ]; rl <- paste0(r1$road_en, " ", ifelse(as.integer(r1$direction) == 1, "NB", "SB"))   # plot title (canonical convention)
   pdir <- file.path(run_dir, "plots", sprintf("%02d", u))
   logmsg(sprintf("===== unit %d: %s =====", u, nm))
   tr_ok <- vapply(need_idx, function(ix) { x <- df$traffic[df$unit_id_num == u & df$week_index %in% ix]; length(x) == length(ix) && all(is.finite(x)) }, logical(1))
-  if (!tr_ok[["main"]]) { logmsg("  처치 결과변수가 본표 창(1–", max(CFG$post_main), "주)에서 불완전 → 건너뜀"); next }
-  if (!tr_ok[["full"]]) logmsg("  처치 결과변수가 전체 창(1–", max(CFG$post_full), "주)에서 불완전 → 전체기간 분석만 생략")
+  if (!tr_ok[["main"]]) { logmsg("  Treated outcome incomplete in the main-table window (weeks 1–", max(CFG$post_main), ") → skipped"); next }
+  if (!tr_ok[["full"]]) logmsg("  Treated outcome incomplete in the full window (weeks 1–", max(CFG$post_full), ") → only the full-period analysis is skipped")
   main_fit <- NULL; full_fit <- NULL
-  ## 도너 사전 선별 (처치 전 자료만). 창별 풀에 같은 규칙 적용
+  ## Donor pre-screening (pre-treatment data only). Same rule applied to each window's pool
   scr <- screen_donors(CFG, df, u, donors_by$main)
   write_csv(scr$table, file.path(u_dir, "donor_screen.csv"))
   donors_u <- list(main = scr$keep, full = intersect(scr$keep, donors_by$full))
-  logmsg(sprintf("  도너 선별: %d → %d (수준 %d 통과, 추세 %d 통과%s)", nrow(scr$table), length(scr$keep),
-                 sum(scr$table$pass_level), sum(scr$table$pass_trend), if (any(scr$table$relaxed)) ", 완화 적용" else ""))
+  logmsg(sprintf("  Donor screening: %d → %d (%d pass level, %d pass trend%s)", nrow(scr$table), length(scr$keep),
+                 sum(scr$table$pass_level), sum(scr$table$pass_trend), if (any(scr$table$relaxed)) ", relaxation applied" else ""))
   preds_u <- preds; v_fixed_u <- NULL; cv_sel <- NULL
-  if (identical(CFG$method, "cv")) {                           # (조합 × K) 표본외 선택 → 사양 고정
+  if (identical(CFG$method, "cv")) {                           # (combination × K) out-of-sample selection → specification fixed
     cv_sel <- cv_select(CFG, df, u, donors_u$main, logmsg)
     write_csv(cv_sel$grid, file.path(u_dir, "cv_grid.csv"))
     write_csv(data.frame(treated_unit = u, combo = cv_sel$combo, K = cv_sel$K, final_v = CFG$cv$final_v,
@@ -100,11 +100,11 @@ for (u in units) {
     if (pw == "main") {
       dg <- diagnostics(CFG, fit, df, preds_u)
       write_csv(dg$weights, file.path(u_dir, if (identical(CFG$method, "stdv")) "weights.csv" else "weights_stage1_vs_final.csv"))
-      write_csv(data.frame(predictor = rownames(fit$dp2$X1), v_weight = fit$v), file.path(u_dir, "v_weights.csv"))   # 이름은 X 행렬에서
+      write_csv(data.frame(predictor = rownames(fit$dp2$X1), v_weight = fit$v), file.path(u_dir, "v_weights.csv"))   # names taken from the X matrix
       write_csv(dg$balance, file.path(u_dir, "covariate_balance.csv"))
       if (nrow(dg$cov_change)) write_csv(dg$cov_change, file.path(u_dir, "covariate_window_change.csv"))
       write_csv(dg$flags, file.path(u_dir, "diagnostic_flags.csv"))
-      if (any(dg$flags$triggered)) logmsg("  [진단 경고] ", paste(dg$flags$flag[dg$flags$triggered], collapse = ", "), " — 모형은 바꾸지 않음, 원인 검토 필요")
+      if (any(dg$flags$triggered)) logmsg("  [diagnostic warning] ", paste(dg$flags$flag[dg$flags$triggered], collapse = ", "), " — model not changed; cause needs review")
       main_fit <- fit; main_row <- length(summary_rows) + 1
     } else full_fit <- fit
     summary_rows[[length(summary_rows) + 1]] <- data.frame(treated_unit = u, name = nm, post_window = pw, n_donors = length(donors_u[[pw]]), predictors = paste(vapply(preds_u, function(p) sprintf("%s(%s)", p$var, p$op), ""), collapse = ";"), cv_combo = if (is.null(cv_sel)) NA else cv_sel$combo, cv_K = if (is.null(cv_sel)) NA else cv_sel$K, as.data.frame(m))
@@ -116,7 +116,7 @@ for (u in units) {
     write_csv(pl$res, file.path(u_dir, "placebo_results.csv")); write_csv(pl$paths, file.path(u_dir, "placebo_paths.csv"))
     pv <- placebo_pvals(CFG, pl$res, main_fit$metrics); write_csv(pv, file.path(u_dir, "placebo_pvals.csv"))
     logmsg("  p(ratio) tau=5: ", sprintf("%.3f (n=%d)", pv$p_ratio[pv$tau == 5], pv$n_placebo[pv$tau == 5]))
-    if (tr_ok[["full"]] && !is.null(full_fit)) {                       # 전체 50주 창 위약 (도너 풀 = full)
+    if (tr_ok[["full"]] && !is.null(full_fit)) {                       # full 50-week window placebo (donor pool = full)
       logmsg("  placebo in space, full window (", length(donors_u$full), ") …")
       plf <- placebo_in_space(CFG, df, preds_u, u, donors_u$full, post_idx = CFG$post_full, v_fixed = if (identical(CFG$method, "cv") && identical(CFG$cv$placebo_v, "treated")) v_fixed_u else NULL)
       write_csv(plf$res, file.path(u_dir, "placebo_results_full.csv"))
@@ -135,7 +135,7 @@ for (u in units) {
     make_unit_plots(CFG, u, rl, main_fit, pl = pl, lo_paths = lo$paths, it_paths = it$paths, pdir = pdir)
     summary_rows[[main_row]]$p_ratio_tau5 <- pv$p_ratio[pv$tau == 5]
     summary_rows[[main_row]]$n_placebo_tau5 <- pv$n_placebo[pv$tau == 5]
-  } else if (!is.null(main_fit)) make_unit_plots(CFG, u, rl, main_fit, pdir = pdir)   # --no-placebo: path·gap만
+  } else if (!is.null(main_fit)) make_unit_plots(CFG, u, rl, main_fit, pdir = pdir)   # --no-placebo: path · gap only
 }
 summ <- bind_rows(summary_rows)
 write_csv(summ, file.path(run_dir, "all_units_summary.csv"))

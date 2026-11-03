@@ -1,12 +1,12 @@
-## run_nested53_full.R — nested(stdv, ADH 2010) 사양을 도너 53(−107·201, C1과 동일)으로 전체 재실행
-## 설정: runs/v4_stdv_lanes_speed_20261003-215235_566ddb10_ubu6/run_info.json 복원 (공통 예측변수 lanes_mean+speed median, 50주 nested V·W)
-## 도너: 그 실행의 donor_pool_{full|main}.csv에서 107·201 제외
-##   107: 군포 기후동행카드 협약(2024-01-31) 간접 노출 / 201: 송도 연결로·2024-03 이후 +20% 구조 변화
-## 사후 창: 1·2·10번(경인로 남·북행, 여의대방로 북행) 51–72주, 나머지 51–100주
-## 산출: 처치 적합, 공간 위약(병렬, 위약마다 V·W 재추정), p(τ=2,3,5,Inf), LOO(고정 V), 시점 위약(27·34·40), 플롯 전부
-## Run (from repo root): Rscript code/03_road_scm/run_nested53_full.R                         # 12지점
-##       Rscript code/03_road_scm/run_nested53_full.R 4,6,8,12                                       # 일부
-##       NESTED_EXCL=none Rscript code/03_road_scm/run_nested53_full.R                               # 도너 55(원 실행과 동일)
+## run_nested53_full.R — full re-run of the nested (stdv, ADH 2010) specification with 53 donors (−107·201, same as C1)
+## Settings: restored from runs/v4_stdv_lanes_speed_20261003-215235_566ddb10_ubu6/run_info.json (common predictors lanes_mean + speed median, nested V·W over 50 weeks)
+## Donors: donor_pool_{full|main}.csv of that run, excluding 107·201
+##   107: indirect exposure via Gunpo's Climate Card agreement (2024-01-31) / 201: Songdo connector road, +20% structural change from 2024-03
+## Post window: units 1·2·10 (Gyeongin-ro southbound/northbound, Yeouidaebang-ro northbound) weeks 51–72; the rest weeks 51–100
+## Outputs: treated fit, in-space placebos (parallel, V·W re-estimated for each placebo), p (τ=2,3,5,Inf), LOO (fixed V), in-time placebos (27·34·40), all plots
+## Run (from repo root): Rscript code/03_road_scm/run_nested53_full.R                         # 12 sites
+##       Rscript code/03_road_scm/run_nested53_full.R 4,6,8,12                                       # subset
+##       NESTED_EXCL=none Rscript code/03_road_scm/run_nested53_full.R                               # 55 donors (same as the original run)
 ##   (macOS only, optional: prefix with `caffeinate -i` to keep the machine awake during long runs)
 ## RESTRICTED DATA REQUIRED (restricted data required): road detector inputs (Seoul TOPIS sites and national ITS link counts) are not redistributed (licence pending).
 ## Required input files (place under RAW_DIR):
@@ -26,7 +26,7 @@ SRC <- Sys.getenv("SRC_RUN", file.path(OUT_DIR, "runs", "v4_stdv_lanes_speed_202
 old <- fromJSON(file.path(SRC, "run_info.json"), simplifyVector = FALSE)$config
 for (k in names(old)) { v <- old[[k]]; CFG[[k]] <- if (k == "predictors") v else if (is.list(v)) unlist(v) else v }
 CFG$panel_csv <- .portable$panel_csv; CFG$out_root <- .portable$out_root   # restored run_info.json holds the original machine's paths → keep portable paths (path only, no settings change)
-CFG$placebo_tau <- as.numeric(CFG$placebo_tau)   # JSON에서 "Inf"가 문자로 들어옴 → 수치 변환
+CFG$placebo_tau <- as.numeric(CFG$placebo_tau)   # "Inf" comes in from JSON as a string → convert to numeric
 CFG$method <- "stdv"; CFG$loo_mode <- "fixedV"; CFG$run_tag <- "v4_stdv_ex107_201_nested53"
 EXCL <- if (Sys.getenv("NESTED_EXCL") == "none") integer(0) else c(107L, 201L)
 if (!length(EXCL)) CFG$run_tag <- "v4_stdv_nested55_full"
@@ -52,7 +52,7 @@ placebo_par <- function(u, donors, post_idx) {
   res <- bind_rows(lapply(which(ok), function(i) data.frame(placebo_unit = donors[i], pre_rmspe = rs[[i]]$metrics$final_pre_rmspe,
          post_rmspe = rs[[i]]$metrics$post_rmspe, ratio = rs[[i]]$metrics$rmspe_ratio, att_abs = rs[[i]]$metrics$att_abs, att_pct = rs[[i]]$metrics$att_pct))) %>%
     left_join(df %>% distinct(placebo_unit = unit_id_num, unit_name = unit_name_en), by = "placebo_unit")
-  if (any(!ok)) logmsg("  위약 실패: ", paste(donors[!ok], collapse = ","))
+  if (any(!ok)) logmsg("  placebo failed: ", paste(donors[!ok], collapse = ","))
   list(res = res, paths = bind_rows(lapply(which(ok), function(i) rs[[i]]$path %>% mutate(placebo_unit = donors[i]))))
 }
 rows <- list()
@@ -62,7 +62,7 @@ for (u in units) {
   u_dir <- file.path(out, sprintf("unit_%02d", u)); dir.create(u_dir); pdir <- file.path(out, "plots", sprintf("%02d", u)); dir.create(pdir, recursive = TRUE)
   r1 <- df[df$unit_id_num == u, ][1, ]; rl <- paste0(r1$road_en, " ", ifelse(as.integer(r1$direction) == 1, "NB", "SB"))
   fit <- fit_two_step(CFG, df, preds, u, donors, post_idx = post_idx); m <- fit$metrics
-  logmsg(sprintf("===== unit %d (%s, %d–%d주, 도너 %d): ATT %+.2f%% | pre %.1f | ratio %.2f | max w %.2f",
+  logmsg(sprintf("===== unit %d (%s, weeks %d–%d, donors %d): ATT %+.2f%% | pre %.1f | ratio %.2f | max w %.2f",
                  u, pw, min(post_idx), max(post_idx), length(donors), m$att_pct, m$final_pre_rmspe, m$rmspe_ratio, m$max_w))
   write_csv(fit$path, file.path(u_dir, sprintf("path_%s.csv", pw)))
   write_csv(data.frame(donor = fit$donors, w = fit$w2), file.path(u_dir, "weights.csv"))

@@ -1,18 +1,18 @@
-# 서울 전역 도로 gsynth 진단 (2026-11-03): 위약검정 + 처치 전 추세 + 동등성 검정
-#  패널·사양은 seoul_road_gsynth_20261103.R 과 동일(149개 서울 지점 vs 도너 53개, 06–09시 주간 중앙값, 처치 51주, 51–96주).
-#  (1) 위약검정: 처치 전 마지막 4주(상대 주 −3~0)를 가짜 처치 기간으로 두고 fect placeboTest → 가짜 기간 ATT와 p
-#  (2) 처치 전 추세: 본 적합의 상대 주별 ATT(처치 전 구간)와 F 검정, 동등성 검정(fect 내장)
-#  (3) 그림: 상대 주별 격차(gap), 동등성(equiv) 그림 png
-#  r은 R_FIX(기본 0 = CV 선택값). 부트스트랩 NB(기본 200), 직렬 기본(CORES=1).
+# Seoul-wide road gsynth diagnostics (2026-11-03): placebo test + pre-treatment trends + equivalence test
+#  Panel and spec as in seoul_road_gsynth_20261103.R (149 Seoul sites vs 53 donors, 06–09h weekly median, treatment at week 51, weeks 51–96).
+#  (1) Placebo test: last 4 pre weeks (relative weeks −3 to 0) as a fake treatment period via fect placeboTest → placebo ATT and p
+#  (2) Pre-treatment trends: relative-week ATTs of the main fit (pre period), F test and equivalence test (built into fect)
+#  (3) Figures: relative-week gap and equivalence plots (png)
+#  r = R_FIX (default 0 = the CV-selected value). Bootstrap NB (default 200), serial by default (CORES=1).
 # Run (from repo root): Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_diag_20261103.R
-#       r=4 비교:  R_FIX=4 Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_diag_20261103.R
-## RESTRICTED DATA REQUIRED (restricted data required): TOPIS 도로 검지기 교통량 — not redistributed (licence pending).
+#       Compare r=4:  R_FIX=4 Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_diag_20261103.R
+## RESTRICTED DATA REQUIRED: TOPIS road detector traffic volumes — not redistributed (licence pending).
 ## Required input files (place under RAW_DIR):
-##   - panel_seoul176_donor53_6to9.csv   (TOPIS 서울 176개 지점 + 서울 밖 도너 53개 링크 주간 패널; 파이썬으로 구성, 생성 스크립트는 저장소에 없음)
+##   - panel_seoul176_donor53_6to9.csv   (weekly panel: 176 TOPIS Seoul sites + 53 non-Seoul donor links; built in Python, the build script is not in this repo)
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
 RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted / non-redistributed inputs
-OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "05_seoul_road_gsynth/서울전역_도로_gsynth_20261103"))
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "05_seoul_road_gsynth/seoul_road_gsynth_20261103"))
 suppressPackageStartupMessages({ library(fect); library(dplyr) })
 out <- OUT_DIR; dir.create(out, showWarnings = FALSE, recursive = TRUE)
 R_FIX <- as.integer(Sys.getenv('R_FIX', '0')); NB <- as.integer(Sys.getenv('NB', '200')); CORES <- as.integer(Sys.getenv('CORES', '1'))
@@ -21,29 +21,29 @@ P <- read.csv(file.path(RAW_DIR, 'panel_seoul176_donor53_6to9.csv'), fileEncodin
 tag <- paste0('r', R_FIX); cat('r =', R_FIX, '| nboots =', NB, '| cores =', CORES, '\n')
 par_on <- CORES > 1
 
-## (1) 위약검정
+## (1) Placebo test
 set.seed(20260731L)
 fp <- fect(traffic ~ D, data = P, index = c('unit_id', 'week_index'), method = 'gsynth', force = 'two-way', CV = FALSE, r = R_FIX,
            se = TRUE, nboots = NB, parallel = par_on, cores = CORES, vartype = 'bootstrap',
            placeboTest = TRUE, placebo.period = c(-3, 0))
 pl <- fp$est.placebo
-cat('\n== 위약검정 (처치 전 마지막 4주를 가짜 처치) ==\n'); print(pl)
+cat('\n== Placebo test (last 4 pre weeks as fake treatment) ==\n'); print(pl)
 write.csv(as.data.frame(pl), file.path(out, sprintf('diag_placebo_%s.csv', tag)))
 
-## (2) 본 적합 + 처치 전 추세·동등성
+## (2) Main fit + pre-treatment trends and equivalence
 set.seed(20260731L)
 f <- fect(traffic ~ D, data = P, index = c('unit_id', 'week_index'), method = 'gsynth', force = 'two-way', CV = FALSE, r = R_FIX,
           se = TRUE, nboots = NB, parallel = par_on, cores = CORES, vartype = 'bootstrap')
-cat('\n== 전체 ATT (대/시, 부트스트랩) ==\n'); print(f$est.avg)
+cat('\n== Overall ATT (veh/h, bootstrap) ==\n'); print(f$est.avg)
 att <- as.data.frame(f$est.att); att$rel_week <- as.integer(rownames(att))
 write.csv(att, file.path(out, sprintf('diag_event_att_%s.csv', tag)), row.names = FALSE)
 pre <- att[att$rel_week <= 0, ]
-cat(sprintf('\n처치 전 상대 주별 ATT: 평균 %.1f, |ATT| 최대 %.1f, 95%% CI가 0을 벗어난 주 %d/%d\n',
+cat(sprintf('\nPre-treatment relative-week ATT: mean %.1f, max |ATT| %.1f, weeks with 95%% CI excluding 0: %d/%d\n',
             mean(pre$ATT), max(abs(pre$ATT)), sum(pre$CI.lower > 0 | pre$CI.upper < 0, na.rm = TRUE), nrow(pre)))
-if (!is.null(f$test.out)) { cat('\n== 처치 전 추세 검정 (fect test.out) ==\n'); print(f$test.out[intersect(c('f.stat', 'f.p', 'f.equiv.p', 'tost.equiv.p'), names(f$test.out))]) }
+if (!is.null(f$test.out)) { cat('\n== Pre-treatment trend tests (fect test.out) ==\n'); print(f$test.out[intersect(c('f.stat', 'f.p', 'f.equiv.p', 'tost.equiv.p'), names(f$test.out))]) }
 saveRDS(list(placebo = fp, main = f), file.path(out, sprintf('diag_fits_%s.rds', tag)))
 
-## (3) 그림
+## (3) Figures
 png(file.path(out, sprintf('diag_gap_%s.png', tag)), width = 1600, height = 900, res = 160)
 print(plot(f, main = sprintf('Seoul road sites vs donors (r = %d): weekly gap, veh/h', R_FIX), xlab = 'Weeks relative to 2024-01-29', ylab = 'Gap (veh/h)'))
 dev.off()

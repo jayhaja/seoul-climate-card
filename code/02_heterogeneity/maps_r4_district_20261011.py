@@ -1,13 +1,13 @@
-## maps_r4_district_20261011.py — r4 원값 모형(users ~ D + log_pop, r=4) 출발 자치구별 총량 효과 지도 (KO·EN)
-## 입력: RAW_DIR/R2_r4_자치구_지도데이터_20261011/district_effects.csv (effect_pct = 100·Σ격차/Σ반사실, 점추정만)
-## 경계: maps_EN.py 와 동일(RAW_DIR/읍면동/emd.shp → 공시지가 csv 의 gu 로 dissolve; 둘 다 읽기만 함)
+## maps_r4_district_20261011.py — map of total effects by origin district (gu) from the r4 level model (users ~ D + log_pop, r=4), Korean (KO) and English (EN) versions
+## Input: RAW_DIR/R2_r4_자치구_지도데이터_20261011/district_effects.csv (effect_pct = 100·Σgap/Σcounterfactual, point estimates only)
+## Boundaries: same as maps_EN.py (RAW_DIR/읍면동/emd.shp dissolved by the gu column of the land-price csv; both are read only)
 import os, pandas as pd, geopandas as gpd, matplotlib.pyplot as plt, matplotlib as mpl
 from matplotlib import font_manager as fm
-## RESTRICTED DATA REQUIRED (restricted data required): district_effects.csv 는 스마트카드 OD 적합에서 집계한 파일(생성 스크립트는 저장소에 없음).
+## RESTRICTED DATA REQUIRED: district_effects.csv is aggregated from the smart-card OD fits (the script that produced it is not in this repo).
 ## Required input files (place under RAW_DIR):
-##   - R2_r4_자치구_지도데이터_20261011/district_effects.csv   (district_name, effect_pct, gap_weekly_total, n_od)
-##   - 읍면동/emd.shp (+ .shx/.dbf/.prj; cp949)                  (읍면동 경계, 공개 자료이나 저장소에 없음)
-##   - 집중지수_0727/공시지가_법정동_2023.csv                     (emd_cd → gu 대응, 공개 자료이나 저장소에 없음)
+##   - R2_r4_자치구_지도데이터_20261011/district_effects.csv   [folder = "r4 district map data"] (district_name, effect_pct, gap_weekly_total, n_od)
+##   - 읍면동/emd.shp (+ .shx/.dbf/.prj; cp949)                  [읍면동 = eup/myeon/dong] (neighbourhood boundaries; public data, not in this repo)
+##   - 집중지수_0727/공시지가_법정동_2023.csv                     [= "concentration index / official land price by legal dong, 2023"] (emd_cd → gu lookup; public data, not in this repo)
 ## Run (from repo root): python3 code/02_heterogeneity/maps_r4_district_20261011.py
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT = os.environ.get("REPO_ROOT", ".")                                   # run from repo root
@@ -20,6 +20,8 @@ os.makedirs(OUT, exist_ok=True)
 for p in ["/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc", "/System/Library/Fonts/AppleSDGothicNeo.ttc"]:
     if os.path.exists(p): fm.fontManager.addfont(p); mpl.rcParams["font.family"] = fm.FontProperties(fname=p).get_name(); break
 mpl.rcParams["axes.unicode_minus"] = False
+# ROMAN: romanised names for the Korean district (gu) values in the input data
+# The KO map below intentionally keeps Korean labels (Korean-language figure); the EN map is fully English.
 ROMAN = {"종로구":"Jongno","중구":"Jung","용산구":"Yongsan","성동구":"Seongdong","광진구":"Gwangjin","동대문구":"Dongdaemun","중랑구":"Jungnang",
  "성북구":"Seongbuk","강북구":"Gangbuk","도봉구":"Dobong","노원구":"Nowon","은평구":"Eunpyeong","서대문구":"Seodaemun","마포구":"Mapo",
  "양천구":"Yangcheon","강서구":"Gangseo","구로구":"Guro","금천구":"Geumcheon","영등포구":"Yeongdeungpo","동작구":"Dongjak","관악구":"Gwanak",
@@ -32,7 +34,7 @@ gu = shp.dissolve(by="gu").reset_index()[["gu", "geometry"]]; gu["geometry"] = g
 gu = gpd.GeoDataFrame(gu, geometry="geometry", crs=5179).to_crs(4326)
 e = pd.read_csv(SRC, encoding="utf-8-sig")
 gu = gu.merge(e[["district_name", "effect_pct", "gap_weekly_total", "n_od"]], left_on="gu", right_on="district_name", how="left")
-assert len(gu) == 25 and gu.effect_pct.notna().all(), "자치구 결합 실패"
+assert len(gu) == 25 and gu.effect_pct.notna().all(), "district join failed"
 vmin, vmax = 0, float(gu.effect_pct.max())
 for lang in ["KO", "EN"]:
     fig, ax = plt.subplots(figsize=(9, 7.6))

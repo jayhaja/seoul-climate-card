@@ -1,16 +1,20 @@
-## RESTRICTED DATA REQUIRED (restricted data required): 스마트카드 OD 패널에서 나온 적합·부트스트랩 결과와 OD/출발 단위 공변량.
+## RESTRICTED DATA REQUIRED: model fits and bootstrap draws derived from the smart-card OD panel, plus OD/origin-level covariates.
 ## Required input files (place under RAW_DIR unless noted):
-##   - R2_r4_환승5분위_사전CI_20261011/<eng>/chunk_01.rds ... chunk_05.rds   (OD별 부트스트랩 draw 1,000개; 생성 스크립트는 저장소에 없음)
-##   - R2_r4_인구대비_추가이용_20261011/dong_population_effects.csv           (unit_id, pre_population; 생성 스크립트는 저장소에 없음)
-##   - 규모통제_거리환승_20261011/OD_analysis_data.csv                          (OD별 transfer, distance_km)
-##   - AI_uc_보정_20261101.csv, youth_region_20261101.csv, elderly_ratio_unit_20261102.csv, 환승시간_unit매칭_20261101.csv  (unit_id 매칭 공변량)
-##   - point.rds: produced by code/01_citywide_gsynth/R2_r4_Xu권고진단_20261010.R
-##       → REPO_ROOT/output/01_citywide_gsynth/R2_r4_Xu권고진단_20261010/<eng>/point.rds (override: XU_DIR)
+##   - R2_r4_환승5분위_사전CI_20261011/<eng>/chunk_01.rds ... chunk_05.rds   [folder = "r4 transfer quintiles, pre-computed CI"]
+##       (1,000 bootstrap draws per OD pair; the script that produced them is not in this repo)
+##   - R2_r4_인구대비_추가이용_20261011/dong_population_effects.csv           [folder = "r4 additional use per population"]
+##       (unit_id, pre_population; the script that produced it is not in this repo)
+##   - 규모통제_거리환승_20261011/OD_analysis_data.csv                          [folder = "size-controlled distance/transfer"]
+##       (transfer, distance_km per OD pair)
+##   - AI_uc_보정_20261101.csv, youth_region_20261101.csv, elderly_ratio_unit_20261102.csv, 환승시간_unit매칭_20261101.csv
+##       (covariates matched on unit_id; 보정 = "adjusted", 환승시간_unit매칭 = "transfer time, unit-matched")
+##   - point.rds: produced by code/01_citywide_gsynth/R2_r4_xu_diagnostics_20261010.R
+##       → REPO_ROOT/output/01_citywide_gsynth/R2_r4_xu_diagnostics_20261010/<eng>/point.rds (override: XU_DIR)
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
 RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted / non-redistributed inputs
-OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "02_heterogeneity/R2_r4_반사실_5분위_20261103"))
-XU_DIR    <- Sys.getenv("XU_DIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth", "R2_r4_Xu권고진단_20261010"))   # point.rds 위치
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "02_heterogeneity/R2_r4_cf_quintiles_20261103"))
+XU_DIR    <- Sys.getenv("XU_DIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth", "R2_r4_xu_diagnostics_20261010"))   # location of point.rds
 ## Run (from repo root): Rscript code/02_heterogeneity/hetero_cf_quintiles_20261103.R
 eng <- "PATCHED_local_weight_v2_cvmax_v1_audit_v1_fect2.4.7_h748c651816_srce78b1e9155"
 f <- readRDS(file.path(XU_DIR, eng, "point.rds"))$fit
@@ -38,6 +42,7 @@ for(nm in names(values)) {
   n_all=sapply(paste0("Q",1:5),function(l)sum(g==l,na.rm=TRUE)),
   n_main=sapply(paste0("Q",1:5),function(l)sum(g==l & keep,na.rm=TRUE)))
 }
+# Map Korean planning-region values in the input (도심권 = Downtown, 동북권 = Northeast, 서북권 = Northwest, 서남권 = Southwest, 동남권 = Southeast)
 reg<-c(도심권="Downtown",동북권="Northeast",서북권="Northwest",서남권="Southwest",동남권="Southeast")
 axes$region<-unname(reg[m(yr,"region")])
 write.csv(do.call(rbind,bounds),file.path(out,"quintile_boundaries_counts.csv"),row.names=FALSE)
