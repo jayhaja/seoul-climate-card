@@ -33,8 +33,8 @@ Details: [`data/README.md`](data/README.md).
 |---|---|---|---|---|---|
 | 1 | Within-Seoul transit | 409 within-Seoul OD pairs | 941 donor ODs | gsynth (fect, r = 4, OD and week fixed effects, log population covariate) | [`code/01_citywide_gsynth`](code/01_citywide_gsynth) |
 | 2 | Heterogeneity | the 409 ODs of analysis 1 | — | re-aggregation of the analysis 1 fit (no refits), 1,000 paired bootstrap draws | [`code/02_heterogeneity`](code/02_heterogeneity) |
-| 3 | Yeouido road links | 12 directional links | 53 non-Seoul donor links | SCM (nested V), one fit per link | [`code/03_road_scm`](code/03_road_scm) |
-| 4 | Transit from Yeouido-dong | 1 OD unit | 79 donor ODs | SCM (nested V) | [`code/04_yeouido_transit_scm`](code/04_yeouido_transit_scm) |
+| 3 | Yeouido road links | 12 directional links | 53 non-Seoul donor links | SCM, one fit per link | [`code/03_road_scm`](code/03_road_scm) |
+| 4 | Transit from Yeouido-dong | 1 OD unit | 79 donor ODs | SCM | [`code/04_yeouido_transit_scm`](code/04_yeouido_transit_scm) |
 | 5 | Seoul-wide roads | 149 TOPIS sites | 53 non-Seoul donor links | gsynth (CV-selected r, r = 1–4 sensitivity) | [`code/05_seoul_road_gsynth`](code/05_seoul_road_gsynth) |
 
 **Effect in %.** Effect relative to the counterfactual = 100 × Σ(observed − counterfactual) / Σ counterfactual — a ratio of sums, not a mean of unit percentages.

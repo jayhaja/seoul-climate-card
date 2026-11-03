@@ -100,7 +100,7 @@ donor_pool <- function(cfg, df, treated_ids, need_idx, logmsg = message) {
   }
   stop("synth failed (", label, "): ", paste(unique(errs), collapse = " | "))
 }
-## method="stdv": one nested optimisation over the full pre-window / method="adh2015": the two steps below
+## method="stdv": one joint optimisation over the full pre-window / method="adh2015": the two steps below
 ## Stage 1: W from training-window (fit_idx) predictors; V chosen to fit the validation-window (valid_idx) outcome
 ## Stage 2: V fixed, final W from validation-window predictors. Effects over the post window.
 fit_two_step <- function(cfg, df, preds, treated, donors, fit_idx = cfg$fit_idx, valid_idx = cfg$valid_idx,
@@ -110,7 +110,7 @@ fit_two_step <- function(cfg, df, preds, treated, donors, fit_idx = cfg$fit_idx,
   foo <- as.data.frame(df %>% filter(unit_id_num %in% c(treated, donors), week_index %in% plot_idx))
   base_args <- list(foo = foo, dependent = "traffic", unit.variable = "unit_id_num", unit.names.variable = "unit_name_en",
                     time.variable = "week_index", treatment.identifier = treated, controls.identifier = donors)
-  ## ── method = "stdv": one nested V·W optimisation over the full pre-window (fit∪valid) ──
+  ## ── method = "stdv": one joint V·W optimisation over the full pre-window (fit∪valid) ──
   if (identical(cfg$method, "stdv") || identical(cfg$method_fit, "stdv")) {
     pre_w <- sort(unique(c(fit_idx, valid_idx)))            # main estimate: fit∪valid = pre_idx (1–50) / in-time: 1–(f0−1)
     if (!setequal(pre_w, cfg$pre_idx) && !any(post_idx <= max(cfg$pre_idx))) stop("stdv: fit∪valid differs from pre_idx")

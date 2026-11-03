@@ -1,5 +1,5 @@
 ## run_nested53_full.R — full re-run of the nested (stdv, ADH 2010) specification with 53 donors (−107·201, same as C1)
-## Settings: restored from runs/v4_stdv_lanes_speed_20261003-215235_566ddb10_ubu6/run_info.json (common predictors lanes_mean + speed median, nested V·W over 50 weeks)
+## Settings: restored from runs/v4_stdv_lanes_speed_20261003-215235_566ddb10_ubu6/run_info.json (common predictors lanes_mean + speed median, joint V·W over 50 weeks)
 ## Donors: donor_pool_{full|main}.csv of that run, excluding 107·201
 ##   107: indirect exposure via Gunpo's Climate Card agreement (2024-01-31) / 201: Songdo connector road, +20% structural change from 2024-03
 ## Post window: units 1·2·10 (Gyeongin-ro southbound/northbound, Yeouidaebang-ro northbound) weeks 51–72; the rest weeks 51–100

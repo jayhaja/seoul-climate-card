@@ -1,6 +1,6 @@
 ## SCM_yeouido_nested79_loo_plot.R — Yeouido main specification (79 donors): redraw the LOO figure (2026-11-03)
 ## The original Rmd LOO figure has no legend and small text -> redrawn with the same device, font and margins as the main path figure (1.scm_path).
-## LOO paths were not saved, so each of the 5 positive-weight donors (w > 0.001) is dropped in turn and nested V·W re-estimated (about 1 min).
+## LOO paths were not saved, so each of the 5 positive-weight donors (w > 0.001) is dropped in turn and V·W re-estimated (about 1 min).
 ##   The numbers should match loo_sensitivity_D79_nested.csv.
 ## Output: OUT_DIR/plots/5.loo_D79_nested_v2.jpg, OUT_DIR/loo_paths_D79_nested.csv (OUT_DIR default output/04_yeouido_transit_scm/SCM_yeouido_nested79/)
 ## Run (from repo root): Rscript code/04_yeouido_transit_scm/SCM_yeouido_nested79_loo_plot.R

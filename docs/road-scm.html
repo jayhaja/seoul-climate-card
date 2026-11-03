@@ -16,7 +16,7 @@
   <ul>
     <li><span class="ko">결과변수: 평일 06–09시 시간당 교통량, 일 중앙값 → 주 중앙값. 처치 시점 51주(2024-01-29), 사전 1–50주.</span><span class="en">Outcome: weekday 06–09h hourly volume, daily median → weekly median. Treatment at week 51 (2024-01-29); pre-period weeks 1–50.</span></li>
     <li><span class="ko">사후 기간: 51–96주. 공사 영향 지점(01·02·10)은 51–72주.</span><span class="en">Post window weeks 51–96; links 01, 02, 10 (affected by construction) use weeks 51–72.</span></li>
-    <li><span class="ko">예측변수: 차로 수 평균, 속도 중앙값, 교통량 5개 구간 평균. V·W nested 최적화.</span><span class="en">Predictors: mean lanes, median speed, five block means of volume; nested optimisation of V and W.</span></li>
+    <li><span class="ko">예측변수: 차로 수 평균, 속도 중앙값, 교통량 5개 구간 평균. V·W는 처치 전 기간 예측오차를 최소화하도록 함께 추정.</span><span class="en">Predictors: mean lanes, median speed, five block means of volume; joint estimation of V and W.</span></li>
     <li><span class="ko">추론: 사후/사전 RMSPE 비율(Abadie et al. 2015). 위약 도너에 처치 링크 포함, 사전 적합도 필터 없음 → p = 순위/54. 5배 이하 필터는 민감도.</span><span class="en">Inference: post/pre RMSPE ratio (Abadie et al. 2015); the treated link joins each placebo's donor pool; no pre-fit filter → p = rank/54. The ≤ 5× filter is a sensitivity check.</span></li>
     <li><span class="ko">LOO: 양의 가중치 도너를 하나씩 빼고 V·W 재추정(two-step).</span><span class="en">LOO: drop each positive-weight donor and re-estimate V and W (two-step).</span></li>
   </ul>

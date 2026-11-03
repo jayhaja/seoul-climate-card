@@ -1,10 +1,10 @@
 # 04 Yeouido transit synthetic control (SCM)
 
 ## Purpose
-*Synthetic control for public-transport flows from Yeouido-dong, 79 donors, nested V optimisation.*
+*Synthetic control for public-transport flows from Yeouido-dong, 79 donors; V and W estimated jointly on the pre-period.*
 
 - Treated unit: the Yeouido-dong -> Seoul public-transport OD flow (weekly users, holiday weeks excluded). Policy date 2024-01-29; 49 pre-treatment weeks (from 2023-02-13); post-period through 2024-12-30.
-- Main specification (`nested79`): 79 donors (the Rmd's 81 minus 23 Haan-dong -> Seoul and 55 Geumgwang-dong -> Seoul). Predictors `tranfer`, `pop_dong` + 5 block means of the pre-period outcome. V and W are chosen jointly by minimising the prediction error over all 49 pre-treatment weeks (Synth nested). If the default optimiser fails: `optimxmethod = "All"` -> `genoud = TRUE`.
+- Main specification (`nested79`): 79 donors (the Rmd's 81 minus 23 Haan-dong -> Seoul and 55 Geumgwang-dong -> Seoul). Predictors `tranfer`, `pop_dong` + 5 block means of the pre-period outcome. V and W are chosen jointly by minimising the prediction error over all 49 pre-treatment weeks (Synth). If the default optimiser fails: `optimxmethod = "All"` -> `genoud = TRUE`.
 - Alternative specification (`adhcv79`): the 49 pre weeks are split into 25 training and 24 validation weeks to choose V, then W is fitted on the full pre-period (Abadie et al. 2015).
 - In-space placebos (as implemented in the code): test statistic = post/pre **RMSPE ratio** (Abadie et al. 2015). Each placebo removes only the placebo unit from the donor pool and **includes the treated unit as a donor**, then runs the same procedure. p = (1 + #{placebo ratio >= treated ratio}) / (1 + number of placebos), i.e. the rank of the treated unit within a distribution that includes it. The main result uses **no pre-fit filter** (`all (Abadie 2015)`); keeping only placebos with pre RMSPE <= 5x the treated one is a sensitivity check (`pre RMSPE <= 5x`).
   - Note: the Rmd's own `placebo`/`pvals` chunks (81 donors, τ = 2, 3, 5, Inf, treated unit excluded from placebo donor pools) belong to the earlier specification; the 79-donor scripts do not use them.

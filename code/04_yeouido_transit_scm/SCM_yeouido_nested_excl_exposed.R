@@ -5,7 +5,7 @@
 ##   22 Haan-dong (Gwangmyeong) -> Gyeonggi, 23 Haan-dong -> Seoul
 ##       : Line 7 Cheolsan station (within the Onsu-Jangam range), from 2024-01-27
 ## Otherwise identical to the main specification: the Rmd setup, data and fit-fn chunks as they are
-##   (nested V·W, 49 pre weeks, predictors tranfer and pop_dong + 5 block means of the outcome).
+##   (V·W estimated jointly over 49 pre weeks, predictors tranfer and pop_dong + 5 block means of the outcome).
 ## Diagnostics: (1) in-space placebos — Abadie et al. (2015): only the placebo unit is removed and the treated OD is included as a donor,
 ##                  no pre-fit filter (excluding > 5x pre-RMSPE is a sensitivity check)
 ##              (2) LOO — drop each positive-weight donor in turn and re-estimate V·W

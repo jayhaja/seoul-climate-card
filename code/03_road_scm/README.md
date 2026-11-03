@@ -1,11 +1,11 @@
 # 03_road_scm — Synthetic control (SCM) for roads around Yeouido
 
 ## Purpose
-Synthetic control for 12 directional road links around Yeouido with 53 donors, nested V·W optimisation, and Abadie et al. (2015)-style placebo inference on the RMSPE ratio.
+Synthetic control for 12 directional road links around Yeouido with 53 donors, V and W estimated jointly on the pre-period, and Abadie et al. (2015)-style placebo inference on the RMSPE ratio.
 
 - Treated units: 12 directional road links around Yeouido (units 1–12). Post window: weeks 51–96 for regular sites and weeks 51–72 for the construction-affected sites (units 1, 2 and 10). Treatment starts in week 51 (pre-period = weeks 1–50).
 - Donors: 77-unit panel (12 treated + 65 candidates) → 10 qualitative exclusions (`donor_exclude` in `config_v4.R`, Appendix C) → from the earlier run's donor pool (55 units), 107 and 201 are additionally excluded → **53 donors**.
-- Estimation: `method = "stdv"` — V (predictor weights) and W (donor weights) are **jointly optimised (nested)** with Synth over the full 50-week pre-period (ADH 2010). Predictors: mean number of lanes (`lanes_mean`), median speed (`speed`), and 5 block averages of traffic volume.
+- Estimation: `method = "stdv"` — V (predictor weights) and W (donor weights) are **jointly optimised** with Synth over the full 50-week pre-period (ADH 2010). Predictors: mean number of lanes (`lanes_mean`), median speed (`speed`), and 5 block averages of traffic volume.
 - Inference (`run_nested53_abadie2015_placebo.R`): in-space placebos, re-estimating V·W with each donor d treated as the treated unit. As in Abadie et al.'s (2015) original implementation, placebo donors = (53 − d) ∪ {current treated site} — **the treated site is included in the placebo donor pool** (the other 11 treated sites are excluded).
 - Test statistic: post/pre RMSPE ratio. Main p-value = (1 + #{placebo ratio ≥ treated ratio}) / (1 + n), **with no pre-fit filter** (all successful placebos; the treated site enters the distribution as the "1" in the numerator and denominator).
 - Sensitivity: p-value using only placebos whose pre-period RMSPE is **at most 5×** that of the treated site (`p_tau5`).

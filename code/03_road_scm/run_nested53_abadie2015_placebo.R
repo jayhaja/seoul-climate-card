@@ -1,12 +1,12 @@
 ## run_nested53_abadie2015_placebo.R — re-run of road SCM placebo · LOO (2026-11-03)
-## Main estimate: same nested specification as run_nested53_full.R (method = "stdv", Abadie et al. 2010), 53 donors (−107·201). The main estimate is refitted only to confirm reproduction.
+## Main estimate: same specification as run_nested53_full.R (method = "stdv", Abadie et al. 2010), 53 donors (−107·201). The main estimate is refitted only to confirm reproduction.
 ## What changed (the original scripts/functions are not modified)
 ##   (1) In-space placebo: as in Abadie et al.'s (2015) original implementation, only the placebo unit d is removed from the donors, and the one treated site currently being tested is included as a donor
 ##       → placebo donors = setdiff(53, d) ∪ {treated site}. The other 11 treated sites are not included.
 ##   (2) p-value: (1 + #{R_j ≥ R_1}) / (1 + n) over all successful placebos, without a pre-fit filter. Failed placebos are retried once and the reason is recorded.
-##   (3) LOO: loo_mode = "twostep" → drop positive-weight donors one at a time and re-estimate both V·W nested (method = "stdv" kept, not CV)
+##   (3) LOO: loo_mode = "twostep" → drop positive-weight donors one at a time and re-estimate both V and W (method = "stdv" kept, not CV)
 ##   (4) Post window: regular sites weeks 51–96, construction-affected sites (1·2·10) weeks 51–72. Serial execution (no parallelism).
-##   In-time placebos are not re-run, since the existing results already re-estimate V·W nested. No plots are made either (done separately once results are final).
+##   In-time placebos are not re-run, since the existing results already re-estimate V and W. No plots are made either (done separately once results are final).
 ## Run (from repo root): Rscript code/03_road_scm/run_nested53_abadie2015_placebo.R           # 12 sites
 ##       Rscript code/03_road_scm/run_nested53_abadie2015_placebo.R 4,6,8,12                         # subset
 ##   (macOS only, optional: prefix with `caffeinate -i` to keep the machine awake during long runs)
@@ -38,7 +38,7 @@ out <- file.path(OUT_DIR, "runs", paste0(CFG$run_tag, "_", format(Sys.time(), "%
 logf <- file.path(out, "run.log")
 logmsg <- function(...) { s <- paste0(format(Sys.time(), "%H:%M:%S "), paste0(...)); cat(s, "\n"); cat(s, "\n", file = logf, append = TRUE) }
 write_json(list(config = CFG, units = units, exclude = EXCL, short_units = SHORT_UNITS, started = format(Sys.time()),
-                note = "placebo donors = setdiff(pool, d) + treated; p without pre-fit filter; LOO twostep (nested V,W refit); post 51-96 / 51-72"),
+                note = "placebo donors = setdiff(pool, d) + treated; p without pre-fit filter; LOO twostep (V and W refit); post 51-96 / 51-72"),
            file.path(out, "run_info.json"), auto_unbox = TRUE, pretty = TRUE, null = "null")
 df <- load_panel(CFG, logmsg); preds <- active_predictors(CFG, df)
 pool <- lapply(c(main = "main", full = "full"), function(w)
@@ -75,7 +75,7 @@ for (u in units) {
   sub5 <- res[res$pre_rmspe <= 5 * m$final_pre_rmspe, ]; p5 <- (1 + sum(sub5$ratio >= m$rmspe_ratio)) / (1 + nrow(sub5))
   logmsg(sprintf("  placebos %d/%d succeeded | rank %d/%d | p(all) %.3f | p(excl. >5x, sensitivity) %.3f (n=%d) | median weight on treated site %.3f",
                  n, length(donors), 1 + c_ge, 1 + n, p_all, p5, nrow(sub5), median(res$w_on_treated)))
-  ## (3) LOO — nested V·W re-estimation
+  ## (3) LOO — V·W re-estimation
   lo <- loo_refit(CFG, df, preds, fit, post_idx = post_idx)
   if (nrow(lo$res)) { write_csv(lo$res, file.path(u_dir, "loo_twostep.csv")); write_csv(lo$paths, file.path(u_dir, "loo_paths_twostep.csv"))
     logmsg(sprintf("  LOO (V·W re-estimated) %d, ATT%% [%+.2f, %+.2f]", nrow(lo$res), min(lo$res$att_pct), max(lo$res$att_pct))) }

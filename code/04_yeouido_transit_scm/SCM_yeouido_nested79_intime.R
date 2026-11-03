@@ -1,7 +1,7 @@
 ## SCM_yeouido_nested79_intime.R — Yeouido main specification (79 donors): in-time placebos only (2026-11-03)
 ## SCM_yeouido_nested79_main.R once stopped after LOO, just before the in-time placebos, because of a name clash (variable L) -> this runs
 ##   only that part. Placebos and LOO are not re-run.
-## The Rmd intime-plots chunk as it is (fake dates = 55th/70th/85th percentiles of the pre-period, nested V·W re-estimated)
+## The Rmd intime-plots chunk as it is (fake dates = 55th/70th/85th percentiles of the pre-period, V·W re-estimated)
 ##   + an added MSPE-ratio column (= RMSPE ratio squared).
 ## Output: OUT_DIR (default output/04_yeouido_transit_scm/SCM_yeouido_nested79/, + plots/)
 ## Run (from repo root): Rscript code/04_yeouido_transit_scm/SCM_yeouido_nested79_intime.R
