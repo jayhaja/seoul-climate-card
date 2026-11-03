@@ -1,23 +1,23 @@
-# 서울 전역 도로 gsynth — 지점 유형별 따로 적합 + 유형별 진단 (2026-11-03)
-#  유형: A 도심, B 시계, C 한강교량, D 간선, F 도시고속도로. 각 유형의 서울 지점만 처치로, 도너 53개는 공통 통제.
-#  유형마다 (1) rolling CV(1se, GMSPE)로 r 선택 + GMSPE 최소 r 기록 (2) 그 r로 부트스트랩 ATT (3) 위약검정(처치 전 마지막 4주) (4) 처치 전 F·동등성 검정
-#  결과변수 OUTCOME: level(대/시, 기본) 또는 index(지점별 처치 전 평균 = 100인 지수 → 효과가 처치 전 대비 %p로 읽힘)
-#  R_MODE: cv(기본, 1se 적용 r) / min(GMSPE 최소 r) / 숫자(고정 r)
-# Run (from repo root, 직렬): Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_bytype_20261103.R
-#        지수:  OUTCOME=index Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_bytype_20261103.R
-#        GMSPE 최소 r: R_MODE=min Rscript ...      유형 일부만: TYPES=C,D Rscript ...
-## RESTRICTED DATA REQUIRED (restricted data required): TOPIS 도로 검지기 교통량 — not redistributed (licence pending).
+# Seoul-wide road gsynth — separate fits by site type + per-type diagnostics (2026-11-03)
+#  Types: A downtown, B city boundary, C Han River bridges, D arterials, F urban expressways. Only that type's Seoul sites are treated; the 53 donors are common controls.
+#  For each type: (1) choose r by rolling CV (1se, GMSPE) and record the GMSPE-minimising r (2) bootstrap ATT at that r (3) placebo test (last 4 pre weeks) (4) pre-treatment F and equivalence tests
+#  OUTCOME: level (veh/h, default) or index (site pre-treatment mean = 100 → effects read as percentage points vs pre-treatment)
+#  R_MODE: cv (default, r after 1se rule) / min (GMSPE-minimising r) / a number (fixed r)
+# Run (from repo root, serial): Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_bytype_20261103.R
+#        Index outcome:  OUTCOME=index Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_bytype_20261103.R
+#        GMSPE-min r: R_MODE=min Rscript ...      Subset of types: TYPES=C,D Rscript ...
+## RESTRICTED DATA REQUIRED: TOPIS road detector traffic volumes — not redistributed (licence pending).
 ## Required input files (place under RAW_DIR):
-##   - panel_seoul176_donor53_6to9.csv   (TOPIS 서울 176개 지점 + 서울 밖 도너 53개 링크 주간 패널; 파이썬으로 구성, 생성 스크립트는 저장소에 없음)
+##   - panel_seoul176_donor53_6to9.csv   (weekly panel: 176 TOPIS Seoul sites + 53 non-Seoul donor links; built in Python, the build script is not in this repo)
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
 RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted / non-redistributed inputs
-OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "05_seoul_road_gsynth/서울전역_도로_gsynth_20261103/bytype"))
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "05_seoul_road_gsynth/seoul_road_gsynth_20261103/bytype"))
 suppressPackageStartupMessages({ library(fect); library(dplyr) })
 out <- OUT_DIR; dir.create(out, showWarnings = FALSE, recursive = TRUE)
 NB <- as.integer(Sys.getenv('NB', '200')); OUTCOME <- Sys.getenv('OUTCOME', 'level'); R_MODE <- Sys.getenv('R_MODE', 'cv')
 TYPES <- strsplit(Sys.getenv('TYPES', 'A,B,C,D,F'), ',')[[1]]
-PRE_F <- as.integer(Sys.getenv('PRE_F', '12'))   # F·동등성 검정 구간: 처치 직전 PRE_F주 (fect는 처치 지점 수 > 검정 주 수여야 F 계산)
+PRE_F <- as.integer(Sys.getenv('PRE_F', '12'))   # window for F and equivalence tests: last PRE_F pre-treatment weeks (fect computes F only if #treated sites > #test weeks)
 P0 <- read.csv(file.path(RAW_DIR, 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM') %>%
   filter(week_index <= 96) %>% mutate(D = as.integer(is_treat == 1 & week_index >= 51))
 if (OUTCOME == 'index') P0 <- P0 %>% group_by(unit_id) %>% mutate(y = 100 * traffic / mean(traffic[week_index < 51], na.rm = TRUE)) %>% ungroup() else P0$y <- P0$traffic
@@ -49,10 +49,10 @@ one_type <- function(ty) {
              pre_F_p = if (!is.null(to$f.p)) to$f.p else NA, equiv_p = if (!is.null(to$f.equiv.p)) to$f.equiv.p else NA,
              pre_weeks_off = sum(pre$CI.lower > 0 | pre$CI.upper < 0, na.rm = TRUE), pre_weeks = nrow(pre))
 }
-R <- do.call(rbind, lapply(TYPES, function(ty) { cat('\n--- 유형', ty, '---\n'); r <- one_type(ty); print(r, row.names = FALSE); r }))
+R <- do.call(rbind, lapply(TYPES, function(ty) { cat('\n--- Type', ty, '---\n'); r <- one_type(ty); print(r, row.names = FALSE); r }))
 num <- c('ATT', 'lo', 'hi', 'pct_vs_cf', 'placebo_ATT'); R[num] <- round(R[num], 2); R[c('p', 'placebo_p', 'pre_F_p', 'equiv_p')] <- signif(R[c('p', 'placebo_p', 'pre_F_p', 'equiv_p')], 3)
 R$diag_pass <- R$placebo_p > .10 & (is.na(R$pre_F_p) | R$pre_F_p > .05)
 names(R)[names(R) == 'pre_F_p'] <- paste0('preF', PRE_F, 'wk_p'); names(R)[names(R) == 'equiv_p'] <- paste0('equiv', PRE_F, 'wk_p')
-cat('\n== 유형별 요약 ==\n'); print(R, row.names = FALSE)
+cat('\n== Summary by type ==\n'); print(R, row.names = FALSE)
 write.csv(R, file.path(out, sprintf('bytype_%s_%s.csv', OUTCOME, R_MODE)), row.names = FALSE, fileEncoding = 'UTF-8')
 cat('saved', out, '\n')

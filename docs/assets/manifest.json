@@ -1,9 +1,42 @@
 {
  "figures": [
   {
+   "src": "assets/figures/heterogeneity/fig_hetero_hm_all7_wide_cf_en.png",
+   "analysis": "heterogeneity",
+   "site": "Chapter 6 (current)",
+   "kind_ko": "주별 효과: 7개 특성",
+   "kind_en": "Weekly effects: all seven characteristics",
+   "note_ko": "",
+   "note_en": "",
+   "group": "heterogeneity",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/heterogeneity/fig_hetero_hm_main_wide_cf_en.png",
+   "analysis": "heterogeneity",
+   "site": "Chapter 6 (current)",
+   "kind_ko": "주별 효과: 환승·대기·권역",
+   "kind_en": "Weekly effects: transfer, waiting time, region",
+   "note_ko": "",
+   "note_en": "",
+   "group": "heterogeneity",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/heterogeneity/transfer_walking_waiting_time_en.png",
+   "analysis": "heterogeneity",
+   "site": "Chapter 6 (current)",
+   "kind_ko": "그림 6-4 환승 보행·대기 시간 (2023년 6–8월)",
+   "kind_en": "Fig. 6-4 transfer walking + waiting time (Jun–Aug 2023)",
+   "note_ko": "",
+   "note_en": "",
+   "group": "heterogeneity",
+   "thesis": true
+  },
+  {
    "src": "assets/figures/road_scm/01/1.scm_path_1_nested53_22w.jpg",
    "analysis": "road_scm",
-   "site": "01 경인로 유출",
+   "site": "01 Gyeongin-ro outbound",
    "kind_ko": "경로(관측 vs 합성)",
    "kind_en": "Path (observed vs synthetic)",
    "note_ko": "",
@@ -13,7 +46,7 @@
   {
    "src": "assets/figures/road_scm/01/10.placebo_hist_1_nested53_22w_all.jpg",
    "analysis": "road_scm",
-   "site": "01 경인로 유출",
+   "site": "01 Gyeongin-ro outbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 전체",
    "kind_en": "RMSPE-ratio histogram · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -23,7 +56,7 @@
   {
    "src": "assets/figures/road_scm/01/10.placebo_hist_1_nested53_22w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "01 경인로 유출",
+   "site": "01 Gyeongin-ro outbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio histogram · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -33,7 +66,7 @@
   {
    "src": "assets/figures/road_scm/01/2.scm_gap_1_nested53_22w.jpg",
    "analysis": "road_scm",
-   "site": "01 경인로 유출",
+   "site": "01 Gyeongin-ro outbound",
    "kind_ko": "격차",
    "kind_en": "Gap",
    "note_ko": "",
@@ -43,7 +76,7 @@
   {
    "src": "assets/figures/road_scm/01/3.rmspe_ratio_1_nested53_22w_all.jpg",
    "analysis": "road_scm",
-   "site": "01 경인로 유출",
+   "site": "01 Gyeongin-ro outbound",
    "kind_ko": "RMSPE 비율 순위 · 전체",
    "kind_en": "RMSPE-ratio ranking · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -53,7 +86,7 @@
   {
    "src": "assets/figures/road_scm/01/3.rmspe_ratio_1_nested53_22w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "01 경인로 유출",
+   "site": "01 Gyeongin-ro outbound",
    "kind_ko": "RMSPE 비율 순위 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio ranking · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -63,7 +96,7 @@
   {
    "src": "assets/figures/road_scm/01/4.placebo_gaps_1_nested53_22w_all.jpg",
    "analysis": "road_scm",
-   "site": "01 경인로 유출",
+   "site": "01 Gyeongin-ro outbound",
    "kind_ko": "위약 격차 · 전체",
    "kind_en": "Placebo gaps · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -73,7 +106,7 @@
   {
    "src": "assets/figures/road_scm/01/4.placebo_gaps_1_nested53_22w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "01 경인로 유출",
+   "site": "01 Gyeongin-ro outbound",
    "kind_ko": "위약 격차 · 원고용(≤5배 표시)",
    "kind_en": "Placebo gaps · manuscript (≤5× shown)",
    "note_ko": "원고용 그림: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 표시. p값은 표시 여부와 무관하게 위약 전체(처치 단위 포함, 사전 적합도 필터 없음) 기준.",
@@ -83,7 +116,7 @@
   {
    "src": "assets/figures/road_scm/01/5.loo_1_nested53_22w_twostep.jpg",
    "analysis": "road_scm",
-   "site": "01 경인로 유출",
+   "site": "01 Gyeongin-ro outbound",
    "kind_ko": "LOO(도너 1개 제외)",
    "kind_en": "Leave-one-out",
    "note_ko": "",
@@ -93,7 +126,7 @@
   {
    "src": "assets/figures/road_scm/02/1.scm_path_2_nested53_22w.jpg",
    "analysis": "road_scm",
-   "site": "02 경인로 유입",
+   "site": "02 Gyeongin-ro inbound",
    "kind_ko": "경로(관측 vs 합성)",
    "kind_en": "Path (observed vs synthetic)",
    "note_ko": "",
@@ -103,7 +136,7 @@
   {
    "src": "assets/figures/road_scm/02/10.placebo_hist_2_nested53_22w_all.jpg",
    "analysis": "road_scm",
-   "site": "02 경인로 유입",
+   "site": "02 Gyeongin-ro inbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 전체",
    "kind_en": "RMSPE-ratio histogram · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -113,7 +146,7 @@
   {
    "src": "assets/figures/road_scm/02/10.placebo_hist_2_nested53_22w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "02 경인로 유입",
+   "site": "02 Gyeongin-ro inbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio histogram · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -123,7 +156,7 @@
   {
    "src": "assets/figures/road_scm/02/2.scm_gap_2_nested53_22w.jpg",
    "analysis": "road_scm",
-   "site": "02 경인로 유입",
+   "site": "02 Gyeongin-ro inbound",
    "kind_ko": "격차",
    "kind_en": "Gap",
    "note_ko": "",
@@ -133,7 +166,7 @@
   {
    "src": "assets/figures/road_scm/02/3.rmspe_ratio_2_nested53_22w_all.jpg",
    "analysis": "road_scm",
-   "site": "02 경인로 유입",
+   "site": "02 Gyeongin-ro inbound",
    "kind_ko": "RMSPE 비율 순위 · 전체",
    "kind_en": "RMSPE-ratio ranking · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -143,7 +176,7 @@
   {
    "src": "assets/figures/road_scm/02/3.rmspe_ratio_2_nested53_22w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "02 경인로 유입",
+   "site": "02 Gyeongin-ro inbound",
    "kind_ko": "RMSPE 비율 순위 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio ranking · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -153,7 +186,7 @@
   {
    "src": "assets/figures/road_scm/02/4.placebo_gaps_2_nested53_22w_all.jpg",
    "analysis": "road_scm",
-   "site": "02 경인로 유입",
+   "site": "02 Gyeongin-ro inbound",
    "kind_ko": "위약 격차 · 전체",
    "kind_en": "Placebo gaps · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -163,7 +196,7 @@
   {
    "src": "assets/figures/road_scm/02/4.placebo_gaps_2_nested53_22w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "02 경인로 유입",
+   "site": "02 Gyeongin-ro inbound",
    "kind_ko": "위약 격차 · 원고용(≤5배 표시)",
    "kind_en": "Placebo gaps · manuscript (≤5× shown)",
    "note_ko": "원고용 그림: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 표시. p값은 표시 여부와 무관하게 위약 전체(처치 단위 포함, 사전 적합도 필터 없음) 기준.",
@@ -173,7 +206,7 @@
   {
    "src": "assets/figures/road_scm/02/5.loo_2_nested53_22w_twostep.jpg",
    "analysis": "road_scm",
-   "site": "02 경인로 유입",
+   "site": "02 Gyeongin-ro inbound",
    "kind_ko": "LOO(도너 1개 제외)",
    "kind_en": "Leave-one-out",
    "note_ko": "",
@@ -183,7 +216,7 @@
   {
    "src": "assets/figures/road_scm/03/1.scm_path_3_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "03 노들로 북행",
+   "site": "03 Nodeul-ro northbound",
    "kind_ko": "경로(관측 vs 합성)",
    "kind_en": "Path (observed vs synthetic)",
    "note_ko": "",
@@ -193,7 +226,7 @@
   {
    "src": "assets/figures/road_scm/03/10.placebo_hist_3_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "03 노들로 북행",
+   "site": "03 Nodeul-ro northbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 전체",
    "kind_en": "RMSPE-ratio histogram · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -203,7 +236,7 @@
   {
    "src": "assets/figures/road_scm/03/10.placebo_hist_3_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "03 노들로 북행",
+   "site": "03 Nodeul-ro northbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio histogram · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -213,7 +246,7 @@
   {
    "src": "assets/figures/road_scm/03/2.scm_gap_3_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "03 노들로 북행",
+   "site": "03 Nodeul-ro northbound",
    "kind_ko": "격차",
    "kind_en": "Gap",
    "note_ko": "",
@@ -223,7 +256,7 @@
   {
    "src": "assets/figures/road_scm/03/3.rmspe_ratio_3_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "03 노들로 북행",
+   "site": "03 Nodeul-ro northbound",
    "kind_ko": "RMSPE 비율 순위 · 전체",
    "kind_en": "RMSPE-ratio ranking · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -233,7 +266,7 @@
   {
    "src": "assets/figures/road_scm/03/3.rmspe_ratio_3_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "03 노들로 북행",
+   "site": "03 Nodeul-ro northbound",
    "kind_ko": "RMSPE 비율 순위 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio ranking · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -243,7 +276,7 @@
   {
    "src": "assets/figures/road_scm/03/4.placebo_gaps_3_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "03 노들로 북행",
+   "site": "03 Nodeul-ro northbound",
    "kind_ko": "위약 격차 · 전체",
    "kind_en": "Placebo gaps · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -253,7 +286,7 @@
   {
    "src": "assets/figures/road_scm/03/4.placebo_gaps_3_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "03 노들로 북행",
+   "site": "03 Nodeul-ro northbound",
    "kind_ko": "위약 격차 · 원고용(≤5배 표시)",
    "kind_en": "Placebo gaps · manuscript (≤5× shown)",
    "note_ko": "원고용 그림: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 표시. p값은 표시 여부와 무관하게 위약 전체(처치 단위 포함, 사전 적합도 필터 없음) 기준.",
@@ -263,7 +296,7 @@
   {
    "src": "assets/figures/road_scm/03/5.loo_3_nested53_46w_twostep.jpg",
    "analysis": "road_scm",
-   "site": "03 노들로 북행",
+   "site": "03 Nodeul-ro northbound",
    "kind_ko": "LOO(도너 1개 제외)",
    "kind_en": "Leave-one-out",
    "note_ko": "",
@@ -273,7 +306,7 @@
   {
    "src": "assets/figures/road_scm/04/1.scm_path_4_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "04 노들로 남행",
+   "site": "04 Nodeul-ro southbound",
    "kind_ko": "경로(관측 vs 합성)",
    "kind_en": "Path (observed vs synthetic)",
    "note_ko": "",
@@ -283,7 +316,7 @@
   {
    "src": "assets/figures/road_scm/04/10.placebo_hist_4_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "04 노들로 남행",
+   "site": "04 Nodeul-ro southbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 전체",
    "kind_en": "RMSPE-ratio histogram · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -293,7 +326,7 @@
   {
    "src": "assets/figures/road_scm/04/10.placebo_hist_4_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "04 노들로 남행",
+   "site": "04 Nodeul-ro southbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio histogram · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -303,7 +336,7 @@
   {
    "src": "assets/figures/road_scm/04/2.scm_gap_4_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "04 노들로 남행",
+   "site": "04 Nodeul-ro southbound",
    "kind_ko": "격차",
    "kind_en": "Gap",
    "note_ko": "",
@@ -313,7 +346,7 @@
   {
    "src": "assets/figures/road_scm/04/3.rmspe_ratio_4_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "04 노들로 남행",
+   "site": "04 Nodeul-ro southbound",
    "kind_ko": "RMSPE 비율 순위 · 전체",
    "kind_en": "RMSPE-ratio ranking · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -323,7 +356,7 @@
   {
    "src": "assets/figures/road_scm/04/3.rmspe_ratio_4_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "04 노들로 남행",
+   "site": "04 Nodeul-ro southbound",
    "kind_ko": "RMSPE 비율 순위 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio ranking · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -333,7 +366,7 @@
   {
    "src": "assets/figures/road_scm/04/4.placebo_gaps_4_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "04 노들로 남행",
+   "site": "04 Nodeul-ro southbound",
    "kind_ko": "위약 격차 · 전체",
    "kind_en": "Placebo gaps · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -343,7 +376,7 @@
   {
    "src": "assets/figures/road_scm/04/4.placebo_gaps_4_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "04 노들로 남행",
+   "site": "04 Nodeul-ro southbound",
    "kind_ko": "위약 격차 · 원고용(≤5배 표시)",
    "kind_en": "Placebo gaps · manuscript (≤5× shown)",
    "note_ko": "원고용 그림: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 표시. p값은 표시 여부와 무관하게 위약 전체(처치 단위 포함, 사전 적합도 필터 없음) 기준.",
@@ -353,7 +386,7 @@
   {
    "src": "assets/figures/road_scm/04/5.loo_4_nested53_46w_twostep.jpg",
    "analysis": "road_scm",
-   "site": "04 노들로 남행",
+   "site": "04 Nodeul-ro southbound",
    "kind_ko": "LOO(도너 1개 제외)",
    "kind_en": "Leave-one-out",
    "note_ko": "",
@@ -363,7 +396,7 @@
   {
    "src": "assets/figures/road_scm/05/1.scm_path_5_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "05 마포대교 남행",
+   "site": "05 Mapo Bridge southbound",
    "kind_ko": "경로(관측 vs 합성)",
    "kind_en": "Path (observed vs synthetic)",
    "note_ko": "",
@@ -373,7 +406,7 @@
   {
    "src": "assets/figures/road_scm/05/10.placebo_hist_5_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "05 마포대교 남행",
+   "site": "05 Mapo Bridge southbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 전체",
    "kind_en": "RMSPE-ratio histogram · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -383,7 +416,7 @@
   {
    "src": "assets/figures/road_scm/05/10.placebo_hist_5_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "05 마포대교 남행",
+   "site": "05 Mapo Bridge southbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio histogram · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -393,7 +426,7 @@
   {
    "src": "assets/figures/road_scm/05/2.scm_gap_5_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "05 마포대교 남행",
+   "site": "05 Mapo Bridge southbound",
    "kind_ko": "격차",
    "kind_en": "Gap",
    "note_ko": "",
@@ -403,7 +436,7 @@
   {
    "src": "assets/figures/road_scm/05/3.rmspe_ratio_5_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "05 마포대교 남행",
+   "site": "05 Mapo Bridge southbound",
    "kind_ko": "RMSPE 비율 순위 · 전체",
    "kind_en": "RMSPE-ratio ranking · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -413,7 +446,7 @@
   {
    "src": "assets/figures/road_scm/05/3.rmspe_ratio_5_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "05 마포대교 남행",
+   "site": "05 Mapo Bridge southbound",
    "kind_ko": "RMSPE 비율 순위 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio ranking · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -423,7 +456,7 @@
   {
    "src": "assets/figures/road_scm/05/4.placebo_gaps_5_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "05 마포대교 남행",
+   "site": "05 Mapo Bridge southbound",
    "kind_ko": "위약 격차 · 전체",
    "kind_en": "Placebo gaps · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -433,7 +466,7 @@
   {
    "src": "assets/figures/road_scm/05/4.placebo_gaps_5_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "05 마포대교 남행",
+   "site": "05 Mapo Bridge southbound",
    "kind_ko": "위약 격차 · 원고용(≤5배 표시)",
    "kind_en": "Placebo gaps · manuscript (≤5× shown)",
    "note_ko": "원고용 그림: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 표시. p값은 표시 여부와 무관하게 위약 전체(처치 단위 포함, 사전 적합도 필터 없음) 기준.",
@@ -443,7 +476,7 @@
   {
    "src": "assets/figures/road_scm/05/5.loo_5_nested53_46w_twostep.jpg",
    "analysis": "road_scm",
-   "site": "05 마포대교 남행",
+   "site": "05 Mapo Bridge southbound",
    "kind_ko": "LOO(도너 1개 제외)",
    "kind_en": "Leave-one-out",
    "note_ko": "",
@@ -453,7 +486,7 @@
   {
    "src": "assets/figures/road_scm/06/1.scm_path_6_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "06 마포대교 북행",
+   "site": "06 Mapo Bridge northbound",
    "kind_ko": "경로(관측 vs 합성)",
    "kind_en": "Path (observed vs synthetic)",
    "note_ko": "",
@@ -463,7 +496,7 @@
   {
    "src": "assets/figures/road_scm/06/10.placebo_hist_6_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "06 마포대교 북행",
+   "site": "06 Mapo Bridge northbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 전체",
    "kind_en": "RMSPE-ratio histogram · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -473,7 +506,7 @@
   {
    "src": "assets/figures/road_scm/06/10.placebo_hist_6_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "06 마포대교 북행",
+   "site": "06 Mapo Bridge northbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio histogram · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -483,7 +516,7 @@
   {
    "src": "assets/figures/road_scm/06/2.scm_gap_6_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "06 마포대교 북행",
+   "site": "06 Mapo Bridge northbound",
    "kind_ko": "격차",
    "kind_en": "Gap",
    "note_ko": "",
@@ -493,7 +526,7 @@
   {
    "src": "assets/figures/road_scm/06/3.rmspe_ratio_6_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "06 마포대교 북행",
+   "site": "06 Mapo Bridge northbound",
    "kind_ko": "RMSPE 비율 순위 · 전체",
    "kind_en": "RMSPE-ratio ranking · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -503,7 +536,7 @@
   {
    "src": "assets/figures/road_scm/06/3.rmspe_ratio_6_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "06 마포대교 북행",
+   "site": "06 Mapo Bridge northbound",
    "kind_ko": "RMSPE 비율 순위 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio ranking · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -513,7 +546,7 @@
   {
    "src": "assets/figures/road_scm/06/4.placebo_gaps_6_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "06 마포대교 북행",
+   "site": "06 Mapo Bridge northbound",
    "kind_ko": "위약 격차 · 전체",
    "kind_en": "Placebo gaps · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -523,7 +556,7 @@
   {
    "src": "assets/figures/road_scm/06/4.placebo_gaps_6_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "06 마포대교 북행",
+   "site": "06 Mapo Bridge northbound",
    "kind_ko": "위약 격차 · 원고용(≤5배 표시)",
    "kind_en": "Placebo gaps · manuscript (≤5× shown)",
    "note_ko": "원고용 그림: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 표시. p값은 표시 여부와 무관하게 위약 전체(처치 단위 포함, 사전 적합도 필터 없음) 기준.",
@@ -533,7 +566,7 @@
   {
    "src": "assets/figures/road_scm/06/5.loo_6_nested53_46w_twostep.jpg",
    "analysis": "road_scm",
-   "site": "06 마포대교 북행",
+   "site": "06 Mapo Bridge northbound",
    "kind_ko": "LOO(도너 1개 제외)",
    "kind_en": "Leave-one-out",
    "note_ko": "",
@@ -543,7 +576,7 @@
   {
    "src": "assets/figures/road_scm/07/1.scm_path_7_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "07 서강대교 남행",
+   "site": "07 Seogang Bridge southbound",
    "kind_ko": "경로(관측 vs 합성)",
    "kind_en": "Path (observed vs synthetic)",
    "note_ko": "",
@@ -553,7 +586,7 @@
   {
    "src": "assets/figures/road_scm/07/10.placebo_hist_7_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "07 서강대교 남행",
+   "site": "07 Seogang Bridge southbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 전체",
    "kind_en": "RMSPE-ratio histogram · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -563,7 +596,7 @@
   {
    "src": "assets/figures/road_scm/07/10.placebo_hist_7_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "07 서강대교 남행",
+   "site": "07 Seogang Bridge southbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio histogram · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -573,7 +606,7 @@
   {
    "src": "assets/figures/road_scm/07/2.scm_gap_7_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "07 서강대교 남행",
+   "site": "07 Seogang Bridge southbound",
    "kind_ko": "격차",
    "kind_en": "Gap",
    "note_ko": "",
@@ -583,7 +616,7 @@
   {
    "src": "assets/figures/road_scm/07/3.rmspe_ratio_7_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "07 서강대교 남행",
+   "site": "07 Seogang Bridge southbound",
    "kind_ko": "RMSPE 비율 순위 · 전체",
    "kind_en": "RMSPE-ratio ranking · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -593,7 +626,7 @@
   {
    "src": "assets/figures/road_scm/07/3.rmspe_ratio_7_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "07 서강대교 남행",
+   "site": "07 Seogang Bridge southbound",
    "kind_ko": "RMSPE 비율 순위 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio ranking · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -603,7 +636,7 @@
   {
    "src": "assets/figures/road_scm/07/4.placebo_gaps_7_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "07 서강대교 남행",
+   "site": "07 Seogang Bridge southbound",
    "kind_ko": "위약 격차 · 전체",
    "kind_en": "Placebo gaps · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -613,7 +646,7 @@
   {
    "src": "assets/figures/road_scm/07/4.placebo_gaps_7_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "07 서강대교 남행",
+   "site": "07 Seogang Bridge southbound",
    "kind_ko": "위약 격차 · 원고용(≤5배 표시)",
    "kind_en": "Placebo gaps · manuscript (≤5× shown)",
    "note_ko": "원고용 그림: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 표시. p값은 표시 여부와 무관하게 위약 전체(처치 단위 포함, 사전 적합도 필터 없음) 기준.",
@@ -623,7 +656,7 @@
   {
    "src": "assets/figures/road_scm/07/5.loo_7_nested53_46w_twostep.jpg",
    "analysis": "road_scm",
-   "site": "07 서강대교 남행",
+   "site": "07 Seogang Bridge southbound",
    "kind_ko": "LOO(도너 1개 제외)",
    "kind_en": "Leave-one-out",
    "note_ko": "",
@@ -633,7 +666,7 @@
   {
    "src": "assets/figures/road_scm/08/1.scm_path_8_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "08 서강대교 북행",
+   "site": "08 Seogang Bridge northbound",
    "kind_ko": "경로(관측 vs 합성)",
    "kind_en": "Path (observed vs synthetic)",
    "note_ko": "",
@@ -643,7 +676,7 @@
   {
    "src": "assets/figures/road_scm/08/10.placebo_hist_8_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "08 서강대교 북행",
+   "site": "08 Seogang Bridge northbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 전체",
    "kind_en": "RMSPE-ratio histogram · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -653,7 +686,7 @@
   {
    "src": "assets/figures/road_scm/08/10.placebo_hist_8_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "08 서강대교 북행",
+   "site": "08 Seogang Bridge northbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio histogram · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -663,7 +696,7 @@
   {
    "src": "assets/figures/road_scm/08/2.scm_gap_8_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "08 서강대교 북행",
+   "site": "08 Seogang Bridge northbound",
    "kind_ko": "격차",
    "kind_en": "Gap",
    "note_ko": "",
@@ -673,7 +706,7 @@
   {
    "src": "assets/figures/road_scm/08/3.rmspe_ratio_8_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "08 서강대교 북행",
+   "site": "08 Seogang Bridge northbound",
    "kind_ko": "RMSPE 비율 순위 · 전체",
    "kind_en": "RMSPE-ratio ranking · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -683,7 +716,7 @@
   {
    "src": "assets/figures/road_scm/08/3.rmspe_ratio_8_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "08 서강대교 북행",
+   "site": "08 Seogang Bridge northbound",
    "kind_ko": "RMSPE 비율 순위 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio ranking · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -693,7 +726,7 @@
   {
    "src": "assets/figures/road_scm/08/4.placebo_gaps_8_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "08 서강대교 북행",
+   "site": "08 Seogang Bridge northbound",
    "kind_ko": "위약 격차 · 전체",
    "kind_en": "Placebo gaps · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -703,7 +736,7 @@
   {
    "src": "assets/figures/road_scm/08/4.placebo_gaps_8_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "08 서강대교 북행",
+   "site": "08 Seogang Bridge northbound",
    "kind_ko": "위약 격차 · 원고용(≤5배 표시)",
    "kind_en": "Placebo gaps · manuscript (≤5× shown)",
    "note_ko": "원고용 그림: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 표시. p값은 표시 여부와 무관하게 위약 전체(처치 단위 포함, 사전 적합도 필터 없음) 기준.",
@@ -713,7 +746,7 @@
   {
    "src": "assets/figures/road_scm/08/5.loo_8_nested53_46w_twostep.jpg",
    "analysis": "road_scm",
-   "site": "08 서강대교 북행",
+   "site": "08 Seogang Bridge northbound",
    "kind_ko": "LOO(도너 1개 제외)",
    "kind_en": "Leave-one-out",
    "note_ko": "",
@@ -723,7 +756,7 @@
   {
    "src": "assets/figures/road_scm/09/1.scm_path_9_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "09 여의대방로 남행",
+   "site": "09 Yeouidaebang-ro southbound",
    "kind_ko": "경로(관측 vs 합성)",
    "kind_en": "Path (observed vs synthetic)",
    "note_ko": "",
@@ -733,7 +766,7 @@
   {
    "src": "assets/figures/road_scm/09/10.placebo_hist_9_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "09 여의대방로 남행",
+   "site": "09 Yeouidaebang-ro southbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 전체",
    "kind_en": "RMSPE-ratio histogram · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -743,7 +776,7 @@
   {
    "src": "assets/figures/road_scm/09/10.placebo_hist_9_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "09 여의대방로 남행",
+   "site": "09 Yeouidaebang-ro southbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio histogram · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -753,7 +786,7 @@
   {
    "src": "assets/figures/road_scm/09/2.scm_gap_9_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "09 여의대방로 남행",
+   "site": "09 Yeouidaebang-ro southbound",
    "kind_ko": "격차",
    "kind_en": "Gap",
    "note_ko": "",
@@ -763,7 +796,7 @@
   {
    "src": "assets/figures/road_scm/09/3.rmspe_ratio_9_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "09 여의대방로 남행",
+   "site": "09 Yeouidaebang-ro southbound",
    "kind_ko": "RMSPE 비율 순위 · 전체",
    "kind_en": "RMSPE-ratio ranking · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -773,7 +806,7 @@
   {
    "src": "assets/figures/road_scm/09/3.rmspe_ratio_9_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "09 여의대방로 남행",
+   "site": "09 Yeouidaebang-ro southbound",
    "kind_ko": "RMSPE 비율 순위 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio ranking · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -783,7 +816,7 @@
   {
    "src": "assets/figures/road_scm/09/4.placebo_gaps_9_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "09 여의대방로 남행",
+   "site": "09 Yeouidaebang-ro southbound",
    "kind_ko": "위약 격차 · 전체",
    "kind_en": "Placebo gaps · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -793,7 +826,7 @@
   {
    "src": "assets/figures/road_scm/09/4.placebo_gaps_9_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "09 여의대방로 남행",
+   "site": "09 Yeouidaebang-ro southbound",
    "kind_ko": "위약 격차 · 원고용(≤5배 표시)",
    "kind_en": "Placebo gaps · manuscript (≤5× shown)",
    "note_ko": "원고용 그림: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 표시. p값은 표시 여부와 무관하게 위약 전체(처치 단위 포함, 사전 적합도 필터 없음) 기준.",
@@ -803,7 +836,7 @@
   {
    "src": "assets/figures/road_scm/09/5.loo_9_nested53_46w_twostep.jpg",
    "analysis": "road_scm",
-   "site": "09 여의대방로 남행",
+   "site": "09 Yeouidaebang-ro southbound",
    "kind_ko": "LOO(도너 1개 제외)",
    "kind_en": "Leave-one-out",
    "note_ko": "",
@@ -813,7 +846,7 @@
   {
    "src": "assets/figures/road_scm/10/1.scm_path_10_nested53_22w.jpg",
    "analysis": "road_scm",
-   "site": "10 여의대방로 북행",
+   "site": "10 Yeouidaebang-ro northbound",
    "kind_ko": "경로(관측 vs 합성)",
    "kind_en": "Path (observed vs synthetic)",
    "note_ko": "",
@@ -823,7 +856,7 @@
   {
    "src": "assets/figures/road_scm/10/10.placebo_hist_10_nested53_22w_all.jpg",
    "analysis": "road_scm",
-   "site": "10 여의대방로 북행",
+   "site": "10 Yeouidaebang-ro northbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 전체",
    "kind_en": "RMSPE-ratio histogram · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -833,7 +866,7 @@
   {
    "src": "assets/figures/road_scm/10/10.placebo_hist_10_nested53_22w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "10 여의대방로 북행",
+   "site": "10 Yeouidaebang-ro northbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio histogram · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -843,7 +876,7 @@
   {
    "src": "assets/figures/road_scm/10/2.scm_gap_10_nested53_22w.jpg",
    "analysis": "road_scm",
-   "site": "10 여의대방로 북행",
+   "site": "10 Yeouidaebang-ro northbound",
    "kind_ko": "격차",
    "kind_en": "Gap",
    "note_ko": "",
@@ -853,7 +886,7 @@
   {
    "src": "assets/figures/road_scm/10/3.rmspe_ratio_10_nested53_22w_all.jpg",
    "analysis": "road_scm",
-   "site": "10 여의대방로 북행",
+   "site": "10 Yeouidaebang-ro northbound",
    "kind_ko": "RMSPE 비율 순위 · 전체",
    "kind_en": "RMSPE-ratio ranking · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -863,7 +896,7 @@
   {
    "src": "assets/figures/road_scm/10/3.rmspe_ratio_10_nested53_22w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "10 여의대방로 북행",
+   "site": "10 Yeouidaebang-ro northbound",
    "kind_ko": "RMSPE 비율 순위 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio ranking · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -873,7 +906,7 @@
   {
    "src": "assets/figures/road_scm/10/4.placebo_gaps_10_nested53_22w_all.jpg",
    "analysis": "road_scm",
-   "site": "10 여의대방로 북행",
+   "site": "10 Yeouidaebang-ro northbound",
    "kind_ko": "위약 격차 · 전체",
    "kind_en": "Placebo gaps · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -883,7 +916,7 @@
   {
    "src": "assets/figures/road_scm/10/4.placebo_gaps_10_nested53_22w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "10 여의대방로 북행",
+   "site": "10 Yeouidaebang-ro northbound",
    "kind_ko": "위약 격차 · 원고용(≤5배 표시)",
    "kind_en": "Placebo gaps · manuscript (≤5× shown)",
    "note_ko": "원고용 그림: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 표시. p값은 표시 여부와 무관하게 위약 전체(처치 단위 포함, 사전 적합도 필터 없음) 기준.",
@@ -893,7 +926,7 @@
   {
    "src": "assets/figures/road_scm/10/5.loo_10_nested53_22w_twostep.jpg",
    "analysis": "road_scm",
-   "site": "10 여의대방로 북행",
+   "site": "10 Yeouidaebang-ro northbound",
    "kind_ko": "LOO(도너 1개 제외)",
    "kind_en": "Leave-one-out",
    "note_ko": "",
@@ -903,7 +936,7 @@
   {
    "src": "assets/figures/road_scm/11/1.scm_path_11_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "11 원효대교 남행",
+   "site": "11 Wonhyo Bridge southbound",
    "kind_ko": "경로(관측 vs 합성)",
    "kind_en": "Path (observed vs synthetic)",
    "note_ko": "",
@@ -913,7 +946,7 @@
   {
    "src": "assets/figures/road_scm/11/10.placebo_hist_11_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "11 원효대교 남행",
+   "site": "11 Wonhyo Bridge southbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 전체",
    "kind_en": "RMSPE-ratio histogram · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -923,7 +956,7 @@
   {
    "src": "assets/figures/road_scm/11/10.placebo_hist_11_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "11 원효대교 남행",
+   "site": "11 Wonhyo Bridge southbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio histogram · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -933,7 +966,7 @@
   {
    "src": "assets/figures/road_scm/11/2.scm_gap_11_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "11 원효대교 남행",
+   "site": "11 Wonhyo Bridge southbound",
    "kind_ko": "격차",
    "kind_en": "Gap",
    "note_ko": "",
@@ -943,7 +976,7 @@
   {
    "src": "assets/figures/road_scm/11/3.rmspe_ratio_11_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "11 원효대교 남행",
+   "site": "11 Wonhyo Bridge southbound",
    "kind_ko": "RMSPE 비율 순위 · 전체",
    "kind_en": "RMSPE-ratio ranking · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -953,7 +986,7 @@
   {
    "src": "assets/figures/road_scm/11/3.rmspe_ratio_11_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "11 원효대교 남행",
+   "site": "11 Wonhyo Bridge southbound",
    "kind_ko": "RMSPE 비율 순위 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio ranking · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -963,7 +996,7 @@
   {
    "src": "assets/figures/road_scm/11/4.placebo_gaps_11_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "11 원효대교 남행",
+   "site": "11 Wonhyo Bridge southbound",
    "kind_ko": "위약 격차 · 전체",
    "kind_en": "Placebo gaps · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -973,7 +1006,7 @@
   {
    "src": "assets/figures/road_scm/11/4.placebo_gaps_11_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "11 원효대교 남행",
+   "site": "11 Wonhyo Bridge southbound",
    "kind_ko": "위약 격차 · 원고용(≤5배 표시)",
    "kind_en": "Placebo gaps · manuscript (≤5× shown)",
    "note_ko": "원고용 그림: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 표시. p값은 표시 여부와 무관하게 위약 전체(처치 단위 포함, 사전 적합도 필터 없음) 기준.",
@@ -983,7 +1016,7 @@
   {
    "src": "assets/figures/road_scm/11/5.loo_11_nested53_46w_twostep.jpg",
    "analysis": "road_scm",
-   "site": "11 원효대교 남행",
+   "site": "11 Wonhyo Bridge southbound",
    "kind_ko": "LOO(도너 1개 제외)",
    "kind_en": "Leave-one-out",
    "note_ko": "",
@@ -993,7 +1026,7 @@
   {
    "src": "assets/figures/road_scm/12/1.scm_path_12_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "12 원효대교 북행",
+   "site": "12 Wonhyo Bridge northbound",
    "kind_ko": "경로(관측 vs 합성)",
    "kind_en": "Path (observed vs synthetic)",
    "note_ko": "",
@@ -1003,7 +1036,7 @@
   {
    "src": "assets/figures/road_scm/12/10.placebo_hist_12_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "12 원효대교 북행",
+   "site": "12 Wonhyo Bridge northbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 전체",
    "kind_en": "RMSPE-ratio histogram · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -1013,7 +1046,7 @@
   {
    "src": "assets/figures/road_scm/12/10.placebo_hist_12_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "12 원효대교 북행",
+   "site": "12 Wonhyo Bridge northbound",
    "kind_ko": "RMSPE 비율 히스토그램 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio histogram · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -1023,7 +1056,7 @@
   {
    "src": "assets/figures/road_scm/12/2.scm_gap_12_nested53_46w.jpg",
    "analysis": "road_scm",
-   "site": "12 원효대교 북행",
+   "site": "12 Wonhyo Bridge northbound",
    "kind_ko": "격차",
    "kind_en": "Gap",
    "note_ko": "",
@@ -1033,7 +1066,7 @@
   {
    "src": "assets/figures/road_scm/12/3.rmspe_ratio_12_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "12 원효대교 북행",
+   "site": "12 Wonhyo Bridge northbound",
    "kind_ko": "RMSPE 비율 순위 · 전체",
    "kind_en": "RMSPE-ratio ranking · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -1043,7 +1076,7 @@
   {
    "src": "assets/figures/road_scm/12/3.rmspe_ratio_12_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "12 원효대교 북행",
+   "site": "12 Wonhyo Bridge northbound",
    "kind_ko": "RMSPE 비율 순위 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio ranking · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -1053,7 +1086,7 @@
   {
    "src": "assets/figures/road_scm/12/4.placebo_gaps_12_nested53_46w_all.jpg",
    "analysis": "road_scm",
-   "site": "12 원효대교 북행",
+   "site": "12 Wonhyo Bridge northbound",
    "kind_ko": "위약 격차 · 전체",
    "kind_en": "Placebo gaps · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -1063,7 +1096,7 @@
   {
    "src": "assets/figures/road_scm/12/4.placebo_gaps_12_nested53_46w_tau5.jpg",
    "analysis": "road_scm",
-   "site": "12 원효대교 북행",
+   "site": "12 Wonhyo Bridge northbound",
    "kind_ko": "위약 격차 · 원고용(≤5배 표시)",
    "kind_en": "Placebo gaps · manuscript (≤5× shown)",
    "note_ko": "원고용 그림: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 표시. p값은 표시 여부와 무관하게 위약 전체(처치 단위 포함, 사전 적합도 필터 없음) 기준.",
@@ -1073,7 +1106,7 @@
   {
    "src": "assets/figures/road_scm/12/5.loo_12_nested53_46w_twostep.jpg",
    "analysis": "road_scm",
-   "site": "12 원효대교 북행",
+   "site": "12 Wonhyo Bridge northbound",
    "kind_ko": "LOO(도너 1개 제외)",
    "kind_en": "Leave-one-out",
    "note_ko": "",
@@ -1081,1286 +1114,1076 @@
    "group": "road_scm"
   },
   {
-   "src": "assets/figures/seoul_road_gsynth/bytype/gap_A_index_r0.png",
-   "analysis": "seoul_road",
-   "site": "유형 A / Type A",
-   "kind_ko": "격차 (지수, r=0)",
-   "kind_en": "Gap (index, r=0)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/bytype/gap_A_level_r0.png",
-   "analysis": "seoul_road",
-   "site": "유형 A / Type A",
-   "kind_ko": "격차 (수준, r=0)",
-   "kind_en": "Gap (level, r=0)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/bytype/gap_A_level_r3.png",
-   "analysis": "seoul_road",
-   "site": "유형 A / Type A",
-   "kind_ko": "격차 (수준, r=3)",
-   "kind_en": "Gap (level, r=3)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/bytype/gap_B_index_r0.png",
-   "analysis": "seoul_road",
-   "site": "유형 B / Type B",
-   "kind_ko": "격차 (지수, r=0)",
-   "kind_en": "Gap (index, r=0)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/bytype/gap_B_level_r0.png",
-   "analysis": "seoul_road",
-   "site": "유형 B / Type B",
-   "kind_ko": "격차 (수준, r=0)",
-   "kind_en": "Gap (level, r=0)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/bytype/gap_B_level_r3.png",
-   "analysis": "seoul_road",
-   "site": "유형 B / Type B",
-   "kind_ko": "격차 (수준, r=3)",
-   "kind_en": "Gap (level, r=3)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/bytype/gap_C_index_r0.png",
-   "analysis": "seoul_road",
-   "site": "유형 C / Type C",
-   "kind_ko": "격차 (지수, r=0)",
-   "kind_en": "Gap (index, r=0)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/bytype/gap_C_level_r0.png",
-   "analysis": "seoul_road",
-   "site": "유형 C / Type C",
-   "kind_ko": "격차 (수준, r=0)",
-   "kind_en": "Gap (level, r=0)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/bytype/gap_C_level_r3.png",
-   "analysis": "seoul_road",
-   "site": "유형 C / Type C",
-   "kind_ko": "격차 (수준, r=3)",
-   "kind_en": "Gap (level, r=3)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/bytype/gap_D_index_r0.png",
-   "analysis": "seoul_road",
-   "site": "유형 D / Type D",
-   "kind_ko": "격차 (지수, r=0)",
-   "kind_en": "Gap (index, r=0)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/bytype/gap_D_level_r0.png",
-   "analysis": "seoul_road",
-   "site": "유형 D / Type D",
-   "kind_ko": "격차 (수준, r=0)",
-   "kind_en": "Gap (level, r=0)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/bytype/gap_D_level_r3.png",
-   "analysis": "seoul_road",
-   "site": "유형 D / Type D",
-   "kind_ko": "격차 (수준, r=3)",
-   "kind_en": "Gap (level, r=3)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/bytype/gap_F_index_r0.png",
-   "analysis": "seoul_road",
-   "site": "유형 F / Type F",
-   "kind_ko": "격차 (지수, r=0)",
-   "kind_en": "Gap (index, r=0)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/bytype/gap_F_level_r0.png",
-   "analysis": "seoul_road",
-   "site": "유형 F / Type F",
-   "kind_ko": "격차 (수준, r=0)",
-   "kind_en": "Gap (level, r=0)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/bytype/gap_F_level_r3.png",
-   "analysis": "seoul_road",
-   "site": "유형 F / Type F",
-   "kind_ko": "격차 (수준, r=3)",
-   "kind_en": "Gap (level, r=3)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/diag_equiv_r0.png",
-   "analysis": "seoul_road",
-   "site": "전체 / All sites",
-   "kind_ko": "동등성 검정 (r=0)",
-   "kind_en": "Equivalence test (r=0)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/diag_equiv_r3.png",
-   "analysis": "seoul_road",
-   "site": "전체 / All sites",
-   "kind_ko": "동등성 검정 (r=3)",
-   "kind_en": "Equivalence test (r=3)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/diag_gap_r0.png",
-   "analysis": "seoul_road",
-   "site": "전체 / All sites",
-   "kind_ko": "격차 (r=0)",
-   "kind_en": "Gap (r=0)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/diag_gap_r3.png",
-   "analysis": "seoul_road",
-   "site": "전체 / All sites",
-   "kind_ko": "격차 (r=3)",
-   "kind_en": "Gap (r=3)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/diag_placebo_r0.png",
-   "analysis": "seoul_road",
-   "site": "전체 / All sites",
-   "kind_ko": "위약 시점 검정 (r=0)",
-   "kind_en": "Placebo-period test (r=0)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/seoul_road_gsynth/diag_placebo_r3.png",
-   "analysis": "seoul_road",
-   "site": "전체 / All sites",
-   "kind_ko": "위약 시점 검정 (r=3)",
-   "kind_en": "Placebo-period test (r=3)",
-   "note_ko": "",
-   "note_en": "",
-   "group": "seoul_road_gsynth"
-  },
-  {
-   "src": "assets/figures/thesis/본문_그림/그림4-2_a_노들로남행_경로.jpg",
+   "src": "assets/figures/thesis/appendixA-1_road01_gyeongin-ro_southbound/1_Path.jpg",
    "analysis": "road_scm",
-   "site": "본문 / Main text",
-   "kind_ko": "그림4-2_a_노들로남행_경로",
-   "kind_en": "그림4-2_a_노들로남행_경로",
+   "site": "01 Gyeongin-ro outbound",
+   "kind_ko": "1_Path",
+   "kind_en": "1_Path",
    "note_ko": "",
    "note_en": "",
    "group": "thesis",
    "thesis": true
   },
   {
-   "src": "assets/figures/thesis/본문_그림/그림4-2_b_마포대교북행_경로.jpg",
+   "src": "assets/figures/thesis/appendixA-1_road01_gyeongin-ro_southbound/2_Placebo.jpg",
    "analysis": "road_scm",
-   "site": "본문 / Main text",
-   "kind_ko": "그림4-2_b_마포대교북행_경로",
-   "kind_en": "그림4-2_b_마포대교북행_경로",
+   "site": "01 Gyeongin-ro outbound",
+   "kind_ko": "2_Placebo",
+   "kind_en": "2_Placebo",
    "note_ko": "",
    "note_en": "",
    "group": "thesis",
    "thesis": true
   },
   {
-   "src": "assets/figures/thesis/본문_그림/그림4-2_c_원효대교북행_경로.jpg",
+   "src": "assets/figures/thesis/appendixA-1_road01_gyeongin-ro_southbound/3_RMSPE_ratio_histogram.jpg",
    "analysis": "road_scm",
-   "site": "본문 / Main text",
-   "kind_ko": "그림4-2_c_원효대교북행_경로",
-   "kind_en": "그림4-2_c_원효대교북행_경로",
+   "site": "01 Gyeongin-ro outbound",
+   "kind_ko": "3_RMSPE_ratio_histogram",
+   "kind_en": "3_RMSPE_ratio_histogram",
    "note_ko": "",
    "note_en": "",
    "group": "thesis",
    "thesis": true
   },
   {
-   "src": "assets/figures/thesis/본문_그림/그림4-2_d_서강대교북행_경로.jpg",
+   "src": "assets/figures/thesis/appendixA-1_road01_gyeongin-ro_southbound/4_Gap.jpg",
    "analysis": "road_scm",
-   "site": "본문 / Main text",
-   "kind_ko": "그림4-2_d_서강대교북행_경로",
-   "kind_en": "그림4-2_d_서강대교북행_경로",
+   "site": "01 Gyeongin-ro outbound",
+   "kind_ko": "4_Gap",
+   "kind_en": "4_Gap",
    "note_ko": "",
    "note_en": "",
    "group": "thesis",
    "thesis": true
   },
   {
-   "src": "assets/figures/thesis/본문_그림/그림5-1_관측대반사실_r4.png",
+   "src": "assets/figures/thesis/appendixA-1_road01_gyeongin-ro_southbound/5_LOO.jpg",
+   "analysis": "road_scm",
+   "site": "01 Gyeongin-ro outbound",
+   "kind_ko": "5_LOO",
+   "kind_en": "5_LOO",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road01_gyeongin-ro_southbound/6_in_time_placebo_week34.jpg",
+   "analysis": "road_scm",
+   "site": "01 Gyeongin-ro outbound",
+   "kind_ko": "6_in_time_placebo_week34",
+   "kind_en": "6_in_time_placebo_week34",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road02_gyeongin-ro_northbound/1_Path.jpg",
+   "analysis": "road_scm",
+   "site": "02 Gyeongin-ro inbound",
+   "kind_ko": "1_Path",
+   "kind_en": "1_Path",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road02_gyeongin-ro_northbound/2_Placebo.jpg",
+   "analysis": "road_scm",
+   "site": "02 Gyeongin-ro inbound",
+   "kind_ko": "2_Placebo",
+   "kind_en": "2_Placebo",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road02_gyeongin-ro_northbound/3_RMSPE_ratio_histogram.jpg",
+   "analysis": "road_scm",
+   "site": "02 Gyeongin-ro inbound",
+   "kind_ko": "3_RMSPE_ratio_histogram",
+   "kind_en": "3_RMSPE_ratio_histogram",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road02_gyeongin-ro_northbound/4_Gap.jpg",
+   "analysis": "road_scm",
+   "site": "02 Gyeongin-ro inbound",
+   "kind_ko": "4_Gap",
+   "kind_en": "4_Gap",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road02_gyeongin-ro_northbound/5_LOO.jpg",
+   "analysis": "road_scm",
+   "site": "02 Gyeongin-ro inbound",
+   "kind_ko": "5_LOO",
+   "kind_en": "5_LOO",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road02_gyeongin-ro_northbound/6_in_time_placebo_week34.jpg",
+   "analysis": "road_scm",
+   "site": "02 Gyeongin-ro inbound",
+   "kind_ko": "6_in_time_placebo_week34",
+   "kind_en": "6_in_time_placebo_week34",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road03_nodeul-ro_northbound/1_Path.jpg",
+   "analysis": "road_scm",
+   "site": "03 Nodeul-ro northbound",
+   "kind_ko": "1_Path",
+   "kind_en": "1_Path",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road03_nodeul-ro_northbound/2_Placebo.jpg",
+   "analysis": "road_scm",
+   "site": "03 Nodeul-ro northbound",
+   "kind_ko": "2_Placebo",
+   "kind_en": "2_Placebo",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road03_nodeul-ro_northbound/3_RMSPE_ratio_histogram.jpg",
+   "analysis": "road_scm",
+   "site": "03 Nodeul-ro northbound",
+   "kind_ko": "3_RMSPE_ratio_histogram",
+   "kind_en": "3_RMSPE_ratio_histogram",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road03_nodeul-ro_northbound/4_Gap.jpg",
+   "analysis": "road_scm",
+   "site": "03 Nodeul-ro northbound",
+   "kind_ko": "4_Gap",
+   "kind_en": "4_Gap",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road03_nodeul-ro_northbound/5_LOO.jpg",
+   "analysis": "road_scm",
+   "site": "03 Nodeul-ro northbound",
+   "kind_ko": "5_LOO",
+   "kind_en": "5_LOO",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road03_nodeul-ro_northbound/6_in_time_placebo_week34.jpg",
+   "analysis": "road_scm",
+   "site": "03 Nodeul-ro northbound",
+   "kind_ko": "6_in_time_placebo_week34",
+   "kind_en": "6_in_time_placebo_week34",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road04_nodeul-ro_southbound/1_Path.jpg",
+   "analysis": "road_scm",
+   "site": "04 Nodeul-ro southbound",
+   "kind_ko": "1_Path",
+   "kind_en": "1_Path",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road04_nodeul-ro_southbound/2_Placebo.jpg",
+   "analysis": "road_scm",
+   "site": "04 Nodeul-ro southbound",
+   "kind_ko": "2_Placebo",
+   "kind_en": "2_Placebo",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road04_nodeul-ro_southbound/3_RMSPE_ratio_histogram.jpg",
+   "analysis": "road_scm",
+   "site": "04 Nodeul-ro southbound",
+   "kind_ko": "3_RMSPE_ratio_histogram",
+   "kind_en": "3_RMSPE_ratio_histogram",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road04_nodeul-ro_southbound/4_Gap.jpg",
+   "analysis": "road_scm",
+   "site": "04 Nodeul-ro southbound",
+   "kind_ko": "4_Gap",
+   "kind_en": "4_Gap",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road04_nodeul-ro_southbound/5_LOO.jpg",
+   "analysis": "road_scm",
+   "site": "04 Nodeul-ro southbound",
+   "kind_ko": "5_LOO",
+   "kind_en": "5_LOO",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road04_nodeul-ro_southbound/6_in_time_placebo_week34.jpg",
+   "analysis": "road_scm",
+   "site": "04 Nodeul-ro southbound",
+   "kind_ko": "6_in_time_placebo_week34",
+   "kind_en": "6_in_time_placebo_week34",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road05_mapo-bridge_southbound/1_Path.jpg",
+   "analysis": "road_scm",
+   "site": "05 Mapo Bridge southbound",
+   "kind_ko": "1_Path",
+   "kind_en": "1_Path",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road05_mapo-bridge_southbound/2_Placebo.jpg",
+   "analysis": "road_scm",
+   "site": "05 Mapo Bridge southbound",
+   "kind_ko": "2_Placebo",
+   "kind_en": "2_Placebo",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road05_mapo-bridge_southbound/3_RMSPE_ratio_histogram.jpg",
+   "analysis": "road_scm",
+   "site": "05 Mapo Bridge southbound",
+   "kind_ko": "3_RMSPE_ratio_histogram",
+   "kind_en": "3_RMSPE_ratio_histogram",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road05_mapo-bridge_southbound/4_Gap.jpg",
+   "analysis": "road_scm",
+   "site": "05 Mapo Bridge southbound",
+   "kind_ko": "4_Gap",
+   "kind_en": "4_Gap",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road05_mapo-bridge_southbound/5_LOO.jpg",
+   "analysis": "road_scm",
+   "site": "05 Mapo Bridge southbound",
+   "kind_ko": "5_LOO",
+   "kind_en": "5_LOO",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road05_mapo-bridge_southbound/6_in_time_placebo_week34.jpg",
+   "analysis": "road_scm",
+   "site": "05 Mapo Bridge southbound",
+   "kind_ko": "6_in_time_placebo_week34",
+   "kind_en": "6_in_time_placebo_week34",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road06_mapo-bridge_northbound/1_Path.jpg",
+   "analysis": "road_scm",
+   "site": "06 Mapo Bridge northbound",
+   "kind_ko": "1_Path",
+   "kind_en": "1_Path",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road06_mapo-bridge_northbound/2_Placebo.jpg",
+   "analysis": "road_scm",
+   "site": "06 Mapo Bridge northbound",
+   "kind_ko": "2_Placebo",
+   "kind_en": "2_Placebo",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road06_mapo-bridge_northbound/3_RMSPE_ratio_histogram.jpg",
+   "analysis": "road_scm",
+   "site": "06 Mapo Bridge northbound",
+   "kind_ko": "3_RMSPE_ratio_histogram",
+   "kind_en": "3_RMSPE_ratio_histogram",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road06_mapo-bridge_northbound/4_Gap.jpg",
+   "analysis": "road_scm",
+   "site": "06 Mapo Bridge northbound",
+   "kind_ko": "4_Gap",
+   "kind_en": "4_Gap",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road06_mapo-bridge_northbound/5_LOO.jpg",
+   "analysis": "road_scm",
+   "site": "06 Mapo Bridge northbound",
+   "kind_ko": "5_LOO",
+   "kind_en": "5_LOO",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road06_mapo-bridge_northbound/6_in_time_placebo_week34.jpg",
+   "analysis": "road_scm",
+   "site": "06 Mapo Bridge northbound",
+   "kind_ko": "6_in_time_placebo_week34",
+   "kind_en": "6_in_time_placebo_week34",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road07_seogang-bridge_southbound/1_Path.jpg",
+   "analysis": "road_scm",
+   "site": "07 Seogang Bridge southbound",
+   "kind_ko": "1_Path",
+   "kind_en": "1_Path",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road07_seogang-bridge_southbound/2_Placebo.jpg",
+   "analysis": "road_scm",
+   "site": "07 Seogang Bridge southbound",
+   "kind_ko": "2_Placebo",
+   "kind_en": "2_Placebo",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road07_seogang-bridge_southbound/3_RMSPE_ratio_histogram.jpg",
+   "analysis": "road_scm",
+   "site": "07 Seogang Bridge southbound",
+   "kind_ko": "3_RMSPE_ratio_histogram",
+   "kind_en": "3_RMSPE_ratio_histogram",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road07_seogang-bridge_southbound/4_Gap.jpg",
+   "analysis": "road_scm",
+   "site": "07 Seogang Bridge southbound",
+   "kind_ko": "4_Gap",
+   "kind_en": "4_Gap",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road07_seogang-bridge_southbound/5_LOO.jpg",
+   "analysis": "road_scm",
+   "site": "07 Seogang Bridge southbound",
+   "kind_ko": "5_LOO",
+   "kind_en": "5_LOO",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road07_seogang-bridge_southbound/6_in_time_placebo_week34.jpg",
+   "analysis": "road_scm",
+   "site": "07 Seogang Bridge southbound",
+   "kind_ko": "6_in_time_placebo_week34",
+   "kind_en": "6_in_time_placebo_week34",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road08_seogang-bridge_northbound/1_Path.jpg",
+   "analysis": "road_scm",
+   "site": "08 Seogang Bridge northbound",
+   "kind_ko": "1_Path",
+   "kind_en": "1_Path",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road08_seogang-bridge_northbound/2_Placebo.jpg",
+   "analysis": "road_scm",
+   "site": "08 Seogang Bridge northbound",
+   "kind_ko": "2_Placebo",
+   "kind_en": "2_Placebo",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road08_seogang-bridge_northbound/3_RMSPE_ratio_histogram.jpg",
+   "analysis": "road_scm",
+   "site": "08 Seogang Bridge northbound",
+   "kind_ko": "3_RMSPE_ratio_histogram",
+   "kind_en": "3_RMSPE_ratio_histogram",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road08_seogang-bridge_northbound/4_Gap.jpg",
+   "analysis": "road_scm",
+   "site": "08 Seogang Bridge northbound",
+   "kind_ko": "4_Gap",
+   "kind_en": "4_Gap",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road08_seogang-bridge_northbound/5_LOO.jpg",
+   "analysis": "road_scm",
+   "site": "08 Seogang Bridge northbound",
+   "kind_ko": "5_LOO",
+   "kind_en": "5_LOO",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road08_seogang-bridge_northbound/6_in_time_placebo_week34.jpg",
+   "analysis": "road_scm",
+   "site": "08 Seogang Bridge northbound",
+   "kind_ko": "6_in_time_placebo_week34",
+   "kind_en": "6_in_time_placebo_week34",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road09_yeouidaebang-ro_southbound/1_Path.jpg",
+   "analysis": "road_scm",
+   "site": "09 Yeouidaebang-ro southbound",
+   "kind_ko": "1_Path",
+   "kind_en": "1_Path",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road09_yeouidaebang-ro_southbound/2_Placebo.jpg",
+   "analysis": "road_scm",
+   "site": "09 Yeouidaebang-ro southbound",
+   "kind_ko": "2_Placebo",
+   "kind_en": "2_Placebo",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road09_yeouidaebang-ro_southbound/3_RMSPE_ratio_histogram.jpg",
+   "analysis": "road_scm",
+   "site": "09 Yeouidaebang-ro southbound",
+   "kind_ko": "3_RMSPE_ratio_histogram",
+   "kind_en": "3_RMSPE_ratio_histogram",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road09_yeouidaebang-ro_southbound/4_Gap.jpg",
+   "analysis": "road_scm",
+   "site": "09 Yeouidaebang-ro southbound",
+   "kind_ko": "4_Gap",
+   "kind_en": "4_Gap",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road09_yeouidaebang-ro_southbound/5_LOO.jpg",
+   "analysis": "road_scm",
+   "site": "09 Yeouidaebang-ro southbound",
+   "kind_ko": "5_LOO",
+   "kind_en": "5_LOO",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road09_yeouidaebang-ro_southbound/6_in_time_placebo_week34.jpg",
+   "analysis": "road_scm",
+   "site": "09 Yeouidaebang-ro southbound",
+   "kind_ko": "6_in_time_placebo_week34",
+   "kind_en": "6_in_time_placebo_week34",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road10_yeouidaebang-ro_northbound/1_Path.jpg",
+   "analysis": "road_scm",
+   "site": "10 Yeouidaebang-ro northbound",
+   "kind_ko": "1_Path",
+   "kind_en": "1_Path",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road10_yeouidaebang-ro_northbound/2_Placebo.jpg",
+   "analysis": "road_scm",
+   "site": "10 Yeouidaebang-ro northbound",
+   "kind_ko": "2_Placebo",
+   "kind_en": "2_Placebo",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road10_yeouidaebang-ro_northbound/3_RMSPE_ratio_histogram.jpg",
+   "analysis": "road_scm",
+   "site": "10 Yeouidaebang-ro northbound",
+   "kind_ko": "3_RMSPE_ratio_histogram",
+   "kind_en": "3_RMSPE_ratio_histogram",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road10_yeouidaebang-ro_northbound/4_Gap.jpg",
+   "analysis": "road_scm",
+   "site": "10 Yeouidaebang-ro northbound",
+   "kind_ko": "4_Gap",
+   "kind_en": "4_Gap",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road10_yeouidaebang-ro_northbound/5_LOO.jpg",
+   "analysis": "road_scm",
+   "site": "10 Yeouidaebang-ro northbound",
+   "kind_ko": "5_LOO",
+   "kind_en": "5_LOO",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road10_yeouidaebang-ro_northbound/6_in_time_placebo_week34.jpg",
+   "analysis": "road_scm",
+   "site": "10 Yeouidaebang-ro northbound",
+   "kind_ko": "6_in_time_placebo_week34",
+   "kind_en": "6_in_time_placebo_week34",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road11_wonhyo-bridge_southbound/1_Path.jpg",
+   "analysis": "road_scm",
+   "site": "11 Wonhyo Bridge southbound",
+   "kind_ko": "1_Path",
+   "kind_en": "1_Path",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road11_wonhyo-bridge_southbound/2_Placebo.jpg",
+   "analysis": "road_scm",
+   "site": "11 Wonhyo Bridge southbound",
+   "kind_ko": "2_Placebo",
+   "kind_en": "2_Placebo",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road11_wonhyo-bridge_southbound/3_RMSPE_ratio_histogram.jpg",
+   "analysis": "road_scm",
+   "site": "11 Wonhyo Bridge southbound",
+   "kind_ko": "3_RMSPE_ratio_histogram",
+   "kind_en": "3_RMSPE_ratio_histogram",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road11_wonhyo-bridge_southbound/4_Gap.jpg",
+   "analysis": "road_scm",
+   "site": "11 Wonhyo Bridge southbound",
+   "kind_ko": "4_Gap",
+   "kind_en": "4_Gap",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road11_wonhyo-bridge_southbound/5_LOO.jpg",
+   "analysis": "road_scm",
+   "site": "11 Wonhyo Bridge southbound",
+   "kind_ko": "5_LOO",
+   "kind_en": "5_LOO",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road11_wonhyo-bridge_southbound/6_in_time_placebo_week34.jpg",
+   "analysis": "road_scm",
+   "site": "11 Wonhyo Bridge southbound",
+   "kind_ko": "6_in_time_placebo_week34",
+   "kind_en": "6_in_time_placebo_week34",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road12_wonhyo-bridge_northbound/1_Path.jpg",
+   "analysis": "road_scm",
+   "site": "12 Wonhyo Bridge northbound",
+   "kind_ko": "1_Path",
+   "kind_en": "1_Path",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road12_wonhyo-bridge_northbound/2_Placebo.jpg",
+   "analysis": "road_scm",
+   "site": "12 Wonhyo Bridge northbound",
+   "kind_ko": "2_Placebo",
+   "kind_en": "2_Placebo",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road12_wonhyo-bridge_northbound/3_RMSPE_ratio_histogram.jpg",
+   "analysis": "road_scm",
+   "site": "12 Wonhyo Bridge northbound",
+   "kind_ko": "3_RMSPE_ratio_histogram",
+   "kind_en": "3_RMSPE_ratio_histogram",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road12_wonhyo-bridge_northbound/4_Gap.jpg",
+   "analysis": "road_scm",
+   "site": "12 Wonhyo Bridge northbound",
+   "kind_ko": "4_Gap",
+   "kind_en": "4_Gap",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road12_wonhyo-bridge_northbound/5_LOO.jpg",
+   "analysis": "road_scm",
+   "site": "12 Wonhyo Bridge northbound",
+   "kind_ko": "5_LOO",
+   "kind_en": "5_LOO",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-1_road12_wonhyo-bridge_northbound/6_in_time_placebo_week34.jpg",
+   "analysis": "road_scm",
+   "site": "12 Wonhyo Bridge northbound",
+   "kind_ko": "6_in_time_placebo_week34",
+   "kind_en": "6_in_time_placebo_week34",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-2_yeouido_transit/1_Path.jpg",
+   "analysis": "yeouido",
+   "site": "Yeouido-dong",
+   "kind_ko": "1_Path",
+   "kind_en": "1_Path",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-2_yeouido_transit/2_Placebo.jpg",
+   "analysis": "yeouido",
+   "site": "Yeouido-dong",
+   "kind_ko": "2_Placebo",
+   "kind_en": "2_Placebo",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-2_yeouido_transit/3_RMSPE_ratio_histogram.jpg",
+   "analysis": "yeouido",
+   "site": "Yeouido-dong",
+   "kind_ko": "3_RMSPE_ratio_histogram",
+   "kind_en": "3_RMSPE_ratio_histogram",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-2_yeouido_transit/4_Gap.jpg",
+   "analysis": "yeouido",
+   "site": "Yeouido-dong",
+   "kind_ko": "4_Gap",
+   "kind_en": "4_Gap",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-2_yeouido_transit/5_LOO.jpg",
+   "analysis": "yeouido",
+   "site": "Yeouido-dong",
+   "kind_ko": "5_LOO",
+   "kind_en": "5_LOO",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixA-2_yeouido_transit/6_in_time_placebo.jpg",
+   "analysis": "yeouido",
+   "site": "Yeouido-dong",
+   "kind_ko": "6_in_time_placebo",
+   "kind_en": "6_in_time_placebo",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixB_gsynth_diagnostics/figB-1.png",
    "analysis": "citywide",
-   "site": "본문 / Main text",
-   "kind_ko": "그림5-1_관측대반사실_r4",
-   "kind_en": "그림5-1_관측대반사실_r4",
+   "site": "Appendix B gsynth diagnostics",
+   "kind_ko": "figB-1",
+   "kind_en": "figB-1",
    "note_ko": "",
    "note_en": "",
    "group": "thesis",
    "thesis": true
   },
   {
-   "src": "assets/figures/thesis/본문_그림/그림5-1_관측대반사실_r4_basic.png",
+   "src": "assets/figures/thesis/appendixB_gsynth_diagnostics/figB-2.png",
    "analysis": "citywide",
-   "site": "본문 / Main text",
-   "kind_ko": "그림5-1_관측대반사실_r4_basic",
-   "kind_en": "그림5-1_관측대반사실_r4_basic",
+   "site": "Appendix B gsynth diagnostics",
+   "kind_ko": "figB-2",
+   "kind_en": "figB-2",
    "note_ko": "",
    "note_en": "",
    "group": "thesis",
    "thesis": true
   },
   {
-   "src": "assets/figures/thesis/본문_그림/그림5-2_주별효과_r4.png",
+   "src": "assets/figures/thesis/appendixB_gsynth_diagnostics/figB-3.png",
    "analysis": "citywide",
-   "site": "본문 / Main text",
-   "kind_ko": "그림5-2_주별효과_r4",
-   "kind_en": "그림5-2_주별효과_r4",
+   "site": "Appendix B gsynth diagnostics",
+   "kind_ko": "figB-3",
+   "kind_en": "figB-3",
    "note_ko": "",
    "note_en": "",
    "group": "thesis",
    "thesis": true
   },
   {
-   "src": "assets/figures/thesis/본문_그림/그림6-1_자치구지도_r4.png",
+   "src": "assets/figures/thesis/appendixB_gsynth_diagnostics/figB-4.png",
+   "analysis": "citywide",
+   "site": "Appendix B gsynth diagnostics",
+   "kind_ko": "figB-4",
+   "kind_en": "figB-4",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixB_gsynth_diagnostics/figB-5.png",
+   "analysis": "citywide",
+   "site": "Appendix B gsynth diagnostics",
+   "kind_ko": "figB-5",
+   "kind_en": "figB-5",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixB_gsynth_diagnostics/figB-6.png",
+   "analysis": "citywide",
+   "site": "Appendix B gsynth diagnostics",
+   "kind_ko": "figB-6",
+   "kind_en": "figB-6",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixB_gsynth_diagnostics/figB-7.png",
+   "analysis": "citywide",
+   "site": "Appendix B gsynth diagnostics",
+   "kind_ko": "figB-7",
+   "kind_en": "figB-7",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/appendixB_gsynth_diagnostics/figB-8.png",
+   "analysis": "citywide",
+   "site": "Appendix B gsynth diagnostics",
+   "kind_ko": "figB-8",
+   "kind_en": "figB-8",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/main_text/fig4-2a_nodeul-ro_southbound_path.jpg",
+   "analysis": "road_scm",
+   "site": "Main text",
+   "kind_ko": "fig4-2a_nodeul-ro_southbound_path",
+   "kind_en": "fig4-2a_nodeul-ro_southbound_path",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/main_text/fig4-2b_mapo-bridge_northbound_path.jpg",
+   "analysis": "road_scm",
+   "site": "Main text",
+   "kind_ko": "fig4-2b_mapo-bridge_northbound_path",
+   "kind_en": "fig4-2b_mapo-bridge_northbound_path",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/main_text/fig4-2c_wonhyo-bridge_northbound_path.jpg",
+   "analysis": "road_scm",
+   "site": "Main text",
+   "kind_ko": "fig4-2c_wonhyo-bridge_northbound_path",
+   "kind_en": "fig4-2c_wonhyo-bridge_northbound_path",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/main_text/fig4-2d_seogang-bridge_northbound_path.jpg",
+   "analysis": "road_scm",
+   "site": "Main text",
+   "kind_ko": "fig4-2d_seogang-bridge_northbound_path",
+   "kind_en": "fig4-2d_seogang-bridge_northbound_path",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/main_text/fig5-1_observed_vs_counterfactual_r4.png",
+   "analysis": "citywide",
+   "site": "Main text",
+   "kind_ko": "fig5-1_observed_vs_counterfactual_r4",
+   "kind_en": "fig5-1_observed_vs_counterfactual_r4",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/main_text/fig5-1_observed_vs_counterfactual_r4_basic.png",
+   "analysis": "citywide",
+   "site": "Main text",
+   "kind_ko": "fig5-1_observed_vs_counterfactual_r4_basic",
+   "kind_en": "fig5-1_observed_vs_counterfactual_r4_basic",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/main_text/fig5-2_weekly_effects_r4.png",
+   "analysis": "citywide",
+   "site": "Main text",
+   "kind_ko": "fig5-2_weekly_effects_r4",
+   "kind_en": "fig5-2_weekly_effects_r4",
+   "note_ko": "",
+   "note_en": "",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/main_text/fig6-1_district_map_r4.png",
    "analysis": "heterogeneity",
-   "site": "본문 / Main text",
-   "kind_ko": "그림6-1_자치구지도_r4",
-   "kind_en": "그림6-1_자치구지도_r4",
-   "note_ko": "",
-   "note_en": "",
+   "site": "Main text",
+   "kind_ko": "fig6-1_district_map_r4 · 이전 세대(1,000명당 지표)",
+   "kind_en": "fig6-1_district_map_r4 · earlier generation (per-1,000 indicator)",
+   "note_ko": "이전 세대 그림: 주민 1,000명당 지표. 현재 원고 6장은 반사실 대비 증가율(%)을 쓰며, 'Chapter 6 (current)' 그림을 참조하십시오.",
+   "note_en": "Earlier-generation figure (per-1,000-residents indicator). Chapter 6 now uses the increase vs counterfactual (%); see the 'Chapter 6 (current)' figures.",
    "group": "thesis",
    "thesis": true
   },
   {
-   "src": "assets/figures/thesis/본문_그림/그림6-2_환승3분위_r4.png",
+   "src": "assets/figures/thesis/main_text/fig6-2_transfer_quintiles_r4_per1000.png",
    "analysis": "heterogeneity",
-   "site": "본문 / Main text",
-   "kind_ko": "그림6-2_환승3분위_r4",
-   "kind_en": "그림6-2_환승3분위_r4",
-   "note_ko": "",
-   "note_en": "",
+   "site": "Main text",
+   "kind_ko": "fig6-2_transfer_quintiles_r4_per1000 · 이전 세대(1,000명당 지표)",
+   "kind_en": "fig6-2_transfer_quintiles_r4_per1000 · earlier generation (per-1,000 indicator)",
+   "note_ko": "이전 세대 그림: 주민 1,000명당 지표. 현재 원고 6장은 반사실 대비 증가율(%)을 쓰며, 'Chapter 6 (current)' 그림을 참조하십시오.",
+   "note_en": "Earlier-generation figure (per-1,000-residents indicator). Chapter 6 now uses the increase vs counterfactual (%); see the 'Chapter 6 (current)' figures.",
    "group": "thesis",
    "thesis": true
   },
   {
-   "src": "assets/figures/thesis/본문_그림/그림6-2_환승5분위_r4_1000명당.png",
+   "src": "assets/figures/thesis/main_text/fig6-2_transfer_tertiles_r4.png",
    "analysis": "heterogeneity",
-   "site": "본문 / Main text",
-   "kind_ko": "그림6-2_환승5분위_r4_1000명당",
-   "kind_en": "그림6-2_환승5분위_r4_1000명당",
-   "note_ko": "",
-   "note_en": "",
+   "site": "Main text",
+   "kind_ko": "fig6-2_transfer_tertiles_r4 · 이전 세대(1,000명당 지표)",
+   "kind_en": "fig6-2_transfer_tertiles_r4 · earlier generation (per-1,000 indicator)",
+   "note_ko": "이전 세대 그림: 주민 1,000명당 지표. 현재 원고 6장은 반사실 대비 증가율(%)을 쓰며, 'Chapter 6 (current)' 그림을 참조하십시오.",
+   "note_en": "Earlier-generation figure (per-1,000-residents indicator). Chapter 6 now uses the increase vs counterfactual (%); see the 'Chapter 6 (current)' figures.",
    "group": "thesis",
    "thesis": true
   },
   {
-   "src": "assets/figures/thesis/본문_그림/그림6-3_환승3분위_주별_r4_basic.png",
+   "src": "assets/figures/thesis/main_text/fig6-3_transfer_tertiles_weekly_r4_basic.png",
    "analysis": "heterogeneity",
-   "site": "본문 / Main text",
-   "kind_ko": "그림6-3_환승3분위_주별_r4_basic",
-   "kind_en": "그림6-3_환승3분위_주별_r4_basic",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road01_경인로남행/1_Path.jpg",
-   "analysis": "road_scm",
-   "site": "01 경인로 유출",
-   "kind_ko": "1_Path",
-   "kind_en": "1_Path",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road01_경인로남행/2_Placebo.jpg",
-   "analysis": "road_scm",
-   "site": "01 경인로 유출",
-   "kind_ko": "2_Placebo",
-   "kind_en": "2_Placebo",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road01_경인로남행/3_RMSPE비율히스토그램.jpg",
-   "analysis": "road_scm",
-   "site": "01 경인로 유출",
-   "kind_ko": "3_RMSPE비율히스토그램",
-   "kind_en": "3_RMSPE비율히스토그램",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road01_경인로남행/4_Gap.jpg",
-   "analysis": "road_scm",
-   "site": "01 경인로 유출",
-   "kind_ko": "4_Gap",
-   "kind_en": "4_Gap",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road01_경인로남행/5_LOO.jpg",
-   "analysis": "road_scm",
-   "site": "01 경인로 유출",
-   "kind_ko": "5_LOO",
-   "kind_en": "5_LOO",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road01_경인로남행/6_시점위약34주.jpg",
-   "analysis": "road_scm",
-   "site": "01 경인로 유출",
-   "kind_ko": "6_시점위약34주",
-   "kind_en": "6_시점위약34주",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road02_경인로북행/1_Path.jpg",
-   "analysis": "road_scm",
-   "site": "02 경인로 유입",
-   "kind_ko": "1_Path",
-   "kind_en": "1_Path",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road02_경인로북행/2_Placebo.jpg",
-   "analysis": "road_scm",
-   "site": "02 경인로 유입",
-   "kind_ko": "2_Placebo",
-   "kind_en": "2_Placebo",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road02_경인로북행/3_RMSPE비율히스토그램.jpg",
-   "analysis": "road_scm",
-   "site": "02 경인로 유입",
-   "kind_ko": "3_RMSPE비율히스토그램",
-   "kind_en": "3_RMSPE비율히스토그램",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road02_경인로북행/4_Gap.jpg",
-   "analysis": "road_scm",
-   "site": "02 경인로 유입",
-   "kind_ko": "4_Gap",
-   "kind_en": "4_Gap",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road02_경인로북행/5_LOO.jpg",
-   "analysis": "road_scm",
-   "site": "02 경인로 유입",
-   "kind_ko": "5_LOO",
-   "kind_en": "5_LOO",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road02_경인로북행/6_시점위약34주.jpg",
-   "analysis": "road_scm",
-   "site": "02 경인로 유입",
-   "kind_ko": "6_시점위약34주",
-   "kind_en": "6_시점위약34주",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road03_노들로북행/1_Path.jpg",
-   "analysis": "road_scm",
-   "site": "03 노들로 북행",
-   "kind_ko": "1_Path",
-   "kind_en": "1_Path",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road03_노들로북행/2_Placebo.jpg",
-   "analysis": "road_scm",
-   "site": "03 노들로 북행",
-   "kind_ko": "2_Placebo",
-   "kind_en": "2_Placebo",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road03_노들로북행/3_RMSPE비율히스토그램.jpg",
-   "analysis": "road_scm",
-   "site": "03 노들로 북행",
-   "kind_ko": "3_RMSPE비율히스토그램",
-   "kind_en": "3_RMSPE비율히스토그램",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road03_노들로북행/4_Gap.jpg",
-   "analysis": "road_scm",
-   "site": "03 노들로 북행",
-   "kind_ko": "4_Gap",
-   "kind_en": "4_Gap",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road03_노들로북행/5_LOO.jpg",
-   "analysis": "road_scm",
-   "site": "03 노들로 북행",
-   "kind_ko": "5_LOO",
-   "kind_en": "5_LOO",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road03_노들로북행/6_시점위약34주.jpg",
-   "analysis": "road_scm",
-   "site": "03 노들로 북행",
-   "kind_ko": "6_시점위약34주",
-   "kind_en": "6_시점위약34주",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road04_노들로남행/1_Path.jpg",
-   "analysis": "road_scm",
-   "site": "04 노들로 남행",
-   "kind_ko": "1_Path",
-   "kind_en": "1_Path",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road04_노들로남행/2_Placebo.jpg",
-   "analysis": "road_scm",
-   "site": "04 노들로 남행",
-   "kind_ko": "2_Placebo",
-   "kind_en": "2_Placebo",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road04_노들로남행/3_RMSPE비율히스토그램.jpg",
-   "analysis": "road_scm",
-   "site": "04 노들로 남행",
-   "kind_ko": "3_RMSPE비율히스토그램",
-   "kind_en": "3_RMSPE비율히스토그램",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road04_노들로남행/4_Gap.jpg",
-   "analysis": "road_scm",
-   "site": "04 노들로 남행",
-   "kind_ko": "4_Gap",
-   "kind_en": "4_Gap",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road04_노들로남행/5_LOO.jpg",
-   "analysis": "road_scm",
-   "site": "04 노들로 남행",
-   "kind_ko": "5_LOO",
-   "kind_en": "5_LOO",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road04_노들로남행/6_시점위약34주.jpg",
-   "analysis": "road_scm",
-   "site": "04 노들로 남행",
-   "kind_ko": "6_시점위약34주",
-   "kind_en": "6_시점위약34주",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road05_마포대교남행/1_Path.jpg",
-   "analysis": "road_scm",
-   "site": "05 마포대교 남행",
-   "kind_ko": "1_Path",
-   "kind_en": "1_Path",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road05_마포대교남행/2_Placebo.jpg",
-   "analysis": "road_scm",
-   "site": "05 마포대교 남행",
-   "kind_ko": "2_Placebo",
-   "kind_en": "2_Placebo",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road05_마포대교남행/3_RMSPE비율히스토그램.jpg",
-   "analysis": "road_scm",
-   "site": "05 마포대교 남행",
-   "kind_ko": "3_RMSPE비율히스토그램",
-   "kind_en": "3_RMSPE비율히스토그램",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road05_마포대교남행/4_Gap.jpg",
-   "analysis": "road_scm",
-   "site": "05 마포대교 남행",
-   "kind_ko": "4_Gap",
-   "kind_en": "4_Gap",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road05_마포대교남행/5_LOO.jpg",
-   "analysis": "road_scm",
-   "site": "05 마포대교 남행",
-   "kind_ko": "5_LOO",
-   "kind_en": "5_LOO",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road05_마포대교남행/6_시점위약34주.jpg",
-   "analysis": "road_scm",
-   "site": "05 마포대교 남행",
-   "kind_ko": "6_시점위약34주",
-   "kind_en": "6_시점위약34주",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road06_마포대교북행/1_Path.jpg",
-   "analysis": "road_scm",
-   "site": "06 마포대교 북행",
-   "kind_ko": "1_Path",
-   "kind_en": "1_Path",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road06_마포대교북행/2_Placebo.jpg",
-   "analysis": "road_scm",
-   "site": "06 마포대교 북행",
-   "kind_ko": "2_Placebo",
-   "kind_en": "2_Placebo",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road06_마포대교북행/3_RMSPE비율히스토그램.jpg",
-   "analysis": "road_scm",
-   "site": "06 마포대교 북행",
-   "kind_ko": "3_RMSPE비율히스토그램",
-   "kind_en": "3_RMSPE비율히스토그램",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road06_마포대교북행/4_Gap.jpg",
-   "analysis": "road_scm",
-   "site": "06 마포대교 북행",
-   "kind_ko": "4_Gap",
-   "kind_en": "4_Gap",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road06_마포대교북행/5_LOO.jpg",
-   "analysis": "road_scm",
-   "site": "06 마포대교 북행",
-   "kind_ko": "5_LOO",
-   "kind_en": "5_LOO",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road06_마포대교북행/6_시점위약34주.jpg",
-   "analysis": "road_scm",
-   "site": "06 마포대교 북행",
-   "kind_ko": "6_시점위약34주",
-   "kind_en": "6_시점위약34주",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road07_서강대교남행/1_Path.jpg",
-   "analysis": "road_scm",
-   "site": "07 서강대교 남행",
-   "kind_ko": "1_Path",
-   "kind_en": "1_Path",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road07_서강대교남행/2_Placebo.jpg",
-   "analysis": "road_scm",
-   "site": "07 서강대교 남행",
-   "kind_ko": "2_Placebo",
-   "kind_en": "2_Placebo",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road07_서강대교남행/3_RMSPE비율히스토그램.jpg",
-   "analysis": "road_scm",
-   "site": "07 서강대교 남행",
-   "kind_ko": "3_RMSPE비율히스토그램",
-   "kind_en": "3_RMSPE비율히스토그램",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road07_서강대교남행/4_Gap.jpg",
-   "analysis": "road_scm",
-   "site": "07 서강대교 남행",
-   "kind_ko": "4_Gap",
-   "kind_en": "4_Gap",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road07_서강대교남행/5_LOO.jpg",
-   "analysis": "road_scm",
-   "site": "07 서강대교 남행",
-   "kind_ko": "5_LOO",
-   "kind_en": "5_LOO",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road07_서강대교남행/6_시점위약34주.jpg",
-   "analysis": "road_scm",
-   "site": "07 서강대교 남행",
-   "kind_ko": "6_시점위약34주",
-   "kind_en": "6_시점위약34주",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road08_서강대교북행/1_Path.jpg",
-   "analysis": "road_scm",
-   "site": "08 서강대교 북행",
-   "kind_ko": "1_Path",
-   "kind_en": "1_Path",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road08_서강대교북행/2_Placebo.jpg",
-   "analysis": "road_scm",
-   "site": "08 서강대교 북행",
-   "kind_ko": "2_Placebo",
-   "kind_en": "2_Placebo",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road08_서강대교북행/3_RMSPE비율히스토그램.jpg",
-   "analysis": "road_scm",
-   "site": "08 서강대교 북행",
-   "kind_ko": "3_RMSPE비율히스토그램",
-   "kind_en": "3_RMSPE비율히스토그램",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road08_서강대교북행/4_Gap.jpg",
-   "analysis": "road_scm",
-   "site": "08 서강대교 북행",
-   "kind_ko": "4_Gap",
-   "kind_en": "4_Gap",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road08_서강대교북행/5_LOO.jpg",
-   "analysis": "road_scm",
-   "site": "08 서강대교 북행",
-   "kind_ko": "5_LOO",
-   "kind_en": "5_LOO",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road08_서강대교북행/6_시점위약34주.jpg",
-   "analysis": "road_scm",
-   "site": "08 서강대교 북행",
-   "kind_ko": "6_시점위약34주",
-   "kind_en": "6_시점위약34주",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road09_여의대방로남행/1_Path.jpg",
-   "analysis": "road_scm",
-   "site": "09 여의대방로 남행",
-   "kind_ko": "1_Path",
-   "kind_en": "1_Path",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road09_여의대방로남행/2_Placebo.jpg",
-   "analysis": "road_scm",
-   "site": "09 여의대방로 남행",
-   "kind_ko": "2_Placebo",
-   "kind_en": "2_Placebo",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road09_여의대방로남행/3_RMSPE비율히스토그램.jpg",
-   "analysis": "road_scm",
-   "site": "09 여의대방로 남행",
-   "kind_ko": "3_RMSPE비율히스토그램",
-   "kind_en": "3_RMSPE비율히스토그램",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road09_여의대방로남행/4_Gap.jpg",
-   "analysis": "road_scm",
-   "site": "09 여의대방로 남행",
-   "kind_ko": "4_Gap",
-   "kind_en": "4_Gap",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road09_여의대방로남행/5_LOO.jpg",
-   "analysis": "road_scm",
-   "site": "09 여의대방로 남행",
-   "kind_ko": "5_LOO",
-   "kind_en": "5_LOO",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road09_여의대방로남행/6_시점위약34주.jpg",
-   "analysis": "road_scm",
-   "site": "09 여의대방로 남행",
-   "kind_ko": "6_시점위약34주",
-   "kind_en": "6_시점위약34주",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road10_여의대방로북행/1_Path.jpg",
-   "analysis": "road_scm",
-   "site": "10 여의대방로 북행",
-   "kind_ko": "1_Path",
-   "kind_en": "1_Path",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road10_여의대방로북행/2_Placebo.jpg",
-   "analysis": "road_scm",
-   "site": "10 여의대방로 북행",
-   "kind_ko": "2_Placebo",
-   "kind_en": "2_Placebo",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road10_여의대방로북행/3_RMSPE비율히스토그램.jpg",
-   "analysis": "road_scm",
-   "site": "10 여의대방로 북행",
-   "kind_ko": "3_RMSPE비율히스토그램",
-   "kind_en": "3_RMSPE비율히스토그램",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road10_여의대방로북행/4_Gap.jpg",
-   "analysis": "road_scm",
-   "site": "10 여의대방로 북행",
-   "kind_ko": "4_Gap",
-   "kind_en": "4_Gap",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road10_여의대방로북행/5_LOO.jpg",
-   "analysis": "road_scm",
-   "site": "10 여의대방로 북행",
-   "kind_ko": "5_LOO",
-   "kind_en": "5_LOO",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road10_여의대방로북행/6_시점위약34주.jpg",
-   "analysis": "road_scm",
-   "site": "10 여의대방로 북행",
-   "kind_ko": "6_시점위약34주",
-   "kind_en": "6_시점위약34주",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road11_원효대교남행/1_Path.jpg",
-   "analysis": "road_scm",
-   "site": "11 원효대교 남행",
-   "kind_ko": "1_Path",
-   "kind_en": "1_Path",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road11_원효대교남행/2_Placebo.jpg",
-   "analysis": "road_scm",
-   "site": "11 원효대교 남행",
-   "kind_ko": "2_Placebo",
-   "kind_en": "2_Placebo",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road11_원효대교남행/3_RMSPE비율히스토그램.jpg",
-   "analysis": "road_scm",
-   "site": "11 원효대교 남행",
-   "kind_ko": "3_RMSPE비율히스토그램",
-   "kind_en": "3_RMSPE비율히스토그램",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road11_원효대교남행/4_Gap.jpg",
-   "analysis": "road_scm",
-   "site": "11 원효대교 남행",
-   "kind_ko": "4_Gap",
-   "kind_en": "4_Gap",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road11_원효대교남행/5_LOO.jpg",
-   "analysis": "road_scm",
-   "site": "11 원효대교 남행",
-   "kind_ko": "5_LOO",
-   "kind_en": "5_LOO",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road11_원효대교남행/6_시점위약34주.jpg",
-   "analysis": "road_scm",
-   "site": "11 원효대교 남행",
-   "kind_ko": "6_시점위약34주",
-   "kind_en": "6_시점위약34주",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road12_원효대교북행/1_Path.jpg",
-   "analysis": "road_scm",
-   "site": "12 원효대교 북행",
-   "kind_ko": "1_Path",
-   "kind_en": "1_Path",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road12_원효대교북행/2_Placebo.jpg",
-   "analysis": "road_scm",
-   "site": "12 원효대교 북행",
-   "kind_ko": "2_Placebo",
-   "kind_en": "2_Placebo",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road12_원효대교북행/3_RMSPE비율히스토그램.jpg",
-   "analysis": "road_scm",
-   "site": "12 원효대교 북행",
-   "kind_ko": "3_RMSPE비율히스토그램",
-   "kind_en": "3_RMSPE비율히스토그램",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road12_원효대교북행/4_Gap.jpg",
-   "analysis": "road_scm",
-   "site": "12 원효대교 북행",
-   "kind_ko": "4_Gap",
-   "kind_en": "4_Gap",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road12_원효대교북행/5_LOO.jpg",
-   "analysis": "road_scm",
-   "site": "12 원효대교 북행",
-   "kind_ko": "5_LOO",
-   "kind_en": "5_LOO",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-1_Road12_원효대교북행/6_시점위약34주.jpg",
-   "analysis": "road_scm",
-   "site": "12 원효대교 북행",
-   "kind_ko": "6_시점위약34주",
-   "kind_en": "6_시점위약34주",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-2_여의도대중교통/1_Path.jpg",
-   "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
-   "kind_ko": "1_Path",
-   "kind_en": "1_Path",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-2_여의도대중교통/2_Placebo.jpg",
-   "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
-   "kind_ko": "2_Placebo",
-   "kind_en": "2_Placebo",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-2_여의도대중교통/3_RMSPE비율히스토그램.jpg",
-   "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
-   "kind_ko": "3_RMSPE비율히스토그램",
-   "kind_en": "3_RMSPE비율히스토그램",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-2_여의도대중교통/4_Gap.jpg",
-   "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
-   "kind_ko": "4_Gap",
-   "kind_en": "4_Gap",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-2_여의도대중교통/5_LOO.jpg",
-   "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
-   "kind_ko": "5_LOO",
-   "kind_en": "5_LOO",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록A-2_여의도대중교통/6_시점위약.jpg",
-   "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
-   "kind_ko": "6_시점위약",
-   "kind_en": "6_시점위약",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록B_gsynth진단/그림B-1.png",
-   "analysis": "citywide",
-   "site": "부록 B gsynth 진단 / Appendix B diagnostics",
-   "kind_ko": "그림B-1",
-   "kind_en": "그림B-1",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록B_gsynth진단/그림B-2.png",
-   "analysis": "citywide",
-   "site": "부록 B gsynth 진단 / Appendix B diagnostics",
-   "kind_ko": "그림B-2",
-   "kind_en": "그림B-2",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록B_gsynth진단/그림B-3.png",
-   "analysis": "citywide",
-   "site": "부록 B gsynth 진단 / Appendix B diagnostics",
-   "kind_ko": "그림B-3",
-   "kind_en": "그림B-3",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록B_gsynth진단/그림B-4.png",
-   "analysis": "citywide",
-   "site": "부록 B gsynth 진단 / Appendix B diagnostics",
-   "kind_ko": "그림B-4",
-   "kind_en": "그림B-4",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록B_gsynth진단/그림B-5.png",
-   "analysis": "citywide",
-   "site": "부록 B gsynth 진단 / Appendix B diagnostics",
-   "kind_ko": "그림B-5",
-   "kind_en": "그림B-5",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록B_gsynth진단/그림B-6.png",
-   "analysis": "citywide",
-   "site": "부록 B gsynth 진단 / Appendix B diagnostics",
-   "kind_ko": "그림B-6",
-   "kind_en": "그림B-6",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록B_gsynth진단/그림B-7.png",
-   "analysis": "citywide",
-   "site": "부록 B gsynth 진단 / Appendix B diagnostics",
-   "kind_ko": "그림B-7",
-   "kind_en": "그림B-7",
-   "note_ko": "",
-   "note_en": "",
-   "group": "thesis",
-   "thesis": true
-  },
-  {
-   "src": "assets/figures/thesis/부록B_gsynth진단/그림B-8.png",
-   "analysis": "citywide",
-   "site": "부록 B gsynth 진단 / Appendix B diagnostics",
-   "kind_ko": "그림B-8",
-   "kind_en": "그림B-8",
-   "note_ko": "",
-   "note_en": "",
+   "site": "Main text",
+   "kind_ko": "fig6-3_transfer_tertiles_weekly_r4_basic · 이전 세대(1,000명당 지표)",
+   "kind_en": "fig6-3_transfer_tertiles_weekly_r4_basic · earlier generation (per-1,000 indicator)",
+   "note_ko": "이전 세대 그림: 주민 1,000명당 지표. 현재 원고 6장은 반사실 대비 증가율(%)을 쓰며, 'Chapter 6 (current)' 그림을 참조하십시오.",
+   "note_en": "Earlier-generation figure (per-1,000-residents indicator). Chapter 6 now uses the increase vs counterfactual (%); see the 'Chapter 6 (current)' figures.",
    "group": "thesis",
    "thesis": true
   },
   {
    "src": "assets/figures/yeouido_transit_scm/1.scm_path_D79_nested.jpg",
    "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
+   "site": "Yeouido-dong",
    "kind_ko": "경로(관측 vs 합성)",
    "kind_en": "Path (observed vs synthetic)",
    "note_ko": "",
@@ -2370,7 +2193,7 @@
   {
    "src": "assets/figures/yeouido_transit_scm/10.placebo_hist_D79_nested_all.jpg",
    "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
+   "site": "Yeouido-dong",
    "kind_ko": "RMSPE 비율 히스토그램 · 전체",
    "kind_en": "RMSPE-ratio histogram · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -2380,7 +2203,7 @@
   {
    "src": "assets/figures/yeouido_transit_scm/10.placebo_hist_D79_nested_tau5.jpg",
    "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
+   "site": "Yeouido-dong",
    "kind_ko": "RMSPE 비율 히스토그램 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio histogram · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -2390,7 +2213,7 @@
   {
    "src": "assets/figures/yeouido_transit_scm/2.scm_gap_D79_nested.jpg",
    "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
+   "site": "Yeouido-dong",
    "kind_ko": "격차",
    "kind_en": "Gap",
    "note_ko": "",
@@ -2400,7 +2223,7 @@
   {
    "src": "assets/figures/yeouido_transit_scm/3.rmspe_ratio_D79_nested_all.jpg",
    "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
+   "site": "Yeouido-dong",
    "kind_ko": "RMSPE 비율 순위 · 전체",
    "kind_en": "RMSPE-ratio ranking · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -2410,7 +2233,7 @@
   {
    "src": "assets/figures/yeouido_transit_scm/3.rmspe_ratio_D79_nested_tau5.jpg",
    "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
+   "site": "Yeouido-dong",
    "kind_ko": "RMSPE 비율 순위 · 민감도(≤5배)",
    "kind_en": "RMSPE-ratio ranking · sensitivity (≤5×)",
    "note_ko": "민감도 분석: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 사용. 본 결과의 p값은 위약 전체 기준.",
@@ -2420,7 +2243,7 @@
   {
    "src": "assets/figures/yeouido_transit_scm/4.placebo_gaps_D79_nested_all.jpg",
    "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
+   "site": "Yeouido-dong",
    "kind_ko": "위약 격차 · 전체",
    "kind_en": "Placebo gaps · all placebos",
    "note_ko": "위약 전체(필터 없음) 표시. p값 계산 기준과 동일한 집합.",
@@ -2430,7 +2253,7 @@
   {
    "src": "assets/figures/yeouido_transit_scm/4.placebo_gaps_D79_nested_tau5.jpg",
    "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
+   "site": "Yeouido-dong",
    "kind_ko": "위약 격차 · 원고용(≤5배 표시)",
    "kind_en": "Placebo gaps · manuscript (≤5× shown)",
    "note_ko": "원고용 그림: 사전 RMSPE가 처치 단위의 5배 이하인 위약만 표시. p값은 표시 여부와 무관하게 위약 전체(처치 단위 포함, 사전 적합도 필터 없음) 기준.",
@@ -2440,7 +2263,7 @@
   {
    "src": "assets/figures/yeouido_transit_scm/5.loo_D79_nested.jpg",
    "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
+   "site": "Yeouido-dong",
    "kind_ko": "LOO(도너 1개 제외)",
    "kind_en": "Leave-one-out",
    "note_ko": "",
@@ -2450,7 +2273,7 @@
   {
    "src": "assets/figures/yeouido_transit_scm/5.loo_D79_nested_v2.jpg",
    "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
+   "site": "Yeouido-dong",
    "kind_ko": "LOO(도너 1개 제외)",
    "kind_en": "Leave-one-out",
    "note_ko": "",
@@ -2460,7 +2283,7 @@
   {
    "src": "assets/figures/yeouido_transit_scm/6.in_time_path_D79_nested_f27.jpg",
    "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
+   "site": "Yeouido-dong",
    "kind_ko": "시점 위약 (가짜 시점 27주)",
    "kind_en": "In-time placebo (fake start week 27)",
    "note_ko": "",
@@ -2470,7 +2293,7 @@
   {
    "src": "assets/figures/yeouido_transit_scm/6.in_time_path_D79_nested_f35.jpg",
    "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
+   "site": "Yeouido-dong",
    "kind_ko": "시점 위약 (가짜 시점 35주)",
    "kind_en": "In-time placebo (fake start week 35)",
    "note_ko": "",
@@ -2480,7 +2303,7 @@
   {
    "src": "assets/figures/yeouido_transit_scm/6.in_time_path_D79_nested_f42.jpg",
    "analysis": "yeouido",
-   "site": "여의도동 출발 / Yeouido-dong",
+   "site": "Yeouido-dong",
    "kind_ko": "시점 위약 (가짜 시점 42주)",
    "kind_en": "In-time placebo (fake start week 42)",
    "note_ko": "",
@@ -2544,146 +2367,152 @@
    "rows": 24
   },
   {
-   "path": "assets/results/01_citywide_gsynth/R2_r4_제출용_20261010/concentration_POINT_only.csv",
-   "repo_path": "results/01_citywide_gsynth/R2_r4_제출용_20261010/concentration_POINT_only.csv",
+   "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/concentration_POINT_only.csv",
+   "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/concentration_POINT_only.csv",
    "analysis": "citywide",
    "rows": 1
   },
   {
-   "path": "assets/results/01_citywide_gsynth/R2_r4_제출용_20261010/cumulative_effects_B1000.csv",
-   "repo_path": "results/01_citywide_gsynth/R2_r4_제출용_20261010/cumulative_effects_B1000.csv",
+   "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/cumulative_effects_B1000.csv",
+   "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/cumulative_effects_B1000.csv",
    "analysis": "citywide",
    "rows": 184
   },
   {
-   "path": "assets/results/01_citywide_gsynth/R2_r4_제출용_20261010/engine_provenance.csv",
-   "repo_path": "results/01_citywide_gsynth/R2_r4_제출용_20261010/engine_provenance.csv",
+   "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/engine_provenance.csv",
+   "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/engine_provenance.csv",
    "analysis": "citywide",
    "rows": 1
   },
   {
-   "path": "assets/results/01_citywide_gsynth/R2_r4_제출용_20261010/monthly_effects_B1000.csv",
-   "repo_path": "results/01_citywide_gsynth/R2_r4_제출용_20261010/monthly_effects_B1000.csv",
+   "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/monthly_effects_B1000.csv",
+   "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/monthly_effects_B1000.csv",
    "analysis": "citywide",
    "rows": 48
   },
   {
-   "path": "assets/results/01_citywide_gsynth/R2_r4_제출용_20261010/negative_prediction_audit.csv",
-   "repo_path": "results/01_citywide_gsynth/R2_r4_제출용_20261010/negative_prediction_audit.csv",
+   "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/negative_prediction_audit.csv",
+   "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/negative_prediction_audit.csv",
    "analysis": "citywide",
    "rows": 1
   },
   {
-   "path": "assets/results/01_citywide_gsynth/R2_r4_제출용_20261010/pre_validation_POINT_only.csv",
-   "repo_path": "results/01_citywide_gsynth/R2_r4_제출용_20261010/pre_validation_POINT_only.csv",
+   "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/pre_validation_POINT_only.csv",
+   "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/pre_validation_POINT_only.csv",
    "analysis": "citywide",
    "rows": 4
   },
   {
-   "path": "assets/results/01_citywide_gsynth/R2_r4_제출용_20261010/r4_road_window_POINT.csv",
-   "repo_path": "results/01_citywide_gsynth/R2_r4_제출용_20261010/r4_road_window_POINT.csv",
+   "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/r4_road_window_POINT.csv",
+   "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/r4_road_window_POINT.csv",
    "analysis": "citywide",
    "rows": 1
   },
   {
-   "path": "assets/results/01_citywide_gsynth/R2_r4_제출용_20261010/r4_yeouido_road_window_POINT.csv",
-   "repo_path": "results/01_citywide_gsynth/R2_r4_제출용_20261010/r4_yeouido_road_window_POINT.csv",
+   "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/r4_yeouido_road_window_POINT.csv",
+   "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/r4_yeouido_road_window_POINT.csv",
    "analysis": "citywide",
    "rows": 1
   },
   {
-   "path": "assets/results/01_citywide_gsynth/R2_r4_제출용_20261010/rank_sensitivity.csv",
-   "repo_path": "results/01_citywide_gsynth/R2_r4_제출용_20261010/rank_sensitivity.csv",
+   "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/rank_sensitivity.csv",
+   "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/rank_sensitivity.csv",
    "analysis": "citywide",
    "rows": 2
   },
   {
-   "path": "assets/results/01_citywide_gsynth/R2_r4_제출용_20261010/size_quintiles_POINT_only.csv",
-   "repo_path": "results/01_citywide_gsynth/R2_r4_제출용_20261010/size_quintiles_POINT_only.csv",
+   "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/size_quintiles_POINT_only.csv",
+   "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/size_quintiles_POINT_only.csv",
    "analysis": "citywide",
    "rows": 5
   },
   {
-   "path": "assets/results/01_citywide_gsynth/R2_r4_제출용_20261010/weekly_effects_B1000.csv",
-   "repo_path": "results/01_citywide_gsynth/R2_r4_제출용_20261010/weekly_effects_B1000.csv",
+   "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/weekly_effects_B1000.csv",
+   "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/weekly_effects_B1000.csv",
    "analysis": "citywide",
    "rows": 184
   },
   {
-   "path": "assets/results/01_citywide_gsynth/R2_r4_제출용_20261010/window_effects_B1000.csv",
-   "repo_path": "results/01_citywide_gsynth/R2_r4_제출용_20261010/window_effects_B1000.csv",
+   "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/window_effects_B1000.csv",
+   "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/window_effects_B1000.csv",
    "analysis": "citywide",
    "rows": 24
   },
   {
-   "path": "assets/results/01_citywide_gsynth/R2_r4_제출용_20261010/yeouido_SCM_GSC_sameperiod.csv",
-   "repo_path": "results/01_citywide_gsynth/R2_r4_제출용_20261010/yeouido_SCM_GSC_sameperiod.csv",
+   "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/yeouido_SCM_GSC_sameperiod.csv",
+   "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/yeouido_SCM_GSC_sameperiod.csv",
    "analysis": "citywide",
    "rows": 2
   },
   {
-   "path": "assets/results/01_citywide_gsynth/gsynth_8월절단_재추정_20261103/through_august_refit.csv",
-   "repo_path": "results/01_citywide_gsynth/gsynth_8월절단_재추정_20261103/through_august_refit.csv",
+   "path": "assets/results/01_citywide_gsynth/gsynth_through_august_refit_20261103/through_august_refit.csv",
+   "repo_path": "results/01_citywide_gsynth/gsynth_through_august_refit_20261103/through_august_refit.csv",
    "analysis": "citywide",
    "rows": 3
   },
   {
-   "path": "assets/results/02_heterogeneity/R2_r4_반사실_3분위_시간경로_20261103/contrast_cf_pct.csv",
-   "repo_path": "results/02_heterogeneity/R2_r4_반사실_3분위_시간경로_20261103/contrast_cf_pct.csv",
+   "path": "assets/results/02_heterogeneity/R2_r4_cf_quintiles_20261103/contrast_cf_pct.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_cf_quintiles_20261103/contrast_cf_pct.csv",
    "analysis": "heterogeneity",
    "rows": 48
   },
   {
-   "path": "assets/results/02_heterogeneity/R2_r4_반사실_3분위_시간경로_20261103/group_cf_pct.csv",
-   "repo_path": "results/02_heterogeneity/R2_r4_반사실_3분위_시간경로_20261103/group_cf_pct.csv",
-   "analysis": "heterogeneity",
-   "rows": 161
-  },
-  {
-   "path": "assets/results/02_heterogeneity/R2_r4_반사실_3분위_시간경로_20261103/tertile_boundaries_counts.csv",
-   "repo_path": "results/02_heterogeneity/R2_r4_반사실_3분위_시간경로_20261103/tertile_boundaries_counts.csv",
-   "analysis": "heterogeneity",
-   "rows": 18
-  },
-  {
-   "path": "assets/results/02_heterogeneity/R2_r4_반사실_5분위_20261103/contrast_cf_pct.csv",
-   "repo_path": "results/02_heterogeneity/R2_r4_반사실_5분위_20261103/contrast_cf_pct.csv",
-   "analysis": "heterogeneity",
-   "rows": 48
-  },
-  {
-   "path": "assets/results/02_heterogeneity/R2_r4_반사실_5분위_20261103/group_cf_pct.csv",
-   "repo_path": "results/02_heterogeneity/R2_r4_반사실_5분위_20261103/group_cf_pct.csv",
+   "path": "assets/results/02_heterogeneity/R2_r4_cf_quintiles_20261103/group_cf_pct.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_cf_quintiles_20261103/group_cf_pct.csv",
    "analysis": "heterogeneity",
    "rows": 245
   },
   {
-   "path": "assets/results/02_heterogeneity/R2_r4_반사실_5분위_20261103/quintile_boundaries_counts.csv",
-   "repo_path": "results/02_heterogeneity/R2_r4_반사실_5분위_20261103/quintile_boundaries_counts.csv",
+   "path": "assets/results/02_heterogeneity/R2_r4_cf_quintiles_20261103/quintile_boundaries_counts.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_cf_quintiles_20261103/quintile_boundaries_counts.csv",
    "analysis": "heterogeneity",
    "rows": 30
   },
   {
-   "path": "assets/results/02_heterogeneity/R2_r4_환승_대기_교차_20261103/cell_counts.csv",
-   "repo_path": "results/02_heterogeneity/R2_r4_환승_대기_교차_20261103/cell_counts.csv",
+   "path": "assets/results/02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/contrast_cf_pct.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/contrast_cf_pct.csv",
+   "analysis": "heterogeneity",
+   "rows": 48
+  },
+  {
+   "path": "assets/results/02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/fig_hetero_weekly_cf_all_en_data.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/fig_hetero_weekly_cf_all_en_data.csv",
+   "analysis": "heterogeneity",
+   "rows": 2277
+  },
+  {
+   "path": "assets/results/02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/group_cf_pct.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/group_cf_pct.csv",
+   "analysis": "heterogeneity",
+   "rows": 161
+  },
+  {
+   "path": "assets/results/02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/tertile_boundaries_counts.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/tertile_boundaries_counts.csv",
+   "analysis": "heterogeneity",
+   "rows": 18
+  },
+  {
+   "path": "assets/results/02_heterogeneity/R2_r4_transfer_wait_cross_20261103/cell_counts.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_transfer_wait_cross_20261103/cell_counts.csv",
    "analysis": "heterogeneity",
    "rows": 9
   },
   {
-   "path": "assets/results/02_heterogeneity/R2_r4_환승_대기_교차_20261103/contrast_cf_pct.csv",
-   "repo_path": "results/02_heterogeneity/R2_r4_환승_대기_교차_20261103/contrast_cf_pct.csv",
+   "path": "assets/results/02_heterogeneity/R2_r4_transfer_wait_cross_20261103/contrast_cf_pct.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_transfer_wait_cross_20261103/contrast_cf_pct.csv",
    "analysis": "heterogeneity",
    "rows": 56
   },
   {
-   "path": "assets/results/02_heterogeneity/R2_r4_환승_대기_교차_20261103/group_cf_pct.csv",
-   "repo_path": "results/02_heterogeneity/R2_r4_환승_대기_교차_20261103/group_cf_pct.csv",
+   "path": "assets/results/02_heterogeneity/R2_r4_transfer_wait_cross_20261103/group_cf_pct.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_transfer_wait_cross_20261103/group_cf_pct.csv",
    "analysis": "heterogeneity",
    "rows": 63
   },
   {
-   "path": "assets/results/02_heterogeneity/R2_r4_환승_대기_교차_20261103/tertile_boundaries_counts.csv",
-   "repo_path": "results/02_heterogeneity/R2_r4_환승_대기_교차_20261103/tertile_boundaries_counts.csv",
+   "path": "assets/results/02_heterogeneity/R2_r4_transfer_wait_cross_20261103/tertile_boundaries_counts.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_transfer_wait_cross_20261103/tertile_boundaries_counts.csv",
    "analysis": "heterogeneity",
    "rows": 18
   },
@@ -2958,6 +2787,12 @@
    "rows": 7
   },
   {
+   "path": "assets/results/04_yeouido_transit_scm/nested79/spec_comparison_nested.csv",
+   "repo_path": "results/04_yeouido_transit_scm/nested79/spec_comparison_nested.csv",
+   "analysis": "yeouido",
+   "rows": 4
+  },
+  {
    "path": "assets/results/04_yeouido_transit_scm/nested79/summary_D79_nested.csv",
    "repo_path": "results/04_yeouido_transit_scm/nested79/summary_D79_nested.csv",
    "analysis": "yeouido",
@@ -2976,94 +2811,16 @@
    "rows": 79
   },
   {
-   "path": "assets/results/04_yeouido_transit_scm/nested79/사양_비교_nested기준.csv",
-   "repo_path": "results/04_yeouido_transit_scm/nested79/사양_비교_nested기준.csv",
-   "analysis": "yeouido",
-   "rows": 4
-  },
-  {
    "path": "assets/results/04_yeouido_transit_scm/yeouido_cf_81donor_archive.csv",
    "repo_path": "results/04_yeouido_transit_scm/yeouido_cf_81donor_archive.csv",
    "analysis": "yeouido",
    "rows": 5
   },
   {
-   "path": "assets/results/05_seoul_road_gsynth/bytype/bytype_index_min.csv",
-   "repo_path": "results/05_seoul_road_gsynth/bytype/bytype_index_min.csv",
-   "analysis": "seoul_road",
-   "rows": 5
-  },
-  {
-   "path": "assets/results/05_seoul_road_gsynth/bytype/bytype_level_cv.csv",
-   "repo_path": "results/05_seoul_road_gsynth/bytype/bytype_level_cv.csv",
-   "analysis": "seoul_road",
-   "rows": 5
-  },
-  {
-   "path": "assets/results/05_seoul_road_gsynth/bytype/bytype_level_min.csv",
-   "repo_path": "results/05_seoul_road_gsynth/bytype/bytype_level_min.csv",
-   "analysis": "seoul_road",
-   "rows": 5
-  },
-  {
-   "path": "assets/results/05_seoul_road_gsynth/diag_event_att_r0.csv",
-   "repo_path": "results/05_seoul_road_gsynth/diag_event_att_r0.csv",
-   "analysis": "seoul_road",
-   "rows": 93
-  },
-  {
-   "path": "assets/results/05_seoul_road_gsynth/diag_event_att_r3.csv",
-   "repo_path": "results/05_seoul_road_gsynth/diag_event_att_r3.csv",
-   "analysis": "seoul_road",
-   "rows": 93
-  },
-  {
-   "path": "assets/results/05_seoul_road_gsynth/diag_placebo_r0.csv",
-   "repo_path": "results/05_seoul_road_gsynth/diag_placebo_r0.csv",
-   "analysis": "seoul_road",
-   "rows": 1
-  },
-  {
-   "path": "assets/results/05_seoul_road_gsynth/diag_placebo_r3.csv",
-   "repo_path": "results/05_seoul_road_gsynth/diag_placebo_r3.csv",
-   "analysis": "seoul_road",
-   "rows": 1
-  },
-  {
-   "path": "assets/results/05_seoul_road_gsynth/seoul_road_effects.csv",
-   "repo_path": "results/05_seoul_road_gsynth/seoul_road_effects.csv",
-   "analysis": "seoul_road",
-   "rows": 35
-  },
-  {
-   "path": "assets/results/05_seoul_road_gsynth/seoul_road_effects_cvgmspe.csv",
-   "repo_path": "results/05_seoul_road_gsynth/seoul_road_effects_cvgmspe.csv",
-   "analysis": "seoul_road",
-   "rows": 35
-  },
-  {
-   "path": "assets/results/05_seoul_road_gsynth/seoul_road_effects_cvmspe.csv",
-   "repo_path": "results/05_seoul_road_gsynth/seoul_road_effects_cvmspe.csv",
-   "analysis": "seoul_road",
-   "rows": 35
-  },
-  {
-   "path": "assets/results/05_seoul_road_gsynth/seoul_road_site_gaps_CV.csv",
-   "repo_path": "results/05_seoul_road_gsynth/seoul_road_site_gaps_CV.csv",
-   "analysis": "seoul_road",
-   "rows": 149
-  },
-  {
-   "path": "assets/results/05_seoul_road_gsynth/seoul_road_site_gaps_cvgmspe.csv",
-   "repo_path": "results/05_seoul_road_gsynth/seoul_road_site_gaps_cvgmspe.csv",
-   "analysis": "seoul_road",
-   "rows": 149
-  },
-  {
-   "path": "assets/results/05_seoul_road_gsynth/seoul_road_site_gaps_cvmspe.csv",
-   "repo_path": "results/05_seoul_road_gsynth/seoul_road_site_gaps_cvmspe.csv",
-   "analysis": "seoul_road",
-   "rows": 149
+   "path": "assets/results/place_names_ko_en.csv",
+   "repo_path": "results/place_names_ko_en.csv",
+   "analysis": "other",
+   "rows": 343
   }
  ]
 }

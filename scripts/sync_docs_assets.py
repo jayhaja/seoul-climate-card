@@ -20,6 +20,9 @@ DOCS_ASSETS = ROOT / "docs" / "assets"
 FIG_SRC, FIG_DST = ROOT / "figures", DOCS_ASSETS / "figures"
 RES_SRC, RES_DST = ROOT / "results", DOCS_ASSETS / "results"
 IMG_EXT = {".jpg", ".jpeg", ".png"}
+# Analyses left out of the site for now (still in the repository): Seoul-wide road gsynth.
+SKIP_FIG = {"seoul_road_gsynth"}
+SKIP_RES = {"05_seoul_road_gsynth"}
 
 ANALYSIS_BY_RESULTS_DIR = {
     "01_citywide_gsynth": "citywide",
@@ -29,7 +32,7 @@ ANALYSIS_BY_RESULTS_DIR = {
     "05_seoul_road_gsynth": "seoul_road",
 }
 
-# Road unit names (Korean, from results/03_road_scm/summary/road_cf.csv).
+# Road unit names (from results/03_road_scm/summary/road_cf.csv).
 def road_names():
     names = {}
     p = RES_SRC / "03_road_scm" / "summary" / "road_cf.csv"
@@ -76,7 +79,7 @@ def fig_meta(rel: Path, rnames):
         if km and km.group(1) in ROAD_KIND:
             m["kind_ko"], m["kind_en"] = ROAD_KIND[km.group(1)]
     elif parts[0] == "yeouido_transit_scm":
-        m.update(analysis="yeouido", site="여의도동 출발 / Yeouido-dong")
+        m.update(analysis="yeouido", site="Yeouido-dong")
         km = re.match(r"\d+\.([a-z_]+?)_D79", name)
         if km and km.group(1) in ROAD_KIND:
             m["kind_ko"], m["kind_en"] = ROAD_KIND[km.group(1)]
@@ -88,36 +91,49 @@ def fig_meta(rel: Path, rnames):
         m.update(analysis="seoul_road")
         tm = re.match(r"gap_([A-F])_(index|level)_r(\d)", name)
         if tm:
-            m["site"] = f"유형 {tm.group(1)} / Type {tm.group(1)}"
+            m["site"] = f"Type {tm.group(1)}"
             m["kind_ko"] = f"격차 ({'지수' if tm.group(2)=='index' else '수준'}, r={tm.group(3)})"
             m["kind_en"] = f"Gap ({tm.group(2)}, r={tm.group(3)})"
         dm = re.match(r"diag_(equiv|gap|placebo)_r(\d)", name)
         if dm:
-            m["site"] = "전체 / All sites"
+            m["site"] = "All sites"
             lab = {"equiv": ("동등성 검정", "Equivalence test"), "gap": ("격차", "Gap"),
                    "placebo": ("위약 시점 검정", "Placebo-period test")}[dm.group(1)]
             m["kind_ko"], m["kind_en"] = f"{lab[0]} (r={dm.group(2)})", f"{lab[1]} (r={dm.group(2)})"
+    elif parts[0] == "heterogeneity":
+        m.update(analysis="heterogeneity", site="Chapter 6 (current)")
+        lab = {"fig_hetero_hm_main_wide_cf_en": ("주별 효과: 환승·대기·권역", "Weekly effects: transfer, waiting time, region"),
+               "fig_hetero_hm_all7_wide_cf_en": ("주별 효과: 7개 특성", "Weekly effects: all seven characteristics"),
+               "transfer_walking_waiting_time_en": ("그림 6-4 환승 보행·대기 시간 (2023년 6–8월)", "Fig. 6-4 transfer walking + waiting time (Jun–Aug 2023)")}.get(name)
+        if lab:
+            m["kind_ko"], m["kind_en"] = lab
+        m["thesis"] = True
     elif parts[0] == "thesis":
         sec = parts[1]
         m["site"] = sec
-        if sec.startswith("부록A-1_Road"):
+        if sec.startswith("appendixA-1_road"):
             m["analysis"] = "road_scm"
-            u = int(sec[len("부록A-1_Road"):][:2])
+            u = int(sec[len("appendixA-1_road"):][:2])
             m["site"] = f"{u:02d} {rnames.get(u, '')}"
-        elif sec.startswith("부록A-2"):
-            m.update(analysis="yeouido", site="여의도동 출발 / Yeouido-dong")
-        elif sec.startswith("부록B"):
-            m.update(analysis="citywide", site="부록 B gsynth 진단 / Appendix B diagnostics")
-        else:  # 본문 그림
-            m["site"] = "본문 / Main text"
-            if name.startswith("그림4-2"):
+        elif sec.startswith("appendixA-2"):
+            m.update(analysis="yeouido", site="Yeouido-dong")
+        elif sec.startswith("appendixB"):
+            m.update(analysis="citywide", site="Appendix B gsynth diagnostics")
+        else:  # main-text figures
+            m["site"] = "Main text"
+            if name.startswith("fig4-2"):
                 m["analysis"] = "road_scm"
-            elif name.startswith("그림5"):
+            elif name.startswith("fig5"):
                 m["analysis"] = "citywide"
-            elif name.startswith("그림6"):
+            elif name.startswith("fig6"):
                 m["analysis"] = "heterogeneity"
         m["kind_ko"] = m["kind_en"] = name
         m["thesis"] = True
+        if name.startswith("fig6-"):
+            m["kind_ko"] += " · 이전 세대(1,000명당 지표)"
+            m["kind_en"] += " · earlier generation (per-1,000 indicator)"
+            m["note_ko"] = "이전 세대 그림: 주민 1,000명당 지표. 현재 원고 6장은 반사실 대비 증가율(%)을 쓰며, 'Chapter 6 (current)' 그림을 참조하십시오."
+            m["note_en"] = "Earlier-generation figure (per-1,000-residents indicator). Chapter 6 now uses the increase vs counterfactual (%); see the 'Chapter 6 (current)' figures."
     if name.endswith("_tau5") and "placebo_gaps" in name:
         m["note_ko"], m["note_en"] = TAU5_NOTE
         m["kind_ko"] += " · 원고용(≤5배 표시)"
@@ -140,7 +156,7 @@ def main():
             shutil.rmtree(d)
     figs = []
     for p in sorted(FIG_SRC.rglob("*")):
-        if p.suffix.lower() in IMG_EXT:
+        if p.suffix.lower() in IMG_EXT and p.relative_to(FIG_SRC).parts[0] not in SKIP_FIG:
             rel = p.relative_to(FIG_SRC)
             (FIG_DST / rel).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(p, FIG_DST / rel)
@@ -148,6 +164,8 @@ def main():
     tables = []
     for p in sorted(RES_SRC.rglob("*.csv")):
         rel = p.relative_to(RES_SRC)
+        if rel.parts[0] in SKIP_RES:
+            continue
         (RES_DST / rel).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(p, RES_DST / rel)
         with p.open(encoding="utf-8-sig", newline="") as f:

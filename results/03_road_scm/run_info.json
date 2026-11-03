@@ -3,29 +3,29 @@
     "panel_csv": "~/Thesis/0614/0628/road6to9_new_try/77_units/0628_6to10_df_with_new_covariates_fixed.csv",
     "treated_ids": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "donor_exclude": [114, 304, 126, 129, 131, 202, 102, 101, 404, 305],
-    "donor_exclude_reason": ["통일로IC–양주TG: 자료 품질/구조 변동(부록 C)", "서대전IC–서대전JC(부록 C)", "마성IC–신갈JC(부록 C)", "천진암교–산곡JC(부록 C)", "감곡IC–여주JC(부록 C)", "인천TG–부평IC(부록 C)", "목감IC–광명역IC(부록 C)", "남양주TG–화도IC(부록 C)", "기장IC–해운대IC(부록 C)", "천변도시고속화도로 하행→상행(부록 C)"],
+    "donor_exclude_reason": ["Tongil-ro IC–Yangju TG: data quality / structural change (Appendix C)", "Seodaejeon IC–Seodaejeon JC (Appendix C)", "Maseong IC–Singal JC (Appendix C)", "Cheonjinamgyo–Sangok JC (Appendix C)", "Gamgok IC–Yeoju JC (Appendix C)", "Incheon TG–Bupyeong IC (Appendix C)", "Mokgam IC–Gwangmyeong Station IC (Appendix C)", "Namyangju TG–Hwado IC (Appendix C)", "Gijang IC–Haeundae IC (Appendix C)", "Cheonbyeon Urban Expressway, downbound → upbound (Appendix C)"],
     "method": "stdv",
     "cv": {
       "candidates": [
         {
           "var": "lanes_mean",
           "op": "mean",
-          "label": "차로 수 평균"
+          "label": "mean number of lanes"
         },
         {
           "var": "speed",
           "op": "median",
-          "label": "속도 중앙값"
+          "label": "median speed"
         },
         {
           "var": "speed",
           "op": "min",
-          "label": "최저 속도"
+          "label": "minimum speed"
         },
         {
           "var": "vehicle_change",
           "op": "mean",
-          "label": "자동차등록대수 변화"
+          "label": "change in registered vehicles"
         }
       ],
       "K_grid": [55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40],
@@ -49,12 +49,12 @@
       {
         "var": "lanes_mean",
         "op": "mean",
-        "label": "차로 수 평균"
+        "label": "mean number of lanes"
       },
       {
         "var": "speed",
         "op": "median",
-        "label": "속도 중앙값"
+        "label": "median speed"
       }
     ],
     "placebo_tau": [2, 3, 5, "Inf"],

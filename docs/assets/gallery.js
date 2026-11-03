@@ -5,8 +5,7 @@
     citywide: ["① 서울 내부 대중교통", "① Seoul transit"],
     heterogeneity: ["② 이질성", "② Heterogeneity"],
     road_scm: ["③ 여의도 도로 SCM", "③ Yeouido roads"],
-    yeouido: ["④ 여의도 대중교통 SCM", "④ Yeouido transit"],
-    seoul_road: ["⑤ 서울 전역 도로", "⑤ Seoul roads"]
+    yeouido: ["④ 여의도 대중교통 SCM", "④ Yeouido transit"]
   };
   var figs = [], view = [], cur = -1;
   var $ = function (s) { return document.querySelector(s); };
@@ -44,7 +43,7 @@
     $("#g-grid").innerHTML = view.map(function (f, i) {
       return '<button class="thumb" type="button" data-i="' + i + '"><img loading="lazy" src="' + encodeURI(f.src) + '" alt="' + esc(title(f)) + '">' +
         '<span class="cap"><b>' + esc(f.site || "") + "</b>" + esc(kind(f)) +
-        (f.note_ko ? '<br><span class="badge">' + esc(/placebo_gaps.*_tau5/.test(f.src) ? t("원고용 · p는 위약 전체 기준", "manuscript · p uses all placebos") : (/_tau5\./.test(f.src) ? t("민감도 ≤5배", "sensitivity ≤5×") : t("위약 전체", "all placebos"))) + "</span>" : "") +
+        (f.note_ko ? '<br><span class="badge">' + esc(/main_text\/fig6-/.test(f.src) ? t("이전 세대", "earlier generation") : /placebo_gaps.*_tau5/.test(f.src) ? t("원고용 · p는 위약 전체 기준", "manuscript · p uses all placebos") : (/_tau5\./.test(f.src) ? t("민감도 ≤5배", "sensitivity ≤5×") : t("위약 전체", "all placebos"))) + "</span>" : "") +
         "</span></button>";
     }).join("");
     $("#g-count").textContent = t(view.length + "개 그림", view.length + " figures");

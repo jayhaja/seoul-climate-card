@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use these materials, please cite them as below."
 type: dataset
-title: "Seoul Climate Card (기후동행카드): replication materials for effects on public transport use and car traffic"
+title: "Seoul Climate Card (Climate Companion Card): replication materials for effects on public transport use and car traffic"
 abstract: >-
   Code, aggregated results and figures for a master's thesis evaluating Seoul's
   Climate Companion Card (launched 2024-01-27) with generalised synthetic control

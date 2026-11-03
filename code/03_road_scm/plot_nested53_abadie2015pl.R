@@ -1,8 +1,8 @@
-## plot_nested53_abadie2015pl.R — run_nested53_abadie2015_placebo.R 결과로 원고용 그림 다시 그리기 (2026-11-03)
-## 추정 없음. 가장 최근 runs/v4_stdv_ex107_201_nested53_abadie2015pl_* 폴더의 저장 CSV만 사용. 스타일은 scm_v4_plots.R(기존 원고 그림과 동일).
-## 그림: 1 경로, 2 격차, 3 RMSPE 비율 순위, 4 위약 격차, 10 비율 히스토그램 → 위약은 전체(tau=Inf, 주검정)와 5배 제외(민감도) 두 벌
-##       5 LOO(V·W 재추정). 시점 위약 그림은 기존 nested53 결과가 그대로 유효하므로 다시 그리지 않음.
-## 사후 창: 저장된 그대로(일반 51–96주, 공사 지점 1·2·10은 51–72주).
+## plot_nested53_abadie2015pl.R — redraws the manuscript figures from the run_nested53_abadie2015_placebo.R results (2026-11-03)
+## No estimation. Uses only the saved CSVs in the latest runs/v4_stdv_ex107_201_nested53_abadie2015pl_* folder. Style from scm_v4_plots.R (same as the existing manuscript figures).
+## Figures: 1 path, 2 gap, 3 RMSPE ratio ranking, 4 placebo gaps, 10 ratio histogram → placebo figures in two sets: all (tau=Inf, main test) and excluding >5x (sensitivity)
+##       5 LOO (V·W re-estimated). In-time placebo figures are not redrawn, since the existing nested53 results remain valid.
+## Post window: as saved (regular sites weeks 51–96; construction-affected sites 1·2·10 weeks 51–72).
 ## Run (from repo root): Rscript code/03_road_scm/plot_nested53_abadie2015pl.R
 ## RESTRICTED DATA REQUIRED (restricted data required): road detector inputs (Seoul TOPIS sites and national ITS link counts) are not redistributed (licence pending).
 ## Required input files (place under RAW_DIR):
@@ -15,7 +15,7 @@ RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # 
 OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "03_road_scm"))
 CODE_DIR  <- file.path(REPO_ROOT, "code", "03_road_scm")
 source(file.path(CODE_DIR, "config_v4.R")); source(file.path(CODE_DIR, "scm_v4_functions.R")); source(file.path(CODE_DIR, "scm_v4_plots.R"))
-## [2026-11-03] 검정통계량은 RMSPE 비율(Abadie et al. 2015) 그대로. 원본 scm_v4_plots.R은 건드리지 않고 히스토그램 제목("limitInf")만 이 스크립트 안에서 정리.
+## [2026-11-03] The test statistic remains the RMSPE ratio (Abadie et al. 2015). The original scm_v4_plots.R is left untouched; only the histogram title ("limitInf") is tidied within this script.
 relabel <- function(f, pairs) { s <- paste(deparse(f, width.cutoff = 500L), collapse = "\n"); for (p in pairs) { stopifnot(any(grepl(p[1], s, fixed = TRUE))); s <- gsub(p[1], p[2], s, fixed = TRUE) }
   g <- eval(parse(text = s)); environment(g) <- globalenv(); g }
 plot_placebo_ratio_hist <- relabel(plot_placebo_ratio_hist, list(c("sprintf(\"Placebo RMSPE Ratio Histogram (limit%g)\", tau)",
@@ -46,6 +46,6 @@ for (u in S$treated_unit) {
   lp <- file.path(ud, "loo_paths_twostep.csv")
   if (file.exists(lp)) plot_loo_synthstyle(P, read_csv(lp, show_col_types = FALSE), paste0("Leave-One-Out Path Plot - ", rl, " (V re-selected)"), T0,
                                            file.path(pdir, sprintf("5.loo_%d_%s_twostep.jpg", u, tag)))
-  cat(sprintf("unit %d 완료: p(전체) %.3f, 위약 %d\n", u, s$p_all, nrow(RS)))
+  cat(sprintf("unit %d done: p(all) %.3f, placebos %d\n", u, s$p_all, nrow(RS)))
 }
 cat("saved", OUT, "\n")

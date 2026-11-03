@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,18 +36,11 @@
       <div class="small"><span class="ko">위약 순위 1/80, p = .0125</span><span class="en">placebo rank 1/80, p = .0125</span></div>
       <a class="more" href="yeouido.html"><span class="ko">자세히</span><span class="en">Details</span> →</a>
     </div>
-    <div class="card">
-      <div class="label"><span class="ko">⑤ 서울 전역 도로 (TOPIS 149개 지점)</span><span class="en">⑤ Seoul-wide roads (149 TOPIS sites)</span></div>
-      <div class="num neg">−1.37%</div>
-      <div class="small"><span class="ko">사전 추세 진단 실패 — 기술적 결과</span><span class="en">pre-trend diagnostics fail — descriptive only</span></div>
-      <a class="more" href="seoul-road.html"><span class="ko">자세히</span><span class="en">Details</span> →</a>
-    </div>
   </div>
   <p class="source"><span class="ko">출처</span><span class="en">Sources</span>:
     <code>results/01_citywide_gsynth/R2_normal_final_20261011/windows.csv</code> ·
     <code>results/03_road_scm/summary/road_abadie2015_placebo_loo_cf.csv</code> ·
-    <code>results/04_yeouido_transit_scm/nested79/</code> ·
-    <code>results/05_seoul_road_gsynth/seoul_road_effects.csv</code></p>
+    <code>results/04_yeouido_transit_scm/nested79/</code></p>
 
   <h2><span class="ko">분석 구성</span><span class="en">Analyses</span></h2>
   <div class="table-wrap"><table>
@@ -57,7 +50,6 @@
       <tr><td>②</td><td><a href="heterogeneity.html"><span class="ko">이질성</span><span class="en">Heterogeneity</span></a></td><td><span class="ko">①의 409쌍을 특성별 분위로</span><span class="en">①'s 409 ODs by characteristic</span></td><td><span class="ko">재집계 + 쌍체 부트스트랩</span><span class="en">re-aggregation + paired bootstrap</span></td></tr>
       <tr><td>③</td><td><a href="road-scm.html"><span class="ko">여의도 연결도로</span><span class="en">Yeouido road links</span></a></td><td><span class="ko">12개 방향 링크 / 서울 밖 도너 53</span><span class="en">12 links / 53 non-Seoul donors</span></td><td>SCM (nested V)</td></tr>
       <tr><td>④</td><td><a href="yeouido.html"><span class="ko">여의도동 출발 대중교통</span><span class="en">Transit from Yeouido-dong</span></a></td><td><span class="ko">OD 1 / 도너 79</span><span class="en">1 OD / 79 donors</span></td><td>SCM (nested V)</td></tr>
-      <tr><td>⑤</td><td><a href="seoul-road.html"><span class="ko">서울 전역 도로</span><span class="en">Seoul-wide roads</span></a></td><td><span class="ko">TOPIS 149개 지점 / 도너 53</span><span class="en">149 sites / 53 donors</span></td><td>gsynth (CV r)</td></tr>
     </tbody>
   </table></div>
 
@@ -70,7 +62,7 @@
 
   <h2><span class="ko">둘러보기</span><span class="en">Explore</span></h2>
   <div class="card-grid">
-    <a class="card" href="results.html"><b><span class="ko">결과 표 탐색</span><span class="en">Results explorer</span></b><div class="small"><span class="ko">results/ CSV 95개를 정렬·필터</span><span class="en">Sort and filter the 95 CSVs in results/</span></div></a>
+    <a class="card" href="results.html"><b><span class="ko">결과 표 탐색</span><span class="en">Results explorer</span></b><div class="small"><span class="ko">results/ CSV 84개를 정렬·필터</span><span class="en">Sort and filter the 84 CSVs in results/</span></div></a>
     <a class="card" href="gallery.html"><b><span class="ko">그림 갤러리</span><span class="en">Figure gallery</span></b><div class="small"><span class="ko">분석·지점별 필터, 클릭 확대</span><span class="en">Filter by analysis and site, click to enlarge</span></div></a>
     <a class="card" href="data.html"><b><span class="ko">자료·한계</span><span class="en">Data &amp; limitations</span></b><div class="small"><span class="ko">자료 접근, 재현 방법, 해석 시 주의점</span><span class="en">Data access, reproduction, caveats</span></div></a>
   </div>

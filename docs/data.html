@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +16,7 @@
     <thead><tr><th><span class="ko">자료</span><span class="en">Source</span></th><th><span class="ko">분석</span><span class="en">Used in</span></th><th><span class="ko">저장소</span><span class="en">In repo</span></th></tr></thead>
     <tbody>
       <tr><td><span class="ko">국토교통부 교통카드 OD 자료 (데이터안전센터)</span><span class="en">MOLIT smart-card OD records (secure data centre)</span></td><td>① ② ④</td><td><span class="ko">미포함 — 반출 제한</span><span class="en">No — export-restricted</span></td></tr>
-      <tr><td><span class="ko">서울 TOPIS 지점 교통량, 국가 ITS 링크 교통량</span><span class="en">Seoul TOPIS detector counts, national ITS link counts</span></td><td>③ ⑤</td><td><span class="ko">미포함 — 재배포 조건 확인 중</span><span class="en">No — licence pending</span></td></tr>
+      <tr><td><span class="ko">서울 TOPIS 지점 교통량, 국가 ITS 링크 교통량</span><span class="en">Seoul TOPIS detector counts, national ITS link counts</span></td><td>③</td><td><span class="ko">미포함 — 재배포 조건 확인 중</span><span class="en">No — licence pending</span></td></tr>
       <tr><td><span class="ko">주민등록 인구통계 (행정안전부)</span><span class="en">Resident registration population (MOIS)</span></td><td>① ② ④</td><td><span class="ko">공개 출처</span><span class="en">Public source</span></td></tr>
       <tr><td><span class="ko">KTDB 접근성 지표, 서울연구원 2019-BR-26</span><span class="en">KTDB accessibility; Seoul Institute 2019-BR-26</span></td><td>②</td><td><span class="ko">공개 출처</span><span class="en">Public source</span></td></tr>
     </tbody>
@@ -33,10 +33,9 @@
   <h2><span class="ko">한계</span><span class="en">Limitations</span></h2>
   <ul>
     <li><b><span class="ko">원자료 비공개.</span><span class="en">Restricted data.</span></b> <span class="ko">①②④는 반출 제한 자료가 있어야 다시 실행할 수 있습니다.</span><span class="en">①②④ cannot be rerun without the restricted data.</span></li>
-    <li><b><span class="ko">요인 수 민감도(①).</span><span class="en">Rank sensitivity (①).</span></b> <span class="ko">r = 4에서 +1.568%, r = 1에서 +0.27%.</span><span class="en">+1.568% with r = 4 but +0.27% with r = 1.</span> <a href="results.html?file=results/01_citywide_gsynth/R2_r4_제출용_20261010/rank_sensitivity.csv"><code>rank_sensitivity.csv</code></a></li>
+    <li><b><span class="ko">요인 수 민감도(①).</span><span class="en">Rank sensitivity (①).</span></b> <span class="ko">r = 4에서 +1.568%, r = 1에서 +0.27%.</span><span class="en">+1.568% with r = 4 but +0.27% with r = 1.</span> <a href="results.html?file=results/01_citywide_gsynth/R2_r4_submission_20261010/rank_sensitivity.csv"><code>rank_sensitivity.csv</code></a></li>
     <li><b><span class="ko">다중비교(③).</span><span class="en">Multiple testing (③).</span></b> <span class="ko">12개 링크를 각각 검정하며, 위약 53개라 p의 최솟값이 1/54 ≈ .019입니다. 도너가 서울 밖이라 지역별 충격이 다를 수 있습니다.</span><span class="en">12 links are tested separately and the minimum attainable p is 1/54 ≈ .019; donors outside Seoul may face different shocks.</span></li>
     <li><b><span class="ko">단일 처치 단위(④).</span><span class="en">Single treated unit (④).</span></b> <span class="ko">시점 위약에서도 +1.6~2.4%의 양의 격차가 나타나 효과 크기는 신중히 해석해야 합니다.</span><span class="en">In-time placebos show +1.6–2.4% gaps, so the magnitude should be read cautiously.</span></li>
-    <li><b><span class="ko">진단 실패(⑤).</span><span class="en">Failed diagnostics (⑤).</span></b> <span class="ko">사전 기간 위약 검정이 기각되어 기술적 결과로만 씁니다.</span><span class="en">Pre-period placebo tests reject; descriptive only.</span></li>
     <li><b><span class="ko">결과 파일 세대 차이.</span><span class="en">Mixed result generations.</span></b> <span class="ko"><code>results/03_road_scm/summary/road_placebo_p_all_vs_tau5.csv</code>와 <code>road_loo_cf.csv</code>는 이전 사양(위약 도너에 처치 단위 미포함) 값이고, 본 결과는 <code>road_abadie2015_placebo_loo_cf.csv</code>·<code>all_units_summary.csv</code>입니다.</span><span class="en"><code>road_placebo_p_all_vs_tau5.csv</code> and <code>road_loo_cf.csv</code> in <code>results/03_road_scm/summary/</code> come from the earlier specification; the headline results are <code>road_abadie2015_placebo_loo_cf.csv</code> and <code>all_units_summary.csv</code>.</span></li>
     <li><b><span class="ko">상류 스크립트 미포함.</span><span class="en">Upstream scripts not included.</span></b> <span class="ko">일부 스크립트의 입력을 만드는 상류 파일(예: 패널·공변량 생성 스크립트)은 저장소에 없습니다. 폴더별 README에 목록이 있습니다.</span><span class="en">Files that build some scripts' inputs are not in the repository (e.g. panel and covariate builders); see each folder README.</span></li>
   </ul>

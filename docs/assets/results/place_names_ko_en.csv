@@ -1,0 +1,344 @@
+korean,english
+46주,46 weeks
+ADH2015 원형 (참고),ADH2015 original (reference)
+LOO(V 고정) 최대,LOO (V fixed) max
+LOO(V 고정) 최소,LOO (V fixed) min
+adhcv 구정본 (참고),adhcv earlier canonical version (reference)
+full 46wk (재현 확인: 288.41 / 1.568%),full 46wk (reproduction check: 288.41 / 1.568%)
+nested (이번 실행),nested (this run)
+nested 기록값 (재현 목표),nested recorded value (reproduction target)
+through Aug: full-fit window (원고),through Aug: full-fit window (manuscript)
+가양대교,Gayang Bridge
+가양대교남단->가양대교북단,Gayang Bridge south end->Gayang Bridge north end
+가양대교북단->가양대교남단,Gayang Bridge north end->Gayang Bridge south end
+가양대교북단->난지IC,Gayang Bridge north end->Nanji IC
+갈매교차로->화랑대사거리,Galmae Intersection->Hwarangdae Intersection
+강남대로(강남역-신분당),Gangnam-daero(Gangnam Station-Sinbundang)
+강남대로(신사역),Gangnam-daero(Sinsa Station)
+강남순환로,Gangnam Ring Road
+강남역->뱅뱅사거리,Gangnam Station->Bangbang Intersection
+강변북로,Gangbyeonbuk-ro
+강변북로(구리시계),Gangbyeonbuk-ro(Guri city boundary)
+강변북로(난지한강공원),Gangbyeonbuk-ro(Nanji Hangang Park)
+강일IC->암사대교남단,Gangil IC->Amsa Bridge south end
+같은 기간 1/29~6/24 (21주),same period 1/29–6/24 (21 weeks)
+경기도 광명시 소하동 -> 경기도,Gyeonggi-do Gwangmyeong-si Soha-dong -> Gyeonggi-do
+경기도 광명시 하안동 -> 경기도,Gyeonggi-do Gwangmyeong-si Haan-dong -> Gyeonggi-do
+경기도 군포시 금정동 -> 경기도,Gyeonggi-do Gunpo-si Geumjeong-dong -> Gyeonggi-do
+경기도 군포시 금정동 -> 서울특별시,Gyeonggi-do Gunpo-si Geumjeong-dong -> Seoul
+경기도 군포시 산본동 -> 경기도,Gyeonggi-do Gunpo-si Sanbon-dong -> Gyeonggi-do
+경기도 군포시 산본동 -> 서울특별시,Gyeonggi-do Gunpo-si Sanbon-dong -> Seoul
+경기도 성남시 분당구 구미동 -> 경기도,Gyeonggi-do Seongnam-si Bundang-gu Gumi-dong -> Gyeonggi-do
+경기도 성남시 분당구 구미동 -> 서울특별시,Gyeonggi-do Seongnam-si Bundang-gu Gumi-dong -> Seoul
+경기도 성남시 분당구 백현동 -> 서울특별시,Gyeonggi-do Seongnam-si Bundang-gu Baekhyeon-dong -> Seoul
+경기도 성남시 분당구 서현동 -> 경기도,Gyeonggi-do Seongnam-si Bundang-gu Seohyeon-dong -> Gyeonggi-do
+경기도 성남시 분당구 서현동 -> 서울특별시,Gyeonggi-do Seongnam-si Bundang-gu Seohyeon-dong -> Seoul
+경기도 성남시 분당구 야탑동 -> 경기도,Gyeonggi-do Seongnam-si Bundang-gu Yatap-dong -> Gyeonggi-do
+경기도 성남시 분당구 야탑동 -> 서울특별시,Gyeonggi-do Seongnam-si Bundang-gu Yatap-dong -> Seoul
+경기도 성남시 중원구 금광동 -> 경기도,Gyeonggi-do Seongnam-si Jungwon-gu Geumgwang-dong -> Gyeonggi-do
+경기도 성남시 중원구 상대원동 -> 경기도,Gyeonggi-do Seongnam-si Jungwon-gu Sangdaewon-dong -> Gyeonggi-do
+경기도 수원시 권선구 권선동 -> 경기도,Gyeonggi-do Suwon-si Gwonseon-gu Gwonseon-dong -> Gyeonggi-do
+경기도 수원시 권선구 세류동 -> 경기도,Gyeonggi-do Suwon-si Gwonseon-gu Seryu-dong -> Gyeonggi-do
+경기도 수원시 영통구 매탄동 -> 경기도,Gyeonggi-do Suwon-si Yeongtong-gu Maetan-dong -> Gyeonggi-do
+경기도 수원시 영통구 영통동 -> 경기도,Gyeonggi-do Suwon-si Yeongtong-gu Yeongtong-dong -> Gyeonggi-do
+경기도 수원시 영통구 영통동 -> 서울특별시,Gyeonggi-do Suwon-si Yeongtong-gu Yeongtong-dong -> Seoul
+경기도 수원시 영통구 이의동 -> 경기도,Gyeonggi-do Suwon-si Yeongtong-gu Iui-dong -> Gyeonggi-do
+경기도 수원시 영통구 이의동 -> 서울특별시,Gyeonggi-do Suwon-si Yeongtong-gu Iui-dong -> Seoul
+경기도 수원시 장안구 율전동 -> 경기도,Gyeonggi-do Suwon-si Jangan-gu Yuljeon-dong -> Gyeonggi-do
+경기도 수원시 팔달구 매산로1가 -> 경기도,Gyeonggi-do Suwon-si Paldal-gu Maesallo1-ga -> Gyeonggi-do
+경기도 수원시 팔달구 인계동 -> 경기도,Gyeonggi-do Suwon-si Paldal-gu Ingye-dong -> Gyeonggi-do
+경기도 시흥시 정왕동 -> 경기도,Gyeonggi-do Siheung-si Jeongwang-dong -> Gyeonggi-do
+경기도 안산시 단원구 고잔동 -> 경기도,Gyeonggi-do Ansan-si Danwon-gu Gojan-dong -> Gyeonggi-do
+경기도 안산시 단원구 고잔동 -> 서울특별시,Gyeonggi-do Ansan-si Danwon-gu Gojan-dong -> Seoul
+경기도 안산시 단원구 선부동 -> 경기도,Gyeonggi-do Ansan-si Danwon-gu Seonbu-dong -> Gyeonggi-do
+경기도 안산시 상록구 본오동 -> 경기도,Gyeonggi-do Ansan-si Sangnok-gu Bono-dong -> Gyeonggi-do
+경기도 안산시 상록구 사동 -> 경기도,Gyeonggi-do Ansan-si Sangnok-gu Sa-dong -> Gyeonggi-do
+경기도 안양시 만안구 안양동 -> 서울특별시,Gyeonggi-do Anyang-si Manan-gu Anyang-dong -> Seoul
+경기도 용인시 기흥구 구갈동 -> 경기도,Gyeonggi-do Yongin-si Giheung-gu Gugal-dong -> Gyeonggi-do
+경기도 용인시 수지구 동천동 -> 서울특별시,Gyeonggi-do Yongin-si Suji-gu Dongcheon-dong -> Seoul
+경기도 용인시 수지구 상현동 -> 경기도,Gyeonggi-do Yongin-si Suji-gu Sanghyeon-dong -> Gyeonggi-do
+경기도 용인시 수지구 상현동 -> 서울특별시,Gyeonggi-do Yongin-si Suji-gu Sanghyeon-dong -> Seoul
+경기도 용인시 수지구 성복동 -> 경기도,Gyeonggi-do Yongin-si Suji-gu Seongbok-dong -> Gyeonggi-do
+경기도 용인시 수지구 성복동 -> 서울특별시,Gyeonggi-do Yongin-si Suji-gu Seongbok-dong -> Seoul
+경기도 용인시 수지구 죽전동 -> 경기도,Gyeonggi-do Yongin-si Suji-gu Jukjeon-dong -> Gyeonggi-do
+경기도 용인시 수지구 죽전동 -> 서울특별시,Gyeonggi-do Yongin-si Suji-gu Jukjeon-dong -> Seoul
+경기도 용인시 수지구 풍덕천동 -> 경기도,Gyeonggi-do Yongin-si Suji-gu Pungdeokcheon-dong -> Gyeonggi-do
+경기도 용인시 수지구 풍덕천동 -> 서울특별시,Gyeonggi-do Yongin-si Suji-gu Pungdeokcheon-dong -> Seoul
+경기도 의정부시 신곡동 -> 경기도,Gyeonggi-do Uijeongbu-si Singok-dong -> Gyeonggi-do
+경기도 의정부시 신곡동 -> 서울특별시,Gyeonggi-do Uijeongbu-si Singok-dong -> Seoul
+경기도 의정부시 의정부동 -> 경기도,Gyeonggi-do Uijeongbu-si Uijeongbu-dong -> Gyeonggi-do
+경기도 의정부시 의정부동 -> 서울특별시,Gyeonggi-do Uijeongbu-si Uijeongbu-dong -> Seoul
+경기도 의정부시 호원동 -> 경기도,Gyeonggi-do Uijeongbu-si Howon-dong -> Gyeonggi-do
+경기도 의정부시 호원동 -> 서울특별시,Gyeonggi-do Uijeongbu-si Howon-dong -> Seoul
+경기도 평택시 비전동 -> 경기도,Gyeonggi-do Pyeongtaek-si Bijeon-dong -> Gyeonggi-do
+경기도 하남시 망월동 -> 서울특별시,Gyeonggi-do Hanam-si Mangwol-dong -> Seoul
+경기도 화성시 병점동 -> 경기도,Gyeonggi-do Hwaseong-si Byeongjeom-dong -> Gyeonggi-do
+경기도 화성시 봉담읍 -> 경기도,Gyeonggi-do Hwaseong-si Bongdam-eup -> Gyeonggi-do
+경기도 화성시 진안동 -> 경기도,Gyeonggi-do Hwaseong-si Jinan-dong -> Gyeonggi-do
+경문고교->이수교차로,Gyeongmun High School->Isu Intersection
+경부고속도로,Gyeongbu Expressway
+경부고속도로(양재IC),Gyeongbu Expressway(Yangjae IC)
+경인고속국도(신월IC),Gyeongin Expressway(Sinwol IC)
+경인로 유입,Gyeongin-ro inbound
+경인로 유출,Gyeongin-ro outbound
+경인로(거리공원입구교차로),Gyeongin-ro(Geori Park Entrance Intersection)
+경인로(서울교),Gyeongin-ro(Seoul Bridge)
+공항대로(발산역),Gonghang-daero(Balsan Station)
+과천대로(남태령역),Gwacheon-daero(Namtaeryeong Station)
+관악IC->금천요금소,Gwanak IC->Geumcheon Tollgate
+관악고교->오목교동측,Gwanak High School->Omok Bridge east side
+광진교,Gwangjin Bridge
+광진교남단->광진교북단,Gwangjin Bridge south end->Gwangjin Bridge north end
+광진교북단->광진교남단,Gwangjin Bridge north end->Gwangjin Bridge south end
+광진교북단->구리시계,Gwangjin Bridge north end->Guri city boundary
+구로역->신도림역,Guro Station->Sindorim Station
+구리시계->광진교북단,Guri city boundary->Gwangjin Bridge north end
+구산사거리->서오릉로고양시계,Gusan Intersection->Seooreung-ro Goyang city boundary
+군자교->장안교,Gunja Bridge->Jangan Bridge
+군자교동단->화양사거리,Gunja Bridge east end->Hwayang Intersection
+금천IC->성산대교남단,Geumcheon IC->Seongsan Bridge south end
+금천교(광명시계),Geumcheon Bridge(Gwangmyeong city boundary)
+금천요금소->관악IC,Geumcheon Tollgate->Gwanak IC
+난지IC->가양대교북단,Nanji IC->Gayang Bridge north end
+남산1호터널,Namsan 1 Tunnel
+남산1호터널북단->한남1고가차도,Namsan 1 Tunnel north end->Hannam 1 Overpass
+남산2호터널,Namsan 2 Tunnel
+남산2호터널북단->용암초등학교,Namsan 2 Tunnel north end->Yongam Elementary School
+남산2호터널북단->장충체육관,Namsan 2 Tunnel north end->Jangchung Gymnasium
+남산3호터널,Namsan 3 Tunnel
+남산3호터널북단->용암초등학교,Namsan 3 Tunnel north end->Yongam Elementary School
+내부순환로,Naebu Ring Road
+노들로,Nodeul-ro
+노들로 남행,Nodeul-ro southbound
+노들로 북행,Nodeul-ro northbound
+노들역->상도터널,Nodeul Station->Sangdo Tunnel
+녹번역->홍은사거리,Nokbeon Station->Hongeun Intersection
+논현역->신사역,Nonhyeon Station->Sinsa Station
+대학로(한국방송통신대학교),Daehak-ro(Korea National Open University)
+도동삼거리->숭례문,Dodong Junction->Sungnyemun
+도봉로(도봉산역),Dobong-ro(Dobongsan Station)
+도봉로의정부시계->도봉산역,Dobong-ro Uijeongbu city boundary->Dobongsan Station
+독립문역->봉원고가차도,Dongnimmun Station->Bongwon Overpass
+독산역->금천교사거리,Doksan Station->Geumcheon Bridge Intersection
+동부간선도로,Dongbu Expressway
+동부간선도로(상도지하차도),Dongbu Expressway(Sangdo Underpass)
+동부간선도로(월계1교),Dongbu Expressway(Wolgye 1 Bridge)
+동부제일병원->망우로구리시계,Dongbu Jeil Hospital->Mangu-ro Guri city boundary
+동일로(군자교),Dongil-ro(Gunja Bridge)
+동작대교,Dongjak Bridge
+동작대교남단->동작대교북단,Dongjak Bridge south end->Dongjak Bridge north end
+동작대교남단->한강대교남단,Dongjak Bridge south end->Hangang Bridge south end
+동작대교북단->동작대교남단,Dongjak Bridge north end->Dongjak Bridge south end
+동작대교북단->한강대교북단,Dongjak Bridge north end->Hangang Bridge north end
+동작대로(총신대입구역),Dongjak-daero(Chongsindae Entrance Station)
+동호대교,Dongho Bridge
+동호대교남단->동호대교북단,Dongho Bridge south end->Dongho Bridge north end
+동호대교북단->동호대교남단,Dongho Bridge north end->Dongho Bridge south end
+동호로(장충체육관),Dongho-ro(Jangchung Gymnasium)
+뚝섬로(용비교),Ttukseom-ro(Yongbi Bridge)
+마곡역->발산역,Magok Station->Balsan Station
+마포대교,Mapo Bridge
+마포대교 남행,Mapo Bridge southbound
+마포대교 북행,Mapo Bridge northbound
+마포대교남단->마포대교북단,Mapo Bridge south end->Mapo Bridge north end
+마포대교북단->마포대교남단,Mapo Bridge north end->Mapo Bridge south end
+망우로(망우리공원),Mangu-ro(Manguri Park)
+망우로구리시계->동부제일병원,Mangu-ro Guri city boundary->Dongbu Jeil Hospital
+매봉터널->영동세브란스,Maebong Tunnel->Yongdong Severance
+반포IC->서초IC,Banpo IC->Seocho IC
+반포고가차도->반포대교남단,Banpo Overpass->Banpo Bridge south end
+반포대교,Banpo Bridge
+반포대교남단->반포고가차도,Banpo Bridge south end->Banpo Overpass
+반포대교북단->반포대교남단,Banpo Bridge north end->Banpo Bridge south end
+반포대로(서초역),Banpo-daero(Seocho Station)
+발산역->마곡역,Balsan Station->Magok Station
+방화대교남단->행주대교남단,Banghwa Bridge south end->Haengju Bridge south end
+백제고분로(종합운동장),Baekjegobun-ro(Sports Complex)
+뱅뱅사거리->강남역,Bangbang Intersection->Gangnam Station
+복정교차로->수서IC,Bokjeong Intersection->Suseo IC
+봉원고가차도->독립문역,Bongwon Overpass->Dongnimmun Station
+북부간선도로(신내IC),Bukbu Expressway(Sinnae IC)
+북부간선로,Bukbu Expressway
+분당수서로,Bundangsuseo-ro
+분당수서로(성남시계),Bundangsuseo-ro(Seongnam city boundary)
+사당역->과천대로과천시계,Sadang Station->Gwacheon-daero Gwacheon city boundary
+사양,spec
+상도지하차도->수락고,Sangdo Underpass->Surak High School
+상일IC입구->상일초교,Sangil IC Entrance->Sangil Elementary School
+상일초교->상일IC입구,Sangil Elementary School->Sangil IC Entrance
+샛강역->여의교남단,Saetgang Station->Yeoui Bridge south end
+서강대교,Seogang Bridge
+서강대교 남행,Seogang Bridge southbound
+서강대교 북행,Seogang Bridge northbound
+서강대교남단->서강대교북단,Seogang Bridge south end->Seogang Bridge north end
+서강대교북단->서강대교남단,Seogang Bridge north end->Seogang Bridge south end
+서부간선지하도로,Seobuganseon Underground Road
+서부트럭터미널->신정로부천시계,Seobu Truck Terminal->Sinjeong-ro Bucheon city boundary
+서빙고고가차도->한남역,Seobinggo Overpass->Hannam Station
+서빙고로(한남역),Seobinggo-ro(Hannam Station)
+서소문로(시청역),Seosomun-ro(City Hall Station)
+서오릉로(고양시계),Seooreung-ro(Goyang city boundary)
+서오릉로고양시계->구산사거리,Seooreung-ro Goyang city boundary->Gusan Intersection
+서울교->신월IC,Seoul Bridge->Sinwol IC
+서울교남단->여의도공원,Seoul Bridge south end->Yeouido Park
+서울성모병원->서초역,Seoul St. Mary's Hospital->Seocho Station
+서울역->회현역,Seoul Station->Hoehyeon Station
+서울특별시 관악구 봉천동 -> 경기도,Seoul Gwanak-gu Bongcheon-dong -> Gyeonggi-do
+서울특별시 관악구 신림동 -> 경기도,Seoul Gwanak-gu Sillim-dong -> Gyeonggi-do
+서울특별시 구로구 구로동 -> 경기도,Seoul Guro-gu Guro-dong -> Gyeonggi-do
+서울특별시 금천구 시흥동 -> 경기도,Seoul Geumcheon-gu Siheung-dong -> Gyeonggi-do
+서울특별시 노원구 상계동 -> 경기도,Seoul Nowon-gu Sanggye-dong -> Gyeonggi-do
+서초IC->반포IC,Seocho IC->Banpo IC
+서초IC->양재IC,Seocho IC->Yangjae IC
+서초역->서울성모병원,Seocho Station->Seoul St. Mary's Hospital
+석촌역->송파역,Seokchon Station->Songpa Station
+성균관대입구->원남동사거리,Sungkyunkwan Univ. Entrance->Wonnamdong Intersection
+성산대교,Seongsan Bridge
+성산대교남단->금천IC,Seongsan Bridge south end->Geumcheon IC
+성산대교남단->성산대교북단,Seongsan Bridge south end->Seongsan Bridge north end
+성산로(금화터널),Seongsan-ro(Geumhwa Tunnel)
+성산로(연희IC),Seongsan-ro(Yeonhui IC)
+성수대교,Seongsu Bridge
+성수대교남단->성수대교북단,Seongsu Bridge south end->Seongsu Bridge north end
+소월로(회현역),Sowol-ro(Hoehyeon Station)
+송파대로(송파역),Songpa-daero(Songpa Station)
+수락고->상도지하차도,Surak High School->Sangdo Underpass
+수서IC->복정교차로,Suseo IC->Bokjeong Intersection
+수서IC->탄천1교,Suseo IC->Tancheon 1 Bridge
+시청역->경찰청앞,City Hall Station->National Police Agency (front)
+신내IC->북부간선도로구리시계,Sinnae IC->Bukbu Expressway Guri city boundary
+신도림역->구로역,Sindorim Station->Guro Station
+신사역->논현역,Sinsa Station->Nonhyeon Station
+신월IC->부천IC,Sinwol IC->Bucheon IC
+신월IC->서울교,Sinwol IC->Seoul Bridge
+신월여의지하도로,Sinwol Yeoui Underground Road
+신정로(작동터널),Sinjeong-ro(Jakdong Tunnel)
+아시아선수촌아파트->종합운동장,Asian Games Village Apartments->Sports Complex
+안국역->안국동사거리,Anguk Station->Angukdong Intersection
+암사대교남단->강일IC,Amsa Bridge south end->Gangil IC
+약수역->장충체육관,Yaksu Station->Jangchung Gymnasium
+양녕로(상도터널),Yangnyeong-ro(Sangdo Tunnel)
+양재IC->서초IC,Yangjae IC->Seocho IC
+양화대교,Yanghwa Bridge
+양화대교남단->양화대교북단,Yanghwa Bridge south end->Yanghwa Bridge north end
+양화대교북단->양화대교남단,Yanghwa Bridge north end->Yanghwa Bridge south end
+언주로(매봉터널),Eonju-ro(Maebong Tunnel)
+여의2교->여의하류IC(노들로),Yeoui 2 Bridge->Yeoui downstream IC(Nodeul-ro)
+여의대방로 남행,Yeouidaebang-ro southbound
+여의대방로 북행,Yeouidaebang-ro northbound
+여의대방로(여의교),Yeoui Daebang-ro(Yeoui Bridge)
+여의도 지점 제외,Excluding Yeouido sites
+여의도공원->서울교남단,Yeouido Park->Seoul Bridge south end
+여의하류IC->여의2교,Yeoui downstream IC->Yeoui 2 Bridge
+연세대->연희교차로,Yonsei Univ.->Yeonhui Intersection
+연희IC->연희삼거리,Yeonhui IC->Yeonhui Junction
+연희로(연희IC),Yeonhui-ro(Yeonhui IC)
+연희삼거리->연희IC,Yeonhui Junction->Yeonhui IC
+염천교->숭례문,Yeomcheon Bridge->Sungnyemun
+영동대교,Yeongdong Bridge
+영동대교남단->영동대교북단,Yeongdong Bridge south end->Yeongdong Bridge north end
+영동대교북단->영동대교남단,Yeongdong Bridge north end->Yeongdong Bridge south end
+영동세브란스->매봉터널,Yongdong Severance->Maebong Tunnel
+영등포로(오목교),Yeongdeungpo-ro(Omok Bridge)
+오목교동측->관악고교,Omok Bridge east side->Gwanak High School
+오쇠삼거리->외발산사거리,Osoe Junction->Oebalsan Intersection
+오정로(부천시계),Ojeong-ro(Bucheon city boundary)
+올림픽대교,Olympic Bridge
+올림픽대교남단->올림픽대교북단,Olympic Bridge south end->Olympic Bridge north end
+올림픽대교북단->올림픽대교남단,Olympic Bridge north end->Olympic Bridge south end
+올림픽대로,Olympic-daero
+올림픽대로(강일IC),Olympic-daero(Gangil IC)
+올림픽대로(개화IC),Olympic-daero(Gaehwa IC)
+외발산사거리->오쇠삼거리,Oebalsan Intersection->Osoe Junction
+용비교->옥수역,Yongbi Bridge->Oksu Station
+용암초등학교->남산2호터널북단,Yongam Elementary School->Namsan 2 Tunnel north end
+용암초등학교->남산3호터널북단,Yongam Elementary School->Namsan 3 Tunnel north end
+원남동사거리->성균관대입구,Wonnamdong Intersection->Sungkyunkwan Univ. Entrance
+원효대교,Wonhyo Bridge
+원효대교 남행,Wonhyo Bridge southbound
+원효대교 북행,Wonhyo Bridge northbound
+원효대교남단->원효대교북단,Wonhyo Bridge south end->Wonhyo Bridge north end
+원효대교북단->원효대교남단,Wonhyo Bridge north end->Wonhyo Bridge south end
+월계1교서측->월릉교서측,Wolgye 1 Bridge west side->Wolleung Bridge west side
+월드컵대교,World Cup Bridge
+월드컵대교남단->월드컵대교북단,World Cup Bridge south end->World Cup Bridge north end
+월드컵대교북단->월드컵대교남단,World Cup Bridge north end->World Cup Bridge south end
+월릉IC->하월곡램프,Wolleung IC->Hawolgok Ramp
+월릉교동측->월계1교동측,Wolleung Bridge east side->Wolgye 1 Bridge east side
+유형 A,Type A
+유형 B,Type B
+유형 C,Type C
+유형 D,Type D
+유형 F,Type F
+율곡로(안국역),Yulgok-ro(Anguk Station)
+이수교차로->경문고교,Isu Intersection->Gyeongmun High School
+이화사거리->혜화동로터리,Ihwa Intersection->Hyehwadong Rotary
+인천광역시 계양구 계산동 -> 인천광역시,Incheon Gyeyang-gu Gyesan-dong -> Incheon
+인천광역시 남동구 간석동 -> 서울특별시,Incheon Namdong-gu Ganseok-dong -> Seoul
+인천광역시 남동구 간석동 -> 인천광역시,Incheon Namdong-gu Ganseok-dong -> Incheon
+인천광역시 남동구 구월동 -> 인천광역시,Incheon Namdong-gu Guwol-dong -> Incheon
+인천광역시 남동구 논현동 -> 인천광역시,Incheon Namdong-gu Nonhyeon-dong -> Incheon
+인천광역시 남동구 만수동 -> 인천광역시,Incheon Namdong-gu Mansu-dong -> Incheon
+인천광역시 미추홀구 도화동 -> 인천광역시,Incheon Michuhol-gu Dohwa-dong -> Incheon
+인천광역시 미추홀구 주안동 -> 서울특별시,Incheon Michuhol-gu Juan-dong -> Seoul
+인천광역시 부평구 부평동 -> 서울특별시,Incheon Bupyeong-gu Bupyeong-dong -> Seoul
+인천광역시 부평구 부평동 -> 인천광역시,Incheon Bupyeong-gu Bupyeong-dong -> Incheon
+인천광역시 부평구 산곡동 -> 서울특별시,Incheon Bupyeong-gu Sangok-dong -> Seoul
+인천광역시 부평구 산곡동 -> 인천광역시,Incheon Bupyeong-gu Sangok-dong -> Incheon
+인천광역시 부평구 삼산동 -> 인천광역시,Incheon Bupyeong-gu Samsan-dong -> Incheon
+인천광역시 서구 가정동 -> 인천광역시,Incheon Seo-gu Gajeong-dong -> Incheon
+인천광역시 서구 가좌동 -> 인천광역시,Incheon Seo-gu Gajwa-dong -> Incheon
+인천광역시 서구 당하동 -> 서울특별시,Incheon Seo-gu Dangha-dong -> Seoul
+인천광역시 연수구 동춘동 -> 인천광역시,Incheon Yeonsu-gu Dongchun-dong -> Incheon
+인천광역시 연수구 선학동 -> 인천광역시,Incheon Yeonsu-gu Seonhak-dong -> Incheon
+인천광역시 연수구 연수동 -> 인천광역시,Incheon Yeonsu-gu Yeonsu-dong -> Incheon
+인천광역시 중구 운서동 -> 서울특별시,Incheon Jung-gu Unseo-dong -> Seoul
+인천광역시 중구 운서동 -> 인천광역시,Incheon Jung-gu Unseo-dong -> Incheon
+잠수교,Jamsu Bridge
+잠실대교,Jamsil Bridge
+잠실대교남단->잠실대교북단,Jamsil Bridge south end->Jamsil Bridge north end
+잠실대교북단->잠실대교남단,Jamsil Bridge north end->Jamsil Bridge south end
+장안교->군자교,Jangan Bridge->Gunja Bridge
+장충단로(장충단공원),Jangchungdan-ro(Jangchungdan Park)
+장충체육관->약수역,Jangchung Gymnasium->Yaksu Station
+전체,All
+정릉터널->국민대램프,Jeongneung Tunnel->Kookmin Univ. Ramp
+종합운동장->아시아선수촌아파트,Sports Complex->Asian Games Village Apartments
+창경궁로(서울여자대학교),Changgyeonggung-ro(Seoul Women's University)
+천호대교,Cheonho Bridge
+천호대교남단->천호대교북단,Cheonho Bridge south end->Cheonho Bridge north end
+천호대교북단->천호대교남단,Cheonho Bridge north end->Cheonho Bridge south end
+천호대로(상일IC),Cheonho-daero(Sangil IC)
+청담대교,Cheongdam Bridge
+청담대교남단->청담대교북단,Cheongdam Bridge south end->Cheongdam Bridge north end
+청담대교북단->청담대교남단,Cheongdam Bridge north end->Cheongdam Bridge south end
+칠패로(숭례문),Chilpae-ro(Sungnyemun)
+탄천1교->수서IC,Tancheon 1 Bridge->Suseo IC
+태릉입구역->화랑대역,Taereung Entrance Station->Hwarangdae Station
+통일로(고양시계),Tongil-ro(Goyang city boundary)
+통일로(산골고개정류장),Tongil-ro(Sangol Pass Bus Stop)
+통일로고양시계->구파발사거리,Tongil-ro Goyang city boundary->Gupabal Intersection
+퇴계로(회현역),Toegye-ro(Hoehyeon Station)
+하월곡램프->월릉IC,Hawolgok Ramp->Wolleung IC
+한강대교,Hangang Bridge
+한강대교남단->동작대교남단,Hangang Bridge south end->Dongjak Bridge south end
+한강대교남단->한강대교북단,Hangang Bridge south end->Hangang Bridge north end
+한강대교북단->동작대교북단,Hangang Bridge north end->Dongjak Bridge north end
+한강대교북단->한강대교남단,Hangang Bridge north end->Hangang Bridge south end
+한남1고가차도->남산1호터널북단,Hannam 1 Overpass->Namsan 1 Tunnel north end
+한남대교,Hannam Bridge
+한남대교남단->한남대교북단,Hannam Bridge south end->Hannam Bridge north end
+한남대교북단->한남대교남단,Hannam Bridge north end->Hannam Bridge south end
+한남역->서빙고고가차도,Hannam Station->Seobinggo Overpass
+행주대교,Haengju Bridge
+행주대교남단->방화대교남단,Haengju Bridge south end->Banghwa Bridge south end
+행주대교남단->행주대교북단,Haengju Bridge south end->Haengju Bridge north end
+행주대교북단->행주대교남단,Haengju Bridge north end->Haengju Bridge south end
+혜화동로터리->이화사거리,Hyehwadong Rotary->Ihwa Intersection
+홍지문터널->홍은램프,Hongjimun Tunnel->Hongeun Ramp
+화랑대사거리->갈매교차로,Hwarangdae Intersection->Galmae Intersection
+화랑대역->태릉입구역,Hwarangdae Station->Taereung Entrance Station
+화랑로(조선왕릉),Hwarang-ro(Joseon Royal Tombs)
+화랑로(화랑대역),Hwarang-ro(Hwarangdae Station)
+화양사거리->군자교동단,Hwayang Intersection->Gunja Bridge east end
+회현역->서울역,Hoehyeon Station->Seoul Station

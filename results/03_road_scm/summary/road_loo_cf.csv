@@ -1,13 +1,13 @@
 unit,name,loo_cf_min,loo_cf_max,n_loo
-1,경인로 유출,-3.14,-1.57,48
-2,경인로 유입,-2.27,-1.06,8
-3,노들로 북행,-8.31,-5.39,6
-4,노들로 남행,-21.78,-9.34,11
-5,마포대교 남행,-4.55,-3.49,5
-6,마포대교 북행,-5.14,-4.21,45
-7,서강대교 남행,-4.07,-1.9,46
-8,서강대교 북행,-4.14,-0.09,44
-9,여의대방로 남행,-0.71,2.45,35
-10,여의대방로 북행,-2.48,-1.35,6
-11,원효대교 남행,-0.02,0.76,49
-12,원효대교 북행,-5.72,-3.11,18
+1,Gyeongin-ro outbound,-3.14,-1.57,48
+2,Gyeongin-ro inbound,-2.27,-1.06,8
+3,Nodeul-ro northbound,-8.31,-5.39,6
+4,Nodeul-ro southbound,-21.78,-9.34,11
+5,Mapo Bridge southbound,-4.55,-3.49,5
+6,Mapo Bridge northbound,-5.14,-4.21,45
+7,Seogang Bridge southbound,-4.07,-1.9,46
+8,Seogang Bridge northbound,-4.14,-0.09,44
+9,Yeouidaebang-ro southbound,-0.71,2.45,35
+10,Yeouidaebang-ro northbound,-2.48,-1.35,6
+11,Wonhyo Bridge southbound,-0.02,0.76,49
+12,Wonhyo Bridge northbound,-5.72,-3.11,18
