@@ -8,7 +8,7 @@
 ##       Rscript code/03_road_scm/run_nested53_full.R 4,6,8,12                                       # subset
 ##       NESTED_EXCL=none Rscript code/03_road_scm/run_nested53_full.R                               # 55 donors (same as the original run)
 ##   (macOS only, optional: prefix with `caffeinate -i` to keep the machine awake during long runs)
-## RESTRICTED DATA REQUIRED (restricted data required): road detector inputs (Seoul TOPIS sites and national ITS link counts) are not redistributed (licence pending).
+## INPUT DATA REQUIRED: road detector inputs (Seoul TOPIS sites and national ITS link counts). Redistributable, but the full panel is not yet in this repository.
 ## Required input files (place under RAW_DIR):
 ##   - 77_units/0628_6to10_df_with_new_covariates_fixed.csv   (analysis panel; path set in config_v4.R)
 ## Also required: the earlier v4 run whose settings/donor pools are restored (produced by run_scm_v4.R, not in this repo):
@@ -17,7 +17,7 @@
 suppressMessages({ library(dplyr); library(readr); library(jsonlite); library(parallel) })
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
-RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # non-redistributed road inputs
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # road inputs not yet in the repository
 OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "03_road_scm"))
 CODE_DIR  <- file.path(REPO_ROOT, "code", "03_road_scm")
 source(file.path(CODE_DIR, "config_v4.R")); source(file.path(CODE_DIR, "scm_v4_functions.R")); source(file.path(CODE_DIR, "scm_v4_plots.R"))

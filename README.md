@@ -21,7 +21,7 @@ Replication package (code, aggregated results, figures) for a master's thesis ev
 | Source | Used for | In repo |
 |---|---|---|
 | MOLIT smart-card OD records (secure data centre) | outcome for analyses 1, 2, 4 | Raw records and full OD × week panel: no (restricted). OD-level result files cleared for export: yes |
-| Seoul TOPIS detector counts; national ITS link counts | outcome for analyses 3, 5 | Road SCM per-link paths: yes (`results/03_road_scm/unit_XX/`). Full panels: not yet |
+| Seoul TOPIS detector counts; national ITS link counts | outcome for analyses 3, 5 | Redistributable. Road SCM per-link paths: yes (`results/03_road_scm/unit_XX/`). Full panels: not yet uploaded |
 | Resident registration population (Ministry of the Interior and Safety) | covariate | No — public source |
 | KTDB accessibility indicators; Seoul Institute report 2019-BR-26 | heterogeneity | No — public source |
 
@@ -136,7 +136,7 @@ Without the raw data you can still inspect all aggregated results and figures.
 - **Road SCM:** 12 links are tested separately (multiple testing); the minimum attainable p is 1/54 ≈ .019; donors outside Seoul may face different shocks.
 - **Yeouido transit SCM:** single treated unit; in-time placebos show +1.6–2.4% gaps, so read the magnitude cautiously. With cross-validated V (adhcv) the effect is +5.53%, p = .038 ([`results/04_yeouido_transit_scm/adhcv79/summary_D79_adhcv.csv`](results/04_yeouido_transit_scm/adhcv79/summary_D79_adhcv.csv)).
 - **Seoul-wide road gsynth:** pre-trend diagnostics fail; descriptive only.
-- **Road count data:** the road SCM per-link paths are included; the full TOPIS/ITS analysis panels are not yet included.
+- **Road count data:** redistributable; the road SCM per-link paths are included, the full TOPIS/ITS analysis panels are not yet uploaded.
 - **Upstream scripts not included:** panel and covariate builders and some original pipeline files; see each folder README.
 
 ## 8. Website

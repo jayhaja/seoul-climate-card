@@ -16,7 +16,7 @@
 ##       → REPO_ROOT/output/01_citywide_gsynth/R2_r4_xu_diagnostics_20261010/<eng>/point.rds (override: XU_DIR)
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
-RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted / non-redistributed inputs
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # inputs not in the repository (restricted OD panel or not-yet-uploaded files)
 OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "02_heterogeneity/R2_r4_cf_pct_20261102"))
 XU_DIR    <- Sys.getenv("XU_DIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth", "R2_r4_xu_diagnostics_20261010"))   # location of point.rds
 ## Run (from repo root): Rscript code/02_heterogeneity/hetero_cf_pct_20261102.R

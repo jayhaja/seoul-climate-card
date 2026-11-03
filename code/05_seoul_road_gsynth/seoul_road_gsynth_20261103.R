@@ -7,12 +7,12 @@
 #  Outputs: overall effect (veh/h, % vs counterfactual), re-aggregation by site type (A downtown, B city boundary, C Han River bridges, D arterials, F urban expressways), results excluding Yeouido-linked sites, site-level gaps
 # Run (from repo root): Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_20261103.R
 #       Bootstrap: NB=200 CORES=2 Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_20261103.R  (applied only to the CV-selected r)
-## RESTRICTED DATA REQUIRED: TOPIS road detector traffic volumes — not redistributed (licence pending).
+## INPUT DATA REQUIRED: TOPIS road detector traffic volumes. Redistributable, but the panel is not yet in this repository.
 ## Required input files (place under RAW_DIR):
 ##   - panel_seoul176_donor53_6to9.csv   (weekly panel: 176 TOPIS Seoul sites + 53 non-Seoul donor links; built in Python, the build script is not in this repo)
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
-RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted / non-redistributed inputs
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # inputs not in the repository (restricted OD panel or not-yet-uploaded files)
 OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "05_seoul_road_gsynth/seoul_road_gsynth_20261103"))
 suppressPackageStartupMessages({ library(fect); library(dplyr) })
 out <- OUT_DIR; dir.create(out, showWarnings = FALSE, recursive = TRUE)

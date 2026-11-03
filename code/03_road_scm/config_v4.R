@@ -3,10 +3,10 @@
 ## ---- Paths (edit here or set env vars) -------------------------------
 ## Guarded so this file can be sourced by other scripts (which may already define these) in any order.
 if (!exists("REPO_ROOT")) REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                                    # run from repo root
-if (!exists("RAW_DIR"))   RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # non-redistributed road inputs
+if (!exists("RAW_DIR"))   RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # road inputs not yet in the repository
 if (!exists("OUT_DIR"))   OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "03_road_scm"))
 if (!exists("CODE_DIR"))  CODE_DIR  <- file.path(REPO_ROOT, "code", "03_road_scm")
-## RESTRICTED DATA REQUIRED (restricted data required): road detector inputs (Seoul TOPIS sites and national ITS link counts) are not redistributed (licence pending).
+## INPUT DATA REQUIRED: road detector inputs (Seoul TOPIS sites and national ITS link counts). Redistributable, but the full panel is not yet in this repository.
 ## Required input files (place under RAW_DIR):
 ##   - 77_units/0628_6to10_df_with_new_covariates_fixed.csv   (analysis panel, 77 units; built by the original 06–09 median pipeline, not in this repo)
 CFG <- list(

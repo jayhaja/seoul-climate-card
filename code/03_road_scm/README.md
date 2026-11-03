@@ -15,7 +15,7 @@ Synthetic control for 12 directional road links around Yeouido with 53 donors, V
 ## Inputs
 Road detector data are restricted and must be placed under `RAW_DIR` (default `data/restricted/`).
 
-**Restricted data required**: Seoul TOPIS site counts and national ITS link traffic counts are not redistributed (licence permission pending). Place them under `RAW_DIR`.
+**Input data required**: Seoul TOPIS site counts and national ITS link traffic counts. They are redistributable but the full panel is not yet in this repository; place it under `RAW_DIR`. The per-link SCM paths are published in `results/03_road_scm/unit_XX/`.
 
 | File | Used by |
 |---|---|

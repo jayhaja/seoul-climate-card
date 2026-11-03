@@ -12,7 +12,7 @@ from matplotlib import font_manager as fm
 ## ---- Paths (edit here or set env vars) -------------------------------
 REPO_ROOT = os.environ.get("REPO_ROOT", ".")                                   # run from repo root
 BASE = os.environ.get("BASE")                                                  # legacy override: now treated as RAW_DIR
-RAW_DIR = os.environ.get("RAW_DIR", BASE or os.path.join(REPO_ROOT, "data/restricted"))   # restricted / non-redistributed inputs
+RAW_DIR = os.environ.get("RAW_DIR", BASE or os.path.join(REPO_ROOT, "data/restricted"))   # inputs not in the repository (restricted OD panel or not-yet-uploaded files)
 OUT_DIR = os.environ.get("OUT_DIR", os.path.join(REPO_ROOT, "output", "02_heterogeneity/maps_r4_district_20261011"))
 SHP = f"{RAW_DIR}/읍면동/emd.shp"; GUCSV = f"{RAW_DIR}/집중지수_0727/공시지가_법정동_2023.csv"
 SRC = f"{RAW_DIR}/R2_r4_자치구_지도데이터_20261011/district_effects.csv"; OUT = OUT_DIR
