@@ -3,16 +3,24 @@
 ## 그림: 1 경로, 2 격차, 3 RMSPE 비율 순위, 4 위약 격차, 10 비율 히스토그램 → 위약은 전체(tau=Inf, 주검정)와 5배 제외(민감도) 두 벌
 ##       5 LOO(V·W 재추정). 시점 위약 그림은 기존 nested53 결과가 그대로 유효하므로 다시 그리지 않음.
 ## 사후 창: 저장된 그대로(일반 51–96주, 공사 지점 1·2·10은 51–72주).
-## 실행: cd ~/Thesis/0614/0628/road_scm_v4 && Rscript plot_nested53_abadie2015pl.R
+## Run (from repo root): Rscript code/03_road_scm/plot_nested53_abadie2015pl.R
+## RESTRICTED DATA REQUIRED (restricted data required): road detector inputs (Seoul TOPIS sites and national ITS link counts) are not redistributed (licence pending).
+## Required input files (place under RAW_DIR):
+##   - 77_units/0628_6to10_df_with_new_covariates_fixed.csv   (analysis panel, for unit/road names; path set in config_v4.R)
+## Also reads the latest OUT_DIR/runs/v4_stdv_ex107_201_nested53_abadie2015pl_* folder written by run_nested53_abadie2015_placebo.R.
 suppressMessages({ library(dplyr); library(readr); library(ggplot2) })
-HERE <- path.expand("~/Thesis/0614/0628/road_scm_v4"); setwd(HERE)
-source("config_v4.R"); source("scm_v4_functions.R"); source("scm_v4_plots.R")
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # non-redistributed road inputs
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "03_road_scm"))
+CODE_DIR  <- file.path(REPO_ROOT, "code", "03_road_scm")
+source(file.path(CODE_DIR, "config_v4.R")); source(file.path(CODE_DIR, "scm_v4_functions.R")); source(file.path(CODE_DIR, "scm_v4_plots.R"))
 ## [2026-11-03] 검정통계량은 RMSPE 비율(Abadie et al. 2015) 그대로. 원본 scm_v4_plots.R은 건드리지 않고 히스토그램 제목("limitInf")만 이 스크립트 안에서 정리.
 relabel <- function(f, pairs) { s <- paste(deparse(f, width.cutoff = 500L), collapse = "\n"); for (p in pairs) { stopifnot(any(grepl(p[1], s, fixed = TRUE))); s <- gsub(p[1], p[2], s, fixed = TRUE) }
   g <- eval(parse(text = s)); environment(g) <- globalenv(); g }
 plot_placebo_ratio_hist <- relabel(plot_placebo_ratio_hist, list(c("sprintf(\"Placebo RMSPE Ratio Histogram (limit%g)\", tau)",
     "sprintf(\"Placebo RMSPE Ratio Histogram (%s)\", if (is.infinite(tau)) \"all placebos\" else paste0(\"pre RMSPE <= \", tau, \"x treated\"))")))
-RUN <- sort(Sys.glob(file.path(HERE, "runs", "v4_stdv_ex107_201_nested53_abadie2015pl_*")), decreasing = TRUE)[1]
+RUN <- sort(Sys.glob(file.path(OUT_DIR, "runs", "v4_stdv_ex107_201_nested53_abadie2015pl_*")), decreasing = TRUE)[1]
 stopifnot(!is.na(RUN)); cat("run:", RUN, "\n")
 OUT <- file.path(RUN, "plots"); TAUS <- c(Inf, 5); T0 <- 51; N_PRE <- 50
 df <- load_panel(CFG, function(...) invisible(NULL))

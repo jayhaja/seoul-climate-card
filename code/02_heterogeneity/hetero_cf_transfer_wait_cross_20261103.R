@@ -1,12 +1,25 @@
-ts  <- path.expand("~/Documents/thesis_summary")
+## RESTRICTED DATA REQUIRED (restricted data required): 스마트카드 OD 패널에서 나온 적합·부트스트랩 결과와 OD/출발 단위 공변량.
+## Required input files (place under RAW_DIR unless noted):
+##   - R2_r4_환승5분위_사전CI_20261011/<eng>/chunk_01.rds ... chunk_05.rds   (OD별 부트스트랩 draw 1,000개; 생성 스크립트는 저장소에 없음)
+##   - R2_r4_인구대비_추가이용_20261011/dong_population_effects.csv           (unit_id, pre_population; 생성 스크립트는 저장소에 없음)
+##   - 규모통제_거리환승_20261011/OD_analysis_data.csv                          (OD별 transfer, distance_km)
+##   - AI_uc_보정_20261101.csv, youth_region_20261101.csv, elderly_ratio_unit_20261102.csv, 환승시간_unit매칭_20261101.csv  (unit_id 매칭 공변량)
+##   - point.rds: produced by code/01_citywide_gsynth/R2_r4_Xu권고진단_20261010.R
+##       → REPO_ROOT/output/01_citywide_gsynth/R2_r4_Xu권고진단_20261010/<eng>/point.rds (override: XU_DIR)
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted / non-redistributed inputs
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "02_heterogeneity/R2_r4_환승_대기_교차_20261103"))
+XU_DIR    <- Sys.getenv("XU_DIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth", "R2_r4_Xu권고진단_20261010"))   # point.rds 위치
+## Run (from repo root): Rscript code/02_heterogeneity/hetero_cf_transfer_wait_cross_20261103.R
 eng <- "PATCHED_local_weight_v2_cvmax_v1_audit_v1_fect2.4.7_h748c651816_srce78b1e9155"
-f <- readRDS(file.path("/Users/maeg/Thesis/0614/public.transportation/0702/scm_results/R2_r4_Xu권고진단_20261010", eng, "point.rds"))$fit
-chunks <- file.path(ts, "scm_results/R2_r4_환승5분위_사전CI_20261011", eng, sprintf("chunk_%02d.rds", 1:5))
-out <- file.path(ts, "scm_results/R2_r4_환승_대기_교차_20261103")
-p  <- read.csv(file.path(ts, "scm_results/R2_r4_인구대비_추가이용_20261011/dong_population_effects.csv"))
-x  <- read.csv(file.path(ts, "_review/규모통제_거리환승_20261011/OD_analysis_data.csv"))
-ai <- read.csv(file.path(ts, "_review/AI_uc_보정_20261101.csv")); yr <- read.csv(file.path(ts, "_review/youth_region_20261101.csv"))
-el <- read.csv(file.path(ts, "_review/elderly_ratio_unit_20261102.csv")); wt <- read.csv(file.path(ts, "_review/환승시간_unit매칭_20261101.csv"))
+f <- readRDS(file.path(XU_DIR, eng, "point.rds"))$fit
+chunks <- file.path(RAW_DIR, "R2_r4_환승5분위_사전CI_20261011", eng, sprintf("chunk_%02d.rds", 1:5))
+out <- OUT_DIR
+p  <- read.csv(file.path(RAW_DIR, "R2_r4_인구대비_추가이용_20261011/dong_population_effects.csv"))
+x  <- read.csv(file.path(RAW_DIR, "규모통제_거리환승_20261011/OD_analysis_data.csv"))
+ai <- read.csv(file.path(RAW_DIR, "AI_uc_보정_20261101.csv")); yr <- read.csv(file.path(RAW_DIR, "youth_region_20261101.csv"))
+el <- read.csv(file.path(RAW_DIR, "elderly_ratio_unit_20261102.csv")); wt <- read.csv(file.path(RAW_DIR, "환승시간_unit매칭_20261101.csv"))
 m <- function(d, v) d[[v]][match(p$unit_id, d$unit_id)]
 
 dir.create(out, recursive=TRUE, showWarnings=FALSE)

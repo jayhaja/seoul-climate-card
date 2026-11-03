@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>그림 갤러리 | Seoul Climate Card</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/site.js"></script>
+<script src="assets/gallery.js"></script>
+</head>
+<body>
+<main>
+  <h1><span class="ko">그림 갤러리</span><span class="en">Figure gallery</span></h1>
+  <p class="lead"><span class="ko">논문 그림과 분석별 진단 그림입니다. 그림을 누르면 확대되고, 확대 상태에서 ← → 키로 넘깁니다.</span><span class="en">Thesis figures and per-analysis diagnostics. Click to enlarge; use ← → to step through.</span></p>
+  <div class="note"><span class="ko"><b>SCM 위약 그림 읽는 법.</b> <code>*_tau5.jpg</code> 위약 격차 그림(원고용)은 사전 RMSPE가 처치 단위의 5배 이하인 위약만 그립니다. 그러나 본문과 표의 <b>p값은 위약 전체(처치 단위 포함, 사전 적합도 필터 없음) 기준</b>입니다. <code>*_all.jpg</code>는 위약 전체를 그린 그림입니다.</span><span class="en"><b>Reading SCM placebo figures.</b> The manuscript placebo-gap figures <code>*_tau5.jpg</code> draw only placebos with pre-RMSPE ≤ 5× the treated unit, but the <b>p-values in the text and tables use all placebos</b> (treated unit included, no pre-fit filter). <code>*_all.jpg</code> draws every placebo.</span></div>
+  <div class="controls">
+    <label><span class="ko">분석</span><span class="en">Analysis</span><select id="g-analysis"></select></label>
+    <label><span class="ko">지점·단위</span><span class="en">Site / unit</span><select id="g-site"></select></label>
+    <label class="grow"><span class="ko">검색</span><span class="en">Search</span><input id="g-text" type="search" placeholder="path, loo, placebo…"></label>
+    <label class="check"><input id="g-thesis" type="checkbox"><span class="ko">논문 그림만</span><span class="en">Thesis figures only</span></label>
+    <label class="check"><input id="g-tau5" type="checkbox"><span class="ko">원고용 위약 격차(tau5)만</span><span class="en">Manuscript placebo gaps (tau5) only</span></label>
+  </div>
+  <p class="small" id="g-count" aria-live="polite"></p>
+  <div class="gallery" id="g-grid"></div>
+</main>
+</body>
+</html>

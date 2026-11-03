@@ -7,21 +7,34 @@
 ##   (3) LOO: loo_mode = "twostep" → 양의 가중치 도너를 하나씩 빼고 nested로 V·W 모두 재추정 (method = "stdv" 유지, CV 아님)
 ##   (4) 사후 창: 일반 지점 51–96주, 공사 지점(1·2·10) 51–72주. 직렬 실행(병렬 없음).
 ##   시점 위약은 기존 결과가 이미 nested V·W 재추정이므로 다시 돌리지 않음. 플롯도 만들지 않음(결과 확정 후 별도).
-## 실행: cd ~/Thesis/0614/0628/road_scm_v4 && caffeinate -i Rscript run_nested53_abadie2015_placebo.R          # 12지점
-##       caffeinate -i Rscript run_nested53_abadie2015_placebo.R 4,6,8,12                                      # 일부
+## Run (from repo root): Rscript code/03_road_scm/run_nested53_abadie2015_placebo.R           # 12지점
+##       Rscript code/03_road_scm/run_nested53_abadie2015_placebo.R 4,6,8,12                         # 일부
+##   (macOS only, optional: prefix with `caffeinate -i` to keep the machine awake during long runs)
+## RESTRICTED DATA REQUIRED (restricted data required): road detector inputs (Seoul TOPIS sites and national ITS link counts) are not redistributed (licence pending).
+## Required input files (place under RAW_DIR):
+##   - 77_units/0628_6to10_df_with_new_covariates_fixed.csv   (analysis panel; path set in config_v4.R)
+## Also required: the earlier v4 run whose settings/donor pools are restored (produced by run_scm_v4.R, not in this repo):
+##   - OUT_DIR/runs/v4_stdv_lanes_speed_20261003-215235_566ddb10_ubu6/{run_info.json, donor_pool_main.csv, donor_pool_full.csv}
+##     (override the folder with env var SRC_RUN)
 suppressMessages({ library(dplyr); library(readr); library(jsonlite) })
-HERE <- path.expand("~/Thesis/0614/0628/road_scm_v4"); setwd(HERE)
-source("config_v4.R"); source("scm_v4_functions.R")
-SRC <- file.path(HERE, "runs", "v4_stdv_lanes_speed_20261003-215235_566ddb10_ubu6")
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # non-redistributed road inputs
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "03_road_scm"))
+CODE_DIR  <- file.path(REPO_ROOT, "code", "03_road_scm")
+source(file.path(CODE_DIR, "config_v4.R")); source(file.path(CODE_DIR, "scm_v4_functions.R"))
+SRC <- Sys.getenv("SRC_RUN", file.path(OUT_DIR, "runs", "v4_stdv_lanes_speed_20261003-215235_566ddb10_ubu6"))
+.portable <- CFG[c("panel_csv", "out_root")]
 old <- fromJSON(file.path(SRC, "run_info.json"), simplifyVector = FALSE)$config
 for (k in names(old)) { v <- old[[k]]; CFG[[k]] <- if (k == "predictors") v else if (is.list(v)) unlist(v) else v }
+CFG$panel_csv <- .portable$panel_csv; CFG$out_root <- .portable$out_root   # restored run_info.json holds the original machine's paths → keep portable paths (path only, no settings change)
 CFG$placebo_tau <- as.numeric(CFG$placebo_tau)
 CFG$method <- "stdv"; CFG$loo_mode <- "twostep"; CFG$run_tag <- "v4_stdv_ex107_201_nested53_abadie2015pl"
 CFG$post_main <- 51:72; CFG$post_full <- 51:96
 EXCL <- c(107L, 201L); SHORT_UNITS <- c(1L, 2L, 10L)
 units <- 1:12
 args <- commandArgs(trailingOnly = TRUE); if (length(args)) units <- as.integer(strsplit(args[1], ",")[[1]])
-out <- file.path(HERE, "runs", paste0(CFG$run_tag, "_", format(Sys.time(), "%Y%m%d-%H%M%S"))); dir.create(out, recursive = TRUE)
+out <- file.path(OUT_DIR, "runs", paste0(CFG$run_tag, "_", format(Sys.time(), "%Y%m%d-%H%M%S"))); dir.create(out, recursive = TRUE)
 logf <- file.path(out, "run.log")
 logmsg <- function(...) { s <- paste0(format(Sys.time(), "%H:%M:%S "), paste0(...)); cat(s, "\n"); cat(s, "\n", file = logf, append = TRUE) }
 write_json(list(config = CFG, units = units, exclude = EXCL, short_units = SHORT_UNITS, started = format(Sys.time()),

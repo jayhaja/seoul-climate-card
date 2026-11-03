@@ -6,10 +6,20 @@
 ## 진단: (1) 공간 위약 — Abadie et al.(2015): 위약 대상만 빼고 처치 OD를 도너에 포함, 사전 적합도 필터 없음(5배 제외는 민감도)
 ##       (2) LOO — 양의 가중치 도너를 하나씩 빼고 V·W 재추정  (3) 시점 위약 — Rmd와 같은 가짜 시점(사전 기간 55·70·85% 분위)
 ## 최적화: 모든 적합에서 기본(Nelder-Mead) 실패 시 optimxmethod = "All", 그다음 genoud = TRUE (실패·사용 방법 기록)
-## 출력: ~/Thesis/0614/public.transportation/0702/SCM_여의도_nested/excl_direct_exposure/
-## 실행: cd ~/Documents/thesis_summary && caffeinate -i Rscript SCM_여의도_nested_excl_exposed.R
+## 출력: OUT_DIR/excl_direct_exposure[_<EXCL>]/ (OUT_DIR 기본 output/04_yeouido_transit_scm/SCM_여의도_nested/)
+## Run (from repo root): Rscript code/04_yeouido_transit_scm/SCM_여의도_nested_excl_exposed.R   (macOS는 앞에 caffeinate -i 선택)
+## RESTRICTED DATA REQUIRED (restricted data required): smart-card OD data (Data Safety Center, export-restricted) are not in this repository.
+## Required input files (place under RAW_DIR):
+##   - od_with_pop_sum_without_holiday.csv
+##   - df_scm_g.csv
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted data required
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "04_yeouido_transit_scm", "SCM_여의도_nested"))
+CODE_DIR  <- file.path(REPO_ROOT, "code", "04_yeouido_transit_scm")
+## Rmd setup 청크는 위 REPO_ROOT·RAW_DIR·OUT_DIR가 이미 있으면 그대로 사용(HERE <- OUT_DIR, PLOT <- OUT_DIR/plots).
 EXCL <- as.integer(strsplit(Sys.getenv("EXCL", "22,23,54,55,56"), ",")[[1]])   # 예: EXCL=23,55 (서울행만)
-rmd <- path.expand("~/Documents/thesis_summary/SCM_여의도_nested_사전전체.Rmd")
+rmd <- file.path(CODE_DIR, "SCM_여의도_nested_사전전체.Rmd")
 L <- readLines(rmd, encoding = "UTF-8")
 chunk <- function(label) {
   s <- grep(sprintf("^```\\{r %s[,}]", label), L); stopifnot(length(s) == 1)

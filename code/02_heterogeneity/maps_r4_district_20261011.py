@@ -1,12 +1,22 @@
 ## maps_r4_district_20261011.py — r4 원값 모형(users ~ D + log_pop, r=4) 출발 자치구별 총량 효과 지도 (KO·EN)
-## 입력: scm_results/R2_r4_자치구_지도데이터_20261011/district_effects.csv (effect_pct = 100·Σ격차/Σ반사실, 점추정만)
-## 경계: maps_EN.py 와 동일(0702/읍면동/emd.shp → 공시지가 csv 의 gu 로 dissolve; 둘 다 읽기만 함)
+## 입력: RAW_DIR/R2_r4_자치구_지도데이터_20261011/district_effects.csv (effect_pct = 100·Σ격차/Σ반사실, 점추정만)
+## 경계: maps_EN.py 와 동일(RAW_DIR/읍면동/emd.shp → 공시지가 csv 의 gu 로 dissolve; 둘 다 읽기만 함)
 import os, pandas as pd, geopandas as gpd, matplotlib.pyplot as plt, matplotlib as mpl
 from matplotlib import font_manager as fm
-BASE = os.environ.get("BASE", "/Users/maeg")
-P0702 = f"{BASE}/Thesis/0614/public.transportation/0702"; TS = f"{BASE}/Documents/thesis_summary"
-SHP = f"{P0702}/읍면동/emd.shp"; GUCSV = f"{P0702}/집중지수_0727/공시지가_법정동_2023.csv"
-SRC = f"{TS}/scm_results/R2_r4_자치구_지도데이터_20261011/district_effects.csv"; OUT = f"{TS}/figures"
+## RESTRICTED DATA REQUIRED (restricted data required): district_effects.csv 는 스마트카드 OD 적합에서 집계한 파일(생성 스크립트는 저장소에 없음).
+## Required input files (place under RAW_DIR):
+##   - R2_r4_자치구_지도데이터_20261011/district_effects.csv   (district_name, effect_pct, gap_weekly_total, n_od)
+##   - 읍면동/emd.shp (+ .shx/.dbf/.prj; cp949)                  (읍면동 경계, 공개 자료이나 저장소에 없음)
+##   - 집중지수_0727/공시지가_법정동_2023.csv                     (emd_cd → gu 대응, 공개 자료이나 저장소에 없음)
+## Run (from repo root): python3 code/02_heterogeneity/maps_r4_district_20261011.py
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT = os.environ.get("REPO_ROOT", ".")                                   # run from repo root
+BASE = os.environ.get("BASE")                                                  # legacy override: now treated as RAW_DIR
+RAW_DIR = os.environ.get("RAW_DIR", BASE or os.path.join(REPO_ROOT, "data/restricted"))   # restricted / non-redistributed inputs
+OUT_DIR = os.environ.get("OUT_DIR", os.path.join(REPO_ROOT, "output", "02_heterogeneity/maps_r4_district_20261011"))
+SHP = f"{RAW_DIR}/읍면동/emd.shp"; GUCSV = f"{RAW_DIR}/집중지수_0727/공시지가_법정동_2023.csv"
+SRC = f"{RAW_DIR}/R2_r4_자치구_지도데이터_20261011/district_effects.csv"; OUT = OUT_DIR
+os.makedirs(OUT, exist_ok=True)
 for p in ["/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc", "/System/Library/Fonts/AppleSDGothicNeo.ttc"]:
     if os.path.exists(p): fm.fontManager.addfont(p); mpl.rcParams["font.family"] = fm.FontProperties(fname=p).get_name(); break
 mpl.rcParams["axes.unicode_minus"] = False

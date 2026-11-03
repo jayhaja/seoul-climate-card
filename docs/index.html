@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>기후동행카드 효과 분석 | Seoul Climate Card</title>
+<meta name="description" content="서울시 기후동행카드(2024-01-27 시행)의 대중교통·도로 교통 효과 — 석사 논문 재현 자료">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<main>
+  <h1><span class="ko">서울시 기후동행카드는 대중교통 이용을 늘리고 승용차 통행을 줄였는가</span><span class="en">Did Seoul's Climate Card raise transit use and cut car traffic?</span></h1>
+  <p class="lead">
+    <span class="ko">기후동행카드(2024-01-27 시행)의 효과를 합성통제법(SCM)과 일반화 합성통제법(gsynth)으로 추정한 석사 논문의 공개 재현 자료입니다. 원자료(교통카드 OD)는 데이터안전센터 반출 제한 자료라 포함하지 않으며, 이 사이트의 수치는 모두 저장소 <code>results/</code>의 집계 CSV에서 가져왔습니다.</span>
+    <span class="en">Replication site for a master's thesis that estimates the effect of the Climate Companion Card (launched 27 Jan 2024) with synthetic control (SCM) and generalised synthetic control (gsynth). Raw smart-card OD data are export-restricted and not included; every number here comes from the aggregated CSVs in <code>results/</code>.</span>
+  </p>
+
+  <h2><span class="ko">핵심 결과</span><span class="en">Key results</span></h2>
+  <div class="card-grid">
+    <div class="card">
+      <div class="label"><span class="ko">① 서울 내부 대중교통 (409 OD, 46주)</span><span class="en">① Within-Seoul transit (409 ODs, 46 weeks)</span></div>
+      <div class="num pos">+1.568%</div>
+      <div class="small"><span class="ko">반사실 대비, 95% CI 0.823–2.313</span><span class="en">vs counterfactual, 95% CI 0.823–2.313</span></div>
+      <a class="more" href="citywide.html"><span class="ko">자세히</span><span class="en">Details</span> →</a>
+    </div>
+    <div class="card">
+      <div class="label"><span class="ko">③ 여의도 연결도로 12개 방향</span><span class="en">③ 12 directional road links, Yeouido</span></div>
+      <div class="num neg">4 / 12</div>
+      <div class="small"><span class="ko">p = .019로 유의하게 감소 (−2.18% ~ −10.03%)</span><span class="en">significant decreases at p = .019 (−2.18% to −10.03%)</span></div>
+      <a class="more" href="road-scm.html"><span class="ko">자세히</span><span class="en">Details</span> →</a>
+    </div>
+    <div class="card">
+      <div class="label"><span class="ko">④ 여의도동 출발 대중교통 (도너 79)</span><span class="en">④ Transit from Yeouido-dong (79 donors)</span></div>
+      <div class="num pos">+4.98%</div>
+      <div class="small"><span class="ko">위약 순위 1/80, p = .0125</span><span class="en">placebo rank 1/80, p = .0125</span></div>
+      <a class="more" href="yeouido.html"><span class="ko">자세히</span><span class="en">Details</span> →</a>
+    </div>
+    <div class="card">
+      <div class="label"><span class="ko">⑤ 서울 전역 도로 (TOPIS 149개 지점)</span><span class="en">⑤ Seoul-wide roads (149 TOPIS sites)</span></div>
+      <div class="num neg">−1.37%</div>
+      <div class="small"><span class="ko">사전 추세 진단 실패 — 기술적 결과</span><span class="en">pre-trend diagnostics fail — descriptive only</span></div>
+      <a class="more" href="seoul-road.html"><span class="ko">자세히</span><span class="en">Details</span> →</a>
+    </div>
+  </div>
+  <p class="source"><span class="ko">출처</span><span class="en">Sources</span>:
+    <code>results/01_citywide_gsynth/R2_normal_final_20261011/windows.csv</code> ·
+    <code>results/03_road_scm/summary/road_abadie2015_placebo_loo_cf.csv</code> ·
+    <code>results/04_yeouido_transit_scm/nested79/</code> ·
+    <code>results/05_seoul_road_gsynth/seoul_road_effects.csv</code></p>
+
+  <h2><span class="ko">분석 구성</span><span class="en">Analyses</span></h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>#</th><th><span class="ko">분석</span><span class="en">Analysis</span></th><th><span class="ko">처치 / 비교</span><span class="en">Treated / controls</span></th><th><span class="ko">방법</span><span class="en">Method</span></th></tr></thead>
+    <tbody>
+      <tr><td>①</td><td><a href="citywide.html"><span class="ko">서울 내부 대중교통</span><span class="en">Within-Seoul transit</span></a></td><td><span class="ko">OD 409쌍 / 도너 OD 941</span><span class="en">409 ODs / 941 donor ODs</span></td><td>gsynth (fect, r = 4)</td></tr>
+      <tr><td>②</td><td><a href="heterogeneity.html"><span class="ko">이질성</span><span class="en">Heterogeneity</span></a></td><td><span class="ko">①의 409쌍을 특성별 분위로</span><span class="en">①'s 409 ODs by characteristic</span></td><td><span class="ko">재집계 + 쌍체 부트스트랩</span><span class="en">re-aggregation + paired bootstrap</span></td></tr>
+      <tr><td>③</td><td><a href="road-scm.html"><span class="ko">여의도 연결도로</span><span class="en">Yeouido road links</span></a></td><td><span class="ko">12개 방향 링크 / 서울 밖 도너 53</span><span class="en">12 links / 53 non-Seoul donors</span></td><td>SCM (nested V)</td></tr>
+      <tr><td>④</td><td><a href="yeouido.html"><span class="ko">여의도동 출발 대중교통</span><span class="en">Transit from Yeouido-dong</span></a></td><td><span class="ko">OD 1 / 도너 79</span><span class="en">1 OD / 79 donors</span></td><td>SCM (nested V)</td></tr>
+      <tr><td>⑤</td><td><a href="seoul-road.html"><span class="ko">서울 전역 도로</span><span class="en">Seoul-wide roads</span></a></td><td><span class="ko">TOPIS 149개 지점 / 도너 53</span><span class="en">149 sites / 53 donors</span></td><td>gsynth (CV r)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2><span class="ko">SCM 추론 규칙</span><span class="en">SCM inference rules</span></h2>
+  <ul>
+    <li><span class="ko">검정통계량은 처치 후/처치 전 RMSPE 비율 (Abadie, Diamond &amp; Hainmueller 2015).</span><span class="en">Test statistic: post-/pre-treatment RMSPE ratio (Abadie, Diamond &amp; Hainmueller 2015).</span></li>
+    <li><span class="ko">위약 도너 풀에 처치 단위를 포함하고, p = (1 + 처치보다 비율이 크거나 같은 위약 수) / (1 + 위약 수).</span><span class="en">The treated unit is included in each placebo's donor pool; p = (1 + #placebos with ratio ≥ treated) / (1 + #placebos).</span></li>
+    <li><span class="ko">사전 적합도 필터 없음. 사전 RMSPE 5배 이하 위약만 쓰는 결과는 민감도.</span><span class="en">No pre-fit filter; restricting to placebos with pre-RMSPE ≤ 5× is a sensitivity check.</span></li>
+  </ul>
+
+  <h2><span class="ko">둘러보기</span><span class="en">Explore</span></h2>
+  <div class="card-grid">
+    <a class="card" href="results.html"><b><span class="ko">결과 표 탐색</span><span class="en">Results explorer</span></b><div class="small"><span class="ko">results/ CSV 95개를 정렬·필터</span><span class="en">Sort and filter the 95 CSVs in results/</span></div></a>
+    <a class="card" href="gallery.html"><b><span class="ko">그림 갤러리</span><span class="en">Figure gallery</span></b><div class="small"><span class="ko">분석·지점별 필터, 클릭 확대</span><span class="en">Filter by analysis and site, click to enlarge</span></div></a>
+    <a class="card" href="data.html"><b><span class="ko">자료·한계</span><span class="en">Data &amp; limitations</span></b><div class="small"><span class="ko">자료 접근, 재현 방법, 해석 시 주의점</span><span class="en">Data access, reproduction, caveats</span></div></a>
+  </div>
+</main>
+</body>
+</html>

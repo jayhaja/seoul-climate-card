@@ -1,5 +1,12 @@
 # Native fect diagnostics, fixed r=4. Run by user, not by code generation.
 # Main ATT B1000 is already complete; diagnostic B200 is a separate run.
+# Run (from repo root): Rscript code/01_citywide_gsynth/R2_r4_Xu권고진단_20261010.R [ALL|POINT|PLACEBO|LOO]
+## RESTRICTED DATA REQUIRED (restricted data required): this script needs files that are not
+## distributed (smart-card OD data, Data Safety Center export-restricted).
+## Required input files (place under RAW_DIR):
+##   - panels/d_w30_no과천.rds                 (OD x week panel built from smart-card OD data; builder script not in this repo)
+##   - od_with_pop_sum_without_holiday.csv     (OD-level weekly users + population, holiday weeks removed)
+## Also requires the helper R2_fect_가중CV_도구_20261010.R next to this script (NOT in this repo; see README).
 suppressPackageStartupMessages({library(readr);library(dplyr)})
 script<-normalizePath(sub('^--file=','',grep('^--file=',commandArgs(FALSE),value=TRUE)[1]))
 helper_path<-file.path(dirname(script),'R2_fect_가중CV_도구_20261010.R')
@@ -15,8 +22,12 @@ fingerprint<-function(x){tmp<-tempfile();on.exit(unlink(tmp));saveRDS(x,tmp,vers
 original_md5<-fingerprint(original_sources)
 engine_id<-paste0('PATCHED_',patch_id,'_fect',fect_version,'_h',substr(helper_md5,1,10),'_src',substr(original_md5,1,10))
 cat('[ENGINE]',engine_id,'\n')
-root<-path.expand(Sys.getenv('ROOT','~/Thesis/0614/public.transportation/0702'))
-out_base<-path.expand(Sys.getenv('OUTDIR',file.path(root,'scm_results/R2_r4_Xu권고진단_20261010')))
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", Sys.getenv("ROOT", file.path(REPO_ROOT, "data/restricted")))   # restricted data required
+OUT_DIR   <- Sys.getenv("OUT_DIR", Sys.getenv("OUTDIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth/R2_r4_Xu권고진단_20261010")))
+root<-path.expand(RAW_DIR)
+out_base<-path.expand(OUT_DIR)
 out<-file.path(out_base,engine_id)
 d<-readRDS(file.path(root,'panels/d_w30_no과천.rds'));tr<-unique(d$unit_id[d$D==1])
 needed <- c("unit_id", "week_index", "week", "ym", "origin_region", "origin_sigungu", "origin_dong", "pop_total", "pop_youth", "youth_ratio", "이용자수_주총합")

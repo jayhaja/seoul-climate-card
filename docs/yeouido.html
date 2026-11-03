@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>여의도 대중교통 SCM | Seoul Climate Card</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<main>
+  <h1><span class="ko">④ 여의도동 출발 대중교통 SCM (도너 79)</span><span class="en">④ SCM for public transport from Yeouido-dong (79 donors)</span></h1>
+  <p class="lead"><span class="ko">여의도동 출발 대중교통 통행(OD 단위 1개)을 처치 단위로, 카드 사용 범위 밖 OD 79개를 도너로 합성통제를 추정했습니다. 도로 분석 ③과 같은 지역에서 대중교통 쪽 변화를 확인하는 분석입니다.</span><span class="en">Public transport trips from Yeouido-dong (one OD unit) are compared with a synthetic control built from 79 out-of-scope OD donors — the transit counterpart of the road analysis ③.</span></p>
+
+  <h2><span class="ko">설계</span><span class="en">Design</span></h2>
+  <ul>
+    <li><span class="ko">예측변수: 환승 비율, 출발동 인구, 이용자 수 5개 구간 평균. V·W nested 최적화. 직접 노출 가능성이 있는 도너 2개를 제외해 81 → 79.</span><span class="en">Predictors: transfer share, origin population, five block means of users; nested V and W. Two possibly exposed donors are dropped (81 → 79).</span></li>
+    <li><span class="ko">추론: 사후/사전 RMSPE 비율(Abadie et al. 2015). 위약마다 처치 단위를 도너에 포함, 필터 없음 → p = 순위/80. 사전 RMSPE 5배 이하만 쓰는 결과는 민감도.</span><span class="en">Inference: post/pre RMSPE ratio (Abadie et al. 2015); the treated unit joins each placebo's donor pool; no filter → p = rank/80. Restricting to pre-RMSPE ≤ 5× is a sensitivity check.</span></li>
+    <li><span class="ko">효과율: 100 × Σ사후 격차 / Σ사후 합성값.</span><span class="en">Effect % = 100 × Σ post gap / Σ post synthetic.</span></li>
+  </ul>
+
+  <h2><span class="ko">결과</span><span class="en">Results</span></h2>
+  <div class="card-grid">
+    <div class="card"><div class="label"><span class="ko">반사실 대비</span><span class="en">vs counterfactual</span></div><div class="num pos">+4.98%</div><div class="small">ATT 1,154.0 / <span class="ko">주</span><span class="en">week</span></div></div>
+    <div class="card"><div class="label"><span class="ko">위약 p (전체 79 + 처치)</span><span class="en">Placebo p (all 79 + treated)</span></div><div class="num">.0125</div><div class="small"><span class="ko">순위 1/80</span><span class="en">rank 1 of 80</span></div></div>
+    <div class="card"><div class="label"><span class="ko">민감도 p (≤5배)</span><span class="en">Sensitivity p (≤5×)</span></div><div class="num">.0127</div><div class="small"><span class="ko">위약 78개, 순위 1</span><span class="en">78 placebos, rank 1</span></div></div>
+    <div class="card"><div class="label">LOO</div><div class="num">+3.81 – +5.52%</div><div class="small"><span class="ko">양의 가중치 도너 5개 각각 제외</span><span class="en">each of 5 positive-weight donors dropped</span></div></div>
+  </div>
+  <p class="source"><span class="ko">출처</span><span class="en">Sources</span>:
+    <a href="results.html?file=results/04_yeouido_transit_scm/nested79/placebo_pvals_D79_nested.csv"><code>nested79/placebo_pvals_D79_nested.csv</code></a> ·
+    <a href="results.html?file=results/04_yeouido_transit_scm/nested79/loo_sensitivity_D79_nested_cf.csv"><code>nested79/loo_sensitivity_D79_nested_cf.csv</code></a> ·
+    <a href="results.html?file=results/04_yeouido_transit_scm/nested79/in_time_summary_D79_nested.csv"><code>nested79/in_time_summary_D79_nested.csv</code></a></p>
+  <p class="small"><span class="ko">+4.98%는 nested79 폴더에 단일 값으로 저장되어 있지 않아 <code>loo_sensitivity_D79_nested_cf.csv</code>에서 계산합니다: 본 ATT = ATT − delta_ATT = 1,154.0; 사후 관측 평균 = ATT × (1 + 100/cf_pct) = 24,317.1; 1,154.0 / (24,317.1 − 1,154.0) = 4.982% (5개 행 모두 동일).</span><span class="en">The +4.98% is not stored as a single value in nested79/; it is derived from <code>loo_sensitivity_D79_nested_cf.csv</code>: main ATT = ATT − delta_ATT = 1,154.0; post observed mean = ATT × (1 + 100/cf_pct) = 24,317.1; 1,154.0 / (24,317.1 − 1,154.0) = 4.982% (identical across all five rows).</span></p>
+
+  <h3><span class="ko">시점 위약과 사양 민감도</span><span class="en">In-time placebos and specification</span></h3>
+  <ul>
+    <li><span class="ko">가짜 시행 시점 27·35·42주: 효과 +1.62%, +2.42%, +2.01% (사전 기간 안에서도 양의 격차).</span><span class="en">Fake start weeks 27, 35, 42: +1.62%, +2.42%, +2.01% (positive gaps even inside the pre-period).</span></li>
+    <li><span class="ko">교차검증 가중치 사양(adhcv): +5.53%, p = .038.</span><span class="en">Cross-validated V (adhcv): +5.53%, p = .038.</span> <a href="results.html?file=results/04_yeouido_transit_scm/adhcv79/summary_D79_adhcv.csv"><code>adhcv79/summary_D79_adhcv.csv</code></a></li>
+  </ul>
+
+  <div class="fig-row">
+    <figure><img src="assets/figures/yeouido_transit_scm/2.scm_gap_D79_nested.jpg" alt="" loading="lazy"><figcaption><span class="ko">격차 (관측 − 합성)</span><span class="en">Gap (observed − synthetic)</span></figcaption></figure>
+    <figure><img src="assets/figures/yeouido_transit_scm/4.placebo_gaps_D79_nested_tau5.jpg" alt="" loading="lazy"><figcaption><span class="ko">위약 격차(원고용, ≤5배 위약만 표시). p = .0125는 위약 전체 기준.</span><span class="en">Placebo gaps (manuscript; only ≤ 5× placebos drawn). p = .0125 uses all placebos.</span></figcaption></figure>
+    <figure><img src="assets/figures/yeouido_transit_scm/10.placebo_hist_D79_nested_all.jpg" alt="" loading="lazy"><figcaption><span class="ko">RMSPE 비율 분포 (위약 전체)</span><span class="en">RMSPE-ratio distribution (all placebos)</span></figcaption></figure>
+  </div>
+  <p><a href="gallery.html?analysis=yeouido"><span class="ko">전체 그림 보기 →</span><span class="en">All figures →</span></a></p>
+
+  <h2><span class="ko">코드</span><span class="en">Code</span></h2>
+  <p><a href="https://github.com/jayhaja/seoul-climate-card/tree/main/code/04_yeouido_transit_scm"><code>code/04_yeouido_transit_scm/</code></a> — <span class="ko">본 결과: <code>SCM_여의도_nested79_main.R</code>. 교통카드 OD 자료 필요(반출 제한).</span><span class="en">headline run: <code>SCM_여의도_nested79_main.R</code>; needs the restricted OD data.</span></p>
+</main>
+</body>
+</html>

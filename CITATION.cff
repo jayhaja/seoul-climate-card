@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use these materials, please cite them as below."
+type: dataset
+title: "Seoul Climate Card (기후동행카드): replication materials for effects on public transport use and car traffic"
+abstract: >-
+  Code, aggregated results and figures for a master's thesis evaluating Seoul's
+  Climate Companion Card (launched 2024-01-27) with generalised synthetic control
+  (409 within-Seoul OD pairs; 149 TOPIS road sites) and synthetic control
+  (12 directional road links around Yeouido; transit from Yeouido-dong, 79 donors).
+  Raw smart-card OD data are export-restricted and not included.
+authors:
+  - alias: jayhaja
+repository-code: "https://github.com/jayhaja/seoul-climate-card"
+url: "https://jayhaja.github.io/seoul-climate-card/"
+license:
+  - MIT
+  - CC-BY-4.0
+date-released: "2026-11-03"
+keywords:
+  - Seoul
+  - Climate Card
+  - public transport
+  - synthetic control
+  - generalized synthetic control
+  - gsynth

@@ -3,15 +3,22 @@
 #  유형마다 (1) rolling CV(1se, GMSPE)로 r 선택 + GMSPE 최소 r 기록 (2) 그 r로 부트스트랩 ATT (3) 위약검정(처치 전 마지막 4주) (4) 처치 전 F·동등성 검정
 #  결과변수 OUTCOME: level(대/시, 기본) 또는 index(지점별 처치 전 평균 = 100인 지수 → 효과가 처치 전 대비 %p로 읽힘)
 #  R_MODE: cv(기본, 1se 적용 r) / min(GMSPE 최소 r) / 숫자(고정 r)
-# 실행(직렬): cd ~/Documents/thesis_summary && Rscript _review/seoul_road_gsynth_bytype_20261103.R
-#        지수:  OUTCOME=index Rscript _review/seoul_road_gsynth_bytype_20261103.R
+# Run (from repo root, 직렬): Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_bytype_20261103.R
+#        지수:  OUTCOME=index Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_bytype_20261103.R
 #        GMSPE 최소 r: R_MODE=min Rscript ...      유형 일부만: TYPES=C,D Rscript ...
+## RESTRICTED DATA REQUIRED (restricted data required): TOPIS 도로 검지기 교통량 — not redistributed (licence pending).
+## Required input files (place under RAW_DIR):
+##   - panel_seoul176_donor53_6to9.csv   (TOPIS 서울 176개 지점 + 서울 밖 도너 53개 링크 주간 패널; 파이썬으로 구성, 생성 스크립트는 저장소에 없음)
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", file.path(REPO_ROOT, "data/restricted"))   # restricted / non-redistributed inputs
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "05_seoul_road_gsynth/서울전역_도로_gsynth_20261103/bytype"))
 suppressPackageStartupMessages({ library(fect); library(dplyr) })
-base <- path.expand('~/Documents/thesis_summary'); out <- file.path(base, 'scm_results/서울전역_도로_gsynth_20261103/bytype'); dir.create(out, showWarnings = FALSE, recursive = TRUE)
+out <- OUT_DIR; dir.create(out, showWarnings = FALSE, recursive = TRUE)
 NB <- as.integer(Sys.getenv('NB', '200')); OUTCOME <- Sys.getenv('OUTCOME', 'level'); R_MODE <- Sys.getenv('R_MODE', 'cv')
 TYPES <- strsplit(Sys.getenv('TYPES', 'A,B,C,D,F'), ',')[[1]]
 PRE_F <- as.integer(Sys.getenv('PRE_F', '12'))   # F·동등성 검정 구간: 처치 직전 PRE_F주 (fect는 처치 지점 수 > 검정 주 수여야 F 계산)
-P0 <- read.csv(file.path(dirname(out), 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM') %>%
+P0 <- read.csv(file.path(RAW_DIR, 'panel_seoul176_donor53_6to9.csv'), fileEncoding = 'UTF-8-BOM') %>%
   filter(week_index <= 96) %>% mutate(D = as.integer(is_treat == 1 & week_index >= 51))
 if (OUTCOME == 'index') P0 <- P0 %>% group_by(unit_id) %>% mutate(y = 100 * traffic / mean(traffic[week_index < 51], na.rm = TRUE)) %>% ungroup() else P0$y <- P0$traffic
 cat('outcome =', OUTCOME, '| r mode =', R_MODE, '| nboots =', NB, '\n')

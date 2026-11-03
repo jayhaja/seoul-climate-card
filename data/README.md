@@ -10,3 +10,7 @@
 - Resident registration population (행정안전부 주민등록 인구통계)
 - KTDB transport accessibility indicators; Seoul Institute 2019-BR-26 accessibility index
 - Climate Card service coverage: Seoul Metropolitan Government announcements
+
+## Running the code with restricted data
+Place restricted / non-redistributed inputs under `data/restricted/` (git-ignored) or point the `RAW_DIR` environment variable at them. Each script lists the exact files it needs in a `RESTRICTED DATA REQUIRED` header; see also `code/*/README.md`.
+원자료와 중간 패널은 `data/restricted/`(git 제외) 또는 환경변수 `RAW_DIR` 위치에 둡니다. 필요한 파일 이름은 각 스크립트 상단과 `code/*/README.md`에 있습니다.

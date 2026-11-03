@@ -2,6 +2,14 @@
 ## Native fect unit bootstrap, 200 x 5 independent seeded chunks. Never pool chunk confidence limits.
 ## Percent = total gap / total counterfactual, recomputed in each resampled panel.
 ## Conditional on chosen specification and rank; original 409-unit population total = 409 * mean unit effect.
+# Run (from repo root): Rscript code/01_citywide_gsynth/R2_원값_인구_비가중_r4_BOOT_20261010.R [ALL|POINT|BOOT]
+## RESTRICTED DATA REQUIRED (restricted data required): this script needs files that are not
+## distributed (smart-card OD data, Data Safety Center export-restricted).
+## Required input files (place under RAW_DIR):
+##   - panels/d_w30_no과천.rds                 (OD x week panel built from smart-card OD data; builder script not in this repo)
+##   - od_with_pop_sum_without_holiday.csv     (OD-level weekly users + population, holiday weeks removed)
+## Optional: DIAG_DIR/<engine_id>/policy_r4.rds (main-model diagnostic run, script not in this repo) for a point cross-check.
+## Also requires the helper R2_fect_가중CV_도구_20261010.R next to this script (NOT in this repo; see README).
 suppressPackageStartupMessages({library(readr);library(dplyr)})
 script<-normalizePath(sub('^--file=','',grep('^--file=',commandArgs(FALSE),value=TRUE)[1]))
 helper_path<-file.path(dirname(script),'R2_fect_가중CV_도구_20261010.R')
@@ -17,8 +25,14 @@ fingerprint<-function(x){tmp<-tempfile();on.exit(unlink(tmp));saveRDS(x,tmp,vers
 original_md5<-fingerprint(original_sources)
 engine_id<-paste0('PATCHED_',patch_id,'_fect',fect_version,'_h',substr(helper_md5,1,10),'_src',substr(original_md5,1,10))
 cat('[ENGINE]',engine_id,'\n')
-root<-path.expand(Sys.getenv('ROOT','~/Thesis/0614/public.transportation/0702'))
-out_base<-path.expand(Sys.getenv('OUTDIR',file.path(root,'scm_results/R2_원값_인구_비가중_r4_BOOT_20261010')))
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", Sys.getenv("ROOT", file.path(REPO_ROOT, "data/restricted")))   # restricted data required
+OUT_DIR   <- Sys.getenv("OUT_DIR", Sys.getenv("OUTDIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth/R2_원값_인구_비가중_r4_BOOT_20261010")))
+# Main-model diagnostic run "R2_원값_인구_비가중_주모형진단_20261010" (producing script NOT in this repo); optional here.
+DIAG_DIR  <- Sys.getenv("DIAG_DIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth/R2_원값_인구_비가중_주모형진단_20261010"))
+root<-path.expand(RAW_DIR)
+out_base<-path.expand(OUT_DIR)
 out<-file.path(out_base,engine_id)
 d<-readRDS(file.path(root,'panels/d_w30_no과천.rds'));tr<-unique(d$unit_id[d$D==1])
 needed <- c("unit_id", "week_index", "week", "ym", "origin_region", "origin_sigungu", "origin_dong", "pop_total", "pop_youth", "youth_ratio", "이용자수_주총합")
@@ -125,7 +139,7 @@ if(file.exists(point_path)){point<-readRDS(point_path)}else{
  run<-r2_fit(engine,make_args(20261010L));stopifnot(run$convergence_ok)
  point<-point_extract(run$fit);point$provenance<-provenance
  # Verify against the diagnostic point estimate, when available, with matching engine identity.
- ref<-file.path(root,'scm_results/R2_원값_인구_비가중_주모형진단_20261010',engine_id,'policy_r4.rds')
+ ref<-file.path(path.expand(DIAG_DIR),engine_id,'policy_r4.rds')
  if(file.exists(ref)){old<-readRDS(ref);stopifnot(identical(old$provenance$engine_id,engine_id),isTRUE(all.equal(unname(point$theta['ATT_count']),old$report$ATT_count,tolerance=1e-7)))}
  atomic_save(point,point_path);rm(run);gc(FALSE)
 }

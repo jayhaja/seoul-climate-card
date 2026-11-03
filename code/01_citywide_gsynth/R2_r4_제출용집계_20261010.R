@@ -1,8 +1,27 @@
 ## Read-only postprocessing of the completed 1000-draw r4 run. No model fitting.
-root<-path.expand('~/Thesis/0614/public.transportation/0702')
+# Run (from repo root): Rscript code/01_citywide_gsynth/R2_r4_제출용집계_20261010.R
+## RESTRICTED DATA REQUIRED (restricted data required): this script needs files that are not
+## distributed (smart-card OD data, Data Safety Center export-restricted).
+## Required input files (place under RAW_DIR):
+##   - panels/d_w30_no과천.rds                 (OD x week panel; builder script not in this repo)
+## Also reads intermediate outputs of other scripts (OD-level, therefore also restricted):
+##   - BOOT_DIR/<engine_id>/point_r4.rds, chunk_01.rds ... chunk_05.rds,
+##     engine_provenance.csv, INFERENCE_NOTES.txt, sessionInfo.txt
+##       <- produced by code/01_citywide_gsynth/R2_원값_인구_비가중_r4_BOOT_20261010.R
+##   - DIAG_DIR/<engine_id>/pre_validation.csv, policy_r1.rds
+##       <- main-model diagnostic run "R2_원값_인구_비가중_주모형진단_20261010" (producing script NOT in this repo)
+## ---- Paths (edit here or set env vars) -------------------------------
+REPO_ROOT <- Sys.getenv("REPO_ROOT", ".")                       # run from repo root
+RAW_DIR   <- Sys.getenv("RAW_DIR", Sys.getenv("ROOT", file.path(REPO_ROOT, "data/restricted")))   # restricted data required
+OUT_DIR   <- Sys.getenv("OUT_DIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth/R2_r4_제출용_20261010"))
+# OUT_DIR of R2_원값_인구_비가중_r4_BOOT_20261010.R (without the engine_id subfolder)
+BOOT_DIR  <- Sys.getenv("BOOT_DIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth/R2_원값_인구_비가중_r4_BOOT_20261010"))
+# Main-model diagnostic run (script not in this repo)
+DIAG_DIR  <- Sys.getenv("DIAG_DIR", file.path(REPO_ROOT, "output", "01_citywide_gsynth/R2_원값_인구_비가중_주모형진단_20261010"))
+root<-path.expand(RAW_DIR)
 engine_id<-'PATCHED_local_weight_v2_cvmax_v1_audit_v1_fect2.4.7_h748c651816_srce78b1e9155'
-b<-file.path(root,'scm_results/R2_원값_인구_비가중_r4_BOOT_20261010',engine_id)
-out<-path.expand('~/Documents/thesis_summary/scm_results/R2_r4_제출용_20261010')
+b<-file.path(path.expand(BOOT_DIR),engine_id)
+out<-path.expand(OUT_DIR)
 dir.create(out,recursive=TRUE,showWarnings=FALSE)
 p<-readRDS(file.path(b,'point_r4.rds'));parts<-lapply(1:5,function(j)readRDS(file.path(b,sprintf('chunk_%02d.rds',j))))
 w<-p$weekly;w$date<-as.Date(w$date);B<-do.call(cbind,lapply(parts,`[[`,'weekly_total'));P<-do.call(cbind,lapply(parts,`[[`,'weekly_pct'))
@@ -44,7 +63,7 @@ g<-do.call(rbind,lapply(1:5,function(k){a<-u[u$size_quintile==k,];data.frame(siz
 write.csv(g,file.path(out,'size_quintiles_POINT_only.csv'),row.names=FALSE)
 concentration<-data.frame(ODs=nrow(u),positive_ODs=sum(u$gap>0),negative_ODs=sum(u$gap<0),top5_positive_weekly_gap=sum(head(u$gap,5)),bottom5_weekly_gap=sum(tail(u$gap,5)),total_weekly_gap=sum(u$gap))
 write.csv(concentration,file.path(out,'concentration_POINT_only.csv'),row.names=FALSE)
-diagdir<-file.path(root,'scm_results/R2_원값_인구_비가중_주모형진단_20261010',engine_id)
+diagdir<-file.path(path.expand(DIAG_DIR),engine_id)
 pre<-read.csv(file.path(diagdir,'pre_validation.csv'));write.csv(pre,file.path(out,'pre_validation_POINT_only.csv'),row.names=FALSE)
 r1<-readRDS(file.path(diagdir,'policy_r1.rds'))
 comparison<-data.frame(r=c(1,4),criterion=c('MSPE_1se','GMSPE_1se'),ATT_count=c(r1$report$ATT_count,p$theta['ATT_count']),effect_pct=c(r1$report$effect_pct_counterfactual,p$theta['effect_pct']),CI_basic_lo=c(NA,summary$basic_lo[summary$window=='full_46weeks' & summary$metric=='effect_pct']),CI_basic_hi=c(NA,summary$basic_hi[summary$window=='full_46weeks' & summary$metric=='effect_pct']),nboots=c(0,1000))
