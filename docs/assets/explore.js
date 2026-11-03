@@ -127,6 +127,49 @@
     });
   }
 
+
+  /* 3b. Road SCM paths: observed vs synthetic, placebo gaps, LOO paths */
+  var roadAll;
+  function drawRoadPaths() {
+    var u = Number($("#r-unit").value), uu = String(u).padStart(2, "0"), only5 = $("#r-tau5").checked;
+    var base = "03_road_scm/unit_" + uu + "/";
+    Promise.all([load(base + "path.csv"), load(base + "placebo_paths.csv"), load(base + "loo_paths_twostep.csv"),
+      load(base + "placebo_results.csv"), roadAll || (roadAll = load("03_road_scm/all_units_summary.csv"))]).then(function (a) {
+      var path = a[0], pp = a[1], lp = a[2], pres = a[3], summ = a[4].find(function (r) { return r.treated_unit === u; });
+      var x = path.map(function (r) { return r.week_index; });
+      var tline = { type: "line", xref: "x", yref: "paper", x0: 50.5, x1: 50.5, y0: 0, y1: 1, line: { color: css("--muted"), width: 1, dash: "dash" } };
+      var xa = { title: { text: t("주 (51주 = 2024-01-29)", "Week (week 51 = 2024-01-29)") } };
+      plot("r-path", [
+        { x: x, y: path.map(function (r) { return r.actual; }), type: "scatter", mode: "lines", name: t("관측", "Observed"), line: { color: series(0), width: 2 } },
+        { x: x, y: path.map(function (r) { return r.synthetic; }), type: "scatter", mode: "lines", name: t("합성", "Synthetic"), line: { color: series(1), width: 2, dash: "dot" } }
+      ], { xaxis: xa, yaxis: { title: { text: t("시간당 교통량 (대/시)", "Hourly volume (veh/h)") } }, shapes: [tline] });
+      var cut = summ.pre_rmspe * 5, keep = {};
+      pres.forEach(function (r) { keep[r.placebo_unit] = !only5 || r.pre_rmspe <= cut; });
+      var byU = {};
+      pp.forEach(function (r) { if (keep[r.placebo_unit]) (byU[r.placebo_unit] = byU[r.placebo_unit] || []).push(r); });
+      var ids = Object.keys(byU), grey = hexA(css("--muted"), 0.35);
+      var traces = ids.map(function (k, i) {
+        return { x: byU[k].map(function (r) { return r.week_index; }), y: byU[k].map(function (r) { return r.gap; }), type: "scatter", mode: "lines",
+          line: { color: grey, width: 1 }, name: "placebo", legendgroup: "pl", showlegend: i === 0, hovertemplate: "placebo " + k + ": %{y:.1f}<extra></extra>" };
+      });
+      traces.push({ x: x, y: path.map(function (r) { return r.gap; }), type: "scatter", mode: "lines", name: t("처치 링크", "Treated link"),
+        line: { color: series(1), width: 2.5 }, hovertemplate: "treated: %{y:.1f}<extra></extra>" });
+      plot("r-gaps", traces, { hovermode: "closest", xaxis: xa, yaxis: { title: { text: t("격차 (관측 − 합성)", "Gap (observed − synthetic)") } }, shapes: [tline] });
+      $("#r-gnote").textContent = t(
+        (only5 ? "사전 RMSPE가 처치 링크의 5배 이하인 위약 " + ids.length + "개만 표시(민감도 보기). " : "위약 " + ids.length + "개 전체 표시. ") + "p값은 항상 위약 전체 기준입니다.",
+        (only5 ? "Showing the " + ids.length + " placebos with pre-RMSPE ≤ 5× the treated link (sensitivity view). " : "Showing all " + ids.length + " placebos. ") + "The p-value always uses all placebos.");
+      var byO = {};
+      lp.forEach(function (r) { (byO[r.omitted] = byO[r.omitted] || []).push(r); });
+      var lt = Object.keys(byO).map(function (k, i) {
+        return { x: byO[k].map(function (r) { return r.week_index; }), y: byO[k].map(function (r) { return r.synthetic; }), type: "scatter", mode: "lines",
+          line: { color: hexA(series(2), 0.6), width: 1 }, name: t("LOO 합성", "LOO synthetic"), legendgroup: "loo", showlegend: i === 0, hovertemplate: "donor " + k + " omitted: %{y:.0f}<extra></extra>" };
+      });
+      lt.push({ x: x, y: path.map(function (r) { return r.actual; }), type: "scatter", mode: "lines", name: t("관측", "Observed"), line: { color: series(0), width: 2 } });
+      lt.push({ x: x, y: path.map(function (r) { return r.synthetic; }), type: "scatter", mode: "lines", name: t("합성 (본 추정)", "Synthetic (main)"), line: { color: series(1), width: 2, dash: "dot" } });
+      plot("r-loopath", lt, { hovermode: "closest", xaxis: xa, yaxis: { title: { text: t("시간당 교통량 (대/시)", "Hourly volume (veh/h)") } }, shapes: [tline] });
+    });
+  }
+
   /* 4. Yeouido transit */
   function drawYeo() {
     Promise.all([load("04_yeouido_transit_scm/nested79/placebo_summary_D79_nested.csv"), load("04_yeouido_transit_scm/nested79/summary_D79_nested.csv"),
@@ -187,18 +230,19 @@
     $("#g-note").textContent = note;
   }
 
-  function redrawAll() { drawCity(); drawHet(); if (roadSummary) drawRoad(); drawYeo(); if (gen.rows.length) drawGen(); }
+  function redrawAll() { drawCity(); drawHet(); if (roadSummary) { drawRoad(); drawRoadPaths(); } drawYeo(); if (gen.rows.length) drawGen(); }
 
   document.addEventListener("DOMContentLoaded", function () {
     if (!window.Plotly || !window.Papa) { document.querySelector("main").insertAdjacentHTML("afterbegin", '<div class="note">Plotly / PapaParse could not be loaded.</div>'); return; }
     $("#c-metric").addEventListener("change", drawCity);
     $("#h-axis").innerHTML = Object.keys(AXES).map(function (k) { return '<option value="' + k + '">' + t(AXES[k][0], AXES[k][1]) + "</option>"; }).join("");
     ["#h-axis", "#h-ci"].forEach(function (s) { $(s).addEventListener("change", drawHet); });
-    $("#r-unit").addEventListener("change", drawRoad);
+    $("#r-unit").addEventListener("change", function () { drawRoad(); drawRoadPaths(); });
+    $("#r-tau5").addEventListener("change", drawRoadPaths);
     ["#g-x", "#g-y", "#g-c", "#g-kind"].forEach(function (s) { $(s).addEventListener("change", drawGen); });
     $("#g-file").addEventListener("change", loadGen);
     drawCity(); drawHet(); drawYeo();
-    fillRoad().then(drawRoad);
+    fillRoad().then(function () { drawRoad(); drawRoadPaths(); });
     fillGenFiles().then(loadGen);
     document.addEventListener("langchange", function () {
       var v = $("#h-axis").value;

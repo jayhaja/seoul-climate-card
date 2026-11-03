@@ -1,14 +1,15 @@
 # Data
 
-## Not included: raw records
-- **Smart-card origin–destination (OD) records** (Ministry of Land, Infrastructure and Transport transit card data, accessed through a secure data centre). The original records are not in this repository and will not be added. Researchers can request access from the data provider.
+## Not included: raw smart-card OD panel
+- **Smart-card origin–destination (OD) records** (Ministry of Land, Infrastructure and Transport transit card data, accessed through a secure data centre). The source records and the full OD × week panel built from them are not in this repository and will not be added. Researchers can request access from the data provider.
 
-## Processed outputs (cleared for export)
-- Everything in `results/` and `figures/` was processed from the OD records and is within the data centre's export approval, including the Yeouido OD path and placebo figures.
-- Processed data files within that approval (e.g. per-OD effects `OD_point_effects.csv`, origin membership tables, observed/synthetic weekly paths for the Yeouido OD) may also be redistributed; they are not yet included in this repository.
+## Included: processed outputs cleared for export
+- Everything in `results/` and `figures/` was produced from the OD records and is within the data centre's export approval.
+- This includes OD-level result files: the observed/synthetic weekly paths and placebo paths for the Yeouido OD (`path_D79_nested.csv`, `placebo_paths_D79_nested.csv`) and the per-OD effects for the 409 within-Seoul ODs (`OD_point_effects.csv`). These are approved for publication. *As of this writing they have not yet been uploaded to `results/`.*
 
-## Not yet included (licence to be confirmed)
-- Road detector counts: Seoul TOPIS sites and donor links outside Seoul (national ITS link IDs). The analysis panels will be added once redistribution terms are confirmed.
+## Road counts
+- Included: per-link weekly paths from the road SCM — observed and synthetic volumes for each treated link (`results/03_road_scm/unit_XX/path.csv`), placebo paths for the donor links (`placebo_paths.csv`) and leave-one-out paths (`loo_paths_twostep.csv`).
+- Not yet included: the full road analysis panels (Seoul TOPIS sites and non-Seoul ITS donor links with covariates).
 
 ## Public sources used
 - Resident registration population statistics (Ministry of the Interior and Safety)

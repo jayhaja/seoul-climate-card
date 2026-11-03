@@ -51,7 +51,15 @@
     <div id="r-loo" class="plot short"></div>
   </div>
   <p class="small" id="r-note"></p>
-  <p class="source"><span class="ko">주황 막대 = 처치 링크. 위약은 전체 표시(필터 없음). 출처</span><span class="en">Orange bar = treated link; all placebos shown (no filter). Sources</span>: <code>results/03_road_scm/unit_XX/placebo_results.csv</code>, <code>loo_twostep.csv</code>, <code>summary/road_abadie2015_placebo_loo_cf.csv</code></p>
+  <h3><span class="ko">관측 대 합성 경로</span><span class="en">Observed vs synthetic path</span></h3>
+  <div id="r-path" class="plot"></div>
+  <h3><span class="ko">위약 격차 경로</span><span class="en">Placebo gap paths</span></h3>
+  <div class="controls"><label class="check"><input id="r-tau5" type="checkbox"><span class="ko">사전 RMSPE 5배 이하 위약만 (민감도)</span><span class="en">Only placebos with pre-RMSPE ≤ 5× (sensitivity)</span></label></div>
+  <div id="r-gaps" class="plot"></div>
+  <p class="small" id="r-gnote"></p>
+  <h3><span class="ko">LOO 합성 경로</span><span class="en">Leave-one-out synthetic paths</span></h3>
+  <div id="r-loopath" class="plot"></div>
+  <p class="source"><span class="ko">주황 막대 = 처치 링크. 위약은 전체 표시(필터 없음). 출처</span><span class="en">Orange bar = treated link; all placebos shown (no filter). Sources</span>: <code>results/03_road_scm/unit_XX/</code> (<code>path.csv</code>, <code>placebo_paths.csv</code>, <code>loo_paths_twostep.csv</code>, <code>placebo_results.csv</code>, <code>loo_twostep.csv</code>), <code>summary/road_abadie2015_placebo_loo_cf.csv</code></p>
 
   <h2><span class="ko">④ 여의도동 출발 대중교통: 위약 분포와 도너 가중치</span><span class="en">④ Transit from Yeouido-dong: placebo distribution and donor weights</span></h2>
   <div id="y-plot" class="plot"></div>
