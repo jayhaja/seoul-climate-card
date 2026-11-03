@@ -1,0 +1,4 @@
+Native plot(fit, type="counterfactual"). Main POINT fit; full 99 periods including December.
+Default fect layout and aggregation. No custom effect or CI reconstruction. No model estimation.
+Engine: PATCHED_local_weight_v2_cvmax_v1_audit_v1_fect2.4.7_h748c651816_srce78b1e9155
+Plot package: 2.4.7

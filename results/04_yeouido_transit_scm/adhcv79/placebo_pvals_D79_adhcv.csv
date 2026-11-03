@@ -1,0 +1,3 @@
+"rule","n_attempted","n_placebo","n_failed","n_alt_optimizer","rank","p_ratio"
+"all (Abadie 2015)",79,77,2,3,3,0.0384615384615385
+"pre RMSPE <= 5x",79,76,2,3,3,0.038961038961039

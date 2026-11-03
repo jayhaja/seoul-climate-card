@@ -1,0 +1,4 @@
+"model","r","post_weeks","ATT_count","weekly_total_gap","effect_pct"
+"full 46wk (재현 확인: 288.41 / 1.568%)",4,46,288.407610837155,117958.712832396,1.56782173985338
+"through Aug: refit on truncated panel",4,30,266.574950196821,109029.1546305,1.4367573901037
+"through Aug: full-fit window (원고)",4,30,267.944,109589.2,1.444

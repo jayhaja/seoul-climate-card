@@ -1,0 +1,2 @@
+"engine_id","patch_id","fect_version","helper_md5","original_source_md5","script_md5","installation_modified","fit_mode","rank_source"
+"PATCHED_local_weight_v2_cvmax_v1_audit_v1_fect2.4.7_h748c651816_srce78b1e9155","local_weight_v2_cvmax_v1_audit_v1","2.4.7","748c651816e0fd644a5e30576f407925","e78b1e91551d1aa657ebebe9ac61a28c","e15efc59aa58f95cc313daa5c2bf819d",FALSE,"CV=FALSE; r=4; W.est=NULL; W.agg=NULL; vartype=bootstrap; keep.sims=TRUE","Earlier patched full-panel rolling CV: users__pop__none; MSPE-1SE=1, GMSPE-1SE=4"

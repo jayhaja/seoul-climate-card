@@ -1,0 +1,10 @@
+Primary inference: native fect vartype=bootstrap (OD-level resampling of complete trajectories; treated/control sampled separately).
+Fixed rank4 and population specification; no re-selection inside bootstrap. Intervals conditional on selected model, not selection-adjusted.
+Total effect is the original 409-OD population size times bootstrap mean effect. This is model/resampling inference, not survey expansion.
+Within-OD temporal dependence retained; OD bootstrap does not by itself address extra cross-OD residual dependence.
+Each draw uses its own colnames.boot mapping, observed outcomes, D/I masks and counterfactual=observed-eff.
+Overall percent is ratio of sums across all post cells. Negative cell predictions retained, positive aggregate denominators required.
+Primary 95% CI: basic bootstrap. Percentile and normal shown as sensitivity, never pick by significance. Not BCa.
+Weekly intervals are pointwise, not simultaneous. No bootstrap sign fraction mislabeled as p-value.
+200 draws per chunk x 5; full arrays discarded only after validated extraction; compact draw-level summaries retained.
+Failures/nonconvergence stop the run without automatic replacement. Completed chunks reused only with matching manifest.

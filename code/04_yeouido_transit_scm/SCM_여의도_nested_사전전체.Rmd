@@ -1,0 +1,639 @@
+---
+title: "여의도 대중교통 SCM — nested판 (사전기간 전체 적합, ADH 2003/2010 원형)"
+output: html_document
+---
+
+<!--
+본표: 분할 없이 V·W를 사전 49주 전체 예측오차 최소화로 선택(Synth nested).
+  기록 재현 목표: ATT +4.763% · pre RMSPE 389.2 · ratio 3.178 · p_ratio(τ5) 0.0263
+플롯: 원본 plot helpers(plot_synth_custom / plot_mspe_ratio_ranked /
+  plot_placebo_gaps_limit / plot_placebo_ratio_hist)를 그대로 사용.
+산출: ~/Thesis/0614/public.transportation/0702/SCM_여의도_nested/ (+plots/)
+소요: 본추정 수 분 + 위약 81개 약 20~40분 + LOO·in-time 수 분.
+-->
+#1. set up
+```{r setup, message=FALSE, warning=FALSE}
+suppressMessages({
+  library(dplyr); library(tidyr); library(readr); library(purrr)
+  library(tibble); library(ggplot2); library(lubridate); library(Synth)
+})
+options(scipen = 999)
+
+BASE <- path.expand("~/Thesis/0614/public.transportation")
+HERE <- file.path(BASE, "0702", "SCM_여의도_nested")
+PLOT <- file.path(HERE, "plots")
+dir.create(PLOT, recursive = TRUE, showWarnings = FALSE)
+
+POLICY_DATE <- as.Date("2024-01-29")
+WIN_START   <- as.Date("2023-02-13")
+WIN_END     <- as.Date("2024-12-30")
+N_SP_BLOCK  <- 5
+PREDS       <- c("tranfer", "pop_dong")
+LAB         <- "D81_nested"
+legend_lbl2 <- "Yeouido-dong -> Seoul"
+
+DONORS_185939 <- c(19,22,23,25,26,28,29,41,42,43,44,45,46,47,54,55,56,59,60,61,62,63,64,65,
+  66,68,69,71,72,73,74,76,77,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,106,108,
+  109,110,111,112,113,114,115,116,117,120,121,122,123,124,125,127,132,133,134,135,136,140,
+  141,142,145,146,149,150,151)
+```
+
+#2. data
+```{r data}
+## ── 패널 구성 (정본 스크립트와 동일) ─────────────────────────────────
+nh <- read_csv(file.path(BASE, "0702/od_with_pop_sum_without_holiday.csv"),
+               show_col_types = FALSE) %>%
+  transmute(unit_name = flow, week = as.Date(week), users_nh = 이용자수_주총합)
+
+df_scm <- read.csv(file.path(BASE, "df_scm_g.csv"), fileEncoding = "UTF-8") %>%
+  mutate(week = as.Date(week), unit_id_num = as.integer(unit_id),
+         unit_name_en = unit_name) %>%
+  filter(week >= WIN_START, week <= WIN_END) %>%
+  inner_join(nh, by = c("unit_name", "week")) %>%
+  mutate(users = users_nh) %>% select(-users_nh)
+
+nu <- n_distinct(df_scm$unit_id_num)
+ok_wk <- df_scm %>% count(week) %>% filter(n == nu) %>% pull(week)
+df_scm <- df_scm %>% filter(week %in% ok_wk) %>%
+  mutate(week_index = dense_rank(week)) %>%
+  arrange(unit_id_num, week_index) %>% as.data.frame()
+
+idx_tbl <- df_scm %>% distinct(week_index, week) %>% arrange(week_index)
+final_pre_idx <- idx_tbl$week_index[idx_tbl$week <  POLICY_DATE]
+post_idx      <- idx_tbl$week_index[idx_tbl$week >= POLICY_DATE]
+all_idx       <- idx_tbl$week_index
+n_pre <- length(final_pre_idx); n_post <- length(post_idx)
+
+treat_id <- df_scm %>% filter(is_treat %in% c(TRUE, "True")) %>%
+  distinct(unit_id_num) %>% pull() %>% as.integer()
+donor_ids <- sort(intersect(DONORS_185939, unique(df_scm$unit_id_num)))
+
+cat(sprintf("처치 %d | 도너 %d | 사전 %d주 | 사후 %d주\n",
+            treat_id, length(donor_ids), n_pre, n_post))
+```
+
+3. fit-fn
+```{r fit-fn}
+## ── special predictors: 지정 창을 5등분한 블록 평균 ──────────────────
+sp_make <- function(idx, n_blocks = N_SP_BLOCK, dep = "users") {
+  ed <- round(seq(0, length(idx), length.out = n_blocks + 1))
+  lapply(seq_len(n_blocks), function(b)
+    list(dep, as.integer(idx[(ed[b] + 1):ed[b + 1]]), "mean"))
+}
+
+## ── nested 적합: 분할 없음 — V·W를 사전 전체에서 한 번에 최적화 ──────
+## custom_v를 주면 V 고정·W만 적합 (LOO vfix용)
+fit_nested <- function(tid, ctrl, pre_idx = final_pre_idx,
+                       eval_post_idx = post_idx, df = df_scm, preds = PREDS,
+                       custom_v = NULL) {
+  tplot <- c(pre_idx, eval_post_idx)
+  dp <- Synth::dataprep(
+    foo = df, predictors = preds, predictors.op = "mean",
+    special.predictors = sp_make(pre_idx), dependent = "users",
+    unit.variable = "unit_id_num", unit.names.variable = "unit_name_en",
+    time.variable = "week_index",
+    treatment.identifier = as.integer(tid),
+    controls.identifier  = sort(as.integer(ctrl)),
+    time.predictors.prior = pre_idx, time.optimize.ssr = pre_idx,
+    time.plot = tplot)
+  invisible(utils::capture.output(
+    so <- if (is.null(custom_v)) Synth::synth(data.prep.obj = dp, verbose = FALSE)
+          else Synth::synth(data.prep.obj = dp, custom.v = custom_v, verbose = FALSE)))
+
+  Y1 <- as.numeric(dp$Y1plot)
+  Y0 <- as.numeric(dp$Y0plot %*% so$solution.w)
+  g  <- Y1 - Y0; tt <- dp$tag$time.plot
+  pm <- tt %in% pre_idx; qm <- tt %in% eval_post_idx
+  list(dp = dp, so = so, v = as.numeric(so$solution.v),
+       Y1 = Y1, Y0 = Y0, gap = g, t = tt,
+       pre  = sqrt(mean(g[pm]^2)), post = sqrt(mean(g[qm]^2)),
+       ratio = sqrt(mean(g[qm]^2)) / sqrt(mean(g[pm]^2)),
+       att = mean(g[qm]), base = mean(Y1[pm]),
+       att_pct = mean(g[qm]) / mean(Y1[pm]) * 100)
+}
+```
+
+#3. load_saved
+
+```{r load-saved, eval=FALSE}
+## ══ 처음부터 다시 안 돌릴 때: main-fit·placebo 청크 대신 이 청크만 실행 ══
+## (setup → data → fit-fn → 이 청크 → 바로 플롯 청크들 순서로 실행하면 됨)
+## 전제: 이전 실행이 HERE에 M_nested.rds·placebo CSV들을 저장해 둔 상태.
+##   ※ M_nested.rds가 아직 없으면(구버전 실행분) 이번 한 번은 main-fit을 돌려야 생성됨.
+M <- readRDS(file.path(HERE, "M_nested.rds"))
+vline_idx <- min(post_idx)
+
+w_tbl <- read_csv(file.path(HERE, "weights_D81_nested.csv"), show_col_types = FALSE)
+
+plc <- read_csv(file.path(HERE, sprintf("placebo_summary_%s.csv", LAB)),
+                show_col_types = FALSE) %>%
+  rename(pre = placebo_pre_rmspe, post = placebo_post_rmspe,
+         ratio = placebo_ratio, att_abs = placebo_att_abs,
+         att_pct = placebo_att_pct)
+plc_paths <- read_csv(file.path(HERE, sprintf("placebo_paths_%s.csv", LAB)),
+                      show_col_types = FALSE)
+pv <- read_csv(file.path(HERE, "placebo_pvals_tau_D81_nested.csv"),
+               show_col_types = FALSE)
+cat(sprintf("불러오기 완료: ATT %+.2f%% | 위약 %d개 | p_ratio(τ5) %.4f\n",
+            M$att_pct, nrow(plc), pv$p_ratio[pv$tau == 5]))
+```
+
+```{r main-fit}
+M <- fit_nested(treat_id, donor_ids)
+
+cat(sprintf("nested: ATT %.1f (%+.2f%%) | pre RMSPE %.1f | ratio %.3f\n",
+            M$att, M$att_pct, M$pre, M$ratio))
+
+cmp <- tribble(
+  ~사양,                              ~ATT_pct, ~pre_RMSPE, ~ratio,
+  "nested 기록값 (재현 목표)",           4.763,    389.2,     3.178,
+  "nested (이번 실행)",         round(M$att_pct,3), round(M$pre,1), round(M$ratio,3),
+  "adhcv 구정본 (참고)",                 5.091,    472.6,     2.750,
+  "ADH2015 원형 (참고)",                 5.811,    660.0,     2.283)
+print(as.data.frame(cmp))
+write_excel_csv(cmp, file.path(HERE, "사양_비교_nested기준.csv"))
+
+v_tbl <- tibble(predictor = c(PREDS, paste0("sp_block", 1:N_SP_BLOCK)), V = M$v)
+print(as.data.frame(v_tbl), digits = 4)
+write_excel_csv(v_tbl, file.path(HERE, "vweights_D81_nested.csv"))
+
+w_tbl <- tibble(unit_id_num = as.integer(M$dp$tag$controls.identifier),
+                weight = as.numeric(M$so$solution.w)) %>%
+  left_join(df_scm %>% distinct(unit_id_num, unit_name), by = "unit_id_num") %>%
+  arrange(desc(weight))
+print(head(w_tbl, 8))
+write_excel_csv(w_tbl, file.path(HERE, "weights_D81_nested.csv"))
+
+path_tbl <- tibble(
+  week_index = M$t,
+  week = idx_tbl$week[match(M$t, idx_tbl$week_index)],
+  period = ifelse(M$t %in% final_pre_idx, "pre", "post"),
+  actual = M$Y1, synthetic = M$Y0, gap = M$gap)
+write_excel_csv(path_tbl, file.path(HERE, "path_D81_nested.csv"))
+
+vline_idx <- min(post_idx)
+saveRDS(M, file.path(HERE, "M_nested.rds"))   # 재실행 없이 플롯만 뽑을 때 재사용
+```
+
+# 5. Plot helpers
+
+```{r plot-helpers}
+# ============================================================================
+# [렌더러 보정 2026-09-09] 아래 헬퍼의 "크기 숫자"는 8월 당시 렌더러(구 cairo,
+# 글자를 1/4 크기로 그림) 기준. 현 렌더러(ragg/quartz/신형 cairo)는 글자를
+# 정상 크기로 그리므로, 옛 그림과 같은 모양을 내려면 글자 관련 값에 0.24를
+# 곱해야 한다(XQuartz 재설치로도 구 렌더링 복원 불가 — 검증 완료).
+# 보정 방식: 호출부에서 scale_factor·base_size 인자로 전달 + 헬퍼 내부의
+# 고정 오프셋(+10/+15/+18/+5/+8/+20/+4)만 0.24배(원본값은 각 줄 주석에 보존).
+# ============================================================================
+# ============================================================================
+# Placebo plot helpers (ggplot 기반)
+# 기대 컬럼: res_pl 에 (treated, pre, ratio), paths_pl 에 (treated, t, gap)
+# ============================================================================
+plot_synth_custom <- function(
+  type = c("path", "gap"),
+  synth_res, dataprep_res,
+  title_main = "", title_y = "", title_x = "Week",
+  legend_pos = "bottomleft", treat_time,
+  filename = NULL,
+  scale_factor = 3, cex_axis = 0.9, cex_lab = 1, cex_main = 1,
+  mgp_title = 1.5, mgp_ticks = 0.5, main_line = 1.0,
+  family = NULL,
+  legend_redraw = FALSE, legend_cex = 1.1, legend_seglen = 5,
+  legend_yint = 2.4, legend_xint = 1.5   # [보정] 원본 범례 비율 재현용
+) {
+  type <- match.arg(type)
+
+  if (!is.null(filename)) {
+    dir.create(dirname(filename), recursive = TRUE, showWarnings = FALSE)
+    has_ragg <- requireNamespace("ragg", quietly = TRUE)
+    ext <- tolower(sub(".*\\.", "", filename))
+    if (has_ragg) {
+      if (ext %in% c("jpg", "jpeg")) {
+        ragg::agg_jpeg(filename, width = 10, height = 10, units = "in", res = 300)
+      } else {
+        ragg::agg_png(filename, width = 10, height = 10, units = "in", res = 300)
+      }
+    } else {
+      if (ext %in% c("jpg", "jpeg")) {
+        jpeg(filename, width = 10, height = 10, units = "in", res = 300)
+      } else {
+        png(filename, width = 10, height = 10, units = "in", res = 300)
+      }
+    }
+    on.exit(grDevices::dev.off(), add = TRUE)
+  }
+
+  if (is.null(family)) {
+    family <- if (grepl("darwin", R.version$os)) "AppleGothic"
+              else if (.Platform$OS.type == "windows") "Malgun Gothic"
+              else "NanumGothic"
+  }
+
+  op <- par(no.readonly = TRUE); on.exit(par(op), add = TRUE)
+  par(family = family,
+      mai = c(1.8, 2.0, 1.2, 0.8),
+      cex = scale_factor, cex.axis = cex_axis,
+      cex.lab = cex_lab, mgp = c(mgp_title, mgp_ticks, 0))
+
+  if (type == "path") {
+    Synth::path.plot(synth.res = synth_res, dataprep.res = dataprep_res,
+                     Main = "", Ylab = title_y, Xlab = title_x,
+                     Legend.position = legend_pos, tr.intake = treat_time)
+    if (isTRUE(legend_redraw))   # [보정] 기본 범례를 원본 비율(큰 박스)로 덮어그림
+      legend(legend_pos, legend = c("Treated", "Synthetic"),
+             lty = c("solid", "dashed"), col = "black", lwd = 2,
+             cex = legend_cex, seg.len = legend_seglen,
+             y.intersp = legend_yint, x.intersp = legend_xint, bg = "white")
+  } else {
+    Synth::gaps.plot(synth.res = synth_res, dataprep.res = dataprep_res,
+                     Main = "", Ylab = title_y, Xlab = title_x,
+                     tr.intake = treat_time)
+    abline(h = 0, lty = 2, col = "grey40")
+  }
+  mtext(title_main, side = 3, line = main_line,
+        cex = cex_main * scale_factor, font = 2)
+}
+
+plot_mspe_ratio_ranked <- function(
+  res_pl, pre_rmspe, ratio_main, lookup_tbl, treat_id,
+  tau = 5,
+  filename = NULL, width = 10, height = 9, dpi = 300,
+  base_size = 10,
+  legend_lbl2 = ""
+) {
+  stopifnot(all(c("treated", "pre", "ratio") %in% names(res_pl)))
+
+  pl <- res_pl %>%
+    dplyr::filter(is.finite(pre), is.finite(ratio),
+                  pre <= pre_rmspe * tau,
+                  treated != treat_id) %>%
+    dplyr::select(treated, ratio) %>%
+    dplyr::mutate(kind = "Placebo")
+
+  treated_row <- tibble::tibble(
+    treated = treat_id,
+    ratio   = as.numeric(ratio_main),
+    kind    = "Treated"
+  )
+
+  df_all <- dplyr::bind_rows(pl, treated_row) %>%
+    dplyr::arrange(ratio) %>%
+    dplyr::mutate(y_idx = dplyr::row_number())
+
+  lab_tbl <- lookup_tbl %>%
+    dplyr::select(unit_id_num, unit_name_en) %>%
+    dplyr::mutate(unit_id_num = as.character(unit_id_num)) %>%
+    dplyr::distinct()
+
+  get_lab <- function(id) {
+    nm <- lab_tbl$unit_name_en[match(as.character(id), lab_tbl$unit_id_num)]
+    nm <- ifelse(is.na(nm) | is.null(nm), "", nm)
+    lab <- if (nzchar(nm)) nm else as.character(id)
+    if (nchar(lab) > 60) paste0(substr(lab, 1, 60), "...") else lab
+  }
+
+  df_all$label <- vapply(df_all$treated, get_lab, character(1))
+
+  g <- ggplot2::ggplot(df_all, ggplot2::aes(x = ratio, y = y_idx)) +
+    ggplot2::geom_point(
+      data  = subset(df_all, kind == "Placebo"),
+      shape = 15, size = 2.8, color = "black"
+    ) +
+    ggplot2::geom_point(
+      data  = subset(df_all, kind == "Treated"),
+      shape = 17, size = 5.0, color = "red"
+    ) +
+    ggplot2::scale_y_continuous(
+      breaks = df_all$y_idx,
+      labels = df_all$label,
+      expand = ggplot2::expansion(mult = c(0.02, 0.02))
+    ) +
+    ggplot2::labs(
+      x = paste0("Post/Pre MSPE ratio - ", legend_lbl2),
+      y = NULL,
+      title = sprintf("Post/Pre MSPE Ratio Ranking (tau = %d)", tau)
+    ) +
+    ggplot2::theme_bw(base_size = base_size) +
+    ggplot2::theme(
+      panel.grid.minor   = ggplot2::element_blank(),
+      panel.grid.major.y = ggplot2::element_line(linewidth = 0.2, colour = "grey85"),
+      panel.grid.minor.y = ggplot2::element_line(linewidth = 0.15, colour = "grey92"),
+      axis.text.y        = ggplot2::element_text(size = base_size),
+      axis.text.x        = ggplot2::element_text(size = base_size + 1.2),   # 원본 +5
+      plot.subtitle      = ggplot2::element_text(size = base_size + 4.8, face = "bold"),   # 원본 +20
+      plot.title         = ggplot2::element_text(size = base_size + 2.4, face = "bold", hjust = 0.5)   # 원본 +10
+    )
+
+  print(g)
+  if (!is.null(filename)) {
+    dir.create(dirname(filename), recursive = TRUE, showWarnings = FALSE)
+    ggplot2::ggsave(filename, g, width = width, height = height, dpi = dpi,
+                    limitsize = FALSE)
+  }
+  invisible(g)
+}
+
+
+plot_placebo_gaps_limit <- function(
+  paths_pl, res_pl, gaps_main, pre_rmspe, n_pre,
+  tau = 5,
+  filename = NULL, width = 10, height = 10, dpi = 300,
+  base_size =10,
+  show_avg_placebo = FALSE,
+  legend_lbl2 = ""
+) {
+  stopifnot(is.numeric(gaps_main), length(gaps_main) > 0)
+  stopifnot(all(c("treated", "pre") %in% names(res_pl)))
+  if (is.null(paths_pl) || !all(c("treated", "t", "gap") %in% names(paths_pl))) {
+    stop("paths_pl must have columns: treated, t, gap")
+  }
+
+  ids_ok <- res_pl %>%
+    dplyr::filter(is.finite(pre), pre <= pre_rmspe * tau) %>%
+    dplyr::pull(treated) %>% unique()
+
+  Tlen   <- length(gaps_main)
+  df_pl  <- paths_pl %>%
+    dplyr::filter(treated %in% ids_ok, t >= 1, t <= Tlen)
+
+  df_main <- tibble::tibble(
+    t   = seq_len(Tlen),
+    gap = as.numeric(gaps_main)
+  )
+
+  if (nrow(df_pl) == 0L) {
+    warning("No placebo paths after tau filter.")
+  }
+
+  df_avg <- NULL
+  if (isTRUE(show_avg_placebo) && nrow(df_pl) > 0L) {
+    df_avg <- df_pl %>%
+      dplyr::group_by(t) %>%
+      dplyr::summarise(mean_gap = mean(gap, na.rm = TRUE), .groups = "drop")
+  }
+
+  g <- ggplot2::ggplot() +
+    ggplot2::geom_hline(yintercept = 0, linetype = "dotted", linewidth = 0.4) +
+    ggplot2::geom_vline(xintercept = n_pre + 1, linetype = "dashed", linewidth = 0.5) +
+    ggplot2::geom_line(data = df_pl, ggplot2::aes(t, gap, group = treated),
+                       linewidth = 0.3, alpha = 0.2) +
+    { if (!is.null(df_avg)) ggplot2::geom_line(data = df_avg,
+                                               ggplot2::aes(t, mean_gap),
+                                               linewidth = 0.5,
+                                               linetype = "dotdash") else NULL } +
+    ggplot2::geom_line(data = df_main, ggplot2::aes(t, gap), linewidth = 0.6) +
+    ggplot2::labs(
+      x = "Week", y = "Gap (Treated - Synthetic)",
+      title = sprintf("Placebos Plot - %s (tau = %d)", legend_lbl2, tau)
+    ) +
+    ggplot2::theme_bw(base_size = base_size) +
+    ggplot2::theme(
+      panel.grid         = ggplot2::element_blank(),
+      panel.grid.minor   = ggplot2::element_blank(),
+      panel.grid.major.x = ggplot2::element_blank(),
+      axis.text.x  = ggplot2::element_text(size = base_size + 2.4),   # 원본 +10
+      axis.text.y  = ggplot2::element_text(size = base_size + 2.4),   # 원본 +10
+      axis.title.x = ggplot2::element_text(size = base_size + 3.6),   # 원본 +15
+      axis.title.y = ggplot2::element_text(size = base_size + 3.6),   # 원본 +15
+      plot.title   = ggplot2::element_text(size = base_size + 4.3, face = "bold", hjust = 0.5)   # 원본 +18
+    ) +
+    ggplot2::scale_x_continuous(limits = c(1, Tlen),
+                                expand = ggplot2::expansion(mult = 0)) +
+    ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = 0))
+
+  print(g)
+  if (!is.null(filename)) {
+    dir.create(dirname(filename), recursive = TRUE, showWarnings = FALSE)
+    ggplot2::ggsave(filename, g, width = width, height = height, dpi = dpi)
+  }
+  invisible(g)
+}
+
+
+plot_placebo_ratio_hist <- function(
+  res_pl, pre_rmspe, ratio_main,
+  tau = 5, bins = 30,
+  filename = NULL, width = 10, height = 8, dpi = 300, base_size = 10,
+  logx = FALSE
+) {
+  stopifnot(all(c("pre", "ratio") %in% names(res_pl)))
+
+  df <- res_pl %>%
+    dplyr::filter(is.finite(pre), pre > 0, pre <= pre_rmspe * tau,
+                  is.finite(ratio), ratio > 0)
+
+  g <- ggplot2::ggplot(df, ggplot2::aes(x = ratio)) +
+    ggplot2::geom_histogram(bins = bins, alpha = 0.9,
+                            fill = "grey80", color = "black") +
+    ggplot2::geom_vline(xintercept = 1, linetype = "dotted", linewidth = 0.8) +
+    ggplot2::geom_vline(xintercept = ratio_main, linetype = "dashed",
+                        linewidth = 1.2, color = "red") +
+    { if (logx) ggplot2::scale_x_log10() else NULL } +
+    ggplot2::labs(
+      x = "MSPE ratio (Post / Pre)",
+      y = "Count",
+      title = sprintf("Placebo MSPE Ratio Histogram (tau = %d)", tau),
+      subtitle = sprintf("Main treated ratio = %.3f", ratio_main)
+    ) +
+    ggplot2::theme_classic(base_size = base_size) +
+    ggplot2::theme(
+      panel.grid    = ggplot2::element_blank(),
+      axis.text.x   = ggplot2::element_text(size = base_size + 1.2),   # 원본 +5
+      axis.text.y   = ggplot2::element_text(size = base_size + 1.2),   # 원본 +5
+      axis.title.x  = ggplot2::element_text(size = base_size + 1.9),   # 원본 +8
+      axis.title.y  = ggplot2::element_text(size = base_size + 1.9),   # 원본 +8
+      plot.title    = ggplot2::element_text(size = base_size + 2.4, face = "bold"),   # 원본 +10
+      plot.subtitle = ggplot2::element_text(size = base_size + 1.0)   # 원본 +4
+    )
+
+  print(g)
+  if (!is.null(filename)) {
+    dir.create(dirname(filename), recursive = TRUE, showWarnings = FALSE)
+    ggplot2::ggsave(filename, g, width = width, height = height, dpi = dpi)
+  }
+  invisible(g)
+}
+```
+
+# 6. Path / Gap 플롯
+
+```{r}
+
+# Path plot - vline 위치는 final_pre_idx의 마지막 + 1
+vline_idx <- max(final_pre_idx) + 1
+
+plot_synth_custom(
+  type = "path", synth_res = M$so, dataprep_res = M$dp,
+  title_main = paste0("SCM Path Plot - ", legend_lbl2),
+  title_y = "Weekly traffic",
+  treat_time = vline_idx,
+  filename = file.path(PLOT,
+    sprintf("1.scm_path_%s_%s.jpg", treat_id, LAB)),
+  cex_axis = 0.7, cex_lab = 0.7, cex_main = 0.7
+)
+
+plot_synth_custom(
+  type = "gap", synth_res = M$so, dataprep_res = M$dp,
+  title_main = paste0("Gap Plot - ", legend_lbl2),   # <- legend_lbl2 → label_main
+  title_y = "Gap (Treated - Synthetic)",
+  treat_time = vline_idx,
+  filename = file.path(PLOT,
+    sprintf("2.scm_gap_%s_%s.jpg", treat_id, LAB)),
+  cex_axis = 0.7, cex_lab = 0.7, cex_main = 0.7
+)
+```
+
+
+```{r plot-path-gap}
+plot_synth_custom("path", synth_res = M$so, dataprep_res = M$dp, scale_factor = 0.9, cex_main = 2, legend_redraw = TRUE,
+  title_main = paste0("SCM Path - ", legend_lbl2),
+  title_y = "Weekly users (holidays excl.)",
+  treat_time = vline_idx,
+  filename = file.path(PLOT, sprintf("1.scm_path_%s.jpg", LAB)))
+
+plot_synth_custom("gap", synth_res = M$so, dataprep_res = M$dp, scale_factor = 0.9, cex_main = 2, legend_redraw = TRUE,
+  title_main = paste0("Gap - ", legend_lbl2),
+  title_y = "Gap (Treated - Synthetic)",
+  treat_time = vline_idx,
+  filename = file.path(PLOT, sprintf("2.scm_gap_%s.jpg", LAB)))
+cat("path/gap 저장\n")
+```
+
+# 7. In-space placebo
+
+```{r placebo}
+## ── 각 도너를 처치로 가정, 동일 nested 절차 (약 20~40분) ─────────────
+cat("placebo", length(donor_ids), "회 — nested 동일 절차\n")
+t0 <- Sys.time()
+placebo_results <- purrr::compact(map(donor_ids, function(pid) {
+  tryCatch({
+    f <- fit_nested(pid, setdiff(donor_ids, pid))
+    cat(sprintf("  %3d done (%.0fs)\n", pid,
+        as.numeric(difftime(Sys.time(), t0, units = "secs"))))
+    list(summary = tibble(placebo_unit = pid, pre = f$pre, post = f$post,
+                          ratio = f$ratio, att_abs = f$att, att_pct = f$att_pct),
+         path = tibble(placebo_unit = pid, week_index = f$t, placebo_gap = f$gap))
+  }, error = function(e) { message("  placebo 실패: ", pid); NULL })
+}))
+plc       <- map_dfr(placebo_results, "summary")
+plc_paths <- map_dfr(placebo_results, "path")
+cat("성공:", nrow(plc), "/", length(donor_ids), "\n")
+write_excel_csv(plc %>% rename(placebo_pre_rmspe = pre, placebo_post_rmspe = post,
+                               placebo_ratio = ratio, placebo_att_abs = att_abs,
+                               placebo_att_pct = att_pct),
+                file.path(HERE, sprintf("placebo_summary_%s.csv", LAB)))
+write_excel_csv(plc_paths, file.path(HERE, sprintf("placebo_paths_%s.csv", LAB)))
+```
+
+```{r pvals}
+## ── 순열 p (정본 규약: 사전 RMSPE 트리밍 τ, +1 보정) ────────────────
+pv <- map_dfr(c(2, 3, 5, Inf), function(tau) {
+  sub <- plc %>% filter(is.finite(ratio), pre <= tau * M$pre)
+  n <- nrow(sub)
+  tibble(tau = tau, n_placebo = n,
+         p_ratio     = (1 + sum(sub$ratio >= M$ratio)) / (1 + n),
+         p_att_right = (1 + sum(sub$att_abs >= M$att)) / (1 + n))
+})
+print(as.data.frame(pv), digits = 4)
+write_excel_csv(pv, file.path(HERE, "placebo_pvals_tau_D81_nested.csv"))
+
+cat(sprintf("\n★ ATT %+.2f%% | p_ratio(τ5) %.4f  (기록값: +4.76%%, 0.0263)\n",
+            M$att_pct, pv$p_ratio[pv$tau == 5]))
+```
+
+# 8. Placebo 플롯 (gaps · mspe 랭킹 · 히스토그램)
+
+```{r plot-placebo}
+paths_pl <- plc_paths %>% transmute(treated = placebo_unit, t = week_index, gap = placebo_gap)
+res_pl   <- plc %>% transmute(treated = placebo_unit, pre, ratio)
+lookup   <- bind_rows(w_tbl %>% transmute(unit_id_num, unit_name_en = unit_name),
+                      tibble(unit_id_num = treat_id, unit_name_en = legend_lbl2))
+
+for (tau in c(2, 3, 5)) {
+  plot_placebo_gaps_limit(
+    paths_pl = paths_pl, res_pl = res_pl,
+    gaps_main = M$gap, pre_rmspe = M$pre, n_pre = n_pre, tau = tau, base_size = 7.2,
+    filename = file.path(PLOT, sprintf("4.placebo_gaps_%s_tau%d.jpg", LAB, tau)),
+    legend_lbl2 = legend_lbl2)
+
+  plot_mspe_ratio_ranked(
+    res_pl = res_pl, pre_rmspe = M$pre, ratio_main = M$ratio,
+    lookup_tbl = lookup, treat_id = treat_id, tau = tau, base_size = 7.2,
+    filename = file.path(PLOT, sprintf("3.mspe_ratio_%s_tau%d.jpg", LAB, tau)),
+    legend_lbl2 = legend_lbl2)
+
+  plot_placebo_ratio_hist(
+    res_pl = res_pl, pre_rmspe = M$pre, ratio_main = M$ratio, tau = tau, base_size = 7.2,
+    filename = file.path(PLOT, sprintf("10.placebo_hist_%s_tau%d.jpg", LAB, tau)))
+}
+cat("placebo 플롯 저장\n")
+```
+
+# 9. Leave-One-Out
+
+```{r loo-plots}
+## ── LOO 2종 (revise: 전체 재적합 / vfix: V 고정) + 플롯 ──────────────
+omit_targets <- w_tbl %>% filter(weight > 0.001) %>% pull(unit_id_num)
+cat("LOO 대상 도너(w>0.001):", length(omit_targets), "\n")
+
+for (mode_loo in c("revise", "fixed")) {
+  L <- purrr::compact(map(omit_targets, function(d_id) {
+    keep <- setdiff(donor_ids, d_id)
+    tryCatch({
+      f <- fit_nested(treat_id, keep,
+                      custom_v = if (mode_loo == "fixed") M$v else NULL)
+      list(path = tibble(week = f$t, synthetic = f$Y0, donor = paste0("omit_", d_id)),
+           metrics = tibble(unit_id_num = d_id, pre_RMSPE = f$pre, ATT = f$att))
+    }, error = function(e) { message("  LOO 실패: ", d_id); NULL })
+  }))
+  sens_loo <- map_dfr(L, "metrics") %>%
+    mutate(delta_ATT = ATT - M$att, delta_RMSPE = pre_RMSPE - M$pre) %>%
+    left_join(w_tbl, by = "unit_id_num") %>% arrange(desc(abs(delta_ATT)))
+  sfx <- if (mode_loo == "fixed") "_vfix" else ""
+  cat(sprintf("LOO(%s): ATT 범위 %.1f ~ %.1f (기준 %.1f)\n",
+              mode_loo, min(sens_loo$ATT), max(sens_loo$ATT), M$att))
+  write_excel_csv(sens_loo, file.path(HERE, sprintf("loo_sensitivity_%s%s.csv", LAB, sfx)))
+
+  loo_paths <- map_dfr(L, "path")
+  gl <- ggplot() +
+    geom_line(data = loo_paths, aes(week, synthetic, group = donor),
+              colour = "grey70", linewidth = 0.4) +
+    geom_line(data = tibble(w = M$t, y = M$Y0), aes(w, y), linetype = 2, linewidth = 0.9) +
+    geom_line(data = tibble(w = M$t, y = M$Y1), aes(w, y), linewidth = 0.9) +
+    geom_vline(xintercept = vline_idx, linetype = 3) +
+    labs(x = "Week", y = "Weekly users",
+         title = paste0("Leave-One-Out - ", legend_lbl2,
+                        if (mode_loo == "fixed") " (V fixed)" else " (V re-selected)")) +
+    theme_classic(base_size = 3.8)   # 원본 16
+  ggsave(file.path(PLOT, sprintf("5.loo_%s%s.jpg", LAB, sfx)),
+         gl, width = 10, height = 8, dpi = 300)
+}
+cat("LOO 저장\n")
+```
+
+# 10. In-time placebo
+
+```{r intime-plots}
+## ── 사전기간 내부 가짜 처치 3시점 + path 플롯 ────────────────────────
+fakes <- as.integer(round(quantile(final_pre_idx, c(0.55, 0.70, 0.85))))
+cat("in-time 가짜 시점:", paste(fakes, collapse = ", "), "\n")
+
+it <- map_dfr(fakes, function(fs) {
+  fake_pre  <- final_pre_idx[final_pre_idx < fs]
+  fake_post <- setdiff(final_pre_idx, fake_pre)
+  f <- fit_nested(treat_id, donor_ids, pre_idx = fake_pre, eval_post_idx = fake_post)
+
+  plot_synth_custom("path", synth_res = f$so, dataprep_res = f$dp, scale_factor = 0.9, cex_main = 2, legend_redraw = TRUE,
+    title_main = paste0("In-time Placebo - ", legend_lbl2),
+    title_y = "Weekly users",
+    treat_time = fs,
+    filename = file.path(PLOT, sprintf("6.in_time_path_%s_f%d.jpg", LAB, fs)))
+
+  tibble(fake_start = fs, n_fake_pre = length(fake_pre), n_fake_post = length(fake_post),
+         pre_rmspe = f$pre, fake_att_pct = f$att_pct, ratio = f$ratio)
+})
+print(as.data.frame(it), digits = 4)
+write_excel_csv(it, file.path(HERE, "in_time_summary_D81_nested.csv"))
+cat("가짜 ATT가 0 근처(실제 +4.8% 대비 작음)이면 통과.\n")
+```

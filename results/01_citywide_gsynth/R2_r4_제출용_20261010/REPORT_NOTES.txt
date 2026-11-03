@@ -1,0 +1,10 @@
+All windows reuse the SAME full-panel r4 fit and SAME 1000 draws. No truncated-window refitting.
+Weekly/monthly assignment uses week-start dates; weeks can straddle calendar boundaries. Omitted holiday weeks stay omitted.
+Intervals use the fixed model and are pointwise. Window comparisons are descriptive, not multiple-testing adjusted.
+Ratio denominators recovered per replicate from weekly gap / weekly percent; pooled overall ratio verified against original saved draws.
+Aggregate effect=sum(gaps)/sum(counterfactual), no use_pre size weights. log_pop covariate; no outcome logarithm.
+Subgroup, OD and concentration statistics are point estimates only: original boot unit mappings were not retained in compact chunks.
+Pre-holdout results are diagnostic point estimates, not formal placebo/equivalence tests. Windows overlap; CV has used donor information.
+Main r4 was selected after examining alternative criteria and pre-holdout diagnostics; intervals do not account for model selection.
+r1 inference is not available. Do not describe the r1 estimate as statistically insignificant.
+No transport-mode substitution, unique-rider totals or benefit-cost calculations follow from these trip/usage counts alone.

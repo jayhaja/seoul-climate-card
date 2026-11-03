@@ -1,0 +1,74 @@
+{
+  "config": {
+    "panel_csv": "~/Thesis/0614/0628/road6to9_new_try/77_units/0628_6to10_df_with_new_covariates_fixed.csv",
+    "treated_ids": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "donor_exclude": [114, 304, 126, 129, 131, 202, 102, 101, 404, 305],
+    "donor_exclude_reason": ["통일로IC–양주TG: 자료 품질/구조 변동(부록 C)", "서대전IC–서대전JC(부록 C)", "마성IC–신갈JC(부록 C)", "천진암교–산곡JC(부록 C)", "감곡IC–여주JC(부록 C)", "인천TG–부평IC(부록 C)", "목감IC–광명역IC(부록 C)", "남양주TG–화도IC(부록 C)", "기장IC–해운대IC(부록 C)", "천변도시고속화도로 하행→상행(부록 C)"],
+    "method": "stdv",
+    "cv": {
+      "candidates": [
+        {
+          "var": "lanes_mean",
+          "op": "mean",
+          "label": "차로 수 평균"
+        },
+        {
+          "var": "speed",
+          "op": "median",
+          "label": "속도 중앙값"
+        },
+        {
+          "var": "speed",
+          "op": "min",
+          "label": "최저 속도"
+        },
+        {
+          "var": "vehicle_change",
+          "op": "mean",
+          "label": "자동차등록대수 변화"
+        }
+      ],
+      "K_grid": [55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40],
+      "final_v": "fixed",
+      "placebo_v": "own"
+    },
+    "donor_screen": {
+      "enabled": false,
+      "level_ratio": [0.3333, 3],
+      "trend_cor_min": 0.3,
+      "min_donors": 15
+    },
+    "fit_idx": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
+    "valid_idx": [26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50],
+    "final_w_idx": [26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50],
+    "pre_idx": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50],
+    "post_main": [51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
+    "post_full": [51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96],
+    "n_blocks": 5,
+    "predictors": [
+      {
+        "var": "lanes_mean",
+        "op": "mean",
+        "label": "차로 수 평균"
+      },
+      {
+        "var": "speed",
+        "op": "median",
+        "label": "속도 중앙값"
+      }
+    ],
+    "placebo_tau": [2, 3, 5, "Inf"],
+    "loo_min_w": 0.001,
+    "loo_mode": "twostep",
+    "intime_starts": [27, 34, 40],
+    "diag_max_w_warn": 0.5,
+    "diag_rmspe_worsen": 1.5,
+    "out_root": "~/Thesis/0614/0628/road_scm_v4/runs",
+    "run_tag": "v4_stdv_ex107_201_nested53_abadie2015pl"
+  },
+  "units": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  "exclude": [107, 201],
+  "short_units": [1, 2, 10],
+  "started": "2026-11-03 15:46:25",
+  "note": "placebo donors = setdiff(pool, d) + treated; p without pre-fit filter; LOO twostep (nested V,W refit); post 51-96 / 51-72"
+}
