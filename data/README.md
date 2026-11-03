@@ -1,7 +1,11 @@
 # Data
 
 ## Not included (restricted)
-- **Smart-card origin–destination (OD) records** (Ministry of Land, Infrastructure and Transport transit card data, accessed through a secure data centre). OD-level weekly counts and any file that reproduces them are excluded, including per-OD effect files (`OD_point_effects.csv`), origin membership tables, and observed/synthetic weekly paths for the Yeouido OD pair. Researchers can request access from the data provider. Figures that plot aggregated paths (including the Yeouido OD path and placebo figures in `figures/`) were cleared for export by the data centre; the underlying values are not distributed as data files. / `figures/`의 그림(여의도 OD 경로·위약 그림 포함)은 데이터안전센터 반출 승인 범위이며, 그 값은 데이터 파일로 배포하지 않습니다.
+- **Smart-card origin–destination (OD) records** (Ministry of Land, Infrastructure and Transport transit card data, accessed through a secure data centre). The original records are not in this repository and will not be added. Researchers can request access from the data provider. / 교통카드 OD 원자료는 저장소에 없으며 앞으로도 넣지 않습니다.
+
+## Processed outputs (cleared for export) / 정제 결과물 (반출 승인)
+- Everything in `results/` and `figures/` was processed from the OD records and is within the export approval of the data centre, including the Yeouido OD path and placebo figures. Processed data files within that approval (e.g. per-OD effects `OD_point_effects.csv`, origin membership tables, observed/synthetic weekly paths for the Yeouido OD) may also be redistributed; they are not yet included in this repository.
+- `results/`와 `figures/`는 OD 원자료를 정제·집계한 결과로, 여의도 OD 경로·위약 그림을 포함해 모두 데이터안전센터 반출 승인 범위입니다. 승인 범위의 정제 데이터 파일(OD별 효과 `OD_point_effects.csv`, 출발지 구성표, 여의도 OD 관측·합성 주별 경로 등)도 배포할 수 있으며, 아직 저장소에 넣지 않았습니다.
 
 ## Not yet included (licence to be confirmed)
 - Road detector counts: Seoul TOPIS sites and donor links outside Seoul (national ITS link IDs). The analysis panels will be added once redistribution terms are confirmed.
