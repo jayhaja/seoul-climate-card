@@ -1,6 +1,28 @@
 {
  "figures": [
   {
+   "src": "assets/figures/heterogeneity/fig6_4_transfer_wait_minimal_en.png",
+   "analysis": "heterogeneity",
+   "site": "Chapter 6 (current)",
+   "kind_ko": "fig6_4_transfer_wait_minimal_en",
+   "kind_en": "fig6_4_transfer_wait_minimal_en",
+   "note_ko": "",
+   "note_en": "",
+   "group": "heterogeneity",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/heterogeneity/fig6_5_prepct_early_late_en.png",
+   "analysis": "heterogeneity",
+   "site": "Chapter 6 (current)",
+   "kind_ko": "fig6_5_prepct_early_late_en",
+   "kind_en": "fig6_5_prepct_early_late_en",
+   "note_ko": "",
+   "note_en": "",
+   "group": "heterogeneity",
+   "thesis": true
+  },
+  {
    "src": "assets/figures/heterogeneity/fig_hetero_hm_all7_wide_cf_en.png",
    "analysis": "heterogeneity",
    "site": "Chapter 6 (current)",
@@ -12,11 +34,33 @@
    "thesis": true
   },
   {
+   "src": "assets/figures/heterogeneity/fig_hetero_hm_all7_wide_prepct_en.png",
+   "analysis": "heterogeneity",
+   "site": "Chapter 6 (current)",
+   "kind_ko": "fig_hetero_hm_all7_wide_prepct_en",
+   "kind_en": "fig_hetero_hm_all7_wide_prepct_en",
+   "note_ko": "",
+   "note_en": "",
+   "group": "heterogeneity",
+   "thesis": true
+  },
+  {
    "src": "assets/figures/heterogeneity/fig_hetero_hm_main_wide_cf_en.png",
    "analysis": "heterogeneity",
    "site": "Chapter 6 (current)",
    "kind_ko": "주별 효과: 환승·대기·권역",
    "kind_en": "Weekly effects: transfer, waiting time, region",
+   "note_ko": "",
+   "note_en": "",
+   "group": "heterogeneity",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/heterogeneity/fig_hetero_hm_main_wide_prepct_en.png",
+   "analysis": "heterogeneity",
+   "site": "Chapter 6 (current)",
+   "kind_ko": "fig_hetero_hm_main_wide_prepct_en",
+   "kind_en": "fig_hetero_hm_main_wide_prepct_en",
    "note_ko": "",
    "note_en": "",
    "group": "heterogeneity",
@@ -2181,6 +2225,39 @@
    "thesis": true
   },
   {
+   "src": "assets/figures/thesis/main_text/fig6-4_transfer_walking_waiting_time.png",
+   "analysis": "heterogeneity",
+   "site": "Main text",
+   "kind_ko": "fig6-4_transfer_walking_waiting_time · 이전 세대(1,000명당 지표)",
+   "kind_en": "fig6-4_transfer_walking_waiting_time · earlier generation (per-1,000 indicator)",
+   "note_ko": "이전 세대 그림: 주민 1,000명당 지표. 현재 원고 6장은 반사실 대비 증가율(%)을 쓰며, 'Chapter 6 (current)' 그림을 참조하십시오.",
+   "note_en": "Earlier-generation figure (per-1,000-residents indicator). Chapter 6 now uses the increase vs counterfactual (%); see the 'Chapter 6 (current)' figures.",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/main_text/fig6-5_early_late_prepct.png",
+   "analysis": "heterogeneity",
+   "site": "Main text",
+   "kind_ko": "fig6-5_early_late_prepct · 이전 세대(1,000명당 지표)",
+   "kind_en": "fig6-5_early_late_prepct · earlier generation (per-1,000 indicator)",
+   "note_ko": "이전 세대 그림: 주민 1,000명당 지표. 현재 원고 6장은 반사실 대비 증가율(%)을 쓰며, 'Chapter 6 (current)' 그림을 참조하십시오.",
+   "note_en": "Earlier-generation figure (per-1,000-residents indicator). Chapter 6 now uses the increase vs counterfactual (%); see the 'Chapter 6 (current)' figures.",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/main_text/fig6-x_weekly_prepct_main.png",
+   "analysis": "heterogeneity",
+   "site": "Main text",
+   "kind_ko": "fig6-x_weekly_prepct_main · 이전 세대(1,000명당 지표)",
+   "kind_en": "fig6-x_weekly_prepct_main · earlier generation (per-1,000 indicator)",
+   "note_ko": "이전 세대 그림: 주민 1,000명당 지표. 현재 원고 6장은 반사실 대비 증가율(%)을 쓰며, 'Chapter 6 (current)' 그림을 참조하십시오.",
+   "note_en": "Earlier-generation figure (per-1,000-residents indicator). Chapter 6 now uses the increase vs counterfactual (%); see the 'Chapter 6 (current)' figures.",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
    "src": "assets/figures/yeouido_transit_scm/1.scm_path_D79_nested.jpg",
    "analysis": "yeouido",
    "site": "Yeouido-dong",
@@ -2367,6 +2444,12 @@
    "rows": 24
   },
   {
+   "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/OD_point_effects.csv",
+   "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/OD_point_effects.csv",
+   "analysis": "citywide",
+   "rows": 409
+  },
+  {
    "path": "assets/results/01_citywide_gsynth/R2_r4_submission_20261010/concentration_POINT_only.csv",
    "repo_path": "results/01_citywide_gsynth/R2_r4_submission_20261010/concentration_POINT_only.csv",
    "analysis": "citywide",
@@ -2493,6 +2576,42 @@
    "rows": 18
   },
   {
+   "path": "assets/results/02_heterogeneity/R2_r4_prepct_level_20261103/contrast_level_prepct.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_prepct_level_20261103/contrast_level_prepct.csv",
+   "analysis": "heterogeneity",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/02_heterogeneity/R2_r4_prepct_level_20261103/fig_hetero_weekly_prepct_all_en_data.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_prepct_level_20261103/fig_hetero_weekly_prepct_all_en_data.csv",
+   "analysis": "heterogeneity",
+   "rows": 2277
+  },
+  {
+   "path": "assets/results/02_heterogeneity/R2_r4_prepct_level_20261103/group_level_prepct.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_prepct_level_20261103/group_level_prepct.csv",
+   "analysis": "heterogeneity",
+   "rows": 322
+  },
+  {
+   "path": "assets/results/02_heterogeneity/R2_r4_prepct_level_20261103/overall.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_prepct_level_20261103/overall.csv",
+   "analysis": "heterogeneity",
+   "rows": 14
+  },
+  {
+   "path": "assets/results/02_heterogeneity/R2_r4_prepct_level_20261103/table6-1_draft_prepct_level.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_prepct_level_20261103/table6-1_draft_prepct_level.csv",
+   "analysis": "heterogeneity",
+   "rows": 6
+  },
+  {
+   "path": "assets/results/02_heterogeneity/R2_r4_prepct_level_20261103/weekly_level.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_prepct_level_20261103/weekly_level.csv",
+   "analysis": "heterogeneity",
+   "rows": 2376
+  },
+  {
    "path": "assets/results/02_heterogeneity/R2_r4_transfer_wait_cross_20261103/cell_counts.csv",
    "repo_path": "results/02_heterogeneity/R2_r4_transfer_wait_cross_20261103/cell_counts.csv",
    "analysis": "heterogeneity",
@@ -2553,10 +2672,28 @@
    "rows": 36
   },
   {
+   "path": "assets/results/03_road_scm/unit_01/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_01/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 3528
+  },
+  {
    "path": "assets/results/03_road_scm/unit_01/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_01/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 49
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_01/path.csv",
+   "repo_path": "results/03_road_scm/unit_01/path.csv",
+   "analysis": "road_scm",
+   "rows": 72
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_01/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_01/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 3816
   },
   {
    "path": "assets/results/03_road_scm/unit_01/placebo_results.csv",
@@ -2565,10 +2702,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_02/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_02/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 576
+  },
+  {
    "path": "assets/results/03_road_scm/unit_02/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_02/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 8
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_02/path.csv",
+   "repo_path": "results/03_road_scm/unit_02/path.csv",
+   "analysis": "road_scm",
+   "rows": 72
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_02/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_02/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 3816
   },
   {
    "path": "assets/results/03_road_scm/unit_02/placebo_results.csv",
@@ -2577,10 +2732,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_03/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_03/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 576
+  },
+  {
    "path": "assets/results/03_road_scm/unit_03/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_03/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 6
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_03/path.csv",
+   "repo_path": "results/03_road_scm/unit_03/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_03/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_03/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_03/placebo_results.csv",
@@ -2589,10 +2762,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_04/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_04/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 1056
+  },
+  {
    "path": "assets/results/03_road_scm/unit_04/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_04/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 11
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_04/path.csv",
+   "repo_path": "results/03_road_scm/unit_04/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_04/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_04/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_04/placebo_results.csv",
@@ -2601,10 +2792,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_05/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_05/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 480
+  },
+  {
    "path": "assets/results/03_road_scm/unit_05/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_05/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 5
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_05/path.csv",
+   "repo_path": "results/03_road_scm/unit_05/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_05/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_05/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_05/placebo_results.csv",
@@ -2613,10 +2822,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_06/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_06/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 4320
+  },
+  {
    "path": "assets/results/03_road_scm/unit_06/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_06/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 45
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_06/path.csv",
+   "repo_path": "results/03_road_scm/unit_06/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_06/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_06/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_06/placebo_results.csv",
@@ -2625,10 +2852,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_07/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_07/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 4416
+  },
+  {
    "path": "assets/results/03_road_scm/unit_07/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_07/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 46
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_07/path.csv",
+   "repo_path": "results/03_road_scm/unit_07/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_07/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_07/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_07/placebo_results.csv",
@@ -2637,10 +2882,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_08/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_08/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 4224
+  },
+  {
    "path": "assets/results/03_road_scm/unit_08/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_08/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 44
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_08/path.csv",
+   "repo_path": "results/03_road_scm/unit_08/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_08/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_08/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_08/placebo_results.csv",
@@ -2649,10 +2912,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_09/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_09/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 3360
+  },
+  {
    "path": "assets/results/03_road_scm/unit_09/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_09/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 35
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_09/path.csv",
+   "repo_path": "results/03_road_scm/unit_09/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_09/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_09/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_09/placebo_results.csv",
@@ -2661,10 +2942,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_10/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_10/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 432
+  },
+  {
    "path": "assets/results/03_road_scm/unit_10/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_10/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 6
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_10/path.csv",
+   "repo_path": "results/03_road_scm/unit_10/path.csv",
+   "analysis": "road_scm",
+   "rows": 72
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_10/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_10/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 3816
   },
   {
    "path": "assets/results/03_road_scm/unit_10/placebo_results.csv",
@@ -2673,10 +2972,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_11/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_11/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 4704
+  },
+  {
    "path": "assets/results/03_road_scm/unit_11/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_11/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 49
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_11/path.csv",
+   "repo_path": "results/03_road_scm/unit_11/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_11/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_11/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_11/placebo_results.csv",
@@ -2685,10 +3002,28 @@
    "rows": 53
   },
   {
+   "path": "assets/results/03_road_scm/unit_12/loo_paths_twostep.csv",
+   "repo_path": "results/03_road_scm/unit_12/loo_paths_twostep.csv",
+   "analysis": "road_scm",
+   "rows": 1728
+  },
+  {
    "path": "assets/results/03_road_scm/unit_12/loo_twostep.csv",
    "repo_path": "results/03_road_scm/unit_12/loo_twostep.csv",
    "analysis": "road_scm",
    "rows": 18
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_12/path.csv",
+   "repo_path": "results/03_road_scm/unit_12/path.csv",
+   "analysis": "road_scm",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/03_road_scm/unit_12/placebo_paths.csv",
+   "repo_path": "results/03_road_scm/unit_12/placebo_paths.csv",
+   "analysis": "road_scm",
+   "rows": 5088
   },
   {
    "path": "assets/results/03_road_scm/unit_12/placebo_results.csv",
@@ -2767,6 +3102,18 @@
    "repo_path": "results/04_yeouido_transit_scm/nested79/loo_sensitivity_D79_nested_vfix.csv",
    "analysis": "yeouido",
    "rows": 5
+  },
+  {
+   "path": "assets/results/04_yeouido_transit_scm/nested79/path_D79_nested.csv",
+   "repo_path": "results/04_yeouido_transit_scm/nested79/path_D79_nested.csv",
+   "analysis": "yeouido",
+   "rows": 95
+  },
+  {
+   "path": "assets/results/04_yeouido_transit_scm/nested79/placebo_paths_D79_nested.csv",
+   "repo_path": "results/04_yeouido_transit_scm/nested79/placebo_paths_D79_nested.csv",
+   "analysis": "yeouido",
+   "rows": 7505
   },
   {
    "path": "assets/results/04_yeouido_transit_scm/nested79/placebo_pvals_D79_nested.csv",

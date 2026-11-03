@@ -1,7 +1,9 @@
-# 02_heterogeneity — Heterogeneity of effects (% relative to the counterfactual)
+# 02_heterogeneity — Heterogeneity of effects
 
 ## Purpose
-Re-aggregates the saved point estimates and bootstrap draws of the citywide gsynth main model (r = 4) by origin characteristics — transfer burden, transfer walk + wait time, accessibility, trip distance, youth share, elderly share and planning region — and reports effects as a percentage of the counterfactual. No model is refitted. A district-level effect map is also drawn.
+Re-aggregates the saved point estimates and bootstrap draws of the citywide gsynth main model (r = 4) by origin characteristics — transfer burden, transfer walk + wait time, accessibility, trip distance, youth share, elderly share and planning region. No model is refitted. A district-level effect map is also drawn.
+
+**Current metric (manuscript, 2026-11-04):** level effect = additional weekly ridership per OD pair (person-days), and the effect as % of the group's 53-week pretreatment mean — `hetero_level_prepct_20261103.R` → `results/02_heterogeneity/R2_r4_prepct_level_20261103/`. Figures: `fig_heterogeneity_weekly_hmstyle_prepct_20261104.R` (Fig. 6-5 and weekly Hainmueller-style panels; reads only the CSVs above), `plot_transfer_wait_minimal_20261104.py` (Fig. 6-4; values hard-coded). The `hetero_cf_*` / `*_cf_*` scripts below are the earlier counterfactual-relative generation and are kept for reference.
 
 ## Inputs
 Most inputs are restricted (derived from smart-card OD data) and must be placed under `RAW_DIR` (default `data/restricted`). Korean file/folder names of restricted inputs are kept as delivered; English glosses are given in brackets.
@@ -25,6 +27,9 @@ Written to `OUT_DIR` (default `output/02_heterogeneity/<run_name>`); published c
 
 | Script | Default OUT_DIR (`output/02_heterogeneity/…`) | Published copy |
 |---|---|---|
+| hetero_level_prepct_20261103.R | `R2_r4_prepct_level_20261103/` (group_level_prepct.csv, contrast_level_prepct.csv, overall.csv, weekly_level.csv) | `results/02_heterogeneity/R2_r4_prepct_level_20261103/` |
+| fig_heterogeneity_weekly_hmstyle_prepct_20261104.R | `figures/` (fig6_5_prepct_early_late_en.png, fig_hetero_hm_{main,all7}_wide_prepct_en.png, fig_hetero_weekly_prepct_all_en_data.csv) | `figures/heterogeneity/`, `figures/thesis/main_text/` |
+| plot_transfer_wait_minimal_20261104.py | `figures/fig6_4_transfer_wait_minimal_en.png` | `figures/heterogeneity/`, `figures/thesis/main_text/` |
 | hetero_cf_pct_20261102.R | `R2_r4_cf_pct_20261102/` (group_cf_pct.csv, contrast_cf_pct.csv) | — |
 | hetero_cf_quintiles_20261103.R | `R2_r4_cf_quintiles_20261103/` | `results/02_heterogeneity/R2_r4_cf_quintiles_20261103/` |
 | hetero_cf_tertiles_timepath_20261103.R | `R2_r4_cf_tertiles_timepath_20261103/` | `results/02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/` |
@@ -46,7 +51,10 @@ Rscript code/02_heterogeneity/hetero_cf_tertiles_timepath_20261103.R
 Rscript code/02_heterogeneity/hetero_cf_transfer_wait_cross_20261103.R
 Rscript code/02_heterogeneity/plot_cf_early_late_20261103.R
 Rscript code/02_heterogeneity/plot_transfer_cf_timepath_20261103.R
-Rscript code/02_heterogeneity/fig_heterogeneity_weekly_hmstyle_cf_20261103.R   # weekly figure (Chapter 6); needs patchwork
+Rscript code/02_heterogeneity/fig_heterogeneity_weekly_hmstyle_cf_20261103.R   # earlier-generation weekly figure; needs patchwork
+Rscript code/02_heterogeneity/hetero_level_prepct_20261103.R                     # current metric (level + % of pretreatment mean)
+Rscript code/02_heterogeneity/fig_heterogeneity_weekly_hmstyle_prepct_20261104.R # current Fig. 6-5 and weekly figures; needs patchwork
+python3 code/02_heterogeneity/plot_transfer_wait_minimal_20261104.py            # Fig. 6-4
 python3 code/02_heterogeneity/maps_r4_district_20261011.py
 ```
 
@@ -61,6 +69,6 @@ The R scripts contain Korean names (input file names and planning-region values)
 The following are read but not produced by any script in this repo:
 - The scripts that built `R2_r4_환승5분위_사전CI_20261011/<eng>/chunk_*.rds`, `dong_population_effects.csv`, `OD_analysis_data.csv`, the four covariate CSVs, and `district_effects.csv`.
 - `fig_heterogeneity_weekly_hmstyle_daily_20261102.R`, which wrote `fig_hetero_weekly_transfer_en_data.csv` (used only for week dates).
-- The script that drew `figures/heterogeneity/transfer_walking_waiting_time_en.png` (Fig. 6-4).
+- The script that drew the earlier `figures/heterogeneity/transfer_walking_waiting_time_en.png`; the current Fig. 6-4 is `plot_transfer_wait_minimal_20261104.py` (two trip-weighted means hard-coded; the aggregation script is not in this repo).
 - `maps_EN.py` (mentioned in a comment as the reference for boundary handling; not needed to run).
 - The "Source script: _review/…" line inside the output README.txt files refers to the original working folder and was left unchanged so that the outputs are unchanged.
