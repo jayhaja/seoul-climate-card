@@ -2958,6 +2958,12 @@
    "rows": 7
   },
   {
+   "path": "assets/results/04_yeouido_transit_scm/nested79/summary_D79_nested.csv",
+   "repo_path": "results/04_yeouido_transit_scm/nested79/summary_D79_nested.csv",
+   "analysis": "yeouido",
+   "rows": 1
+  },
+  {
    "path": "assets/results/04_yeouido_transit_scm/nested79/vweights_D79_nested.csv",
    "repo_path": "results/04_yeouido_transit_scm/nested79/vweights_D79_nested.csv",
    "analysis": "yeouido",
