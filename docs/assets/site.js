@@ -8,7 +8,6 @@
     ["heterogeneity.html", "② 이질성", "② Heterogeneity"],
     ["road-scm.html", "③ 여의도 도로 SCM", "③ Yeouido roads"],
     ["yeouido.html", "④ 여의도 대중교통 SCM", "④ Yeouido transit"],
-    ["seoul-road.html", "⑤ 서울 전역 도로", "⑤ Seoul roads"],
     ["results.html", "결과 표", "Results"],
     ["gallery.html", "그림", "Figures"],
     ["data.html", "자료·한계", "Data & limits"]

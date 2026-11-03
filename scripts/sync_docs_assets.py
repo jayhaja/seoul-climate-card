@@ -20,6 +20,9 @@ DOCS_ASSETS = ROOT / "docs" / "assets"
 FIG_SRC, FIG_DST = ROOT / "figures", DOCS_ASSETS / "figures"
 RES_SRC, RES_DST = ROOT / "results", DOCS_ASSETS / "results"
 IMG_EXT = {".jpg", ".jpeg", ".png"}
+# Analyses left out of the site for now (still in the repository): Seoul-wide road gsynth.
+SKIP_FIG = {"seoul_road_gsynth"}
+SKIP_RES = {"05_seoul_road_gsynth"}
 
 ANALYSIS_BY_RESULTS_DIR = {
     "01_citywide_gsynth": "citywide",
@@ -140,7 +143,7 @@ def main():
             shutil.rmtree(d)
     figs = []
     for p in sorted(FIG_SRC.rglob("*")):
-        if p.suffix.lower() in IMG_EXT:
+        if p.suffix.lower() in IMG_EXT and p.relative_to(FIG_SRC).parts[0] not in SKIP_FIG:
             rel = p.relative_to(FIG_SRC)
             (FIG_DST / rel).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(p, FIG_DST / rel)
@@ -148,6 +151,8 @@ def main():
     tables = []
     for p in sorted(RES_SRC.rglob("*.csv")):
         rel = p.relative_to(RES_SRC)
+        if rel.parts[0] in SKIP_RES:
+            continue
         (RES_DST / rel).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(p, RES_DST / rel)
         with p.open(encoding="utf-8-sig", newline="") as f:
