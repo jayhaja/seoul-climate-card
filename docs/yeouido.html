@@ -14,7 +14,7 @@
 
   <h2><span class="ko">설계</span><span class="en">Design</span></h2>
   <ul>
-    <li><span class="ko">예측변수: 환승 비율, 출발동 인구, 이용자 수 5개 구간 평균. V·W nested 최적화. 직접 노출 가능성이 있는 도너 2개를 제외해 81 → 79.</span><span class="en">Predictors: transfer share, origin population, five block means of users; nested V and W. Two possibly exposed donors are dropped (81 → 79).</span></li>
+    <li><span class="ko">예측변수: 환승 비율, 출발동 인구, 이용자 수 5개 구간 평균. V·W는 처치 전 기간 예측오차를 최소화하도록 함께 추정. 직접 노출 가능성이 있는 도너 2개를 제외해 81 → 79.</span><span class="en">Predictors: transfer share, origin population, five block means of users; V and W estimated jointly by minimising pre-treatment prediction error. Two possibly exposed donors are dropped (81 → 79).</span></li>
     <li><span class="ko">추론: 사후/사전 RMSPE 비율(Abadie et al. 2015). 위약마다 처치 단위를 도너에 포함, 필터 없음 → p = 순위/80. 사전 RMSPE 5배 이하만 쓰는 결과는 민감도.</span><span class="en">Inference: post/pre RMSPE ratio (Abadie et al. 2015); the treated unit joins each placebo's donor pool; no filter → p = rank/80. Restricting to pre-RMSPE ≤ 5× is a sensitivity check.</span></li>
     <li><span class="ko">효과율: 100 × Σ사후 격차 / Σ사후 합성값.</span><span class="en">Effect % = 100 × Σ post gap / Σ post synthetic.</span></li>
   </ul>

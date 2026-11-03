@@ -1,10 +1,10 @@
 ---
-title: "Yeouido transit SCM — nested version (fit on the full pre-period, original ADH 2003/2010 approach)"
+title: "Yeouido transit SCM — fit on the full pre-period (original ADH 2003/2010 approach)"
 output: html_document
 ---
 
 <!--
-Main table: V and W chosen jointly, without a split, by minimising the prediction error over all 49 pre-treatment weeks (Synth nested).
+Main table: V and W chosen jointly, without a split, by minimising the prediction error over all 49 pre-treatment weeks (Synth).
   Recorded values to reproduce: ATT +4.763% · pre RMSPE 389.2 · ratio 3.178 · p_ratio(τ5) 0.0263
 Plots: the original plot helpers (plot_synth_custom / plot_mspe_ratio_ranked /
   plot_placebo_gaps_limit / plot_placebo_ratio_hist) are used unchanged.

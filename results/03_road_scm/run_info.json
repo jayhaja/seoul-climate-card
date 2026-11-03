@@ -70,5 +70,5 @@
   "exclude": [107, 201],
   "short_units": [1, 2, 10],
   "started": "2026-11-03 15:46:25",
-  "note": "placebo donors = setdiff(pool, d) + treated; p without pre-fit filter; LOO twostep (nested V,W refit); post 51-96 / 51-72"
+  "note": "placebo donors = setdiff(pool, d) + treated; p without pre-fit filter; LOO twostep (V and W refit); post 51-96 / 51-72"
 }

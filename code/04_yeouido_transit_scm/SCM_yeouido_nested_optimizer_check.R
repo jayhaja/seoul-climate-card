@@ -1,4 +1,4 @@
-## SCM_yeouido_nested_optimizer_check.R — check of the optimiser used in the nested V·W estimation (2026-11-03)
+## SCM_yeouido_nested_optimizer_check.R — check of the optimiser used in the joint V·W estimation (2026-11-03)
 ## Purpose: when the 5 directly exposed donors are excluded (76 donors) the pre RMSPE worsens from 389 to 459; check whether this is due
 ##   to the donor exclusion or to a local optimum in the V optimisation.
 ##   V is not fixed. The nested objective (minimise pre-treatment outcome MSPE) is kept and only Synth's optimiser is changed.

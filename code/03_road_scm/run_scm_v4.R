@@ -1,4 +1,4 @@
-## run_scm_v4.R — runs road SCM v4. CFG$method: "stdv" (nested V·W over 50 pre-weeks, ADH 2010) | "adh2015" (v3 two-step)
+## run_scm_v4.R — runs road SCM v4. CFG$method: "stdv" (joint V·W over 50 pre-weeks, ADH 2010) | "adh2015" (v3 two-step)
 ## Run (from repo root): Rscript code/03_road_scm/run_scm_v4.R            # all 12 sites
 ##       Rscript code/03_road_scm/run_scm_v4.R 1,4,6                         # selected sites
 ##       Rscript code/03_road_scm/run_scm_v4.R 1 --no-placebo                                  # skip placebo · LOO · in-time (quick check)

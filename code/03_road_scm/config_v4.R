@@ -26,7 +26,7 @@ CFG <- list(
     "101" = "Namyangju TG–Hwado IC (Appendix C)", "404" = "Gijang IC–Haeundae IC (Appendix C)", "305" = "Cheonbyeon Urban Expressway, downbound → upbound (Appendix C)"),
 
   ## ── Estimation method ───────────────────────────────────────────────────
-  ## "stdv"    : standard SCM (ADH 2010). One nested optimisation of V·W on the predictors and outcome over the full 50-week pre-period (pre_idx).
+  ## "stdv"    : standard SCM (ADH 2010). One joint optimisation of V·W on the predictors and outcome over the full 50-week pre-period (pre_idx).
   ##             fit_idx/valid_idx/final_w_idx are not used for fitting (only to report the early/late RMSPE windows in the metrics).
   ## "adh2015" : two-step, as in v3 (train weeks 1–25 → choose V on validation weeks 26–50 → final W on final_w_idx).
   method = "stdv",
