@@ -1,7 +1,7 @@
 # Data
 
 ## Not included (restricted)
-- **Smart-card origin–destination (OD) records** (Ministry of Land, Infrastructure and Transport transit card data, accessed through a secure data centre). OD-level weekly counts and any file that reproduces them are excluded, including per-OD effect files (`OD_point_effects.csv`), origin membership tables, and observed/synthetic weekly paths for the Yeouido OD pair. Researchers can request access from the data provider.
+- **Smart-card origin–destination (OD) records** (Ministry of Land, Infrastructure and Transport transit card data, accessed through a secure data centre). OD-level weekly counts and any file that reproduces them are excluded, including per-OD effect files (`OD_point_effects.csv`), origin membership tables, and observed/synthetic weekly paths for the Yeouido OD pair. Researchers can request access from the data provider. Figures that plot aggregated paths (including the Yeouido OD path and placebo figures in `figures/`) were cleared for export by the data centre; the underlying values are not distributed as data files. / `figures/`의 그림(여의도 OD 경로·위약 그림 포함)은 데이터안전센터 반출 승인 범위이며, 그 값은 데이터 파일로 배포하지 않습니다.
 
 ## Not yet included (licence to be confirmed)
 - Road detector counts: Seoul TOPIS sites and donor links outside Seoul (national ITS link IDs). The analysis panels will be added once redistribution terms are confirmed.
