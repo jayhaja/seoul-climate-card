@@ -32,7 +32,7 @@
       </select></label>
   </div>
   <div id="c-plot" class="plot"></div>
-  <p class="source"><span class="ko">띠: 정규근사 95% CI (OD 부트스트랩 1,000회). 출처</span><span class="en">Band: normal 95% CI (1,000 OD bootstrap draws). Source</span>: <code>results/01_citywide_gsynth/R2_r4_submission_20261010/weekly_effects_B1000.csv</code></p>
+  <p class="source"><span class="ko">저장소의 이전 추정(반사실 대비 %, 46주 +1.568%)입니다. 논문 원고 v4의 주 결과는 처치 전 평균 대비 +1.87%입니다. 띠: 정규근사 95% CI (OD 부트스트랩 1,000회). 출처</span><span class="en">Earlier run in this repository (vs counterfactual, +1.568% over 46 weeks); the manuscript v4 headline is +1.87% of pretreatment use. Band: normal 95% CI (1,000 OD bootstrap draws). Source</span>: <code>results/01_citywide_gsynth/R2_r4_submission_20261010/weekly_effects_B1000.csv</code></p>
 
   <h2><span class="ko">① OD 409쌍별 효과</span><span class="en">① Effects for each of the 409 ODs</span></h2>
   <p class="small"><span class="ko">점 하나가 서울 내부 OD 하나입니다. 작은 OD는 반사실이 작아 비율이 크게 흔들리므로, 사전 규모로 거르거나 세로축 범위를 조정해 보십시오. 개별 OD 추정치는 불확실성이 커서 지역 순위로 해석하지 않습니다.</span><span class="en">Each dot is one within-Seoul OD. Small ODs have small counterfactuals, so their percentages swing widely — filter by pre-period size or zoom. Individual OD estimates are very uncertain and are not a ranking of areas.</span></p>
@@ -57,7 +57,7 @@
     <label class="check"><input id="h-ci" type="checkbox"><span class="ko">95% CI 띠</span><span class="en">95% CI bands</span></label>
   </div>
   <div id="h-plot" class="plot"></div>
-  <p class="source"><span class="ko">주별 효과를 집단의 처치 전 53주 평균 이용량 대비 %로 나타낸 값(6장 지표). 처치 전 값은 적합 잔차, 점선은 2024-01-29. 출처</span><span class="en">Weekly effect as % of the group's 53-week pretreatment mean ridership (Chapter 6 metric). Pre-treatment values are in-sample fit residuals; dashed line at 2024-01-29. Source</span>: <code>results/02_heterogeneity/R2_r4_prepct_level_20261103/fig_hetero_weekly_prepct_all_en_data.csv</code></p>
+  <p class="source"><span class="ko">주별 효과를 집단의 처치 전 53주 평균 이용량 대비 %로 나타낸 값으로, 이전 추정입니다(전체 +1.48%, 논문 v4는 +1.88%). 처치 전 값은 적합 잔차, 점선은 2024-01-29. 출처</span><span class="en">Weekly effect as % of the group's 53-week pretreatment mean ridership, from an earlier run (overall +1.48%; manuscript v4: +1.88%). Pre-treatment values are in-sample fit residuals; dashed line at 2024-01-29. Source</span>: <code>results/02_heterogeneity/R2_r4_prepct_level_20261103/fig_hetero_weekly_prepct_all_en_data.csv</code></p>
 
   <h2><span class="ko">③ 여의도 연결도로: 위약 분포와 LOO</span><span class="en">③ Yeouido road links: placebo distribution and LOO</span></h2>
   <div class="controls">

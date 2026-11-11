@@ -10,38 +10,62 @@
 <body>
 <main>
   <h1><span class="ko">② 효과 이질성</span><span class="en">② Effect heterogeneity</span></h1>
-  <p class="lead"><span class="ko">①의 전체 모형 적합값을 그대로 두고, 출발지 특성별 3분위 집단마다 효과를 다시 집계했습니다. 집단 비교는 처치 전 평균 이용량 대비 효과율(%)로, 집단별 재추정은 하지 않았고 분위 경계는 추정 효과를 보지 않고 정했습니다.</span><span class="en">Using the full-model fit from ①, effects are re-aggregated for pretreatment tertiles of origin characteristics. Groups are compared on the effect as % of the group\'s pretreatment mean ridership; no group-specific refits; tertile boundaries were set without looking at the effects.</span></p>
+  <p class="lead"><span class="ko">①의 전체 모형 적합값을 그대로 두고 출발지 특성별 처치 전 3분위 집단마다 효과를 다시 집계했습니다(집단별 재추정 없음). 효과는 집단의 처치 전 평균 이용량 대비 %입니다. 인구 1,000명 이상 출발지 311곳(대기시간 자료는 283곳)이 대상이며, 이 표본의 전체 효과는 <b>+1.88%</b>(95% CI 0.93–2.82)입니다.</span><span class="en">Using the full-model fit from ①, effects are re-aggregated for pretreatment tertiles of origin characteristics (no group-specific refits), as % of each group’s pretreatment mean use. The sample is 311 origins with at least 1,000 residents (waiting-time data for 283); the overall effect in this sample is <b>+1.88%</b> (95% CI 0.93–2.82).</span></p>
 
   <ul>
-    <li><span class="ko">효과율 = 100 × (집단 평균 추정효과, OD쌍당 주간 인일) / (같은 OD쌍들의 처치 전 53주 평균 주간 이용량). 쌍체 OD 부트스트랩 1,000회(분모도 매 반복 재계산), 정규근사 95% CI, p값 다중비교 미보정. 반사실 대비 % 판은 이전 세대 결과로 <code>R2_r4_cf_*</code> 폴더에 남겨 두었습니다.</span><span class="en">Effect = 100 × (group mean estimated effect, weekly person-days per OD pair) / (the same ODs' mean weekly ridership over the 53 pretreatment weeks). 1,000 paired OD-pair bootstrap draws (denominator recomputed in each), normal 95% CI, unadjusted p-values. The earlier counterfactual-relative version is kept in the <code>R2_r4_cf_*</code> folders.</span></li>
-    <li><span class="ko">대기 시간: 2023년 6–8월 환승 보행+대기(최초 승차 대기 제외). 인구 1,000명 이상 출발지.</span><span class="en">Waiting time: June–Aug 2023 transfer walking + waiting (first boarding wait excluded). Origins with population ≥ 1,000.</span></li>
-    <li><span class="ko">기술적 이질성이며 특성 자체의 인과효과가 아닙니다.</span><span class="en">Descriptive heterogeneity, not causal effects of the characteristics.</span></li>
+    <li><span class="ko">대기 시간 = 2023년 6–8월 환승 중 도보·대기 시간(첫 승차 전 대기 제외). 대기시간 비교는 처치 전 이용량과 통행 거리를 중첩 가중치(overlap weights)로 맞춘 결과도 함께 봅니다.</span><span class="en">Waiting time = walking and waiting during transfers, June–August 2023 (waiting before the first boarding excluded). For waiting time, overlap weights also balance pretreatment use and trip distance between groups.</span></li>
+    <li><span class="ko">p값은 다중비교 미보정. 기술적 이질성이며 특성 자체의 인과효과가 아닙니다.</span><span class="en">P-values are not adjusted for multiple testing. Descriptive heterogeneity, not causal effects of the characteristics.</span></li>
   </ul>
 
-  <h2><span class="ko">3분위 집단별 효과율 (46주 전체, 처치 전 평균 대비 %)</span><span class="en">Effects by tertile (full 46 weeks, % of pretreatment mean)</span></h2>
+  <h2><span class="ko">집단별 효과 (46주, 처치 전 평균 대비 %)</span><span class="en">Effects by group (46 weeks, % of pretreatment mean)</span></h2>
   <div class="table-wrap"><table>
-    <thead><tr><th><span class="ko">특성</span><span class="en">Characteristic</span></th><th class="n">Q1</th><th class="n">Q2</th><th class="n">Q3</th><th class="n"><span class="ko">Q3−Q1 (%p)</span><span class="en">Q3−Q1 (pp)</span></th><th class="n">95% CI</th><th class="n">p</th></tr></thead>
+    <thead><tr><th><span class="ko">특성</span><span class="en">Characteristic</span></th><th class="n"><span class="ko">낮음/짧음</span><span class="en">Low/short</span></th><th class="n"><span class="ko">중간</span><span class="en">Middle</span></th><th class="n"><span class="ko">높음/김</span><span class="en">High/long</span></th><th class="n"><span class="ko">높음−낮음 (%p)</span><span class="en">High − low (pp)</span></th><th class="n">95% CI</th><th class="n">p</th></tr></thead>
     <tbody>
-      <tr><td><span class="ko">환승 부담</span><span class="en">Transfer burden</span></td><td class="n">1.49</td><td class="n">1.40</td><td class="n">1.70</td><td class="n">+0.20</td><td class="n">−0.54 – 0.94</td><td class="n">.59</td></tr>
-      <tr class="hl"><td><span class="ko">대기 시간</span><span class="en">Waiting time</span></td><td class="n">2.15</td><td class="n">1.52</td><td class="n">1.23</td><td class="n">−0.93</td><td class="n">−1.66 – −0.20</td><td class="n">.012</td></tr>
-      <tr><td><span class="ko">접근성</span><span class="en">Accessibility</span></td><td class="n">1.53</td><td class="n">1.33</td><td class="n">1.75</td><td class="n">+0.22</td><td class="n">−0.49 – 0.93</td><td class="n">.55</td></tr>
-      <tr class="hl"><td><span class="ko">통행 거리</span><span class="en">Trip distance</span></td><td class="n">2.85</td><td class="n">1.69</td><td class="n">1.35</td><td class="n">−1.50</td><td class="n">−2.48 – −0.52</td><td class="n">.003</td></tr>
-      <tr><td><span class="ko">청년 비율</span><span class="en">Youth share</span></td><td class="n">1.80</td><td class="n">1.14</td><td class="n">1.82</td><td class="n">+0.01</td><td class="n">−0.75 – 0.78</td><td class="n">.97</td></tr>
-      <tr class="hl"><td><span class="ko">고령 비율</span><span class="en">Elderly share</span></td><td class="n">1.78</td><td class="n">1.56</td><td class="n">1.03</td><td class="n">−0.76</td><td class="n">−1.44 – −0.08</td><td class="n">.029</td></tr>
+      <tr class="hl"><td><span class="ko">환승 대기 시간</span><span class="en">Transfer waiting time</span></td><td class="n">2.53</td><td class="n">—</td><td class="n">1.59</td><td class="n">−0.94</td><td class="n">−1.69 – −0.18</td><td class="n">.015</td></tr>
+      <tr><td><span class="ko">환승 횟수</span><span class="en">Transfer frequency</span></td><td class="n">1.90</td><td class="n">1.80</td><td class="n">2.06</td><td class="n">+0.16</td><td class="n">−0.61 – 0.93</td><td class="n">.686</td></tr>
+      <tr><td><span class="ko">접근성</span><span class="en">Accessibility</span></td><td class="n">1.94</td><td class="n">1.70</td><td class="n">2.11</td><td class="n">+0.17</td><td class="n">—</td><td class="n">.662</td></tr>
+      <tr class="hl"><td><span class="ko">통행 거리</span><span class="en">Travel distance</span></td><td class="n">3.19</td><td class="n">2.03</td><td class="n">1.76</td><td class="n">−1.43</td><td class="n">−2.45 – −0.41</td><td class="n">.006</td></tr>
     </tbody>
   </table></div>
-  <p class="source"><span class="ko">출처</span><span class="en">Source</span>: <a href="results.html?file=results/02_heterogeneity/R2_r4_prepct_level_20261103/group_level_prepct.csv"><code>…/R2_r4_prepct_level_20261103/group_level_prepct.csv</code></a>, <a href="results.html?file=results/02_heterogeneity/R2_r4_prepct_level_20261103/contrast_level_prepct.csv"><code>contrast_level_prepct.csv</code></a> (stat = pct, window = full). <span class="ko">단위 %. 같은 파일의 stat = lvl 행이 OD쌍당 주간 인일 수준값과 처치 전 평균.</span><span class="en">Values in %. Rows with stat = lvl give the level effect (weekly person-days per OD pair) and the pretreatment mean.</span></p>
+  <p class="small"><span class="ko">대기시간 짧음 95% CI 1.36–3.69, 김 0.67–2.52. 중첩 가중치로 처치 전 이용량·통행 거리를 맞춰도 짧은 대기 집단이 0.90%p 컸습니다(95% CI 0.07–1.72, p = .034). "—"는 원고 본문에 없는 값입니다(부록에 수록). 청년·고령 비율 등 인구 특성 결과는 부록에 있습니다.</span><span class="en">Waiting time: short 95% CI 1.36–3.69, long 0.67–2.52. With overlap weights balancing pretreatment use and trip distance, the short-wait group’s effect was still 0.90 pp larger (95% CI 0.07–1.72, p = .034). “—” = not reported in the main text (in the SI Appendix). Demographic groups such as youth and elderly shares are in the SI Appendix.</span></p>
 
-  <h3><span class="ko">시간에 따른 변화</span><span class="en">Change over time</span></h3>
-  <p><span class="ko">환승 부담 상위 집단의 효과는 시간이 지나며 커졌습니다: (후기 − 초기) Q3−Q1 차이 +1.28%p (95% CI 0.69 – 1.87). 통행 거리는 반대로 −1.81%p (95% CI −2.94 – −0.69). 그림 6-5는 초기 12주·후기 34주의 집단별 효과율입니다.</span><span class="en">For high transfer burden the effect grew over time: late-minus-early Q3−Q1 difference +1.28 pp (95% CI 0.69–1.87). For trip distance it was −1.81 pp (95% CI −2.94 to −0.69). Fig. 6-5 shows the group effects for weeks 1–12 and 13–46.</span></p>
+  <h3><span class="ko">권역별</span><span class="en">By planning region</span></h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th><span class="ko">권역</span><span class="en">Region</span></th><th class="n"><span class="ko">효과 (%)</span><span class="en">Effect (%)</span></th></tr></thead>
+    <tbody>
+      <tr><td><span class="ko">동남권</span><span class="en">Southeast</span></td><td class="n">2.70</td></tr>
+      <tr><td><span class="ko">서남권</span><span class="en">Southwest</span></td><td class="n">2.18</td></tr>
+      <tr><td><span class="ko">서북권</span><span class="en">Northwest</span></td><td class="n">1.63</td></tr>
+      <tr><td><span class="ko">동북권</span><span class="en">Northeast</span></td><td class="n">1.26</td></tr>
+      <tr><td><span class="ko">도심권</span><span class="en">Central</span></td><td class="n">1.16</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><span class="ko">다섯 권역 모두 양의 점추정이며, 도심권을 제외한 모든 권역에서 95% CI가 0을 포함하지 않았습니다.</span><span class="en">All five regions have positive point estimates; the 95% CI excludes zero in every region except the central region.</span></p>
+
+  <h3><span class="ko">초기 12주 대 이후 34주</span><span class="en">First 12 vs subsequent 34 weeks</span></h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th><span class="ko">특성</span><span class="en">Characteristic</span></th><th><span class="ko">집단</span><span class="en">Group</span></th><th class="n"><span class="ko">초기</span><span class="en">Early</span></th><th class="n"><span class="ko">후기</span><span class="en">Late</span></th><th><span class="ko">격차 변화</span><span class="en">Change in gap</span></th></tr></thead>
+    <tbody>
+      <tr><td rowspan="2"><span class="ko">환승 대기 시간</span><span class="en">Waiting time</span></td><td><span class="ko">짧음</span><span class="en">Short</span></td><td class="n">1.66</td><td class="n">2.83</td><td rowspan="2">−0.90%p (95% CI −1.58 – −0.21, p = .010)</td></tr>
+      <tr><td><span class="ko">김</span><span class="en">Long</span></td><td class="n">1.39</td><td class="n">1.67</td></tr>
+      <tr><td rowspan="2"><span class="ko">환승 횟수</span><span class="en">Transfer frequency</span></td><td><span class="ko">낮음</span><span class="en">Low</span></td><td class="n">1.81</td><td class="n">1.93</td><td rowspan="2">+1.26%p (p &lt; .001)</td></tr>
+      <tr><td><span class="ko">높음</span><span class="en">High</span></td><td class="n">1.04</td><td class="n">2.42</td></tr>
+      <tr><td rowspan="2"><span class="ko">통행 거리</span><span class="en">Travel distance</span></td><td><span class="ko">짧음</span><span class="en">Short</span></td><td class="n">1.59</td><td class="n">3.75</td><td rowspan="2">1.78%p (95% CI 0.62–2.94, p = .003)</td></tr>
+      <tr><td><span class="ko">김</span><span class="en">Long</span></td><td class="n">1.48</td><td class="n">1.86</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><span class="ko">환승이 많은 지역의 효과는 시간이 지나며 커졌습니다. 정기권 혜택을 점차 인지해 이용을 늘렸을 가능성이 있으나, 정책 때문에 환승을 더 했다는 뜻은 아닙니다. 짧은 통행일수록 상대 증가가 컸는데, 짧은 통행은 승용차보다 도보·자전거를 대체할 가능성이 큽니다.</span><span class="en">In high-transfer areas the effect grew over time, possibly as travellers recognised the benefit of unlimited travel; this does not mean the policy made people transfer more. Relative increases were largest for short trips, which are more likely to replace walking or cycling than driving.</span></p>
+  <p class="source"><span class="ko">출처: 논문 원고 v4 1.3절, 2.5절, 4.1절.</span><span class="en">Source: manuscript v4, sections 1.3, 2.5 and 4.1.</span></p>
+
+  <div class="note"><span class="ko"><b>저장소 결과와의 차이.</b> 아래 그림과 <code>results/02_heterogeneity/R2_r4_prepct_level_20261103/</code>는 이전 추정(전체 +1.48%)으로 계산한 것이라, 그림 속 수치가 위 표와 다릅니다. 환승 × 대기 교차 결과도 이전 추정(반사실 대비 %)입니다.</span><span class="en"><b>Difference from the repository results.</b> The figures below and <code>results/02_heterogeneity/R2_r4_prepct_level_20261103/</code> come from an earlier run (overall +1.48%), so the numbers in the figures differ from the tables above. The transfer × waiting result is also from an earlier run (counterfactual-relative %).</span></div>
 
   <h3><span class="ko">환승 × 대기 교차 (반사실 대비 %)</span><span class="en">Transfer × waiting (counterfactual-relative %)</span></h3>
   <p><span class="ko">교차항(높은 환승에서의 대기 차이 − 낮은 환승에서의 대기 차이)은 −1.07%p (95% CI −4.06 – 1.92)로 유의하지 않습니다.</span><span class="en">The interaction (wait gap within high transfer minus within low transfer) is −1.07 pp (95% CI −4.06–1.92), not significant.</span>
   <a href="results.html?file=results/02_heterogeneity/R2_r4_transfer_wait_cross_20261103/contrast_cf_pct.csv"><span class="ko">표</span><span class="en">table</span></a></p>
 
-  <h3><span class="ko">그림 6-5 · 주별 효과 (처치 전 평균 대비 %)</span><span class="en">Fig. 6-5 and weekly effects (% of pretreatment mean)</span></h3>
+  <h3><span class="ko">그림 (이전 추정, 처치 전 평균 대비 %)</span><span class="en">Figures (earlier run, % of pretreatment mean)</span></h3>
   <figure><img src="assets/figures/heterogeneity/fig6_5_prepct_early_late_en.png" alt="" loading="lazy"><figcaption><span class="ko">그림 6-5. 집단별 초기(1–12주)·후기(13–46주) 효과율과 95% CI. 패널마다 y축이 다릅니다.</span><span class="en">Fig. 6-5. Group effects for weeks 1–12 and 13–46 with 95% CIs. The y-axis differs across panels.</span></figcaption></figure>
-  <figure><img src="assets/figures/heterogeneity/fig_hetero_hm_main_wide_prepct_en.png" alt="" loading="lazy"><figcaption><span class="ko">집단별 주별 효과율(처치 전 평균 대비 %): 환승 부담·대기 시간·권역. 띠는 시점별 정규근사 95% CI(OD 쌍 부트스트랩 1,000회). 텍스트 상자의 ATT는 처치 후 46주 전체의 평균처치효과와 95% CI(표 6-1과 같음). 처치 전 값은 적합 잔차.</span><span class="en">Weekly effect as % of the pretreatment mean, by transfer burden, waiting time and planning region. Bands: pointwise normal 95% CIs (1,000 OD-pair bootstrap draws). The ATT in each text box is the average treatment effect on the treated over the full 46-week posttreatment period with its 95% CI (equals Table 6-1). Pretreatment values are in-sample fit residuals.</span></figcaption></figure>
+  <figure><img src="assets/figures/heterogeneity/fig_hetero_hm_main_wide_prepct_en.png" alt="" loading="lazy"><figcaption><span class="ko">집단별 주별 효과율(처치 전 평균 대비 %): 환승 부담·대기 시간·권역. 띠는 시점별 정규근사 95% CI(OD 쌍 부트스트랩 1,000회). 텍스트 상자의 ATT는 처치 후 46주 전체의 평균처치효과와 95% CI(이전 추정 기준). 처치 전 값은 적합 잔차.</span><span class="en">Weekly effect as % of the pretreatment mean, by transfer burden, waiting time and planning region. Bands: pointwise normal 95% CIs (1,000 OD-pair bootstrap draws). The ATT in each text box is the average treatment effect on the treated over the full 46-week posttreatment period with its 95% CI (earlier run). Pretreatment values are in-sample fit residuals.</span></figcaption></figure>
   <div class="fig-row">
     <figure><img src="assets/figures/heterogeneity/fig_hetero_hm_all7_wide_prepct_en.png" alt="" loading="lazy"><figcaption><span class="ko">7개 특성 전체의 주별 효과</span><span class="en">Weekly effects for all seven characteristics</span></figcaption></figure>
     <figure><img src="assets/figures/heterogeneity/fig6_4_transfer_wait_minimal_en.png" alt="" loading="lazy"><figcaption><span class="ko">그림 6-4. 환승 통행의 통행당 도보·대기시간(분). 서울 내부 통행, 2023년 6–8월, 전일, 통행 가중 평균, 첫 승차 전 대기 제외.</span><span class="en">Fig. 6-4. Walking and waiting time per transfer trip (minutes). Trips within Seoul, June–August 2023, all day, trip-weighted; waiting before the first boarding excluded.</span></figcaption></figure>
