@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Road traffic across Seoul | Seoul Climate Card</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<main>
+  <h1><span class="ko">⑤ 서울 전역 도로 교통량</span><span class="en">⑤ Road traffic across Seoul</span></h1>
+  <p class="lead"><span class="ko">여의도 밖으로 범위를 넓혀, 서울 TOPIS 관측 지점 149곳의 평일 오전 교통량을 서울 밖 비교 지점 53곳과 일반화 합성통제법(GSC)으로 비교했습니다. 더 넓은 도로 분석에서는 서울 도로망 전체의 일관된 교통량 감소가 확인되지 않았습니다.</span><span class="en">Extending beyond Yeouido, weekday-morning traffic at 149 Seoul TOPIS monitoring sites is compared with 53 sites outside Seoul using generalised synthetic control (GSC). The broader road analyses did not establish a consistent traffic reduction across Seoul’s road network.</span></p>
+
+  <h2><span class="ko">설계</span><span class="en">Design</span></h2>
+  <ul>
+    <li><span class="ko">결과변수: 06:00–09:59 시간당 교통량의 일 중앙값을 주 단위로 다시 중앙값 낸 값(대/시). 96주(처치 전 50주, 후 46주).</span><span class="en">Outcome: weekly median of daily medians of hourly counts, 06:00–09:59 (vehicles per hour); 96 weeks (50 pretreatment, 46 posttreatment).</span></li>
+    <li><span class="ko">지점·주 고정효과, 추가 공변량 없음, 잠재요인 3개(GMSPE 최소). 지점 단위 부트스트랩 200회.</span><span class="en">Site and week fixed effects, no additional covariates, three latent factors (minimum GMSPE); 200 site-level bootstrap replications.</span></li>
+    <li><span class="ko">도로 유형: A 도심, B 시계, C 한강 교량, D 간선도로, F 도시고속도로. 유형별로 따로 3요인 모형을 적합했습니다.</span><span class="en">Road types: A downtown, B city boundary, C Han River bridges, D arterials, F urban expressways; separate three-factor models by type.</span></li>
+  </ul>
+
+  <h2><span class="ko">결과</span><span class="en">Results</span></h2>
+  <div class="card-grid">
+    <div class="card"><div class="label"><span class="ko">149개 지점 전체</span><span class="en">All 149 sites</span></div><div class="num">−35.9 <span class="small"><span class="ko">대/시</span><span class="en">veh/h</span></span></div><div class="small">95% CI −80.8 – 9.0 · p = .117</div></div>
+    <div class="card"><div class="label"><span class="ko">간선도로 38곳</span><span class="en">Arterial roads (38 sites)</span></div><div class="num neg">−58.3 <span class="small"><span class="ko">대/시</span><span class="en">veh/h</span></span></div><div class="small"><span class="ko">반사실 대비 −3.16% · 95% CI −111.7 – −5.0 · p = .032</span><span class="en">−3.16% vs counterfactual · 95% CI −111.7 to −5.0 · p = .032</span></div></div>
+    <div class="card"><div class="label"><span class="ko">간선도로 전일 분석</span><span class="en">Arterials, all-day analysis</span></div><div class="num">≈ −2.3%</div><div class="small"><span class="ko">유의하지 않음 (p = .09–.11)</span><span class="en">not significant (p = .09–.11)</span></div></div>
+    <div class="card"><div class="label"><span class="ko">도시고속도로 9개 노선 (전일, SCM)</span><span class="en">Nine urban expressways (all-day, SCM)</span></div><div class="num">n.s.</div><div class="small"><span class="ko">유의한 변화 없음</span><span class="en">no significant change</span></div></div>
+  </div>
+  <p><span class="ko">전체 추정치의 구간은 감소와 작은 증가를 모두 포함합니다. 다섯 도로 유형 중 3요인 모형에서 유의하게 감소한 것은 간선도로뿐이고, 도심·시계·한강 교량·도시고속도로는 유의하지 않았습니다. 0요인 대안 모형도 전체 추정치는 음수였지만 유의성은 사양에 따라 달랐습니다.</span><span class="en">The pooled interval includes a reduction as well as a small increase. Among the five road types, only arterial roads showed a significant decrease in the three-factor specification; downtown, city-boundary, Han River bridge and urban-expressway changes were not significant. The zero-factor alternative also gave a negative pooled estimate, but significance depended on the specification.</span></p>
+  <p><span class="ko">같은 45주 동안 오전 기록이 완전한 간선도로 31곳의 평일 오전 교통량은 주당 약 2.3만 대 줄었고, 같은 기간 오전 대중교통 이용은 주당 약 15.8만 인일 늘었습니다. 관측된 교통량 감소는 대중교통 이용 증가에 비해 작습니다.</span><span class="en">Over the same 45 weeks, weekday-morning traffic at the 31 arterial sites with complete morning records fell by about 23,000 vehicles per week, while morning transit use rose by about 158,000 person-days per week. The observed traffic reduction was small relative to the increase in transit use.</span></p>
+  <p class="source"><span class="ko">출처: 논문 원고 v4 1.1–1.2절, 2.4절, 4.1절.</span><span class="en">Source: manuscript v4, sections 1.1–1.2, 2.4 and 4.1.</span></p>
+
+  <h3><span class="ko">도로 유형별 (3요인 모형)</span><span class="en">By road type (three-factor models)</span></h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th><span class="ko">유형</span><span class="en">Type</span></th><th class="n"><span class="ko">지점</span><span class="en">Sites</span></th><th class="n"><span class="ko">효과 (대/시)</span><span class="en">Effect (veh/h)</span></th><th class="n">95% CI</th><th class="n">p</th><th class="n"><span class="ko">반사실 대비</span><span class="en">vs CF</span></th></tr></thead>
+    <tbody>
+      <tr><td><span class="ko">A 도심</span><span class="en">A downtown</span></td><td class="n">21</td><td class="n">−31.95</td><td class="n">−102.61 – 38.72</td><td class="n">.376</td><td class="n">−2.65%</td></tr>
+      <tr><td><span class="ko">B 시계</span><span class="en">B city boundary</span></td><td class="n">31</td><td class="n">−25.24</td><td class="n">−81.34 – 30.86</td><td class="n">.378</td><td class="n">−0.86%</td></tr>
+      <tr><td><span class="ko">C 한강 교량</span><span class="en">C Han River bridges</span></td><td class="n">39</td><td class="n">−49.00</td><td class="n">−111.36 – 13.35</td><td class="n">.123</td><td class="n">−1.95%</td></tr>
+      <tr class="hl"><td><span class="ko">D 간선도로</span><span class="en">D arterials</span></td><td class="n">38</td><td class="n">−58.34</td><td class="n">−111.66 – −5.02</td><td class="n">.032</td><td class="n">−3.16%</td></tr>
+      <tr><td><span class="ko">F 도시고속도로</span><span class="en">F urban expressways</span></td><td class="n">20</td><td class="n">+10.44</td><td class="n">−47.85 – 68.72</td><td class="n">.726</td><td class="n">+0.28%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="source"><span class="ko">출처</span><span class="en">Source</span>: <a href="results.html?file=results/05_seoul_road_gsynth/bytype/bytype_level_min.csv"><code>results/05_seoul_road_gsynth/bytype/bytype_level_min.csv</code></a><span class="ko"> (간선도로 값이 논문과 같음)</span><span class="en"> (arterial values match the manuscript)</span></p>
+
+  <div class="note"><b><span class="ko">해석 시 주의</span><span class="en">Caveats</span></b><br>
+    <span class="ko">간선도로 모형은 시행 전 4–6주 동안 실제 교통량이 예측보다 유의하게 높았습니다. 2023년 12월 중순에 끝나는 검정에서는 차이가 없었지만, 그 시점은 결과를 본 뒤 정했습니다. 2024-01-15부터 남산터널 혼잡통행료를 도심 방향만 받도록 바꿔 도심 지점에 영향을 줄 수 있습니다(간선도로 지점은 직접 영향 구간 밖). 도로 유형 간 p값은 다중비교 미보정입니다.</span>
+    <span class="en">In the four to six weeks before launch, arterial traffic ran significantly above the model’s predictions; tests ending in mid-December 2023, chosen after seeing these results, showed no gap. From 15 January 2024 the Namsan Tunnels charge applied only to city-bound vehicles, which could affect downtown sites (arterial sites lie outside the directly affected corridor). P-values across road types are not adjusted for multiple testing.</span></div>
+
+  <div class="fig-row">
+    <figure><img src="assets/figures/seoul_road_gsynth/diag_gap_r3.png" alt="" loading="lazy"><figcaption><span class="ko">149개 지점 전체의 주별 격차 (3요인)</span><span class="en">Weekly gaps, all 149 sites (three factors)</span></figcaption></figure>
+    <figure><img src="assets/figures/seoul_road_gsynth/bytype/gap_D_level_r3.png" alt="" loading="lazy"><figcaption><span class="ko">간선도로 38곳의 주별 격차 (3요인)</span><span class="en">Weekly gaps, 38 arterial sites (three factors)</span></figcaption></figure>
+    <figure><img src="assets/figures/seoul_road_gsynth/diag_placebo_r3.png" alt="" loading="lazy"><figcaption><span class="ko">사전 기간 위약 검정 (3요인)</span><span class="en">Pre-period placebo test (three factors)</span></figcaption></figure>
+  </div>
+  <p class="small"><span class="ko">그림은 저장소 결과로 그린 것으로, 전체 추정치는 논문과 약간 다를 수 있습니다(저장소 3요인 전체 점추정 −36.5대/시). 유형별 그림은 갤러리에 있습니다.</span><span class="en">Figures are drawn from the repository results; the pooled estimate may differ slightly from the manuscript (repository three-factor pooled point estimate −36.5 veh/h). By-type figures are in the gallery.</span> <a href="gallery.html?analysis=seoul_road"><span class="ko">갤러리</span><span class="en">gallery</span></a></p>
+
+  <h2><span class="ko">코드</span><span class="en">Code</span></h2>
+  <p><a href="https://github.com/jayhaja/seoul-climate-card/tree/main/code/05_seoul_road_gsynth"><code>code/05_seoul_road_gsynth/</code></a> — <span class="ko">입력 패널: <code>data/road/</code>. 도시고속도로 9개 노선 SCM(부록 D)은 저장소에 없습니다.</span><span class="en">input panel: <code>data/road/</code>. The nine-expressway SCM (SI Appendix D) is not in the repository.</span></p>
+</main>
+</body>
+</html>
