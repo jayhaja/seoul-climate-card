@@ -1,0 +1,6 @@
+"type","n_sites","outcome","r_cv_1se","r_gmspe_min","r_used","ATT","lo","hi","p","pct_vs_cf","placebo_ATT","placebo_p","pre_F_p","equiv_p","pre_weeks_off","pre_weeks","diag_pass"
+"A",21,"index",0,0,0,0.25,-2.47,2.97,0.856,0.25,2.77,0.0333,NA,NA,13,49,FALSE
+"B",31,"index",0,0,0,-0.6,-2.15,0.94,0.445,-0.6,3.24,0.0156,NA,NA,19,49,FALSE
+"C",39,"index",0,0,0,-0.58,-3.21,2.05,0.666,-0.58,3.22,0.00683,NA,NA,12,49,FALSE
+"D",38,"index",0,0,0,-1.77,-3.36,-0.18,0.0291,-1.76,4.18,0.000183,NA,NA,19,49,FALSE
+"F",20,"index",0,0,0,0.07,-1.57,1.71,0.936,0.07,3.82,0.00435,NA,NA,15,49,FALSE

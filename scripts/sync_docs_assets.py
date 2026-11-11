@@ -21,8 +21,8 @@ FIG_SRC, FIG_DST = ROOT / "figures", DOCS_ASSETS / "figures"
 RES_SRC, RES_DST = ROOT / "results", DOCS_ASSETS / "results"
 IMG_EXT = {".jpg", ".jpeg", ".png"}
 # Analyses left out of the site for now (still in the repository): Seoul-wide road gsynth.
-SKIP_FIG = {"seoul_road_gsynth"}
-SKIP_RES = {"05_seoul_road_gsynth"}
+SKIP_FIG = set()   # e.g. {"seoul_road_gsynth"} to leave an analysis off the site
+SKIP_RES = set()
 
 ANALYSIS_BY_RESULTS_DIR = {
     "01_citywide_gsynth": "citywide",

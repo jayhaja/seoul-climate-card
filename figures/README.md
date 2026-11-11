@@ -8,7 +8,7 @@
 | `heterogeneity/` | Chapter 6 heterogeneity figures: `*_prepct_*` = % of pretreatment mean (current); `*_cf_*` = counterfactual-relative (earlier generation) |
 | `road_scm/NN/` | Road SCM diagnostics per link (`*_tau5.jpg` = manuscript placebo-gap figures; p-values use all placebos) |
 | `yeouido_transit_scm/` | Yeouido transit SCM diagnostics |
-| `seoul_road_gsynth/` | Seoul-wide road gsynth diagnostics (descriptive only; not shown on the website) |
+| `seoul_road_gsynth/` | Seoul-wide road gsynth diagnostics (pooled and by road type) |
 
 ## Chapter 6: current vs earlier-generation figures
 

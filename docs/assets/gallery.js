@@ -5,7 +5,8 @@
     citywide: ["① 서울 내부 대중교통", "① Seoul transit"],
     heterogeneity: ["② 이질성", "② Heterogeneity"],
     road_scm: ["③ 여의도 도로 SCM", "③ Yeouido roads"],
-    yeouido: ["④ 여의도 대중교통 SCM", "④ Yeouido transit"]
+    yeouido: ["④ 여의도 대중교통 SCM", "④ Yeouido transit"],
+    seoul_road: ["⑤ 서울 전역 도로", "⑤ Seoul roads"]
   };
   var figs = [], view = [], cur = -1;
   var $ = function (s) { return document.querySelector(s); };
