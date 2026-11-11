@@ -94,6 +94,8 @@ def fig_meta(rel: Path, rnames):
             m["site"] = f"Type {tm.group(1)}"
             m["kind_ko"] = f"격차 ({'지수' if tm.group(2)=='index' else '수준'}, r={tm.group(3)})"
             m["kind_en"] = f"Gap ({tm.group(2)}, r={tm.group(3)})"
+        if name == "fig4_section2_4_road":
+            m.update(site="All sites", kind_ko="그림 4 서울 전역 도로 (주별 격차·유형별 효과)", kind_en="Fig. 4 Seoul-wide roads (weekly gaps, effects by type)", thesis=True)
         dm = re.match(r"diag_(equiv|gap|placebo)_r(\d)", name)
         if dm:
             m["site"] = "All sites"

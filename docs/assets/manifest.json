@@ -1371,6 +1371,17 @@
    "group": "seoul_road_gsynth"
   },
   {
+   "src": "assets/figures/seoul_road_gsynth/fig4_section2_4_road.png",
+   "analysis": "seoul_road",
+   "site": "All sites",
+   "kind_ko": "그림 4 서울 전역 도로 (주별 격차·유형별 효과)",
+   "kind_en": "Fig. 4 Seoul-wide roads (weekly gaps, effects by type)",
+   "note_ko": "",
+   "note_en": "",
+   "group": "seoul_road_gsynth",
+   "thesis": true
+  },
+  {
    "src": "assets/figures/thesis/appendixA-1_road01_gyeongin-ro_southbound/1_Path.jpg",
    "analysis": "road_scm",
    "site": "01 Gyeongin-ro outbound",
@@ -3421,6 +3432,96 @@
    "repo_path": "results/05_seoul_road_gsynth/diag_placebo_r3.csv",
    "analysis": "seoul_road",
    "rows": 1
+  },
+  {
+   "path": "assets/results/05_seoul_road_gsynth/expressway_allday_scm/path_bukbu.csv",
+   "repo_path": "results/05_seoul_road_gsynth/expressway_allday_scm/path_bukbu.csv",
+   "analysis": "seoul_road",
+   "rows": 113
+  },
+  {
+   "path": "assets/results/05_seoul_road_gsynth/expressway_allday_scm/path_bundang.csv",
+   "repo_path": "results/05_seoul_road_gsynth/expressway_allday_scm/path_bundang.csv",
+   "analysis": "seoul_road",
+   "rows": 113
+  },
+  {
+   "path": "assets/results/05_seoul_road_gsynth/expressway_allday_scm/path_bundang_2.csv",
+   "repo_path": "results/05_seoul_road_gsynth/expressway_allday_scm/path_bundang_2.csv",
+   "analysis": "seoul_road",
+   "rows": 95
+  },
+  {
+   "path": "assets/results/05_seoul_road_gsynth/expressway_allday_scm/path_dongbu_2.csv",
+   "repo_path": "results/05_seoul_road_gsynth/expressway_allday_scm/path_dongbu_2.csv",
+   "analysis": "seoul_road",
+   "rows": 113
+  },
+  {
+   "path": "assets/results/05_seoul_road_gsynth/expressway_allday_scm/path_gangbyeon_2.csv",
+   "repo_path": "results/05_seoul_road_gsynth/expressway_allday_scm/path_gangbyeon_2.csv",
+   "analysis": "seoul_road",
+   "rows": 113
+  },
+  {
+   "path": "assets/results/05_seoul_road_gsynth/expressway_allday_scm/path_gangnam.csv",
+   "repo_path": "results/05_seoul_road_gsynth/expressway_allday_scm/path_gangnam.csv",
+   "analysis": "seoul_road",
+   "rows": 113
+  },
+  {
+   "path": "assets/results/05_seoul_road_gsynth/expressway_allday_scm/path_gangnam2.csv",
+   "repo_path": "results/05_seoul_road_gsynth/expressway_allday_scm/path_gangnam2.csv",
+   "analysis": "seoul_road",
+   "rows": 95
+  },
+  {
+   "path": "assets/results/05_seoul_road_gsynth/expressway_allday_scm/path_gyeongbu.csv",
+   "repo_path": "results/05_seoul_road_gsynth/expressway_allday_scm/path_gyeongbu.csv",
+   "analysis": "seoul_road",
+   "rows": 113
+  },
+  {
+   "path": "assets/results/05_seoul_road_gsynth/expressway_allday_scm/path_inner.csv",
+   "repo_path": "results/05_seoul_road_gsynth/expressway_allday_scm/path_inner.csv",
+   "analysis": "seoul_road",
+   "rows": 113
+  },
+  {
+   "path": "assets/results/05_seoul_road_gsynth/expressway_allday_scm/path_inner_f.csv",
+   "repo_path": "results/05_seoul_road_gsynth/expressway_allday_scm/path_inner_f.csv",
+   "analysis": "seoul_road",
+   "rows": 113
+  },
+  {
+   "path": "assets/results/05_seoul_road_gsynth/expressway_allday_scm/path_olympic.csv",
+   "repo_path": "results/05_seoul_road_gsynth/expressway_allday_scm/path_olympic.csv",
+   "analysis": "seoul_road",
+   "rows": 113
+  },
+  {
+   "path": "assets/results/05_seoul_road_gsynth/expressway_allday_scm/path_seobu.csv",
+   "repo_path": "results/05_seoul_road_gsynth/expressway_allday_scm/path_seobu.csv",
+   "analysis": "seoul_road",
+   "rows": 113
+  },
+  {
+   "path": "assets/results/05_seoul_road_gsynth/expressway_allday_scm/path_seobu_2.csv",
+   "repo_path": "results/05_seoul_road_gsynth/expressway_allday_scm/path_seobu_2.csv",
+   "analysis": "seoul_road",
+   "rows": 113
+  },
+  {
+   "path": "assets/results/05_seoul_road_gsynth/expressway_allday_scm/summary.csv",
+   "repo_path": "results/05_seoul_road_gsynth/expressway_allday_scm/summary.csv",
+   "analysis": "seoul_road",
+   "rows": 13
+  },
+  {
+   "path": "assets/results/05_seoul_road_gsynth/expressway_allday_scm/table_SI_expressways_manuscript.csv",
+   "repo_path": "results/05_seoul_road_gsynth/expressway_allday_scm/table_SI_expressways_manuscript.csv",
+   "analysis": "seoul_road",
+   "rows": 9
   },
   {
    "path": "assets/results/05_seoul_road_gsynth/seoul_road_effects.csv",

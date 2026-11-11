@@ -34,7 +34,12 @@ Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_bytype_20261103.R
 R_MODE=min Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_bytype_20261103.R
 OUTCOME=index R_MODE=min Rscript code/05_seoul_road_gsynth/seoul_road_gsynth_bytype_20261103.R
 NB=100 GROUPS=all Rscript code/05_seoul_road_gsynth/seoul_road_lwx_20261103.R
+python3 code/05_seoul_road_gsynth/plot_fig_section2_4_road.py                 # manuscript Fig. 4 from results/05_seoul_road_gsynth/ (needs pandas, matplotlib)
+ARCH=/path/to/Thesis_Materials Rscript code/05_seoul_road_gsynth/expressway_allday_rerun_20261103.R   # SI Appendix D rerun; needs the original Rmds and data (not in repo)
 ```
+
+- `plot_fig_section2_4_road.py` reads only published CSVs (`diag_event_att_r3.csv`, `bytype/bytype_level_min.csv`) and writes `output/05_seoul_road_gsynth/fig_section2_4_road.png`; the published copy is `figures/seoul_road_gsynth/fig4_section2_4_road.png`. The pooled CI and p-value in the figure text are typed in from the fitted model (`diag_fits_r3.rds`, not in the repo).
+- `expressway_allday_rerun_20261103.R` reruns the original all-day SCM R Markdown analyses for nine urban expressways. Its outputs are in `results/05_seoul_road_gsynth/expressway_allday_scm/`; they do not exactly reproduce the manuscript values (see the README there).
 
 Each script is independent (they all read the same panel); the order above is recommended. When changing `OUT_DIR`, set it per script (the bytype and lwx defaults are subfolders).
 

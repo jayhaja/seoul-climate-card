@@ -43,19 +43,36 @@
   </table></div>
   <p class="source"><span class="ko">출처</span><span class="en">Source</span>: <a href="results.html?file=results/05_seoul_road_gsynth/bytype/bytype_level_min.csv"><code>results/05_seoul_road_gsynth/bytype/bytype_level_min.csv</code></a><span class="ko"> (간선도로 값이 논문과 같음)</span><span class="en"> (arterial values match the manuscript)</span></p>
 
+  <h3><span class="ko">도시고속도로 9개 노선 (전일 교통량, SCM)</span><span class="en">Nine urban expressways (all-day traffic, SCM)</span></h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th><span class="ko">노선</span><span class="en">Route</span></th><th class="n"><span class="ko">일평균 교통량 (양방향)</span><span class="en">Avg daily traffic (both dir.)</span></th><th class="n"><span class="ko">사전 RMSPE</span><span class="en">Pre-RMSPE</span></th><th class="n"><span class="ko">RMSPE 비율</span><span class="en">RMSPE ratio</span></th><th class="n"><span class="ko">위약 p</span><span class="en">Placebo p</span></th><th><span class="ko">사양</span><span class="en">Spec</span></th></tr></thead>
+    <tbody>
+      <tr><td>Bukbu Expressway</td><td class="n">109,066</td><td class="n">2,078</td><td class="n">1.85</td><td class="n">.818</td><td></td></tr>
+      <tr><td>Bundang-Suseo Expressway</td><td class="n">133,320</td><td class="n">2,301</td><td class="n">1.09</td><td class="n">.345</td><td></td></tr>
+      <tr><td>Dongbu Expressway</td><td class="n">136,213</td><td class="n">2,348</td><td class="n">1.88</td><td class="n">.404</td><td></td></tr>
+      <tr><td>Gangbyeonbuk-ro</td><td class="n">224,855</td><td class="n">4,088</td><td class="n">1.90</td><td class="n">.800</td><td><span class="ko">지수화</span><span class="en">indexed</span></td></tr>
+      <tr><td>Gangnam Circular Expressway</td><td class="n">90,220</td><td class="n">1,950</td><td class="n">2.51</td><td class="n">.536</td><td></td></tr>
+      <tr><td>Gyeongbu Expressway</td><td class="n">189,919</td><td class="n">2,935</td><td class="n">1.37</td><td class="n">.790</td><td><span class="ko">지수화</span><span class="en">indexed</span></td></tr>
+      <tr><td>Naebu Circular Expressway</td><td class="n">139,322</td><td class="n">2,410</td><td class="n">2.04</td><td class="n">.596</td><td></td></tr>
+      <tr><td>Olympic-daero</td><td class="n">244,535</td><td class="n">3,446</td><td class="n">1.89</td><td class="n">.455</td><td><span class="ko">지수화</span><span class="en">indexed</span></td></tr>
+      <tr><td>Seobu Expressway</td><td class="n">51,313</td><td class="n">918</td><td class="n">1.76</td><td class="n">.417</td><td></td></tr>
+    </tbody>
+  </table></div>
+  <p class="source"><span class="ko">아홉 노선 모두 유의하지 않습니다. 출처</span><span class="en">All nine routes are not significant. Source</span>: <a href="results.html?file=results/05_seoul_road_gsynth/expressway_allday_scm/table_SI_expressways_manuscript.csv"><code>…/expressway_allday_scm/table_SI_expressways_manuscript.csv</code></a> <span class="ko">(원고 부록 D 표 값). 경로 그래프는 데이터 탐색 페이지에 있으며, 재실행 결과라 원고 값과 정확히 같지 않습니다.</span><span class="en">(manuscript SI Appendix D values). Path charts are on the data-explorer page; they come from a rerun and do not reproduce the reported values exactly.</span></p>
+
   <div class="note"><b><span class="ko">해석 시 주의</span><span class="en">Caveats</span></b><br>
     <span class="ko">간선도로 모형은 시행 전 4–6주 동안 실제 교통량이 예측보다 유의하게 높았습니다. 2023년 12월 중순에 끝나는 검정에서는 차이가 없었지만, 그 시점은 결과를 본 뒤 정했습니다. 2024-01-15부터 남산터널 혼잡통행료를 도심 방향만 받도록 바꿔 도심 지점에 영향을 줄 수 있습니다(간선도로 지점은 직접 영향 구간 밖). 도로 유형 간 p값은 다중비교 미보정입니다.</span>
     <span class="en">In the four to six weeks before launch, arterial traffic ran significantly above the model’s predictions; tests ending in mid-December 2023, chosen after seeing these results, showed no gap. From 15 January 2024 the Namsan Tunnels charge applied only to city-bound vehicles, which could affect downtown sites (arterial sites lie outside the directly affected corridor). P-values across road types are not adjusted for multiple testing.</span></div>
 
+  <figure><img src="assets/figures/seoul_road_gsynth/fig4_section2_4_road.png" alt="" loading="lazy"><figcaption><span class="ko">그림 4. 서울 관측 지점 149곳의 평일 오전 교통량. (A) 3요인 GSC의 주별 격차(대/시)와 95% CI, 파란 선은 처치 후 평균 −35.9(95% CI −80.8~9.0, p = .117). (B) 도로 유형별 평균 효과, 빨강은 p &lt; .05.</span><span class="en">Fig. 4. Weekday-morning traffic at 149 Seoul monitoring sites. (A) Weekly gaps (veh/h) from the pooled three-factor GSC with 95% CIs; blue line = posttreatment average −35.9 (95% CI −80.8 to 9.0; p = .117). (B) Average effects by road type; red = p &lt; .05.</span></figcaption></figure>
   <div class="fig-row">
-    <figure><img src="assets/figures/seoul_road_gsynth/diag_gap_r3.png" alt="" loading="lazy"><figcaption><span class="ko">149개 지점 전체의 주별 격차 (3요인)</span><span class="en">Weekly gaps, all 149 sites (three factors)</span></figcaption></figure>
     <figure><img src="assets/figures/seoul_road_gsynth/bytype/gap_D_level_r3.png" alt="" loading="lazy"><figcaption><span class="ko">간선도로 38곳의 주별 격차 (3요인)</span><span class="en">Weekly gaps, 38 arterial sites (three factors)</span></figcaption></figure>
     <figure><img src="assets/figures/seoul_road_gsynth/diag_placebo_r3.png" alt="" loading="lazy"><figcaption><span class="ko">사전 기간 위약 검정 (3요인)</span><span class="en">Pre-period placebo test (three factors)</span></figcaption></figure>
   </div>
-  <p class="small"><span class="ko">그림은 저장소 결과로 그린 것으로, 전체 추정치는 논문과 약간 다를 수 있습니다(저장소 3요인 전체 점추정 −36.5대/시). 유형별 그림은 갤러리에 있습니다.</span><span class="en">Figures are drawn from the repository results; the pooled estimate may differ slightly from the manuscript (repository three-factor pooled point estimate −36.5 veh/h). By-type figures are in the gallery.</span> <a href="gallery.html?analysis=seoul_road"><span class="ko">갤러리</span><span class="en">gallery</span></a></p>
+  <p class="small"><span class="ko">그림 4는 <code>code/05_seoul_road_gsynth/plot_fig_section2_4_road.py</code>로 저장소 자료에서 다시 그렸습니다. 전체 −35.9는 <code>diag_event_att_r3.csv</code>의 처치 후 44주 주별 ATT를 관측 지점 수로 가중 평균한 값(−35.914)과 같습니다. 구간과 p값은 저장소에 없는 적합 객체에서 나왔습니다. 유형별 그림은 갤러리에 있습니다.</span><span class="en">Fig. 4 is redrawn from repository data with <code>code/05_seoul_road_gsynth/plot_fig_section2_4_road.py</code>. The pooled −35.9 equals the count-weighted mean of the 44 posttreatment weekly ATTs in <code>diag_event_att_r3.csv</code> (−35.914); the interval and p-value come from the fitted model object, which is not in the repository. By-type figures are in the gallery.</span> <a href="gallery.html?analysis=seoul_road"><span class="ko">갤러리</span><span class="en">gallery</span></a></p>
 
   <h2><span class="ko">코드</span><span class="en">Code</span></h2>
-  <p><a href="https://github.com/jayhaja/seoul-climate-card/tree/main/code/05_seoul_road_gsynth"><code>code/05_seoul_road_gsynth/</code></a> — <span class="ko">입력 패널: <code>data/road/</code>. 도시고속도로 9개 노선 SCM(부록 D)은 저장소에 없습니다.</span><span class="en">input panel: <code>data/road/</code>. The nine-expressway SCM (SI Appendix D) is not in the repository.</span></p>
+  <p><a href="https://github.com/jayhaja/seoul-climate-card/tree/main/code/05_seoul_road_gsynth"><code>code/05_seoul_road_gsynth/</code></a> — <span class="ko">입력 패널: <code>data/road/</code>. 도시고속도로 9개 노선 SCM 재실행 스크립트(<code>expressway_allday_rerun_20261103.R</code>)는 원 Rmd와 입력 자료가 저장소에 없어 그대로는 실행되지 않습니다.</span><span class="en">input panel: <code>data/road/</code>. The nine-expressway rerun script (<code>expressway_allday_rerun_20261103.R</code>) needs the original Rmds and input data, which are not in the repository.</span></p>
 </main>
 </body>
 </html>
