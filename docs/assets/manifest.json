@@ -1,6 +1,28 @@
 {
  "figures": [
   {
+   "src": "assets/figures/heterogeneity/fig6_4_transfer_wait_minimal_en.png",
+   "analysis": "heterogeneity",
+   "site": "Chapter 6 (current)",
+   "kind_ko": "fig6_4_transfer_wait_minimal_en",
+   "kind_en": "fig6_4_transfer_wait_minimal_en",
+   "note_ko": "",
+   "note_en": "",
+   "group": "heterogeneity",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/heterogeneity/fig6_5_prepct_early_late_en.png",
+   "analysis": "heterogeneity",
+   "site": "Chapter 6 (current)",
+   "kind_ko": "fig6_5_prepct_early_late_en",
+   "kind_en": "fig6_5_prepct_early_late_en",
+   "note_ko": "",
+   "note_en": "",
+   "group": "heterogeneity",
+   "thesis": true
+  },
+  {
    "src": "assets/figures/heterogeneity/fig_hetero_hm_all7_wide_cf_en.png",
    "analysis": "heterogeneity",
    "site": "Chapter 6 (current)",
@@ -12,11 +34,33 @@
    "thesis": true
   },
   {
+   "src": "assets/figures/heterogeneity/fig_hetero_hm_all7_wide_prepct_en.png",
+   "analysis": "heterogeneity",
+   "site": "Chapter 6 (current)",
+   "kind_ko": "fig_hetero_hm_all7_wide_prepct_en",
+   "kind_en": "fig_hetero_hm_all7_wide_prepct_en",
+   "note_ko": "",
+   "note_en": "",
+   "group": "heterogeneity",
+   "thesis": true
+  },
+  {
    "src": "assets/figures/heterogeneity/fig_hetero_hm_main_wide_cf_en.png",
    "analysis": "heterogeneity",
    "site": "Chapter 6 (current)",
    "kind_ko": "주별 효과: 환승·대기·권역",
    "kind_en": "Weekly effects: transfer, waiting time, region",
+   "note_ko": "",
+   "note_en": "",
+   "group": "heterogeneity",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/heterogeneity/fig_hetero_hm_main_wide_prepct_en.png",
+   "analysis": "heterogeneity",
+   "site": "Chapter 6 (current)",
+   "kind_ko": "fig_hetero_hm_main_wide_prepct_en",
+   "kind_en": "fig_hetero_hm_main_wide_prepct_en",
    "note_ko": "",
    "note_en": "",
    "group": "heterogeneity",
@@ -2181,6 +2225,39 @@
    "thesis": true
   },
   {
+   "src": "assets/figures/thesis/main_text/fig6-4_transfer_walking_waiting_time.png",
+   "analysis": "heterogeneity",
+   "site": "Main text",
+   "kind_ko": "fig6-4_transfer_walking_waiting_time · 이전 세대(1,000명당 지표)",
+   "kind_en": "fig6-4_transfer_walking_waiting_time · earlier generation (per-1,000 indicator)",
+   "note_ko": "이전 세대 그림: 주민 1,000명당 지표. 현재 원고 6장은 반사실 대비 증가율(%)을 쓰며, 'Chapter 6 (current)' 그림을 참조하십시오.",
+   "note_en": "Earlier-generation figure (per-1,000-residents indicator). Chapter 6 now uses the increase vs counterfactual (%); see the 'Chapter 6 (current)' figures.",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/main_text/fig6-5_early_late_prepct.png",
+   "analysis": "heterogeneity",
+   "site": "Main text",
+   "kind_ko": "fig6-5_early_late_prepct · 이전 세대(1,000명당 지표)",
+   "kind_en": "fig6-5_early_late_prepct · earlier generation (per-1,000 indicator)",
+   "note_ko": "이전 세대 그림: 주민 1,000명당 지표. 현재 원고 6장은 반사실 대비 증가율(%)을 쓰며, 'Chapter 6 (current)' 그림을 참조하십시오.",
+   "note_en": "Earlier-generation figure (per-1,000-residents indicator). Chapter 6 now uses the increase vs counterfactual (%); see the 'Chapter 6 (current)' figures.",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
+   "src": "assets/figures/thesis/main_text/fig6-x_weekly_prepct_main.png",
+   "analysis": "heterogeneity",
+   "site": "Main text",
+   "kind_ko": "fig6-x_weekly_prepct_main · 이전 세대(1,000명당 지표)",
+   "kind_en": "fig6-x_weekly_prepct_main · earlier generation (per-1,000 indicator)",
+   "note_ko": "이전 세대 그림: 주민 1,000명당 지표. 현재 원고 6장은 반사실 대비 증가율(%)을 쓰며, 'Chapter 6 (current)' 그림을 참조하십시오.",
+   "note_en": "Earlier-generation figure (per-1,000-residents indicator). Chapter 6 now uses the increase vs counterfactual (%); see the 'Chapter 6 (current)' figures.",
+   "group": "thesis",
+   "thesis": true
+  },
+  {
    "src": "assets/figures/yeouido_transit_scm/1.scm_path_D79_nested.jpg",
    "analysis": "yeouido",
    "site": "Yeouido-dong",
@@ -2497,6 +2574,42 @@
    "repo_path": "results/02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/tertile_boundaries_counts.csv",
    "analysis": "heterogeneity",
    "rows": 18
+  },
+  {
+   "path": "assets/results/02_heterogeneity/R2_r4_prepct_level_20261103/contrast_level_prepct.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_prepct_level_20261103/contrast_level_prepct.csv",
+   "analysis": "heterogeneity",
+   "rows": 96
+  },
+  {
+   "path": "assets/results/02_heterogeneity/R2_r4_prepct_level_20261103/fig_hetero_weekly_prepct_all_en_data.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_prepct_level_20261103/fig_hetero_weekly_prepct_all_en_data.csv",
+   "analysis": "heterogeneity",
+   "rows": 2277
+  },
+  {
+   "path": "assets/results/02_heterogeneity/R2_r4_prepct_level_20261103/group_level_prepct.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_prepct_level_20261103/group_level_prepct.csv",
+   "analysis": "heterogeneity",
+   "rows": 322
+  },
+  {
+   "path": "assets/results/02_heterogeneity/R2_r4_prepct_level_20261103/overall.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_prepct_level_20261103/overall.csv",
+   "analysis": "heterogeneity",
+   "rows": 14
+  },
+  {
+   "path": "assets/results/02_heterogeneity/R2_r4_prepct_level_20261103/table6-1_draft_prepct_level.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_prepct_level_20261103/table6-1_draft_prepct_level.csv",
+   "analysis": "heterogeneity",
+   "rows": 6
+  },
+  {
+   "path": "assets/results/02_heterogeneity/R2_r4_prepct_level_20261103/weekly_level.csv",
+   "repo_path": "results/02_heterogeneity/R2_r4_prepct_level_20261103/weekly_level.csv",
+   "analysis": "heterogeneity",
+   "rows": 2376
   },
   {
    "path": "assets/results/02_heterogeneity/R2_r4_transfer_wait_cross_20261103/cell_counts.csv",

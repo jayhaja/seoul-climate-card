@@ -63,11 +63,13 @@ Source: [`results/01_citywide_gsynth/R2_normal_final_20261011/windows.csv`](resu
 
 ### 4.2 Heterogeneity (analysis 2)
 
-- Trip distance: the longest-distance tertile has a 1.55 pp smaller effect than the shortest (95% CI −2.59 to −0.51).
-- Waiting time: the longest-wait tertile is 0.97 pp lower than the shortest (CI −1.75 to −0.19).
-- Transfer burden: no full-period difference (+0.23 pp, CI −0.55 to 1.02), but the late-minus-early change is +1.37 pp.
+Groups are compared on the effect as % of the group's pretreatment mean weekly ridership (311 ODs from origins with ≥ 1,000 residents; overall 1.48%, 95% CI 0.79–2.18).
 
-Source: [`results/02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/contrast_cf_pct.csv`](results/02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/contrast_cf_pct.csv) (`window = full`, `late_minus_early`). Unadjusted p-values; descriptive heterogeneity, not causal effects of the characteristics.
+- Trip distance: the longest-distance tertile has a 1.50 pp smaller effect than the shortest (95% CI −2.48 to −0.52).
+- Waiting time: the longest-wait tertile is 0.93 pp lower than the shortest (CI −1.66 to −0.20).
+- Transfer burden: no full-period difference (+0.20 pp, CI −0.54 to 0.94), but the late-minus-early change is +1.28 pp (CI 0.69–1.87).
+
+Source: [`results/02_heterogeneity/R2_r4_prepct_level_20261103/contrast_level_prepct.csv`](results/02_heterogeneity/R2_r4_prepct_level_20261103/contrast_level_prepct.csv) (`stat = pct`, `window = full`, `late_minus_early`); level effects (weekly person-days per OD pair) in the same file with `stat = lvl`. The earlier counterfactual-relative version is in `R2_r4_cf_tertiles_timepath_20261103/`. Unadjusted p-values; descriptive heterogeneity, not causal effects of the characteristics.
 
 ### 4.3 Yeouido road-link SCM (analysis 3)
 
@@ -102,7 +104,7 @@ Sources: [`results/05_seoul_road_gsynth/seoul_road_effects.csv`](results/05_seou
 ```
 code/      analysis scripts, one README per folder (purpose, inputs, outputs, run order)
   01_citywide_gsynth/      within-Seoul OD gsynth (409 ODs)
-  02_heterogeneity/        counterfactual-relative heterogeneity re-aggregation
+  02_heterogeneity/        heterogeneity re-aggregation (% of pretreatment mean; earlier counterfactual-relative scripts kept)
   03_road_scm/             SCM for the 12 Yeouido road links
   04_yeouido_transit_scm/  SCM for transit from Yeouido-dong (79 donors)
   05_seoul_road_gsynth/    Seoul-wide TOPIS road gsynth
