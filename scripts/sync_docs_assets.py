@@ -101,12 +101,25 @@ def fig_meta(rel: Path, rnames):
                    "placebo": ("위약 시점 검정", "Placebo-period test")}[dm.group(1)]
             m["kind_ko"], m["kind_en"] = f"{lab[0]} (r={dm.group(2)})", f"{lab[1]} (r={dm.group(2)})"
     elif parts[0] == "heterogeneity":
-        m.update(analysis="heterogeneity", site="Chapter 6 (current)")
-        lab = {"fig_hetero_hm_main_wide_cf_en": ("주별 효과: 환승·대기·권역", "Weekly effects: transfer, waiting time, region"),
-               "fig_hetero_hm_all7_wide_cf_en": ("주별 효과: 7개 특성", "Weekly effects: all seven characteristics"),
-               "transfer_walking_waiting_time_en": ("그림 6-4 환승 보행·대기 시간 (2023년 6–8월)", "Fig. 6-4 transfer walking + waiting time (Jun–Aug 2023)")}.get(name)
+        lab = {
+            # current (2026-11-04): % of pretreatment mean
+            "fig6_5_prepct_early_late_en": ("그림 6-5 초기·후기 효과율 (처치 전 평균 대비 %)", "Fig. 6-5 early vs late effects (% of pretreatment mean)"),
+            "fig_hetero_hm_main_wide_prepct_en": ("주별 효과: 환승·대기·권역 (처치 전 평균 대비 %)", "Weekly effects: transfer, waiting time, region (% of pretreatment mean)"),
+            "fig_hetero_hm_all7_wide_prepct_en": ("주별 효과: 7개 특성 (처치 전 평균 대비 %)", "Weekly effects: all seven characteristics (% of pretreatment mean)"),
+            "fig6_4_transfer_wait_minimal_en": ("그림 6-4 환승 통행의 도보·대기 시간 (2023년 6–8월)", "Fig. 6-4 walking + waiting time per transfer trip (Jun–Aug 2023)"),
+            # earlier generation 2: counterfactual-relative %
+            "fig_hetero_hm_main_wide_cf_en": ("주별 효과: 환승·대기·권역 (반사실 대비 %)", "Weekly effects: transfer, waiting time, region (vs counterfactual %)"),
+            "fig_hetero_hm_all7_wide_cf_en": ("주별 효과: 7개 특성 (반사실 대비 %)", "Weekly effects: all seven characteristics (vs counterfactual %)"),
+            "transfer_walking_waiting_time_en": ("그림 6-4 이전 판", "Fig. 6-4, earlier version"),
+        }.get(name)
         if lab:
             m["kind_ko"], m["kind_en"] = lab
+        current = "_prepct_" in name or name == "fig6_4_transfer_wait_minimal_en"
+        m.update(analysis="heterogeneity", site="Chapter 6 (current)" if current else "Chapter 6 (earlier)")
+        if not current:
+            m["gen"] = "earlier"
+            m["note_ko"] = "이전 세대 그림(반사실 대비 %). 현재 원고 6장은 처치 전 평균 대비 %를 씁니다."
+            m["note_en"] = "Earlier-generation figure (counterfactual-relative %). Chapter 6 now uses the effect as % of the pretreatment mean."
         m["thesis"] = True
     elif parts[0] == "thesis":
         sec = parts[1]
@@ -129,11 +142,12 @@ def fig_meta(rel: Path, rnames):
                 m["analysis"] = "heterogeneity"
         m["kind_ko"] = m["kind_en"] = name
         m["thesis"] = True
-        if name.startswith("fig6-"):
+        if name.startswith(("fig6-1", "fig6-2", "fig6-3")):
+            m["gen"] = "earlier"
             m["kind_ko"] += " · 이전 세대(1,000명당 지표)"
             m["kind_en"] += " · earlier generation (per-1,000 indicator)"
-            m["note_ko"] = "이전 세대 그림: 주민 1,000명당 지표. 현재 원고 6장은 반사실 대비 증가율(%)을 쓰며, 'Chapter 6 (current)' 그림을 참조하십시오."
-            m["note_en"] = "Earlier-generation figure (per-1,000-residents indicator). Chapter 6 now uses the increase vs counterfactual (%); see the 'Chapter 6 (current)' figures."
+            m["note_ko"] = "이전 세대 그림: 주민 1,000명당 지표. 현재 원고 6장은 처치 전 평균 대비 %를 쓰며, 'Chapter 6 (current)' 그림을 참조하십시오."
+            m["note_en"] = "Earlier-generation figure (per-1,000-residents indicator). Chapter 6 now uses the effect as % of the pretreatment mean; see the 'Chapter 6 (current)' figures."
     if name.endswith("_tau5") and "placebo_gaps" in name:
         m["note_ko"], m["note_en"] = TAU5_NOTE
         m["kind_ko"] += " · 원고용(≤5배 표시)"

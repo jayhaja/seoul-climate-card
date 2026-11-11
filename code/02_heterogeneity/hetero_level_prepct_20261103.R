@@ -1,16 +1,16 @@
-# 6장 이질성 — 주지표: OD쌍당 주간 추가 이용량(인일, 수준값) + 처치 전 평균 대비 % (Hainmueller et al. 2026 방식) (2026-11-03)
-#  수준값 효과 = Σ(관측 − 반사실) / (주 수 × 집단 OD쌍 수)            → gsynth ATT와 같은 단위(OD쌍당 주간 인일)
-#  처치 전 대비 % = 100 × 수준값 효과 / 집단의 처치 전 OD쌍당 주간 평균 이용량(처치 전 53주 관측값)
-#  집단·표본: hetero_cf_tertiles_timepath_20261103.R 과 동일(membership.csv: 처치 전 3분위, 인구 1,000명 이상 출발지, 경계 고정)
-#  기간: full(46주), early(첫 12주), late(이후 34주), 12주 구간. 대비 = Q3 − Q1(권역 제외), 후기 − 초기.
-#  CI: 기존 1,000회 OD 쌍 부트스트랩(chunk 5개) 재집계, 정규근사. 부트스트랩 표본의 중복 OD는 분자·분모 모두에 그대로 반영. 모형 재추정 없음.
-#  출력: scm_results/R2_r4_수준값_처치전대비_20261103/{group_level_prepct.csv, contrast_level_prepct.csv, overall.csv, weekly_level.csv, README.txt}
-#  그림: figures/fig_hetero_hm_{main,all7}_wide_level_en.png (주별 OD쌍당 추가 이용량 + 처치 후 평균선, 라벨에 처치 전 대비 %)
-#  실행(repo): Rscript code/02_heterogeneity/hetero_level_prepct_20261103.R   (chunk 읽기 때문에 수 분)
+# Chapter 6 heterogeneity — main metric: additional weekly ridership per OD pair (person-days, level) + % of the pretreatment mean (Hainmueller et al. 2026 approach) (2026-11-03)
+#  Level effect = Σ(observed − counterfactual) / (weeks × ODs in the group)   → same unit as the gsynth ATT (weekly person-days per OD pair)
+#  % of pretreatment mean = 100 × level effect / group mean weekly ridership per OD pair (observed, 53 pretreatment weeks)
+#  Groups and sample: identical to hetero_cf_tertiles_timepath_20261103.R (membership.csv: pretreatment tertiles, origins with ≥ 1,000 residents, fixed boundaries)
+#  Windows: full (46 weeks), early (first 12), late (remaining 34), 12-week blocks. Contrasts = Q3 − Q1 (not for region), late − early.
+#  CI: re-aggregation of the existing 1,000 OD-pair bootstrap draws (5 chunks), normal approximation. ODs duplicated in a draw count in numerator and denominator. No model refit.
+#  Output: OUT_DIR (default output/02_heterogeneity/R2_r4_prepct_level_20261103/): group_level_prepct.csv, contrast_level_prepct.csv, overall.csv, weekly_level.csv, README.txt
+#  Figures: OUT_DIR/fig_hetero_hm_{main,all7}_wide_level_en.png (weekly level effect per OD pair + post-treatment mean line; labels give % of pretreatment mean)
+#  Run (from repo root): Rscript code/02_heterogeneity/hetero_level_prepct_20261103.R   (a few minutes: reads the bootstrap chunks)
 suppressMessages({ library(ggplot2); library(patchwork) })
 invisible(Sys.setlocale("LC_TIME", "C"))
 ## [repo copy] Paths follow the other scripts in code/02_heterogeneity: run from the repo root.
-##   RAW_DIR  (restricted inputs): R2_r4_환승5분위_사전CI_20261011/<eng>/chunk_*.rds, fig_hetero_weekly_transfer_en_data.csv (week dates)
+##   RAW_DIR  (inputs not yet in the repository): R2_r4_환승5분위_사전CI_20261011/<eng>/chunk_*.rds [folder = "r4 transfer quintiles, pre-computed CI"], fig_hetero_weekly_transfer_en_data.csv (week dates)
 ##   XU_DIR   point.rds from code/01_citywide_gsynth/R2_r4_xu_diagnostics_20261010.R
 ##   TT_DIR   membership.csv written by hetero_cf_tertiles_timepath_20261103.R
 ##   OUT_DIR  outputs (published copy: results/02_heterogeneity/R2_r4_prepct_level_20261103/)
@@ -32,14 +32,14 @@ win <- list(full = post, early = post[1:12], late = post[13:46], w01_12 = post[1
 dd <- read.csv(file.path(RAW_DIR, "fig_hetero_weekly_transfer_en_data.csv")); wk <- sort(unique(as.Date(dd$date))); stopifnot(length(wk) == nW)
 t0 <- wk[min(post)]
 
-## 집단 라벨 목록(전체 = 처치 OD 중 인구 1,000명 이상 전부)
+## Group labels ("all" = every treated OD whose origin has ≥ 1,000 residents)
 grp_of <- function(ids) { G <- list(all = rep("all", length(ids)))
   for (ax in axes) G[[ax]] <- mem[[paste0(ax, "_group")]][match(ids, mem$unit_id)]; G }
-stat <- function(ids, gap) {     # 반환: 이름 "axis|group|window|{lvl,pct}" 인 벡터 + 주별 수준값 행렬
+stat <- function(ids, gap) {     # returns: vector named "axis|group|window|{lvl,pct}" + matrix of weekly level effects
   ob <- Yobs[, as.character(ids), drop = FALSE]; stopifnot(!anyNA(ob), ncol(gap) == length(ids))
   k0 <- ids %in% keep_ids; G <- grp_of(ids); v <- c(); wkm <- list()
   for (ax in names(G)) for (l in sort(unique(na.omit(G[[ax]])))) { k <- !is.na(G[[ax]]) & G[[ax]] == l & k0; n <- sum(k)
-    pm <- sum(ob[pre, k]) / (length(pre) * n)                                  # 처치 전 OD쌍당 주간 평균
+    pm <- sum(ob[pre, k]) / (length(pre) * n)                                  # pretreatment mean weekly ridership per OD pair
     for (w in names(win)) { lvl <- sum(gap[win[[w]], k]) / (length(win[[w]]) * n)
       v[paste(ax, l, w, "lvl", sep = "|")] <- lvl; v[paste(ax, l, w, "pct", sep = "|")] <- 100 * lvl / pm }
     v[paste(ax, l, "pre", "mean", sep = "|")] <- pm; v[paste(ax, l, "n", "od", sep = "|")] <- n
@@ -73,12 +73,12 @@ write.csv(W, file.path(out, "weekly_level.csv"), row.names = FALSE)
 writeLines(c("Chapter 6 heterogeneity, Hainmueller-style metric (2026-11-03).",
   "Level effect = sum(observed - counterfactual) / (weeks x ODs in group): additional weekly ridership per OD pair (person-days), same unit as the gsynth ATT.",
   "Pre-treatment % = 100 x level effect / group mean weekly ridership per OD over the 53 pretreatment weeks (observed).",
-  "Groups: pretreatment tertiles (membership.csv of R2_r4_반사실_3분위_시간경로_20261103), origins with >= 1,000 residents, boundaries fixed in bootstrap.",
+  "Groups: pretreatment tertiles (membership.csv of R2_r4_cf_tertiles_timepath_20261103), origins with >= 1,000 residents, boundaries fixed in bootstrap.",
   "CIs: 1,000 paired OD bootstrap draws re-aggregated (no refit); normal approximation; duplicated ODs in a draw count in numerator and denominator.",
   "Level effects scale with group size of ODs; compare groups on the % column, report level for the original unit."), file.path(out, "README.txt"))
 print(G[G$window == "full" & G$axis %in% c("all", "transfer", "wait", "distance", "elderly"), c("axis", "group", "stat", "est", "lo", "hi", "pre_mean", "n_od")], row.names = FALSE)
 
-## 주별 그림 (수준값; 처치 후 평균선 = full 수준값, 라벨에 처치 전 대비 %)
+## Weekly figures (level; post-treatment mean line = full-window level effect, labels give % of pretreatment mean)
 YL <- as.numeric(strsplit(Sys.getenv("YL", "-300,900"), ",")[[1]])
 cols <- c(transfer = "#0072B2", wait = "#1B9E77", region = "#D55E00", access = "#6A3D9A", distance = "#8C6D31", youth = "#4D7F17", elderly = "#B5446E")
 titles <- c(transfer = "Transfer burden", wait = "Waiting time per transfer", region = "Planning region", access = "Accessibility",
@@ -112,5 +112,5 @@ row3 <- function(ax) block(ax) + plot_spacer() + plot_layout(widths = c(3, 2))
 ggsave(file.path(figd, "fig_hetero_hm_all7_wide_level_en.png"), cap(row3("transfer") / row3("wait") / row3("access") / row3("distance") / row3("youth") / row3("elderly") / block("region")),
        width = 9, height = 14.5, dpi = 300, bg = "white")
 ggsave(file.path(figd, "fig_hetero_hm_main_wide_level_en.png"), cap(row3("transfer") / row3("wait") / block("region")), width = 9, height = 6.4, dpi = 300, bg = "white")
-cat("주별 값 범위(처치 후):", paste(round(range(W$est[W$date >= t0 & W$axis != "all"], na.rm = TRUE)), collapse = " ~ "), "\n")
+cat("Range of weekly values (post-treatment):", paste(round(range(W$est[W$date >= t0 & W$axis != "all"], na.rm = TRUE)), collapse = " ~ "), "\n")
 cat("saved", out, "and figures/fig_hetero_hm_{all7,main}_wide_level_en.png\n")

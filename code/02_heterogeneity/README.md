@@ -10,11 +10,11 @@ Most inputs (bootstrap draws and covariate tables derived from the smart-card OD
 
 | File (relative to `RAW_DIR`) | Used by | Notes |
 |---|---|---|
-| `R2_r4_환승5분위_사전CI_20261011/<eng>/chunk_01.rds`–`chunk_05.rds` [r4 transfer quintiles, pre-computed CI] | hetero_cf_* | **Restricted.** 1,000 bootstrap draws per OD pair. Producing script not in this repo. |
-| `R2_r4_인구대비_추가이용_20261011/dong_population_effects.csv` [r4 additional use per population] | hetero_cf_* | **Restricted**, OD level. Producing script not in this repo. |
-| `규모통제_거리환승_20261011/OD_analysis_data.csv` [size-controlled distance/transfer] | hetero_cf_* | **Restricted**, OD level. |
+| `R2_r4_환승5분위_사전CI_20261011/<eng>/chunk_01.rds`–`chunk_05.rds` [r4 transfer quintiles, pre-computed CI] | hetero_cf_*, hetero_level_prepct | **Not uploaded yet.** 1,000 bootstrap draws per OD pair. Producing script not in this repo. |
+| `R2_r4_인구대비_추가이용_20261011/dong_population_effects.csv` [r4 additional use per population] | hetero_cf_* | **Not uploaded yet**, OD level. Producing script not in this repo. |
+| `규모통제_거리환승_20261011/OD_analysis_data.csv` [size-controlled distance/transfer] | hetero_cf_* | **Not uploaded yet**, OD level. |
 | `AI_uc_보정_20261101.csv` [adjusted accessibility index], `youth_region_20261101.csv`, `elderly_ratio_unit_20261102.csv`, `환승시간_unit매칭_20261101.csv` [transfer time, unit-matched] | hetero_cf_* | Covariates matched on `unit_id` (treated as restricted because they are OD-level). Producing scripts not in this repo. |
-| `R2_r4_자치구_지도데이터_20261011/district_effects.csv` [r4 district map data] | maps_r4_district | **Aggregated from restricted data.** Producing script not in this repo. |
+| `R2_r4_자치구_지도데이터_20261011/district_effects.csv` [r4 district map data] | maps_r4_district | **Aggregated from the OD panel; not uploaded yet.** Producing script not in this repo. |
 | `읍면동/emd.shp` (+ .shx/.dbf/.prj) [eup/myeon/dong boundaries], `집중지수_0727/공시지가_법정동_2023.csv` [official land price by legal dong, 2023] | maps_r4_district | Public data, but not included in this repo. |
 
 Intermediate outputs of other scripts in this repo:

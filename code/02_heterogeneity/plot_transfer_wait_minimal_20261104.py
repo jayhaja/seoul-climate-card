@@ -1,6 +1,6 @@
-# plot_transfer_wait_minimal_20261104.py — 그림 6-4 최소형 (2026-11-04). 값은 plot_transfer_wait_en_20261101.py와 동일.
-# 제목·부제·주석은 모두 원고 캡션으로 이동. 막대 2개 + 값 라벨만. 6장 다른 그림과 같은 테마(DejaVu Sans, 흑백·회색).
-# 실행(repo): python3 code/02_heterogeneity/plot_transfer_wait_minimal_20261104.py
+# plot_transfer_wait_minimal_20261104.py — minimal Fig. 6-4 (2026-11-04). Values are the same as in plot_transfer_wait_en_20261101.py (not in this repo).
+# Title, subtitle and notes moved to the manuscript caption; two bars + value labels only. Same theme as the other Chapter 6 figures (DejaVu Sans, black/grey).
+# Run (from repo root): python3 code/02_heterogeneity/plot_transfer_wait_minimal_20261104.py
 from pathlib import Path
 import matplotlib
 matplotlib.use('Agg'); import matplotlib.pyplot as plt
@@ -20,7 +20,7 @@ ax.tick_params(length=0, labelsize=9, colors='#444')
 ax.grid(axis='x', color='#e8e8e8', lw=0.8, zorder=0)
 for s in ax.spines.values(): s.set_visible(False)
 fig.tight_layout()
+(BASE / 'output/02_heterogeneity').mkdir(parents=True, exist_ok=True)
 for ext in ['png', 'pdf']:
-        (BASE / 'output/02_heterogeneity').mkdir(parents=True, exist_ok=True)
     fig.savefig(BASE / f'output/02_heterogeneity/fig6_4_transfer_wait_minimal_en.{ext}', dpi=300, facecolor='white')
 print('saved output/02_heterogeneity/fig6_4_transfer_wait_minimal_en.{png,pdf}')

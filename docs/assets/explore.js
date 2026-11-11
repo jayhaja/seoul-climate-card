@@ -77,7 +77,7 @@
   }
   function drawHet() {
     var ax = $("#h-axis").value, showCI = $("#h-ci").checked;
-    load("02_heterogeneity/R2_r4_cf_tertiles_timepath_20261103/fig_hetero_weekly_cf_all_en_data.csv").then(function (d) {
+    load("02_heterogeneity/R2_r4_prepct_level_20261103/fig_hetero_weekly_prepct_all_en_data.csv").then(function (d) {
       d = d.filter(function (r) { return r.axis === ax; });
       var groups = Array.from(new Set(d.map(function (r) { return r.group; })));
       var traces = [];
@@ -87,7 +87,7 @@
         traces.push({ x: x, y: s.map(function (r) { return r.est; }), type: "scatter", mode: "lines", name: glabel(ax, g),
           line: { color: c, width: 2 }, hovertemplate: "%{y:.2f}%<extra>" + glabel(ax, g) + "</extra>" });
       });
-      plot("h-plot", traces, { yaxis: { title: { text: t("반사실 대비 (%)", "vs counterfactual (%)") } }, shapes: [treatLine()] });
+      plot("h-plot", traces, { yaxis: { title: { text: t("처치 전 평균 대비 (%)", "% of pretreatment mean") } }, shapes: [treatLine()] });
     });
   }
 
