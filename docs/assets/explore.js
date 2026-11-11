@@ -231,6 +231,31 @@
     });
   }
 
+
+  /* 5. Expressway rerun paths */
+  var xSum;
+  function fillX() {
+    return load("05_seoul_road_gsynth/expressway_allday_scm/summary.csv").then(function (d) {
+      xSum = d;
+      $("#x-spec").innerHTML = d.map(function (r) { var f = r.file.replace(/\.Rmd$/, ""); return '<option value="' + f + '">' + r.road + " — " + f + (r.indexed ? " (indexed)" : "") + "</option>"; }).join("");
+    });
+  }
+  function drawX() {
+    var f = $("#x-spec").value, r = xSum.find(function (x) { return x.file.replace(/\.Rmd$/, "") === f; });
+    load("05_seoul_road_gsynth/expressway_allday_scm/path_" + f + ".csv").then(function (d) {
+      var x = d.map(function (q) { return q.week_index; });
+      plot("x-path", [
+        { x: x, y: d.map(function (q) { return q.treated; }), type: "scatter", mode: "lines", name: t("관측", "Observed"), line: { color: series(0), width: 2 } },
+        { x: x, y: d.map(function (q) { return q.synthetic; }), type: "scatter", mode: "lines", name: t("합성", "Synthetic"), line: { color: series(1), width: 2, dash: "dot" } }
+      ], { xaxis: { title: { text: t("주 (처치 전 " + r.n_pre + "주)", "Week (" + r.n_pre + " pretreatment weeks)") } },
+           yaxis: { title: { text: r.indexed ? t("지수 (처치 전 평균 = 100)", "Index (pretreatment mean = 100)") : t("일평균 교통량 (대/일)", "Average daily traffic (vehicles/day)") } },
+           shapes: [{ type: "line", xref: "x", yref: "paper", x0: r.n_pre + 0.5, x1: r.n_pre + 0.5, y0: 0, y1: 1, line: { color: css("--muted"), width: 1, dash: "dash" } }] });
+      $("#x-note").textContent = t(
+        "재실행: 사전 RMSPE " + Math.round(r.pre_rmspe_orig).toLocaleString() + ", 비율 " + r.ratio.toFixed(2) + " (원고: " + r.D1_pre_rmspe.toLocaleString() + ", " + r.D1_ratio.toFixed(2) + "). 도너 " + r.n_donors + "개.",
+        "Rerun: pre-RMSPE " + Math.round(r.pre_rmspe_orig).toLocaleString() + ", ratio " + r.ratio.toFixed(2) + " (manuscript: " + r.D1_pre_rmspe.toLocaleString() + ", " + r.D1_ratio.toFixed(2) + "). " + r.n_donors + " donors.");
+    });
+  }
+
   /* 4. Yeouido transit */
   function drawYeo() {
     Promise.all([load("04_yeouido_transit_scm/nested79/placebo_summary_D79_nested.csv"), load("04_yeouido_transit_scm/nested79/summary_D79_nested.csv"),
@@ -291,7 +316,7 @@
     $("#g-note").textContent = note;
   }
 
-  function redrawAll() { drawCity(); drawOD(); drawYeoPaths(); drawHet(); if (roadSummary) { drawRoad(); drawRoadPaths(); } drawYeo(); if (gen.rows.length) drawGen(); }
+  function redrawAll() { if (xSum) drawX(); drawCity(); drawOD(); drawYeoPaths(); drawHet(); if (roadSummary) { drawRoad(); drawRoadPaths(); } drawYeo(); if (gen.rows.length) drawGen(); }
 
   document.addEventListener("DOMContentLoaded", function () {
     if (!window.Plotly || !window.Papa) { document.querySelector("main").insertAdjacentHTML("afterbegin", '<div class="note">Plotly / PapaParse could not be loaded.</div>'); return; }
@@ -306,6 +331,8 @@
     $("#y-tau5").addEventListener("change", drawYeoPaths);
     $("#o-min").addEventListener("change", drawOD);
     fillRoad().then(function () { drawRoad(); drawRoadPaths(); });
+    fillX().then(drawX);
+    $("#x-spec").addEventListener("change", drawX);
     fillGenFiles().then(loadGen);
     document.addEventListener("langchange", function () {
       var v = $("#h-axis").value;

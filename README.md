@@ -35,7 +35,7 @@ Details: [`data/README.md`](data/README.md).
 | 2 | Heterogeneity | the 409 ODs of analysis 1 | — | re-aggregation of the analysis 1 fit (no refits), 1,000 paired bootstrap draws | [`code/02_heterogeneity`](code/02_heterogeneity) |
 | 3 | Yeouido road links | 12 directional links | 53 non-Seoul donor links | SCM, one fit per link | [`code/03_road_scm`](code/03_road_scm) |
 | 4 | Transit from Yeouido-dong | 1 OD unit | 79 donor ODs | SCM | [`code/04_yeouido_transit_scm`](code/04_yeouido_transit_scm) |
-| 5 | Seoul-wide roads | 149 TOPIS sites | 53 non-Seoul donor links | gsynth (CV-selected r, r = 1–4 sensitivity) | [`code/05_seoul_road_gsynth`](code/05_seoul_road_gsynth) |
+| 5 | Seoul-wide roads | 149 TOPIS sites | 53 non-Seoul donor links | GSC with three factors (by road type; all-day SCM for nine expressways) | [`code/05_seoul_road_gsynth`](code/05_seoul_road_gsynth) |
 
 **Effect in %.** Effect relative to the counterfactual = 100 × Σ(observed − counterfactual) / Σ counterfactual — a ratio of sums, not a mean of unit percentages.
 
@@ -92,12 +92,12 @@ The other eight links have p ≥ .093. Source: [`results/03_road_scm/summary/roa
 
 Source: [`results/04_yeouido_transit_scm/nested79/summary_D79_nested.csv`](results/04_yeouido_transit_scm/nested79/summary_D79_nested.csv). Details: [`placebo_pvals_D79_nested.csv`](results/04_yeouido_transit_scm/nested79/placebo_pvals_D79_nested.csv), [`loo_sensitivity_D79_nested_cf.csv`](results/04_yeouido_transit_scm/nested79/loo_sensitivity_D79_nested_cf.csv), [`in_time_summary_D79_nested.csv`](results/04_yeouido_transit_scm/nested79/in_time_summary_D79_nested.csv).
 
-### 4.5 Seoul-wide road gsynth (analysis 5)
+### 4.5 Road traffic across Seoul (analysis 5)
 
-- 149 TOPIS sites, CV-selected r = 0: −1.37% (−1.25% without Yeouido-linked sites); −2.15% to −0.65% across r = 1–4.
-- The pre-period placebo test rejects (r = 0: p < .001; r = 3: p = .043). The diagnostics fail, so treat these numbers as **descriptive**.
-
-Sources: [`results/05_seoul_road_gsynth/seoul_road_effects.csv`](results/05_seoul_road_gsynth/seoul_road_effects.csv), [`diag_placebo_r0.csv`](results/05_seoul_road_gsynth/diag_placebo_r0.csv), [`diag_placebo_r3.csv`](results/05_seoul_road_gsynth/diag_placebo_r3.csv), by type: [`bytype/`](results/05_seoul_road_gsynth/bytype).
+- 149 TOPIS sites vs 53 outside-Seoul sites, three-factor GSC: **−35.9 veh/h** (95% CI −80.8 to 9.0; p = .117) — no consistent reduction across the network. The point estimate is the count-weighted mean of the 44 posttreatment weekly ATTs in [`diag_event_att_r3.csv`](results/05_seoul_road_gsynth/diag_event_att_r3.csv) (−35.914); the CI and p-value come from the fitted model object, which is not in the repository.
+- By road type, only arterial roads (38 sites) decrease significantly: −58.3 veh/h, −3.16% vs counterfactual (95% CI −111.7 to −5.0; p = .032) — [`bytype/bytype_level_min.csv`](results/05_seoul_road_gsynth/bytype/bytype_level_min.csv). A separate all-day analysis of the arterial sites gives about −2.3%, not significant (manuscript).
+- Nine urban expressways, all-day SCM: none significant — [`expressway_allday_scm/table_SI_expressways_manuscript.csv`](results/05_seoul_road_gsynth/expressway_allday_scm/table_SI_expressways_manuscript.csv). The path files in that folder come from a rerun that does not exactly reproduce the reported values.
+- Caveat: arterial traffic ran above the model's predictions in the four to six weeks before launch (final-four-week placebo for the pooled model: +49.8, p = .043, [`diag_placebo_r3.csv`](results/05_seoul_road_gsynth/diag_placebo_r3.csv)).
 
 ## 5. Repository layout
 
@@ -142,7 +142,7 @@ The panels in `data/transit/` and `data/road/` are read directly by the scripts 
 - **Rank sensitivity (analysis 1):** +1.568% with r = 4 (GMSPE 1-SE rule) but +0.27% with r = 1 (MSPE 1-SE rule) — [`results/01_citywide_gsynth/R2_r4_submission_20261010/rank_sensitivity.csv`](results/01_citywide_gsynth/R2_r4_submission_20261010/rank_sensitivity.csv).
 - **Road SCM:** 12 links are tested separately (multiple testing); the minimum attainable p is 1/54 ≈ .019; donors outside Seoul may face different shocks.
 - **Yeouido transit SCM:** single treated unit; in-time placebos show +1.6–2.4% gaps, so read the magnitude cautiously. With cross-validated V (adhcv) the effect is +5.53%, p = .038 ([`results/04_yeouido_transit_scm/adhcv79/summary_D79_adhcv.csv`](results/04_yeouido_transit_scm/adhcv79/summary_D79_adhcv.csv)).
-- **Seoul-wide road gsynth:** pre-trend diagnostics fail; descriptive only.
+- **Seoul-wide roads:** the arterial model runs above its predictions in the weeks before launch; p-values across road types are not adjusted for multiple testing.
 - **Upstream scripts not included:** panel and covariate builders and some original pipeline files; see each folder README.
 
 ## 8. Website

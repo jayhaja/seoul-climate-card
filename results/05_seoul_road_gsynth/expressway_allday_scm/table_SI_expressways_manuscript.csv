@@ -1,0 +1,10 @@
+road,avg_daily_traffic_both_dir,pre_rmspe,rmspe_ratio,placebo_p,indexed
+Bukbu Expressway,109066,2078,1.85,0.818,no
+Bundang-Suseo Expressway,133320,2301,1.09,0.345,no
+Dongbu Expressway,136213,2348,1.88,0.404,no
+Gangbyeonbuk-ro,224855,4088,1.90,0.800,yes
+Gangnam Circular Expressway,90220,1950,2.51,0.536,no
+Gyeongbu Expressway,189919,2935,1.37,0.790,yes
+Naebu Circular Expressway,139322,2410,2.04,0.596,no
+Olympic-daero,244535,3446,1.89,0.455,yes
+Seobu Expressway,51313,918,1.76,0.417,no
