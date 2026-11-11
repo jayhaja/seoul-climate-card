@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>기후동행카드 효과 분석 | Seoul Climate Card</title>
+<title>Fare subsidies and urban climate goals | Seoul Climate Card</title>
 <meta name="description" content="서울시 기후동행카드(2024-01-27 시행)의 대중교통·도로 교통 효과 — 석사 논문 재현 자료">
 <link rel="stylesheet" href="assets/style.css">
 <script src="assets/site.js"></script>
@@ -20,18 +20,29 @@
 </head>
 <body>
 <main>
-  <h1><span class="ko">서울시 기후동행카드는 대중교통 이용을 늘리고 승용차 통행을 줄였는가</span><span class="en">Did Seoul's Climate Card raise transit use and cut car traffic?</span></h1>
+  <h1><span class="ko">요금 보조와 도시 기후 목표: 서울 기후동행카드의 근거</span><span class="en">Fare subsidies and urban climate goals: Evidence from Seoul’s monthly flat-rate card</span></h1>
   <p class="lead">
-    <span class="ko">기후동행카드(2024-01-27 시행)의 효과를 합성통제법(SCM)과 일반화 합성통제법(gsynth)으로 추정한 석사 논문의 공개 재현 자료입니다. 분석에 쓴 주별 교통카드 OD 패널과 도로 패널은 반출·공개 승인을 받아 저장소 <code>data/</code>에 있고, 이 사이트의 수치는 모두 <code>results/</code>의 CSV에서 가져왔습니다.</span>
-    <span class="en">Replication site for a master's thesis that estimates the effect of the Climate Companion Card (launched 27 Jan 2024) with synthetic control (SCM) and generalised synthetic control (gsynth). The weekly smart-card OD panel and road panels used in the analysis are approved for publication and are in <code>data/</code>; every number here comes from the CSVs in <code>results/</code>.</span>
+    <span class="ko">기후동행카드(월 62,000원 무제한 정기권, 2024-01-27 시행)가 대중교통 이용과 승용차 통행, 탄소 감축과 공공비용에 미친 효과를 합성통제법(SCM)과 일반화 합성통제법(GSC)으로 추정한 연구입니다. 이 사이트의 핵심 수치는 논문 원고 v4(2026-11)를 따릅니다. 저장소 <code>results/</code>의 일부 CSV는 그 이전 추정이라 수치가 다를 수 있으며, 해당 위치에 표시했습니다.</span>
+    <span class="en">A study of how the Climate Companion Card (a KRW 62,000 monthly unlimited pass launched on 27 January 2024) changed public transport use, car traffic, emissions and public cost, using synthetic control (SCM) and generalised synthetic control (GSC). Headline numbers on this site follow the manuscript, version 4 (November 2026). Some CSVs in <code>results/</code> come from earlier estimation runs and can differ; this is marked where it applies.</span>
   </p>
+
+  <h2><span class="ko">요약</span><span class="en">Summary</span></h2>
+  <ul>
+    <li><span class="ko">평일 오전 대중교통 이용은 처치 전 평균 대비 <b>1.87%</b> 늘었습니다(95% CI 0.93–2.81). 시행 후 46주 동안 주당 약 14.8만 인일입니다.</span><span class="en">Weekday-morning public transport use rose by <b>1.87%</b> of pretreatment use (95% CI 0.93–2.81), about 148,000 additional person-days per week over the 46 weeks after the policy.</span></li>
+    <li><span class="ko">오전 도로 교통량은 여의도 주변 일부 지점과 간선도로에서 줄었지만 서울 도로망 전체에서 일관되게 줄지는 않았습니다. 간선도로 감소는 별도 전일 분석에서 유의하지 않았습니다.</span><span class="en">Morning traffic declined at some roads around a business district and on arterial roads, but not consistently across the citywide network; the arterial decline was not significant in a separate all-day analysis.</span></li>
+    <li><span class="ko">환승 대기가 짧은 지역에서 이용이 더 늘었고, 환승이 많은 지역에서는 시간이 지나며 효과가 커졌습니다.</span><span class="en">Transit use increased more where transfer waits were shorter and grew over time in high-transfer areas.</span></li>
+    <li><span class="ko">정기권 승차 중 추가 통행은 최대 3–9%로, 대부분은 원래 하던 통행의 요금 절감이었습니다.</span><span class="en">At most 3–9% of pass-covered boardings were additional; the pass mainly lowered fares for travel that would have happened anyway.</span></li>
+    <li><span class="ko">모든 추가 통행이 승용차를 대체했다고 가정해도 탄소 편익은 보고된 운송 손실의 약 5%였고, 공공자금 한계가치(MVPF)는 0.73–1.15였습니다.</span><span class="en">Even if every additional trip replaced a car trip, carbon benefits covered about 5% of the reported transport loss; the marginal value of public funds (MVPF) was 0.73–1.15.</span></li>
+  </ul>
+  <p class="source"><span class="ko">출처: 논문 원고 v4 초록·1–4장.</span><span class="en">Source: manuscript v4, abstract and sections 1–4.</span> <a href="value.html"><span class="ko">경제·기후 가치 →</span><span class="en">Economic and climate value →</span></a></p>
+
 
   <h2><span class="ko">핵심 결과</span><span class="en">Key results</span></h2>
   <div class="card-grid">
     <div class="card">
       <div class="label"><span class="ko">① 서울 내부 대중교통 (409 OD, 46주)</span><span class="en">① Within-Seoul transit (409 ODs, 46 weeks)</span></div>
-      <div class="num pos">+1.568%</div>
-      <div class="small"><span class="ko">반사실 대비, 95% CI 0.823–2.313</span><span class="en">vs counterfactual, 95% CI 0.823–2.313</span></div>
+      <div class="num pos">+1.87%</div>
+      <div class="small"><span class="ko">처치 전 평균 대비, 95% CI 0.93–2.81 · 주 14.8만 인일</span><span class="en">of pretreatment use, 95% CI 0.93–2.81 · 148,000 person-days/week</span></div>
       <a class="more" href="citywide.html"><span class="ko">자세히</span><span class="en">Details</span> →</a>
     </div>
     <div class="card">
@@ -41,19 +52,23 @@
       <a class="more" href="road-scm.html"><span class="ko">자세히</span><span class="en">Details</span> →</a>
     </div>
     <div class="card">
+      <div class="label"><span class="ko">탄소 편익 / 공공비용</span><span class="en">Carbon benefit / public cost</span></div>
+      <div class="num">≤ 5%</div>
+      <div class="small"><span class="ko">추가 통행이 모두 승용차 대체라 가정 · MVPF 0.73–1.15</span><span class="en">even if all additional trips replaced car trips · MVPF 0.73–1.15</span></div>
+      <a class="more" href="value.html"><span class="ko">자세히</span><span class="en">Details</span> →</a>
+    </div>
+    <div class="card">
       <div class="label"><span class="ko">④ 여의도동 출발 대중교통 (도너 79)</span><span class="en">④ Transit from Yeouido-dong (79 donors)</span></div>
       <div class="num pos">+4.98%</div>
-      <div class="small"><span class="ko">위약 순위 1/80, p = .0125</span><span class="en">placebo rank 1/80, p = .0125</span></div>
+      <div class="small"><span class="ko">위약 순위 1/80, p = .013</span><span class="en">placebo rank 1 of 80, p = .013</span></div>
       <a class="more" href="yeouido.html"><span class="ko">자세히</span><span class="en">Details</span> →</a>
     </div>
   </div>
-  <p class="source"><span class="ko">출처</span><span class="en">Sources</span>:
-    <code>results/01_citywide_gsynth/R2_normal_final_20261011/windows.csv</code> ·
-    <code>results/03_road_scm/summary/road_abadie2015_placebo_loo_cf.csv</code> ·
-    <code>results/04_yeouido_transit_scm/nested79/</code></p>
+  <p class="source"><span class="ko">출처: 논문 원고 v4 2.1–2.3절, 3장. 여의도 결과는 저장소의</span><span class="en">Source: manuscript v4, sections 2.1–2.3 and 3. Yeouido results match</span>
+    <code>results/03_road_scm/summary/road_abadie2015_placebo_loo_cf.csv</code>, <code>results/04_yeouido_transit_scm/nested79/</code><span class="ko">와 같습니다.</span><span class="en">.</span></p>
 
   <h2><span class="ko">출발 동별 서울 내부 대중교통 효과</span><span class="en">Within-Seoul transit effect by origin dong</span></h2>
-  <p class="small"><span class="ko">분석 ①의 OD 409쌍은 각각 "서울의 한 동 → 서울" 통행입니다. 지도는 출발 동별 반사실 대비 효과(46주, 점추정)를 보여 줍니다. 파랑은 증가, 빨강은 감소입니다. 개별 동 추정치는 불확실성이 크고 신뢰구간이 없으므로 동네 순위로 읽지 마십시오. 서울 전체 효과는 +1.568%입니다. 지도는 반사실 대비 %이며, 6장의 집단 비교는 처치 전 평균 이용량 대비 %를 씁니다.</span><span class="en">Each of the 409 ODs in analysis ① is a trip flow "one Seoul dong → Seoul". The map shows the effect relative to the counterfactual by origin dong (46 weeks, point estimates). Blue = increase, red = decrease. Single-dong estimates are very uncertain and have no confidence intervals, so do not read them as a neighbourhood ranking. The Seoul-wide effect is +1.568%. The map shows the effect relative to the counterfactual; the Chapter 6 group comparisons use the effect as % of the pretreatment mean.</span></p>
+  <p class="small"><span class="ko">분석 ①의 OD 409쌍은 각각 "서울의 한 동 → 서울" 통행입니다. 지도는 출발 동별 반사실 대비 효과(46주, 점추정)를 보여 줍니다. 파랑은 증가, 빨강은 감소입니다. 개별 동 추정치는 불확실성이 크고 신뢰구간이 없으므로 동네 순위로 읽지 마십시오. 지도는 저장소의 이전 추정(반사실 대비 %, 서울 전체 +1.568%)으로 그린 것입니다. 논문 주 결과와 집단 비교는 처치 전 평균 이용량 대비 %를 씁니다(서울 전체 +1.87%).</span><span class="en">Each of the 409 ODs in analysis ① is a trip flow "one Seoul dong → Seoul". The map shows the effect relative to the counterfactual by origin dong (46 weeks, point estimates). Blue = increase, red = decrease. Single-dong estimates are very uncertain and have no confidence intervals, so do not read them as a neighbourhood ranking. The map is drawn from an earlier estimation run in this repository (effect vs counterfactual; Seoul-wide +1.568%). The manuscript’s headline result and group comparisons use the effect as % of pretreatment use (Seoul-wide +1.87%).</span></p>
   <div class="controls">
     <div class="seg" role="group" aria-label="Map level">
       <button type="button" data-map-view="dong" aria-pressed="true"><span class="ko">동</span><span class="en">Dong</span></button>
@@ -70,7 +85,7 @@
   <div class="table-wrap"><table>
     <thead><tr><th>#</th><th><span class="ko">분석</span><span class="en">Analysis</span></th><th><span class="ko">처치 / 비교</span><span class="en">Treated / controls</span></th><th><span class="ko">방법</span><span class="en">Method</span></th></tr></thead>
     <tbody>
-      <tr><td>①</td><td><a href="citywide.html"><span class="ko">서울 내부 대중교통</span><span class="en">Within-Seoul transit</span></a></td><td><span class="ko">OD 409쌍 / 도너 OD 941</span><span class="en">409 ODs / 941 donor ODs</span></td><td>gsynth (fect, r = 4)</td></tr>
+      <tr><td>①</td><td><a href="citywide.html"><span class="ko">서울 내부 대중교통</span><span class="en">Within-Seoul transit</span></a></td><td><span class="ko">OD 409쌍 / 비교 OD 942</span><span class="en">409 ODs / 942 comparison ODs</span></td><td>gsynth (fect, r = 4)</td></tr>
       <tr><td>②</td><td><a href="heterogeneity.html"><span class="ko">이질성</span><span class="en">Heterogeneity</span></a></td><td><span class="ko">①의 409쌍을 특성별 분위로</span><span class="en">①'s 409 ODs by characteristic</span></td><td><span class="ko">재집계 + 쌍체 부트스트랩</span><span class="en">re-aggregation + paired bootstrap</span></td></tr>
       <tr><td>③</td><td><a href="road-scm.html"><span class="ko">여의도 연결도로</span><span class="en">Yeouido road links</span></a></td><td><span class="ko">12개 방향 링크 / 서울 밖 도너 53</span><span class="en">12 links / 53 non-Seoul donors</span></td><td>SCM</td></tr>
       <tr><td>④</td><td><a href="yeouido.html"><span class="ko">여의도동 출발 대중교통</span><span class="en">Transit from Yeouido-dong</span></a></td><td><span class="ko">OD 1 / 도너 79</span><span class="en">1 OD / 79 donors</span></td><td>SCM</td></tr>

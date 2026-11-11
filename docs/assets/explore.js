@@ -222,8 +222,8 @@
         { hovermode: "closest", xaxis: { title: { text: t("반사실 대비 (%)", "vs counterfactual (%)") } }, yaxis: { title: { text: t("OD 수", "Number of ODs") } }, showlegend: false, bargap: 0.05,
           shapes: [{ type: "line", yref: "paper", x0: 1.568, x1: 1.568, y0: 0, y1: 1, line: { color: series(1), width: 1.5, dash: "dash" } }] });
       var pos = d.filter(function (r) { return r.gap > 0; }).length;
-      $("#o-note").textContent = t(d.length + "개 OD, 이 중 " + pos + "개가 양의 효과. 점선 = 전체 효과 +1.568% (합의 비율).",
-        d.length + " ODs, " + pos + " with a positive effect. Dashed line = overall effect +1.568% (ratio of sums).");
+      $("#o-note").textContent = t(d.length + "개 OD, 이 중 " + pos + "개가 양의 효과. 점선 = 이 추정의 전체 효과 +1.568% (합의 비율). 저장소의 이전 추정(반사실 대비 %)이며, 논문 v4에서는 409개 중 336개가 양의 효과입니다.",
+        d.length + " ODs, " + pos + " with a positive effect. Dashed line = this run's overall effect +1.568% (ratio of sums). Earlier run in this repository (vs counterfactual); in manuscript v4, 336 of 409 ODs have a positive effect.");
       var s = d.slice().sort(function (x, y) { return y.effect_pct - x.effect_pct; });
       var head = "<thead><tr><th>OD</th><th class=\"n\">" + t("효과 (%)", "Effect (%)") + "</th><th class=\"n\">" + t("사전 주평균", "Pre weekly") + "</th></tr></thead>";
       var rows = function (list) { return head + "<tbody>" + list.map(function (r) { return "<tr><td style=\"white-space:normal\">" + esc(name(r)) + "</td><td class=\"n\">" + r.effect_pct.toFixed(2) + "</td><td class=\"n\">" + Math.round(r.use_pre).toLocaleString() + "</td></tr>"; }).join("") + "</tbody>"; };
