@@ -43,7 +43,7 @@
     $("#g-grid").innerHTML = view.map(function (f, i) {
       return '<button class="thumb" type="button" data-i="' + i + '"><img loading="lazy" src="' + encodeURI(f.src) + '" alt="' + esc(title(f)) + '">' +
         '<span class="cap"><b>' + esc(f.site || "") + "</b>" + esc(kind(f)) +
-        (f.note_ko ? '<br><span class="badge">' + esc(/main_text\/fig6-/.test(f.src) ? t("이전 세대", "earlier generation") : /placebo_gaps.*_tau5/.test(f.src) ? t("원고용 · p는 위약 전체 기준", "manuscript · p uses all placebos") : (/_tau5\./.test(f.src) ? t("민감도 ≤5배", "sensitivity ≤5×") : t("위약 전체", "all placebos"))) + "</span>" : "") +
+        (f.note_ko ? '<br><span class="badge">' + esc(f.gen === "earlier" ? t("이전 세대", "earlier generation") : /placebo_gaps.*_tau5/.test(f.src) ? t("원고용 · p는 위약 전체 기준", "manuscript · p uses all placebos") : (/_tau5\./.test(f.src) ? t("민감도 ≤5배", "sensitivity ≤5×") : t("위약 전체", "all placebos"))) + "</span>" : "") +
         "</span></button>";
     }).join("");
     $("#g-count").textContent = t(view.length + "개 그림", view.length + " figures");
